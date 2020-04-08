@@ -1,0 +1,12 @@
+.navbar {
+    position: absolute;
+    right: 0;
+}
+
+.navitems {
+    margin-left: 60px;
+}
+
+a {
+    padding-left: 1rem;
+}

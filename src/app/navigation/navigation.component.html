@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" >
+    <span>PuzzleShop</span>
+    <div class="navitems">
+        <mat-menu #appMenu="matMenu" xPosition="before">
+            <span (mouseleave)="menuTrigger.closeMenu()">
+                <button  mat-menu-item *ngFor="let puzzle of rubicsCubes" [routerLink]="['/rubics-cubes', puzzle]" >{{puzzle}}</button>
+            </span>
+        </mat-menu>
+        <a mat-button [matMenuTriggerFor]="appMenu" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Кубики Рубика</a>
+        <a mat-button [routerLink]="['/wca-puzzles']">WCA Головоломки</a>
+        <a mat-button>Головоломки</a>
+        <a mat-button>Новинки</a>
+        <a mat-button>Аксесуары</a>
+    </div>
+    <div class="navbar">
+        <a mat-button>Войти</a>
+        <a mat-button>Зарегистрироваться</a>
+    </div>
+</mat-toolbar>

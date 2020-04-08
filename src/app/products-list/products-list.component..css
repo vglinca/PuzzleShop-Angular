@@ -1,0 +1,60 @@
+mat-grid-tile {
+    background-color: whitesmoke;
+    border: solid;
+    border-color: rgb(134, 134, 134);
+}
+
+mat-list {
+    width: fit-content;
+}
+
+.puzzle-type{
+    margin-top: 5%;
+    margin-left: 500px;
+}
+
+.category-list{
+    float: left;
+    width: fit-content;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+mat-grid-list{
+    margin-right: 200px;
+    margin-left: 100px;
+    width: 60%;
+    position: absolute;
+    right: 0;
+}
+
+mat-list-item {
+    font-size: 30px;
+}
+
+.mat-list-div{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
+}
+
+.exp-panel {
+    background-color: white;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 300px;
+    border-bottom-color: grey;
+    border-bottom-width: thin;
+    border-bottom-style:solid ;
+}
+
+.exp-panel-header {
+    font-size: 25px;
+    height: 90px;
+}
+
+.exp-panel-header:hover{
+    background: currentColor;
+}
