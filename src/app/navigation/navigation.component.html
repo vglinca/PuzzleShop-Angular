@@ -13,7 +13,7 @@
         <a mat-button>Аксесуары</a>
     </div>
     <div class="navbar">
-        <a mat-button>Войти</a>
-        <a mat-button>Зарегистрироваться</a>
+        <a mat-button (click)="loginUser()">Войти</a>
+        <a mat-button [routerLink]="['user/register']">Зарегистрироваться</a>
     </div>
 </mat-toolbar>

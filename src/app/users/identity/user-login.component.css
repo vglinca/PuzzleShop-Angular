@@ -1,0 +1,77 @@
+Html, body{
+    height:100%;
+      margin:0px;
+      padding:0px;
+  }
+
+  .container {
+    height:100%;
+      margin: 0 auto;
+      padding:0px;
+      position: relative;
+      top: 20 auto;
+  }
+  .grandParentContaniner{
+          display:table;
+          height:100%;
+          margin: 20 auto;
+  }
+  .parentContainer{
+      display:table-cell;
+      vertical-align:middle;
+  }
+  .parentContainer .loginForm{
+      padding:50px;
+      background: #fff;
+      border: 1px solid #ddd;
+      width:500px;  /*  your login form width */    
+      display:table-cell;
+      display:table-cell;
+      vertical-align:middle;
+  }
+
+  .login-span-header {
+      width: 100%;
+      text-align: center;
+  }
+
+  .login-button {
+      width: 100%;
+      color: white;
+      background-color: #e62047;
+  }
+
+.reg-button-container {
+    align-content: flex-start;
+}
+
+  .registration-button {
+      margin-top: 5px;
+      text-align: left;
+      color: #e62047;
+  }
+
+
+  input {
+    text-align: center;
+  }
+  
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center;
+  }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center;
+  }
+  :-ms-input-placeholder {
+    text-align: center;
+  }
+
+::placeholder {
+    text-align: center;
+}
+

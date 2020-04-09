@@ -1,0 +1,24 @@
+<div id="container" class="container">
+    <div class="grandParentContaniner">
+      <div class="parentContainer">
+        <form novalidate class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="login()">
+          <div>
+            <span class="login-span-header"><h2>Login into personal cabinet</h2></span>
+  
+            <mat-form-field style="display: block">
+              <input matInput type="text" placeholder="User Name" formControlName="userName" />
+            </mat-form-field>
+  
+            <mat-form-field style="display: block">
+              <input matInput type="password" placeholder="Password" formControlName="password" />
+            </mat-form-field>
+            <button class="login-button" mat-raised-button>Login</button>
+            <div class="reg-button-container">
+              <a mat-button class="registration-button" (click)="redirectToRegistration()"><u>Registration</u></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
