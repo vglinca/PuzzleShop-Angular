@@ -1,7 +1,8 @@
 mat-grid-tile {
-    background-color: whitesmoke;
+    background-color: white;
     border: solid;
     border-color: rgb(134, 134, 134);
+    max-width: 300px;
 }
 
 mat-list {
@@ -57,4 +58,81 @@ mat-list-item {
 
 .exp-panel-header:hover{
     background: currentColor;
+}
+
+.card-product-container{
+    margin: 0 auto;
+}
+
+.puzzle-image{
+    margin: 0 auto;
+    width: 90%;
+    padding: 0px 15px 15px;
+}
+
+.puzzle-image img{
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.card-product-name{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.card-product-name span {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.card-product-name h3 {
+    padding-top: 5px;
+    max-lines: 2;
+}
+
+.puzzle-title-container {
+    margin: 0 auto;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 18px;
+    max-lines: 2;
+}
+
+.card-product-price button {
+    position: absolute;
+    right: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: #e62047;
+}
+
+.card-product-price .price{
+    position: absolute;
+    left: 0;
+    padding-left: 10px;
+    font-size: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0;
+}
+
+mat-card{
+    max-width: 300px;
+}
+
+mat-card-content {
+    border: none;
+}
+
+mat-card-actions span {
+    float: left;
+}
+
+mat-card-actions button{
+    float: right;
 }

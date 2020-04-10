@@ -12,6 +12,9 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 const materialDesignComponents = [
       MatButtonModule, 
@@ -26,7 +29,10 @@ const materialDesignComponents = [
       MatDividerModule,
       MatDatepickerModule,
       MatNativeDateModule,
-      MatDialogModule
+      MatDialogModule,
+      MatCardModule,
+      MatPaginatorModule,
+      MatSortModule
     ];
 
 @NgModule({

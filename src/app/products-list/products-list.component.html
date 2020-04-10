@@ -34,13 +34,53 @@
 </div>
 <div>
     <mat-grid-list cols="3" rowHeight="2:3" gutterSize="50px">
-        <mat-grid-tile>Puzzle 1</mat-grid-tile>
-        <mat-grid-tile>Puzzle 2</mat-grid-tile>
+        <mat-grid-tile class="mat-elevation-z8" *ngFor="let puzzle of puzzles">
+          <div class="card-product-container">
+            <div class="puzzle-image">
+              <img [src]="puzzle.images[0].fileName" alt="Rubic's Cube">
+            </div>
+            <div class="card-product-name">
+              <span>{{puzzle.manufacturer}}</span>
+              <div>
+                <h3>{{puzzle.name}}</h3>
+              </div>
+            </div>
+            <div class="card-product-price">
+              <div class="price" >${{puzzle.price}}</div>
+              <div>
+                <button mat-button>Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </mat-grid-tile>
+
+        <!-- <mat-grid-tile>
+          <div>
+            <mat-card>
+              <div class="puzzle-image">
+                <img src="../../assets/rc.jpg" alt="Rubic's Cube">
+              </div>
+              <mat-card-content>
+                <div class="manufacturer-container">
+                  <span>Manufacturer</span>
+                </div>
+                <div class="puzzle-title-container">
+                   <span>Puzzle title</span>
+                </div>
+              </mat-card-content>
+              <mat-card-actions>
+                <span>Price</span>
+                <button mat-button>Add to cart</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </mat-grid-tile>
+
         <mat-grid-tile>Puzzle 3</mat-grid-tile>
         <mat-grid-tile>Puzzle 4</mat-grid-tile>
         <mat-grid-tile>Puzzle 5</mat-grid-tile>
         <mat-grid-tile>Puzzle 6</mat-grid-tile>
         <mat-grid-tile>Puzzle 7</mat-grid-tile>
-        <mat-grid-tile>Puzzle 8</mat-grid-tile>
+        <mat-grid-tile>Puzzle 8</mat-grid-tile> -->
     </mat-grid-list>
 </div>
