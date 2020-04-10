@@ -22,7 +22,7 @@ import { UserLoginComponent } from './identity/user-login.component';
         
     ],
     providers:[],
-    entryComponents:[UserLoginComponent]
+    entryComponents:[UserLoginComponent, UserRegistrationComponent]
 })
 export class UsersModule{
 }

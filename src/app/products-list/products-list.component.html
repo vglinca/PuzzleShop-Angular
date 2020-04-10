@@ -7,30 +7,20 @@
             <mat-expansion-panel-header  class="exp-panel-header">
              <span style="padding: 10px;">Категории</span> 
             </mat-expansion-panel-header>
-            <div style="padding: 10px;">
-                2x2x2
-            </div>
-            <div style="padding: 10px;">
-                3x3x3
-            </div>
-            <div  style="padding: 10px;">4x4x4</div>
+            <div style="padding: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType.title}}</div>
           </mat-expansion-panel>
         
           <mat-expansion-panel class="mat-elevation-z0 exp-panel">
             <mat-expansion-panel-header class="exp-panel-header">
                 <span style="padding: 10px;">Производители</span>
             </mat-expansion-panel-header>
-        
-            This the expansion 2 content
-        
+            <div style="padding: 10px;" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
           </mat-expansion-panel>
           <mat-expansion-panel class="mat-elevation-z0 exp-panel">
             <mat-expansion-panel-header class="exp-panel-header">
               <span style="padding: 10px;">Цвет Пластика</span>
             </mat-expansion-panel-header>
-        
-            This the expansion 2 content
-        
+            <div style="padding: 10px;" *ngFor="let color of puzzleColors">{{color.title}}</div>
           </mat-expansion-panel>
           <mat-expansion-panel class="mat-elevation-z0 exp-panel">
             <mat-expansion-panel-header class="exp-panel-header">

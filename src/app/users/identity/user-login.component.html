@@ -5,14 +5,20 @@
           <div>
             <span class="login-span-header"><h2>Login into personal cabinet</h2></span>
   
-            <mat-form-field style="display: block">
-              <input matInput type="text" placeholder="User Name" formControlName="userName" />
-            </mat-form-field>
+            <div class="form-group" [ngClass]="{'error': !validateFormControl(userLoginForm.controls.userName)}">
+              <em *ngIf="!validateFormControl(userLoginForm.controls.userName) && userLoginForm.controls.userName.errors.required">Enter a username.</em>
+              <mat-form-field style="display: block">
+                <input matInput type="text" placeholder="User Name" formControlName="userName" />
+              </mat-form-field>
+            </div>
   
-            <mat-form-field style="display: block">
-              <input matInput type="password" placeholder="Password" formControlName="password" />
-            </mat-form-field>
-            <button class="login-button" mat-raised-button>Login</button>
+            <div class="form-group" [ngClass]="{'error': !validateFormControl(userLoginForm.controls.password)}">
+              <em *ngIf="!validateFormControl(userLoginForm.controls.password) && userLoginForm.controls.password.errors.required">Enter a password.</em>
+              <mat-form-field style="display: block">
+                <input matInput type="password" placeholder="Password" formControlName="password" />
+              </mat-form-field>
+            </div>
+            <button [disabled]="userLoginForm.invalid" class="login-button" mat-raised-button>Login</button>
             <div class="reg-button-container">
               <a mat-button class="registration-button" (click)="redirectToRegistration()"><u>Registration</u></a>
             </div>

@@ -9,9 +9,10 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { UsersModule } from './users/users.module';
-import { JQ_TOKEN } from './services/jquery.provider';
+import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { PuzzleLookupService } from './services/puzzle-lookup-service';
 
-let jQuery = window['$'];
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ let jQuery = window['$'];
     BrowserAnimationsModule,
     MaterialModule,
     UsersModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
     ],
   declarations: [
       AppComponent,
@@ -27,7 +29,8 @@ let jQuery = window['$'];
       ProductsListComponent
     ],
   providers: [
-    { provide: JQ_TOKEN, useValue: jQuery },
+    DatePipe,
+    PuzzleLookupService
   ],
   bootstrap: [AppComponent]
 })

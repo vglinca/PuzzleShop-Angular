@@ -37,4 +37,8 @@ export class UserLoginComponent implements OnInit{
         dialogConfig.width = "30%";
         this.dialog.open(UserRegistrationComponent, dialogConfig);
     }
+
+    validateFormControl(formControl):boolean{
+        return formControl.untouched || formControl.valid;
+    }
 }
