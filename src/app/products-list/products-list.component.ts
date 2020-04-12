@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PuzzleTypeModel } from '../models/puzzle-types/PuzzleTypeModel';
 import { ManufacturerModel } from '../models/manufacturers/ManufacturerModel';
 import { PuzzleLookupService } from '../services/puzzle-lookup-service';
@@ -8,6 +8,7 @@ import { PuzzleModel } from '../models/puzzles/PuzzleModel';
 import { PagedRequest } from '../models/1pagination/paged-request';
 import { RequestFilters } from '../models/1pagination/request-filters';
 import { LogicalOperator } from '../models/1pagination/logical-operator';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { LogicalOperator } from '../models/1pagination/logical-operator';
     styleUrls: ['./products-list.component..css']
 })
 export class ProductsListComponent implements OnInit{
+
+    breakpoint: number;
 
     puzzleTypes: PuzzleTypeModel[];
     manufacturers: ManufacturerModel[];
@@ -25,8 +28,22 @@ export class ProductsListComponent implements OnInit{
     requestFilters: RequestFilters;
 
     constructor(private lookupService: PuzzleLookupService){}
+
+    length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
    
     ngOnInit(): void {
+        this.breakpoint = (window.innerWidth <= 1100) ? 2 : 3;
         // this.lookupService.getPuzzleTypes()
         //     .subscribe((pt: PuzzleTypeModel[]) => {
         //         this.puzzleTypes = pt;
@@ -51,6 +68,12 @@ export class ProductsListComponent implements OnInit{
                 this.pagedPuzzles = pagedPuzzles;
                 console.log(this.puzzles);
             });
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event){
+        console.log(event.target.innerWidth);
+        this.breakpoint = (event.target.innerWidth <= 1100) ? 2 : 3;
     }
 }
 

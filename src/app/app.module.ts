@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { PuzzleLookupService } from './services/puzzle-lookup-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     UsersModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
     ],
   declarations: [
       AppComponent,

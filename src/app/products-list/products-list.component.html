@@ -28,15 +28,28 @@
       </mat-accordion>
   </div>
 
-  <div class="list-with-header-div" fxLayout="column | wrap" fxLayoutAlign="start start">
+  <div class="list-with-header-div" fxLayout="column | wrap" fxLayoutAlign="center start">
 
     <div class="list-header" fxLayout="column | wrap" fxLayoutAlign="space-between start">
       <div class="list-header-puzzle-type" fxLayout="row" fxLayoutAlign="start center">3x3x3 Speed Cubes</div>
-      <div class="list-header-filter-sort-info"></div>
+      <div class="list-header-filter-sort-info" fxLayoutAlign="end center">
+        <div>
+          SORT BY
+        </div>
+        <div class="mat-select-div">
+          <mat-form-field>
+            <mat-select value="Alphabetically, A-Z">
+              <mat-option value="Alphabetically, A-Z">Alphabetically, A-Z</mat-option>
+              <mat-option value="Alphabetically, Z-A">Alphabetically, Z-A</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
     </div>
 
     <div class="list-container" fxLayout="row | wrap" fxLayoutAlign="center center">
-        <mat-grid-list rowHeight="400px" cols="3" gutterSize="50px">
+        <mat-grid-list rowHeight="400px" [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="50px">
   
           <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of puzzles">
             
@@ -57,6 +70,36 @@
           </mat-grid-tile>
   
         </mat-grid-list>
+    </div>
+
+    <div class="pagination-data-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+      <div>
+        
+        <mat-form-field>
+          <mat-label>List length</mat-label>
+          <input matInput [(ngModel)]="length" type="number">
+        </mat-form-field>
+        
+        <mat-form-field>
+          <mat-label>Page size</mat-label>
+          <input matInput [(ngModel)]="pageSize" type="number">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Page size options</mat-label>
+          <input matInput [ngModel]="pageSizeOptions" (ngModelChange)="setPageSizeOptions($event)" [ngModelOptions]="{updateOn: 'blur'}" placeholder="Ex. 10,25,50">
+        </mat-form-field>
+
+      </div>
+
+      <div>
+        <mat-paginator [length]="length"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="pageSizeOptions"
+                       (page)="pageEvent = $event">
+        </mat-paginator>
+      </div>
+      
     </div>
 
   </div>

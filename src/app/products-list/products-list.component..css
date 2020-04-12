@@ -13,6 +13,7 @@
     width: 300px;
     margin-left: 0 auto;
     margin-top: 300px;
+    margin-bottom: 50px;
     background-color: orchid;
 }
 
@@ -43,10 +44,17 @@ mat-grid-list{
 
 /*------------------------------------------------------------------------------------*/
 
+.list-with-header-div{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 200px;
+}
+
 .list-header{
     width: 1000px;
     height: 100px;
     margin-bottom: 10px;
+    margin-right: 50px;
     background-color: #f9007c;
 }
 
@@ -64,11 +72,14 @@ mat-grid-list{
     background-color: yellow;
 }
 
+.mat-select-div {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .list-container{
     background-color: orange;
     width: 1000px;
-    margin-right: 100px;
-    margin-bottom: 100px;
 }
 
 mat-grid-tile {
@@ -137,6 +148,12 @@ mat-grid-tile {
     width: 70px;
     height: 50px;
     background-color: orangered;
+}
+
+.pagination-data-div {
+    width: 1000px;
+    height: 50px;
+    margin-top: 50px;
 }
 
 
