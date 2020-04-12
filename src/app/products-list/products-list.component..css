@@ -1,8 +1,3 @@
-/* .puzzle-typename-header{
-    margin-top: 5%;
-    margin-left: 250px;
-    font-size: 18px;
-} */
 
 .big-container {
     margin-top: 50px;
@@ -14,7 +9,8 @@
     margin-left: 0 auto;
     margin-top: 300px;
     margin-bottom: 50px;
-    background-color: orchid;
+    background-color: white;
+    /* background-color: orchid; */
 }
 
 .exp-panel {
@@ -55,13 +51,15 @@ mat-grid-list{
     height: 100px;
     margin-bottom: 10px;
     margin-right: 50px;
-    background-color: #f9007c;
+    background-color: white;
+    /* background-color: #f9007c; */
 }
 
 .list-header-puzzle-type {
     width: 300px;
     height: 45px;
-    background-color: green;
+    background-color: white;
+    /* background-color: green; */
     font-size: 25px;
     padding-left: 5px;
 }
@@ -69,7 +67,8 @@ mat-grid-list{
 .list-header-filter-sort-info{
     width: inherit;
     height: 45px;
-    background-color: yellow;
+    background-color: white;
+    /* background-color: yellow; */
 }
 
 .mat-select-div {
@@ -78,12 +77,14 @@ mat-grid-list{
 }
 
 .list-container{
-    background-color: orange;
+    background-color: white;
+    /* background-color: orange; */
     width: 1000px;
 }
 
 mat-grid-tile {
-    background-color: aqua;
+    background-color: white;
+    /* background-color: aqua; */
     border: solid;
     border-color: rgb(134, 134, 134);
     width: 300px;
@@ -99,35 +100,40 @@ mat-grid-tile {
     margin: 5px;
     height: 395px;
     width: 300px;
-    background-color: lawngreen;
+    background-color: white;
+    /* background-color: lawngreen; */
 }
 
 .image-div {
     position: relative;
-    height: 240px;
-    width: 270px;
+    height: 190px;
+    width: 250px;
     margin-top: 5px;
-    background-color: blue;
+    background-color: white;
+    /* background-color: blue; */
 }
 
 .image-div img {
-    width: 270px;
-    height: 240px;
+    width: 250px;
+    height: 190px;
 }
 
 .manufacturer-name-div{
     width: 200px;
     height: 30px;
     margin-top: 15px;
-    background-color: crimson;
+    background-color: white;
+    /* background-color: crimson; */
     text-transform: uppercase;
 }
 
 .puzzle-name-div {
-    width: 200px;
-    height: 30px;
-    margin-top: 5px;
-    background-color: darkgreen;
+    width: 250px;
+    height: 50px;
+    margin-top: 15px;
+    background-color: white;
+    /* background-color: darkgreen; */
+    max-lines: 2;
 }
 
 .puzzle-price-div{
@@ -135,19 +141,22 @@ mat-grid-tile {
     height: 50px;
     bottom: 0px;
     position: absolute;
-    background-color: blueviolet;
+    background-color: white;
+    /* background-color: blueviolet; */
 }
 
 .price-div {
     width: 70px;
     height: 30px;
-    background-color: orangered;
+    background-color: white;
+    /* background-color: orangered; */
 }
 
 .ad-to-cart-div{
     width: 70px;
     height: 50px;
-    background-color: orangered;
+    background-color: white;
+    /* background-color: orangered; */
 }
 
 .pagination-data-div {

@@ -12,7 +12,7 @@ export class PagedRequest{
     constructor(pageNumber: number, pageSize: number, filters: RequestFilters){
         this.orderBy = '';
         this.orderByDirection = '';
-        this.pageNumber = pageNumber
+        this.pageNumber = pageNumber + 1;
         this.pageSize = pageSize;
         this.requestFilters = this.requestFilters;
     }

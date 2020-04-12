@@ -51,16 +51,16 @@
     <div class="list-container" fxLayout="row | wrap" fxLayoutAlign="center center">
         <mat-grid-list rowHeight="400px" [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="50px">
   
-          <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of puzzles">
+          <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of pagedPuzzles?.items">
             
             <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
               <div class="image-div">
-                <img [src]="puzzle.images[0].fileName">
+                <img [src]="puzzle?.images[0].fileName">
               </div>
-              <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle.manufacturer}}</div>
-              <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle.name}}</div>
+              <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer}}</div>
+              <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle?.name}}</div>
               <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
-                <div class="price-div" fxLayoutAlign="center center">${{puzzle.price}}</div>
+                <div class="price-div" fxLayoutAlign="center center">${{puzzle?.price}}</div>
                 <div class="ad-to-cart-div">
                   <button mat-button></button>
                 </div>
@@ -74,8 +74,10 @@
 
     <div class="pagination-data-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
       <div>
-        
-        <mat-form-field>
+
+        <mat-paginator (page)="onPageChanged($event)" [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[24, 48, 96]" pageSize="24"></mat-paginator>
+
+        <!-- <mat-form-field>
           <mat-label>List length</mat-label>
           <input matInput [(ngModel)]="length" type="number">
         </mat-form-field>
@@ -98,7 +100,7 @@
                        [pageSizeOptions]="pageSizeOptions"
                        (page)="pageEvent = $event">
         </mat-paginator>
-      </div>
+      </div> -->
       
     </div>
 

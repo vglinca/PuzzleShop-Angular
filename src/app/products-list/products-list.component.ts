@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit } from '@angular/core';
 import { PuzzleTypeModel } from '../models/puzzle-types/PuzzleTypeModel';
 import { ManufacturerModel } from '../models/manufacturers/ManufacturerModel';
 import { PuzzleLookupService } from '../services/puzzle-lookup-service';
@@ -8,14 +8,15 @@ import { PuzzleModel } from '../models/puzzles/PuzzleModel';
 import { PagedRequest } from '../models/1pagination/paged-request';
 import { RequestFilters } from '../models/1pagination/request-filters';
 import { LogicalOperator } from '../models/1pagination/logical-operator';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { merge } from 'rxjs';
 
 
 @Component({
     templateUrl: './products-list.component.html',
     styleUrls: ['./products-list.component..css']
 })
-export class ProductsListComponent implements OnInit{
+export class ProductsListComponent implements OnInit, AfterViewInit{
 
     breakpoint: number;
 
@@ -27,41 +28,57 @@ export class ProductsListComponent implements OnInit{
 
     requestFilters: RequestFilters;
 
-    constructor(private lookupService: PuzzleLookupService){}
+    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+
+    constructor(private lookupService: PuzzleLookupService){
+    }
+    
 
     length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+    pageSize = 10;
+    pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  // MatPaginator Output
-  pageEvent: PageEvent;
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    setPageSizeOptions(setPageSizeOptionsInput: string) {
+        if (setPageSizeOptionsInput) {
+            this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+        }
     }
-  }
+
+    onPageChanged(event){
+        this.paginator.pageIndex = event.pageIndex;
+        this.paginator.pageSize = event.pageSize;
+        this.getPuzzles();
+        window.scroll(0,0);
+    }
+
+    ngAfterViewInit(): void {
+        //merge(this.paginator.page).subscribe(() => this.getPuzzles());
+       this.getPuzzles();
+    }
    
     ngOnInit(): void {
         this.breakpoint = (window.innerWidth <= 1100) ? 2 : 3;
-        // this.lookupService.getPuzzleTypes()
-        //     .subscribe((pt: PuzzleTypeModel[]) => {
-        //         this.puzzleTypes = pt;
-        //         console.log(this.puzzleTypes);
-        //     });
+        this.lookupService.getPuzzleTypes()
+            .subscribe((pt: PuzzleTypeModel[]) => {
+                this.puzzleTypes = pt;
+            });
         
-        // this.lookupService.getManufacturers()
-        //     .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
+        this.lookupService.getManufacturers()
+            .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
 
-        // this.lookupService.getPuzzleColors()
-        //     .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
+        this.lookupService.getPuzzleColors()
+            .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
 
-        // this.getPuzzles();
+        
+        
     }
 
     private getPuzzles(){
-        this.requestFilters = {operator: LogicalOperator.AND, filters: []}
-        const pagedRequest = new PagedRequest(1, 25, this.requestFilters);
+        this.requestFilters = {operator: LogicalOperator.AND, filters: [{propertyName: '', propertyValue: ''}]}
+        console.log(this.paginator.pageIndex);
+        console.log(this.paginator.pageSize);
+        const pagedRequest = new PagedRequest(this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
         this.lookupService.getPuzzles(pagedRequest)
             .subscribe((pagedPuzzles: PagedResponse<PuzzleModel>) => {
                 this.puzzles = pagedPuzzles.items;
@@ -72,7 +89,7 @@ export class ProductsListComponent implements OnInit{
 
     @HostListener('window:resize', ['$event'])
     onResize(event){
-        console.log(event.target.innerWidth);
+        //console.log(event.target.innerWidth);
         this.breakpoint = (event.target.innerWidth <= 1100) ? 2 : 3;
     }
 }
