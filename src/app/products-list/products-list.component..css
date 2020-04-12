@@ -1,4 +1,148 @@
+/* .puzzle-typename-header{
+    margin-top: 5%;
+    margin-left: 250px;
+    font-size: 18px;
+} */
+
+.big-container {
+    margin-top: 50px;
+}
+
+.category-list{
+    float: left;    
+    width: 300px;
+    margin-left: 0 auto;
+    margin-top: 300px;
+    background-color: orchid;
+}
+
+.exp-panel {
+    background-color: white;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 300px;
+    border-bottom-color: grey;
+    border-bottom-width: thin;
+    border-bottom-style:solid ;
+}
+
+.exp-panel-header {
+    font-size: 25px;
+    height: 90px;
+}
+
+.exp-panel-header:hover{
+    background: currentColor;
+}
+
+mat-grid-list{
+    width: 1000px;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+.list-header{
+    width: 1000px;
+    height: 100px;
+    margin-bottom: 10px;
+    background-color: #f9007c;
+}
+
+.list-header-puzzle-type {
+    width: 300px;
+    height: 45px;
+    background-color: green;
+    font-size: 25px;
+    padding-left: 5px;
+}
+
+.list-header-filter-sort-info{
+    width: inherit;
+    height: 45px;
+    background-color: yellow;
+}
+
+.list-container{
+    background-color: orange;
+    width: 1000px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+}
+
 mat-grid-tile {
+    background-color: aqua;
+    border: solid;
+    border-color: rgb(134, 134, 134);
+    width: 300px;
+    height: 295px;
+}
+
+::ng-deep md-grid-tile.mat-grid-tile .mat-figure {
+    display:inline-block !important; /* or whichever you need */
+}
+
+.grid-tile-parent-div {
+    position: relative;
+    margin: 5px;
+    height: 395px;
+    width: 300px;
+    background-color: lawngreen;
+}
+
+.image-div {
+    position: relative;
+    height: 240px;
+    width: 270px;
+    margin-top: 5px;
+    background-color: blue;
+}
+
+.image-div img {
+    width: 270px;
+    height: 240px;
+}
+
+.manufacturer-name-div{
+    width: 200px;
+    height: 30px;
+    margin-top: 15px;
+    background-color: crimson;
+    text-transform: uppercase;
+}
+
+.puzzle-name-div {
+    width: 200px;
+    height: 30px;
+    margin-top: 5px;
+    background-color: darkgreen;
+}
+
+.puzzle-price-div{
+    width: 280px;
+    height: 50px;
+    bottom: 0px;
+    position: absolute;
+    background-color: blueviolet;
+}
+
+.price-div {
+    width: 70px;
+    height: 30px;
+    background-color: orangered;
+}
+
+.ad-to-cart-div{
+    width: 70px;
+    height: 50px;
+    background-color: orangered;
+}
+
+
+/*------------------------------------------------------------------------------------*/
+
+/* mat-grid-tile {
     background-color: white;
     border: solid;
     border-color: rgb(134, 134, 134);
@@ -135,4 +279,12 @@ mat-card-actions span {
 
 mat-card-actions button{
     float: right;
-}
+} */
+
+
+
+
+
+
+
+ 

@@ -1,86 +1,64 @@
-<div class="mat-display-3 puzzle-type">Кубик Рубика</div>
+<!-- <div class="mat-display-3 puzzle-typename-header">Кубик Рубика</div> -->
 
-<div class="category-list">
+<div class="big-container" fxLayout="row | wrap" fxLayoutAlign="space-between start">
+  <div class="category-list" >
+    <!-- <img src="../../assets/moyugtsm.jpg"> -->
+  
+      <mat-accordion multi="true">
+          <mat-expansion-panel class="mat-elevation-z0 exp-panel">
+              <mat-expansion-panel-header  class="exp-panel-header">
+               <span style="padding-top: 10px;">Категории</span> 
+              </mat-expansion-panel-header>
+              <div style="padding-top: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType.title}}</div>
+            </mat-expansion-panel>
+          
+            <mat-expansion-panel class="mat-elevation-z0 exp-panel">
+              <mat-expansion-panel-header class="exp-panel-header">
+                  <span style="padding-top: 10px;">Производители</span>
+              </mat-expansion-panel-header>
+              <div style="padding-top: 10px;" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
+            </mat-expansion-panel>
+  
+            <mat-expansion-panel class="mat-elevation-z0 exp-panel">
+              <mat-expansion-panel-header class="exp-panel-header">
+                <span style="padding-top: 10px;">Цвет Пластика</span>
+              </mat-expansion-panel-header>
+              <div style="padding-top: 10px;" *ngFor="let color of puzzleColors">{{color.title}}</div>
+            </mat-expansion-panel>
+      </mat-accordion>
+  </div>
 
-    <mat-accordion multi="true">
-        <mat-expansion-panel class="mat-elevation-z0 exp-panel">
-            <mat-expansion-panel-header  class="exp-panel-header">
-             <span style="padding: 10px;">Категории</span> 
-            </mat-expansion-panel-header>
-            <div style="padding: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType.title}}</div>
-          </mat-expansion-panel>
-        
-          <mat-expansion-panel class="mat-elevation-z0 exp-panel">
-            <mat-expansion-panel-header class="exp-panel-header">
-                <span style="padding: 10px;">Производители</span>
-            </mat-expansion-panel-header>
-            <div style="padding: 10px;" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
-          </mat-expansion-panel>
-          <mat-expansion-panel class="mat-elevation-z0 exp-panel">
-            <mat-expansion-panel-header class="exp-panel-header">
-              <span style="padding: 10px;">Цвет Пластика</span>
-            </mat-expansion-panel-header>
-            <div style="padding: 10px;" *ngFor="let color of puzzleColors">{{color.title}}</div>
-          </mat-expansion-panel>
-          <mat-expansion-panel class="mat-elevation-z0 exp-panel">
-            <mat-expansion-panel-header class="exp-panel-header">
-              <span style="padding: 10px;">Цена</span>
-            </mat-expansion-panel-header>
-        
-            This the expansion 2 content
-        
-          </mat-expansion-panel>
-    </mat-accordion>
-</div>
-<div>
-    <mat-grid-list cols="3" rowHeight="2:3" gutterSize="50px">
-        <mat-grid-tile class="mat-elevation-z8" *ngFor="let puzzle of puzzles">
-          <div class="card-product-container">
-            <div class="puzzle-image">
-              <img [src]="puzzle.images[0].fileName" alt="Rubic's Cube">
-            </div>
-            <div class="card-product-name">
-              <span>{{puzzle.manufacturer}}</span>
-              <div>
-                <h3>{{puzzle.name}}</h3>
-              </div>
-            </div>
-            <div class="card-product-price">
-              <div class="price" >${{puzzle.price}}</div>
-              <div>
-                <button mat-button>Add to cart</button>
-              </div>
-            </div>
-          </div>
-        </mat-grid-tile>
+  <div class="list-with-header-div" fxLayout="column | wrap" fxLayoutAlign="start start">
 
-        <!-- <mat-grid-tile>
-          <div>
-            <mat-card>
-              <div class="puzzle-image">
-                <img src="../../assets/rc.jpg" alt="Rubic's Cube">
+    <div class="list-header" fxLayout="column | wrap" fxLayoutAlign="space-between start">
+      <div class="list-header-puzzle-type" fxLayout="row" fxLayoutAlign="start center">3x3x3 Speed Cubes</div>
+      <div class="list-header-filter-sort-info"></div>
+    </div>
+
+    <div class="list-container" fxLayout="row | wrap" fxLayoutAlign="center center">
+        <mat-grid-list rowHeight="400px" cols="3" gutterSize="50px">
+  
+          <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of puzzles">
+            
+            <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
+              <div class="image-div">
+                <img [src]="puzzle.images[0].fileName">
               </div>
-              <mat-card-content>
-                <div class="manufacturer-container">
-                  <span>Manufacturer</span>
+              <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle.manufacturer}}</div>
+              <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle.name}}</div>
+              <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+                <div class="price-div" fxLayoutAlign="center center">${{puzzle.price}}</div>
+                <div class="ad-to-cart-div">
+                  <button mat-button></button>
                 </div>
-                <div class="puzzle-title-container">
-                   <span>Puzzle title</span>
-                </div>
-              </mat-card-content>
-              <mat-card-actions>
-                <span>Price</span>
-                <button mat-button>Add to cart</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-        </mat-grid-tile>
+              </div>
+            </div>
+  
+          </mat-grid-tile>
+  
+        </mat-grid-list>
+    </div>
 
-        <mat-grid-tile>Puzzle 3</mat-grid-tile>
-        <mat-grid-tile>Puzzle 4</mat-grid-tile>
-        <mat-grid-tile>Puzzle 5</mat-grid-tile>
-        <mat-grid-tile>Puzzle 6</mat-grid-tile>
-        <mat-grid-tile>Puzzle 7</mat-grid-tile>
-        <mat-grid-tile>Puzzle 8</mat-grid-tile> -->
-    </mat-grid-list>
+  </div>
+
 </div>

@@ -12,6 +12,7 @@ import { UsersModule } from './users/users.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { PuzzleLookupService } from './services/puzzle-lookup-service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PuzzleLookupService } from './services/puzzle-lookup-service';
     MaterialModule,
     UsersModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
     ],
   declarations: [
       AppComponent,

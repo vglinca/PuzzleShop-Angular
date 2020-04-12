@@ -7,7 +7,7 @@ export interface PuzzleModel{
     description: string;
     price: number;
     isWcaPuzzle: boolean;
-    wieght: number;
+    weight: number;
     manufacturer: string;
     puzzleType: string;
     color: string;
