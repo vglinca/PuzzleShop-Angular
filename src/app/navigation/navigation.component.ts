@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserLoginComponent } from '../users/identity/user-login.component';
 import { PuzzleLookupService } from '../services/puzzle-lookup-service';
 import { PuzzleTypeModel } from '../models/puzzle-types/PuzzleTypeModel';
 import { PuzzleModel } from '../models/puzzles/PuzzleModel';
 import { Router } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
     selector: 'nav-bar',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit{
 
     puzzleTypes: PuzzleTypeModel[];
+    @Input() sidenav: MatSidenav;
 
     // rubicsCubes = ['2x2x2', '3x3x3', '4x4x4', '5x5x5'];
 

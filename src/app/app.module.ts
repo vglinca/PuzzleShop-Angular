@@ -7,7 +7,7 @@ import { MaterialModule } from './material/material.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { RouterModule } from '@angular/router';
-import { appRoutes } from './routes';
+import { appRoutes } from './app-routes';
 import { UsersModule } from './users/users.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -15,6 +15,7 @@ import { PuzzleLookupService } from './services/puzzle-lookup-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { PuzzleThumbnailComponent } from './products-list/puzzle-thumbnail.component';
+import { InsteadOfEmptyStringPipe } from './common/instead-of-empty-string.pipe';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { PuzzleThumbnailComponent } from './products-list/puzzle-thumbnail.compo
       AppComponent,
       NavigationComponent,
       ProductsListComponent,
-      PuzzleThumbnailComponent
+      PuzzleThumbnailComponent,
+      InsteadOfEmptyStringPipe
     ],
   providers: [
     DatePipe,

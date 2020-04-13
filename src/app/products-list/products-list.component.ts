@@ -54,14 +54,21 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.pageSize = event.pageSize;
         this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
-        //this.getPuzzles();
         window.scroll(0,0);
     }
 
+    
+    onChangeMatSelect(value: string){
+        console.log(value);
+        var orderby: string = value.split(',')[0];
+        var orderbyDirection: string = value.split(',')[1];
+        console.log(`${orderby} | ${orderbyDirection}`);
+        this.activatedRoute.params.subscribe((val) => this.getPuzzles(val))
+    }
+
+
     ngAfterViewInit(): void {
-        console.log('after init');
         this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
-        //this.getPuzzles();
     }
    
     ngOnInit(): void {
@@ -80,8 +87,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
             .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
     }
 
-    private getPuzzles(val: any){
-        var url = this.activatedRoute.snapshot.url.join().split(',')
+    private getPuzzles(val: any, orderby: string = '', orderbyDirection: string = ''){
+        var url = this.activatedRoute.snapshot.url.join().split(',');
 
         var filters: Filter[] = [];
         var filter: Filter = {propertyName: 'puzzleType', propertyValue: val};
@@ -89,7 +96,9 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
 
         this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
         
-        const pagedRequest = new PagedRequest(this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
+        const pagedRequest = new PagedRequest(orderby, orderbyDirection,this.paginator.pageIndex, 
+                                                this.paginator.pageSize, 
+                                                this.requestFilters);
         
         console.log(pagedRequest);
         this.lookupService.getPuzzles(pagedRequest)
@@ -97,7 +106,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
                 this.puzzles = pagedPuzzles.items;
                 this.pagedPuzzles = pagedPuzzles;
                 console.log(this.puzzles);
-            });
+            }, err => {console.log(err)});
     }
 
     @HostListener('window:resize', ['$event'])
@@ -105,6 +114,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
         this.breakpoint = (event.target.innerWidth <= 1100) ? 2 : 3;
     }
 }
+
 
 const PUZZLES: PuzzleModel[]=[
     {

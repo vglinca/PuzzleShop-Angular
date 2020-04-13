@@ -9,9 +9,9 @@ export class PagedRequest{
     pageSize: number;
     requestFilters: RequestFilters;
 
-    constructor(pageNumber: number, pageSize: number, filters: RequestFilters){
-        this.orderBy = '';
-        this.orderByDirection = '';
+    constructor(orderby: string, orderbyDirection: string, pageNumber: number, pageSize: number, filters: RequestFilters){
+        this.orderBy = orderby;
+        this.orderByDirection = orderbyDirection;
         this.pageNumber = pageNumber + 1;
         this.pageSize = pageSize;
         this.requestFilters = filters;

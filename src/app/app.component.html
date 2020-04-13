@@ -1,5 +1,56 @@
-<nav-bar></nav-bar>
-<router-outlet></router-outlet>
+
+
+  <mat-sidenav-container>
+  
+    <mat-sidenav dark #sidenav mode="push" [opened]="false">
+
+      <mat-nav-list>
+        
+        <a mat-list-item >
+          <span mat-line>Puzzles</span>
+        </a>
+        
+        <a mat-list-item [routerLink]="['administration/manufacturers']">
+          <span mat-line>Manufacturers</span>
+        </a>
+
+        <a mat-list-item>
+          <span mat-line>Puzzle Types</span>
+        </a>
+
+        <a mat-list-item>
+          <span mat-line>Puzzle Colors</span>
+        </a>
+
+        <a mat-list-item>
+          <span mat-line>Manufacturers</span>
+        </a>
+
+        <a mat-list-item>
+          <span mat-line>Users</span>
+        </a>
+
+        <a mat-list-item>
+          <span mat-line>Orders</span>
+        </a>
+
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <nav-bar [sidenav]="sidenav"></nav-bar>
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+
+
+
+
 <!-- <div>
   <img src="../assets/images/skewb-cosmic-wingy-m-skewb-1_1024x1024.jpg">
 </div> -->

@@ -1,0 +1,43 @@
+<mat-card>
+
+    <mat-card-header>
+      <mat-card-title class="view-card-title">
+        <h1>{{dialogTitle}}</h1>
+      </mat-card-title>
+    </mat-card-header>
+
+    <form novalidate [formGroup]="form" (ngSubmit)="saveManufacturer()"> 
+
+      <mat-toolbar style="background-color: #FFF">
+        <mat-toolbar-row>
+          <span class="title-spacer"></span>
+  
+          <mat-card-actions>
+            
+            <button class="save-button" [disabled]="form.invalid" mat-mini-fab type="submit">
+              <mat-icon>save</mat-icon>
+            </button>
+            
+            <button class="cancel-button" mat-mini-fab [routerLink]="['/admin/manufacturers']">
+              <mat-icon>cancel</mat-icon>
+            </button>
+
+          </mat-card-actions>
+  
+        </mat-toolbar-row>
+      </mat-toolbar>
+  
+      <mat-card-content>
+        <div class="form-card">
+          
+          <mat-form-field class="form-field-90">
+            <input matInput placeholder="Name" type="text" placeholder="Name. (required)" formControlName="name"/>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-90">
+            <textarea matInput placeholder="Description. (required)" formControlName="description" matTextareaAutosize></textarea>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>

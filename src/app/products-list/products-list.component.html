@@ -36,11 +36,16 @@
         <div>
           SORT BY
         </div>
+        
         <div class="mat-select-div">
           <mat-form-field>
-            <mat-select value="Alphabetically, A-Z">
-              <mat-option value="Alphabetically, A-Z">Alphabetically, A-Z</mat-option>
-              <mat-option value="Alphabetically, Z-A">Alphabetically, Z-A</mat-option>
+            <mat-select value="name,asc" (selectionChange)="onChangeMatSelect($event.value)">
+              <mat-option value="name,asc">A-Z by title</mat-option>
+              <mat-option value="name,desc">Z-A by title</mat-option>
+              <mat-option value="manufacturer,asc">A-Z by manufacturer</mat-option>
+              <mat-option value="manufacturer,desc">Z-A by manufacturer</mat-option>
+              <mat-option value="price,desc">By price, high to low</mat-option>
+              <mat-option value="price,asc">By price, low to high</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -54,19 +59,9 @@
           <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of pagedPuzzles?.items">
             
             <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
-              <puzzle-thumbnail [puzzle]="puzzle"></puzzle-thumbnail>
               
-              <!-- <div class="image-div">
-                <img [src]="puzzle?.images[0].fileName">
-              </div>
-              <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer}}</div>
-              <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle?.name}}</div>
-              <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
-                <div class="price-div" fxLayoutAlign="center center">${{puzzle?.price}}</div>
-                <div class="ad-to-cart-div">
-                  <button mat-button></button>
-                </div>
-              </div> -->
+              <puzzle-thumbnail [puzzle]="puzzle"></puzzle-thumbnail>
+            
             </div>
   
           </mat-grid-tile>

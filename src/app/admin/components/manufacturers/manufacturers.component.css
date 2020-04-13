@@ -1,0 +1,49 @@
+.parent-container{
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+.toolbar-container{
+    width: 800px;
+    background-color: lightcoral;
+}
+
+mat-toolbar-row{
+    width: inherit;
+}
+
+/* .toolbar-row-div{
+    background-color: magenta;
+}
+
+.mat-form-field-div{
+    background-color: coral;
+} */
+
+.toolbar-buttons-div{
+    margin-right: 0px;
+    /* background-color: darkblue; */
+}
+
+.table-container{
+    height: 600px;
+    width: 800px;
+    background-color: lightseagreen;
+}
+
+.edit-button{
+    min-height: 30px;   
+    margin: 5px;
+    background-color: green;
+}
+
+.delete-button{
+    min-height: 30px;  
+    margin: 5px;
+    background-color: red;
+}
+
+mat-table{
+    width: 800px;
+}

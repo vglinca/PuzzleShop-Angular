@@ -1,6 +1,10 @@
 <mat-toolbar color="primary" >
+    <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>list</mat-icon>
+    </button>
     <span>PuzzleShop</span>
     <div class="navitems">
+        
         <mat-menu #appMenu="matMenu" xPosition="before">
             <span (mouseleave)="menuTrigger.closeMenu()">
                 <button  mat-menu-item *ngFor="let puzzleType of puzzleTypes" 
