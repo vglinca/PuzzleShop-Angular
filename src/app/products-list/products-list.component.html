@@ -54,7 +54,9 @@
           <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of pagedPuzzles?.items">
             
             <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
-              <div class="image-div">
+              <puzzle-thumbnail [puzzle]="puzzle"></puzzle-thumbnail>
+              
+              <!-- <div class="image-div">
                 <img [src]="puzzle?.images[0].fileName">
               </div>
               <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer}}</div>
@@ -64,7 +66,7 @@
                 <div class="ad-to-cart-div">
                   <button mat-button></button>
                 </div>
-              </div>
+              </div> -->
             </div>
   
           </mat-grid-tile>
@@ -75,7 +77,7 @@
     <div class="pagination-data-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
       <div>
 
-        <mat-paginator (page)="onPageChanged($event)" [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[24, 48, 96]" pageSize="24"></mat-paginator>
+        <mat-paginator (page)="onPageChanged($event)" [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[12, 24, 48, 96]" pageSize="24"></mat-paginator>
 
         <!-- <mat-form-field>
           <mat-label>List length</mat-label>

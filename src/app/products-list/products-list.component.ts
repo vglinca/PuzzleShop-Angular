@@ -10,6 +10,9 @@ import { RequestFilters } from '../models/1pagination/request-filters';
 import { LogicalOperator } from '../models/1pagination/logical-operator';
 import { MatPaginator } from '@angular/material/paginator';
 import { merge } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Filter } from '../models/1pagination/filter';
+import { Route } from '@angular/compiler/src/core';
 
 
 @Component({
@@ -30,34 +33,40 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-    constructor(private lookupService: PuzzleLookupService){
+    constructor(private lookupService: PuzzleLookupService,
+                private activatedRoute: ActivatedRoute,
+                private router: Router){
     }
     
 
-    length = 100;
-    pageSize = 10;
-    pageSizeOptions: number[] = [5, 10, 25, 100];
+    // length = 100;
+    // pageSize = 10;
+    // pageSizeOptions: number[] = [5, 10, 25, 100];
 
 
-    setPageSizeOptions(setPageSizeOptionsInput: string) {
-        if (setPageSizeOptionsInput) {
-            this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-        }
-    }
+    // setPageSizeOptions(setPageSizeOptionsInput: string) {
+    //     if (setPageSizeOptionsInput) {
+    //         this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    //     }
+    // }
 
     onPageChanged(event){
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.pageSize = event.pageSize;
-        this.getPuzzles();
+        this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
+        //this.getPuzzles();
         window.scroll(0,0);
     }
 
     ngAfterViewInit(): void {
-        //merge(this.paginator.page).subscribe(() => this.getPuzzles());
-       this.getPuzzles();
+        console.log('after init');
+        this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
+        //this.getPuzzles();
     }
    
     ngOnInit(): void {
+        
+        console.log();
         this.breakpoint = (window.innerWidth <= 1100) ? 2 : 3;
         this.lookupService.getPuzzleTypes()
             .subscribe((pt: PuzzleTypeModel[]) => {
@@ -69,16 +78,20 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
 
         this.lookupService.getPuzzleColors()
             .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
-
-        
-        
     }
 
-    private getPuzzles(){
-        this.requestFilters = {operator: LogicalOperator.AND, filters: [{propertyName: '', propertyValue: ''}]}
-        console.log(this.paginator.pageIndex);
-        console.log(this.paginator.pageSize);
+    private getPuzzles(val: any){
+        var url = this.activatedRoute.snapshot.url.join().split(',')
+
+        var filters: Filter[] = [];
+        var filter: Filter = {propertyName: 'puzzleType', propertyValue: val};
+        filters.push(filter);
+
+        this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
+        
         const pagedRequest = new PagedRequest(this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
+        
+        console.log(pagedRequest);
         this.lookupService.getPuzzles(pagedRequest)
             .subscribe((pagedPuzzles: PagedResponse<PuzzleModel>) => {
                 this.puzzles = pagedPuzzles.items;
@@ -89,7 +102,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
 
     @HostListener('window:resize', ['$event'])
     onResize(event){
-        //console.log(event.target.innerWidth);
         this.breakpoint = (event.target.innerWidth <= 1100) ? 2 : 3;
     }
 }

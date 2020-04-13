@@ -7,7 +7,7 @@ export interface PuzzleTypeForCreationModel{
     title: string;
 }
 
-export class PuzzleTypeModel{
+export interface PuzzleTypeModel{
     id: number;
     title: string;
 }

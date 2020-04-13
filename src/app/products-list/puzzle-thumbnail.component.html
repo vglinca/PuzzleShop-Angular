@@ -1,0 +1,11 @@
+<div class="image-div">
+    <img [src]="puzzle?.images[0].fileName">
+  </div>
+  <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer}}</div>
+  <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle?.name}}</div>
+  <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+    <div class="price-div" fxLayoutAlign="center center">${{puzzle?.price}}</div>
+    <div class="ad-to-cart-div">
+      <button mat-button>Add to cart</button>
+    </div>
+  </div>

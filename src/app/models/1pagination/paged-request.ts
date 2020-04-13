@@ -14,6 +14,6 @@ export class PagedRequest{
         this.orderByDirection = '';
         this.pageNumber = pageNumber + 1;
         this.pageSize = pageSize;
-        this.requestFilters = this.requestFilters;
+        this.requestFilters = filters;
     }
 }

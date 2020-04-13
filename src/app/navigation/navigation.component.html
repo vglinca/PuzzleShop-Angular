@@ -3,7 +3,8 @@
     <div class="navitems">
         <mat-menu #appMenu="matMenu" xPosition="before">
             <span (mouseleave)="menuTrigger.closeMenu()">
-                <button  mat-menu-item *ngFor="let puzzle of rubicsCubes" [routerLink]="['/rubics-cubes', puzzle]" >{{puzzle}}</button>
+                <button  mat-menu-item *ngFor="let puzzleType of puzzleTypes" 
+                [routerLink]="['/rubics-cubes', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
             </span>
         </mat-menu>
         <a mat-button [matMenuTriggerFor]="appMenu" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Кубики Рубика</a>
