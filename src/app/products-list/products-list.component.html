@@ -9,7 +9,7 @@
               <mat-expansion-panel-header  class="exp-panel-header">
                <span style="padding-top: 10px;">Категории</span> 
               </mat-expansion-panel-header>
-              <div style="padding-top: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType.title}}</div>
+              <div style="padding-top: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
             </mat-expansion-panel>
           
             <mat-expansion-panel class="mat-elevation-z0 exp-panel">

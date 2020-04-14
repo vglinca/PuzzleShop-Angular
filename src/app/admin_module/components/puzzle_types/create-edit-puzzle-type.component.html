@@ -6,7 +6,7 @@
       </mat-card-title>
     </mat-card-header>
 
-    <form novalidate [formGroup]="form" (ngSubmit)="saveManufacturer()"> 
+    <form novalidate [formGroup]="puzzleTypesForm" (ngSubmit)="onSubmit()"> 
 
       <mat-toolbar style="background-color: #FFF">
         <mat-toolbar-row>
@@ -14,11 +14,11 @@
   
           <mat-card-actions>
             
-            <button class="save-button" [disabled]="form.invalid" mat-mini-fab type="submit">
-              <mat-icon>save</mat-icon>
+            <button class="save-button" [disabled]="puzzleTypesForm.invalid" style="background-color: green;" mat-mini-fab type="submit">
+              <mat-icon>done</mat-icon>
             </button>
             
-            <button class="cancel-button" mat-mini-fab [routerLink]="['/admin/manufacturers']">
+            <button class="cancel-button" mat-mini-fab style="background-color: red;" type="button" (click)="closeDialog()">
               <mat-icon>cancel</mat-icon>
             </button>
 
@@ -31,12 +31,9 @@
         <div class="form-card">
           
           <mat-form-field class="form-field-90">
-            <input matInput placeholder="Name" type="text" placeholder="Name. (required)" formControlName="name"/>
+            <input matInput placeholder="TypeName" type="text" placeholder="TypeName. (required)" formControlName="title"/>
           </mat-form-field>
 
-          <mat-form-field class="form-field-90">
-            <textarea matInput placeholder="Description. (required)" formControlName="description" matTextareaAutosize></textarea>
-          </mat-form-field>
         </div>
       </mat-card-content>
     </form>

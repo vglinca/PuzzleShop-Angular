@@ -1,14 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Pipe({
-    name: 'emptystringdecorator'
+    name: 'emptystring'
 })
 export class InsteadOfEmptyStringPipe implements PipeTransform{
-    transform(value: string): string {
-        if(value.length === 0){
+    transform(value: string){
+        if(value === null){
             return 'NOT SET';
-        }else{
-            return value;
         }
+        else if(value.length === 0){
+                return 'NOT SET';
+        }
+        return value;
+        
     }
 }

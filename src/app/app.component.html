@@ -2,7 +2,7 @@
 
   <mat-sidenav-container>
   
-    <mat-sidenav dark #sidenav mode="push" [opened]="false">
+    <mat-sidenav dark #sidenav mode="push" [opened]="false" (click)="sidenav.toggle()">
 
       <mat-nav-list>
         
@@ -14,16 +14,12 @@
           <span mat-line>Manufacturers</span>
         </a>
 
-        <a mat-list-item>
+        <a mat-list-item [routerLink]="['administration/puzzletypes']">
           <span mat-line>Puzzle Types</span>
         </a>
 
         <a mat-list-item>
           <span mat-line>Puzzle Colors</span>
-        </a>
-
-        <a mat-list-item>
-          <span mat-line>Manufacturers</span>
         </a>
 
         <a mat-list-item>

@@ -1,0 +1,79 @@
+<div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
+
+    <div class="toolbar-container" >
+
+        <mat-toolbar>
+            <mat-toolbar-row>
+                <div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+
+                    <!-- <div class="mat-form-field-div">
+
+                        <mat-form-field>
+                          <mat-placeholder>
+                            <mat-icon>subject</mat-icon>
+                            <b> Search</b>
+                          </mat-placeholder>
+                          <input matInput>
+                        </mat-form-field>
+                        <span class="title-spacer"></span>
+                    
+                    </div> -->
+
+                    <div class="toolbar-buttons-div">
+
+                        <button mat-mini-fab style="margin-right:10px; background-color:blue" (click)="addEditManufacturerDialog(0)">
+                          <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
+                          <mat-icon>search</mat-icon>
+                        </button>
+                        <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadManufacturersFromApi()">
+                          <mat-icon>refresh</mat-icon>
+                        </button>
+                    
+                    </div>
+
+                </div>
+            </mat-toolbar-row>
+          </mat-toolbar>
+
+    </div>
+    
+    <div class="table-container" fxLayout="row" fxLayoutAlign="center start">
+
+        <mat-table #table [dataSource]="manufacturers" class="mat-elevation-z8">
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+              <mat-cell *matCellDef="let manufacturer"> {{manufacturer?.name}} </mat-cell>
+            </ng-container>
+            <!-- description column -->
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+              <mat-cell *matCellDef="let manufacturer"> {{manufacturer?.description | emptystring}} </mat-cell>
+            </ng-container>
+          
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef style="justify-content:right;">
+                  <span>Edit/Delete</span>
+                  <!-- <button mat-button style="color:white; background-color:darkgrey">Reset</button> -->
+                </mat-header-cell>
+                <mat-cell *matCellDef="let manufacturer" style="justify-content:right;">
+                  <button mat-mini-fab class="edit-button" (click)="addEditManufacturerDialog(manufacturer?.id)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-mini-fab class="delete-button" (click)="onDelete(manufacturer?.id, manufacturer?.name)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+          
+            <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+          </mat-table>
+    
+        </div>
+
+
+</div>

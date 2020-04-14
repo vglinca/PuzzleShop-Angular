@@ -3,19 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './material_module/material.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app-routes';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './users_module/users.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { PuzzleLookupService } from './services/puzzle-lookup-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { PuzzleThumbnailComponent } from './products-list/puzzle-thumbnail.component';
-import { InsteadOfEmptyStringPipe } from './common/instead-of-empty-string.pipe';
 
 
 @NgModule({
@@ -34,11 +33,10 @@ import { InsteadOfEmptyStringPipe } from './common/instead-of-empty-string.pipe'
       NavigationComponent,
       ProductsListComponent,
       PuzzleThumbnailComponent,
-      InsteadOfEmptyStringPipe
     ],
   providers: [
     DatePipe,
-    PuzzleLookupService
+    PuzzleLookupService,
   ],
   bootstrap: [AppComponent]
 })

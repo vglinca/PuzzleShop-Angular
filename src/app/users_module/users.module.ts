@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserRegistrationComponent } from './identity/user-registration.component';
 import { RouterModule } from '@angular/router';
 import { userRoutes } from './user.routes';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '../material_module/material.module';
 import { UserLoginComponent } from './identity/user-login.component';
 
 

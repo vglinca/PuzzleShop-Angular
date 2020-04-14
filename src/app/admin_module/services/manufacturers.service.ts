@@ -21,6 +21,11 @@ export class ManufacturersService{
             .pipe(catchError(handleError<ManufacturerModel[]>('getManufacturers', [])));
     }
 
+    getbyId(id: number): Observable<ManufacturerModel>{
+        return this.httpClient.get<ManufacturerModel>(`${this.baseUrl}/${id}`, this.headers)
+        .pipe(catchError(handleError<ManufacturerModel>('getManufacturer')));
+    }
+
     addNew(model: ManufacturerForManipulationModel){
         return this.httpClient.post(this.baseUrl, model, this.headers)
         .pipe(catchError(handleError<ManufacturerForManipulationModel>('addManufacturer')));

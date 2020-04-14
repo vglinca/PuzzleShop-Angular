@@ -21,13 +21,13 @@
 
                     <div class="toolbar-buttons-div">
 
-                        <button mat-mini-fab style="margin-right:10px; background-color:#e07c9e" (click)="addEditManufacturerDialog(0)">
+                        <button mat-mini-fab style="margin-right:10px; background-color:blue" (click)="addEditPuzzleTypeDialog(0)">
                           <mat-icon>add</mat-icon>
                         </button>
                         <button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
                           <mat-icon>search</mat-icon>
                         </button>
-                        <button mat-mini-fab style="margin-right:10px; background-color:darkgray">
+                        <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadPuzzleTypes()">
                           <mat-icon>refresh</mat-icon>
                         </button>
                     
@@ -39,30 +39,25 @@
 
     </div>
     
-    <div class="table-container" fxLayout="row" fxLayoutAlign="center end">
+    <div class="table-container" fxLayout="row" fxLayoutAlign="center start">
 
-        <mat-table #table [dataSource]="manufacturers" class="mat-elevation-z8">
+        <mat-table #table [dataSource]="puzzleTypes" class="mat-elevation-z8">
           
             <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-              <mat-cell *matCellDef="let manufacturer"> {{manufacturer?.name}} </mat-cell>
-            </ng-container>
-            <!-- description column -->
-            <ng-container matColumnDef="description">
-              <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-              <mat-cell *matCellDef="let manufacturer"> {{manufacturer?.description}} </mat-cell>
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef> TypeName </mat-header-cell>
+              <mat-cell *matCellDef="let puzzleType"> {{puzzleType?.title}} </mat-cell>
             </ng-container>
           
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef style="justify-content:right;">
-                  <button mat-button style="color:white; background-color:darkgrey">Reset</button>
+                  <span>Edit/Delete</span>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let manufacturer" style="justify-content:right;">
-                  <button mat-mini-fab class="edit-button" (click)="addEditManufacturerDialog(manufacturer?.id)">
+                <mat-cell *matCellDef="let puzzleType" style="justify-content:right;">
+                  <button mat-mini-fab class="edit-button" (click)="addEditPuzzleTypeDialog(puzzleType?.id)">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button mat-mini-fab class="delete-button">
+                  <button mat-mini-fab class="delete-button" (click)="onDelete(puzzleType?.id, puzzleType?.title)">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </mat-cell>
