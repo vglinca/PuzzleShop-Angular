@@ -1,32 +1,38 @@
-import { Component, OnInit, HostListener, ViewChild, AfterViewInit } from '@angular/core';
-import { PuzzleTypeModel } from '../models/puzzle-types/PuzzleTypeModel';
-import { ManufacturerModel } from '../models/manufacturers/ManufacturerModel';
-import { PuzzleLookupService } from '../services/puzzle-lookup-service';
-import { PuzzleColorModel } from '../models/puzzle-colors/PuzzleColorModel';
-import { PagedResponse } from '../models/1pagination/paged-response';
-import { PuzzleModel } from '../models/puzzles/PuzzleModel';
-import { PagedRequest } from '../models/1pagination/paged-request';
-import { RequestFilters } from '../models/1pagination/request-filters';
-import { LogicalOperator } from '../models/1pagination/logical-operator';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { PuzzleTypeModel } from '../../models/puzzle-types/PuzzleTypeModel';
+import { ManufacturerModel } from '../../models/manufacturers/ManufacturerModel';
+import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
+import { PuzzleColorModel } from '../../models/puzzle-colors/PuzzleColorModel';
+import { PagedResponse } from '../../models/1pagination/paged-response';
+import { PuzzleModel } from '../../models/puzzles/PuzzleModel';
+import { PagedRequest } from '../../models/1pagination/paged-request';
+import { RequestFilters } from '../../models/1pagination/request-filters';
+import { LogicalOperator } from '../../models/1pagination/logical-operator';
 import { MatPaginator } from '@angular/material/paginator';
-import { merge } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Filter } from '../models/1pagination/filter';
-import { Route } from '@angular/compiler/src/core';
+import { Filter } from '../../models/1pagination/filter';
 
 
 @Component({
     templateUrl: './products-list.component.html',
     styleUrls: ['./products-list.component..css']
 })
-export class ProductsListComponent implements OnInit, AfterViewInit{
+export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 
-    breakpoint: number;
+    rowsNumber: number;
+
+    activatedRouteSubscr1: Subscription;
+    activatedRouteSubscr2: Subscription;
+    activatedRouteSubscr3: Subscription;
+    subscriptions: Subscription[] = [];
 
     puzzleTypes: PuzzleTypeModel[];
     manufacturers: ManufacturerModel[];
     puzzleColors: PuzzleColorModel[];
+    
     pagedPuzzles: PagedResponse<PuzzleModel>;
+   
     puzzles: PuzzleModel[] = PUZZLES;
 
     requestFilters: RequestFilters;
@@ -37,23 +43,14 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
                 private activatedRoute: ActivatedRoute,
                 private router: Router){
     }
-    
-
-    // length = 100;
-    // pageSize = 10;
-    // pageSizeOptions: number[] = [5, 10, 25, 100];
-
-
-    // setPageSizeOptions(setPageSizeOptionsInput: string) {
-    //     if (setPageSizeOptionsInput) {
-    //         this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    //     }
-    // }
 
     onPageChanged(event){
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.pageSize = event.pageSize;
-        this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
+        this.activatedRouteSubscr1 = this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
+
+        this.subscriptions.push(this.activatedRouteSubscr1);
+        
         window.scroll(0,0);
     }
 
@@ -63,18 +60,25 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
         var orderby: string = value.split(',')[0];
         var orderbyDirection: string = value.split(',')[1];
         console.log(`${orderby} | ${orderbyDirection}`);
-        this.activatedRoute.params.subscribe((val) => this.getPuzzles(val))
+        
+        this.activatedRouteSubscr2 = this.activatedRoute.params
+            .subscribe((val) => this.getPuzzles(val));
+
+        this.subscriptions.push(this.activatedRouteSubscr2);
     }
 
 
     ngAfterViewInit(): void {
-        this.activatedRoute.params.subscribe((val) => this.getPuzzles(val.puzzleType));
+        this.activatedRouteSubscr3 = this.activatedRoute.params
+            .subscribe((val) => this.getPuzzles(val.puzzleType));
+        
+            this.subscriptions.push(this.activatedRouteSubscr3);
     }
    
     ngOnInit(): void {
         
         console.log();
-        this.breakpoint = (window.innerWidth <= 1100) ? 2 : 3;
+        this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
         this.lookupService.getPuzzleTypes()
             .subscribe((pt: PuzzleTypeModel[]) => {
                 this.puzzleTypes = pt;
@@ -111,7 +115,11 @@ export class ProductsListComponent implements OnInit, AfterViewInit{
 
     @HostListener('window:resize', ['$event'])
     onResize(event){
-        this.breakpoint = (event.target.innerWidth <= 1100) ? 2 : 3;
+        this.rowsNumber = (event.target.innerWidth <= 1100) ? 2 : 3;
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscr => subscr.unsubscribe());
     }
 }
 

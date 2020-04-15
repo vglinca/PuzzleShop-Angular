@@ -7,7 +7,7 @@
         <div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
 
           <mat-card-header>
-            <mat-card-title>PuzzleTypes</mat-card-title>
+            <mat-card-title>PuzzleColors</mat-card-title>
           </mat-card-header>
 
         </div>
@@ -31,13 +31,13 @@
   
                     <div class="toolbar-buttons-div">
   
-                        <button mat-mini-fab style="margin-right:10px; background-color:blue" (click)="addEditPuzzleTypeDialog(0)">
+                        <button mat-mini-fab style="margin-right:10px; background-color:blue" (click)="openDialogForEditOrCreate(-1)">
                           <mat-icon>add</mat-icon>
                         </button>
                         <button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
                           <mat-icon>search</mat-icon>
                         </button>
-                        <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadPuzzleTypes()">
+                        <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadPuzzleColors()">
                           <mat-icon>refresh</mat-icon>
                         </button>
                     
@@ -49,30 +49,33 @@
 
       </mat-card>
 
-
     </div>
     
     <div class="table-container" fxLayout="row" fxLayoutAlign="center start">
 
-        <mat-table #table [dataSource]="puzzleTypes" class="mat-elevation-z8">
+        <mat-table #table [dataSource]="puzzleColors" class="mat-elevation-z8">
           
-            <!-- Name Column -->
             <ng-container matColumnDef="title">
-              <mat-header-cell *matHeaderCellDef> TypeName </mat-header-cell>
-              <mat-cell *matCellDef="let puzzleType"> {{puzzleType?.title}} </mat-cell>
+              <mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+              <mat-cell *matCellDef="let puzzleColor"> {{puzzleColor?.title}} </mat-cell>
             </ng-container>
           
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef style="justify-content:right;">
+                
+              <mat-header-cell *matHeaderCellDef style="justify-content:right;">
                   <span>Edit/Delete</span>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let puzzleType" style="justify-content:right;">
-                  <button mat-mini-fab class="edit-button" (click)="addEditPuzzleTypeDialog(puzzleType?.id)">
+
+                <mat-cell *matCellDef="let puzzleColor" style="justify-content:right;">
+                  
+                  <button mat-mini-fab class="edit-button" (click)="openDialogForEditOrCreate(puzzleColor?.id)">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button mat-mini-fab class="delete-button" (click)="onDelete(puzzleType?.id, puzzleType?.title)">
+
+                  <button mat-mini-fab class="delete-button" (click)="onDelete(puzzleColor?.id, puzzleColor?.title)">
                     <mat-icon>delete</mat-icon>
                   </button>
+                  
                 </mat-cell>
               </ng-container>
           

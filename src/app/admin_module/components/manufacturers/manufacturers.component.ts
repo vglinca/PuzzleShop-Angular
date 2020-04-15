@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ManufacturersService } from '../../services/manufacturers.service';
 import { ManufacturerModel } from 'src/app/models/manufacturers/ManufacturerModel';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -6,15 +6,18 @@ import { CreateEditManufacturerComponent } from './create-edit-manufacturer.comp
 import { ConfirmDialogService } from 'src/app/admin_module/shared/confirm_dialog/confirm-dialog.service';
 import { ConfirmDialogComponent } from '../../shared/confirm_dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 
 @Component({
     templateUrl: './manufacturers.component.html',
     styleUrls: ['./manufacturers.component.css']
 })
-export class ManufacturersComponent implements OnInit, AfterViewInit{
+export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
 
     manufacturers: ManufacturerModel[] = [];
+
+    dialogRefSubscr: Subscription;
 
     tableColumns: string[] = ['id', 'name', 'description'];
 
@@ -22,6 +25,7 @@ export class ManufacturersComponent implements OnInit, AfterViewInit{
                 private matDialog: MatDialog,
                 private dialogService: ConfirmDialogService,
                 public snackBar: MatSnackBar){}
+   
     
     
     ngOnInit(): void {
@@ -52,9 +56,8 @@ export class ManufacturersComponent implements OnInit, AfterViewInit{
         const msg: string = `Are you sure to delete this manufacturer? (${name})`;
         const dialogRef = this.dialogService.openConfirmDialog(msg);
 
-        dialogRef.afterClosed().subscribe(action => {
+        this.dialogRefSubscr = dialogRef.afterClosed().subscribe(action => {
             if(action === dialogRef.componentInstance.ACTION_CONFIRM){
-                console.log('CONFIRMED');
                 this.manufacturerService.delete(manufacturerId).subscribe(() => {
                     this.loadManufacturersFromApi();
                     this.snackBar.open(`Manufacturer ${name} has been deleted from catalog.`, 'Hide', {duration: 2000});
@@ -63,6 +66,12 @@ export class ManufacturersComponent implements OnInit, AfterViewInit{
                 });
             }
         })
+    }
+
+    ngOnDestroy(): void {
+        if(this.dialogRefSubscr){
+            this.dialogRefSubscr.unsubscribe();
+        }
     }
 }
 

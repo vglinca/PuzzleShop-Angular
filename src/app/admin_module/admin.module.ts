@@ -9,13 +9,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateEditManufacturerComponent } from './components/manufacturers/create-edit-manufacturer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InsteadOfEmptyStringPipe } from '../common/instead-of-empty-string.pipe';
-import { AppModule } from '../app.module';
 import { ConfirmDialogService } from './shared/confirm_dialog/confirm-dialog.service';
 import { ConfirmDialogComponent } from './shared/confirm_dialog/confirm-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PuzzleTypesComponent } from './components/puzzle_types/puzzle-types.component';
 import { PuzzleTypesService } from './services/puzzle-types.service';
 import { CreateEditPuzzleTypeComponent } from './components/puzzle_types/create-edit-puzzle-type.component';
+import { PuzzleColorsComponent } from './components/puzzle_colors/puzzle-colors.component';
+import { PuzzleColorsService } from './services/puzzle-colors.service';
+import { CreateEditPuzzleColorComponent } from './components/puzzle_colors/create-edit-puzzle-color.component';
 
 
 
@@ -25,6 +27,8 @@ import { CreateEditPuzzleTypeComponent } from './components/puzzle_types/create-
     CreateEditManufacturerComponent,
     PuzzleTypesComponent,
     CreateEditPuzzleTypeComponent,
+    PuzzleColorsComponent,
+    CreateEditPuzzleColorComponent,
     InsteadOfEmptyStringPipe,
     ConfirmDialogComponent
   ],
@@ -40,11 +44,14 @@ import { CreateEditPuzzleTypeComponent } from './components/puzzle_types/create-
   providers:[
     ManufacturersService,
     PuzzleTypesService,
+    PuzzleColorsService,
     ConfirmDialogService
   ],
   entryComponents: [
     CreateEditManufacturerComponent,
     CreateEditPuzzleTypeComponent,
-    ConfirmDialogComponent]
+    CreateEditPuzzleColorComponent,
+    ConfirmDialogComponent
+  ]
 })
 export class AdminModule { }

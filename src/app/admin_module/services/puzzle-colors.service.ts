@@ -10,7 +10,7 @@ import { PuzzleColorForCreationModel } from '../models/puzzle_colors/puzzle-colo
 @Injectable()
 export class PuzzleColorsService{
 
-    private baseUrl: string = environment.apiUrl + 'puzzleTypes';
+    private baseUrl: string = environment.apiUrl + 'colors';
     private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient){}

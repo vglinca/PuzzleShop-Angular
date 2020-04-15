@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PuzzleModel } from '../models/puzzles/PuzzleModel';
+import { PuzzleModel } from '../../models/puzzles/PuzzleModel';
 
 @Component({
     selector: 'puzzle-thumbnail',

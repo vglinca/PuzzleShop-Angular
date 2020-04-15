@@ -28,10 +28,8 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
         console.log(this.puzzleTypeId);
         if(this.puzzleTypeId === 0){
             this.dialogTitle = 'Add puzzle type';
-            this.editMode = false;
         }else{
             this.dialogTitle = 'Edit puzzle type';
-            this.editMode = true;
             this.getPuzzleType();
         }
 

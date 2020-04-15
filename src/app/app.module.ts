@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material_module/material.module';
-import { NavigationComponent } from './navigation/navigation.component';
-import { ProductsListComponent } from './products-list/products-list.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { ProductsListComponent } from './components/products-list/products-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app-routes';
 import { UsersModule } from './users_module/users.module';
@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 import { PuzzleLookupService } from './services/puzzle-lookup-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { PuzzleThumbnailComponent } from './products-list/puzzle-thumbnail.component';
+import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-thumbnail.component';
 
 
 @NgModule({

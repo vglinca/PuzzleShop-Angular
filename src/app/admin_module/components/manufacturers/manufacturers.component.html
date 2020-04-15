@@ -2,12 +2,22 @@
 
     <div class="toolbar-container" >
 
+      <mat-card>
+
+        <div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
+
+          <mat-card-header>
+            <mat-card-title>Manufacturers</mat-card-title>
+          </mat-card-header>
+
+        </div>
+
         <mat-toolbar>
             <mat-toolbar-row>
                 <div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
-
+  
                     <!-- <div class="mat-form-field-div">
-
+  
                         <mat-form-field>
                           <mat-placeholder>
                             <mat-icon>subject</mat-icon>
@@ -18,9 +28,9 @@
                         <span class="title-spacer"></span>
                     
                     </div> -->
-
+  
                     <div class="toolbar-buttons-div">
-
+  
                         <button mat-mini-fab style="margin-right:10px; background-color:blue" (click)="addEditManufacturerDialog(0)">
                           <mat-icon>add</mat-icon>
                         </button>
@@ -32,10 +42,13 @@
                         </button>
                     
                     </div>
-
+  
                 </div>
             </mat-toolbar-row>
           </mat-toolbar>
+
+      </mat-card>
+
 
     </div>
     
@@ -74,6 +87,5 @@
           </mat-table>
     
         </div>
-
 
 </div>

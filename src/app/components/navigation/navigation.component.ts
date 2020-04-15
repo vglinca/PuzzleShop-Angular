@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { UserLoginComponent } from '../users_module/identity/user-login.component';
-import { PuzzleLookupService } from '../services/puzzle-lookup-service';
-import { PuzzleTypeModel } from '../models/puzzle-types/PuzzleTypeModel';
-import { PuzzleModel } from '../models/puzzles/PuzzleModel';
+import { UserLoginComponent } from '../../users_module/identity/user-login.component';
+import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
+import { PuzzleTypeModel } from '../../models/puzzle-types/PuzzleTypeModel';
+import { PuzzleModel } from '../../models/puzzles/PuzzleModel';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 

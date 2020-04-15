@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PuzzleTypeModel } from 'src/app/models/puzzle-types/PuzzleTypeModel';
 import { PuzzleTypesService } from '../../services/puzzle-types.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateEditPuzzleTypeComponent } from './create-edit-puzzle-type.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
     templateUrl: './puzzle-types.component.html',
     styleUrls: ['./puzzle-types.component.css']
 })
-export class PuzzleTypesComponent implements OnInit{
+export class PuzzleTypesComponent implements OnInit, OnDestroy{
 
     puzzleTypes: PuzzleTypeModel[] = [];
+
+    dialogRefSubscr: Subscription;
 
     tableColumns: string[] = ['id', 'title'];
 
@@ -41,7 +44,7 @@ export class PuzzleTypesComponent implements OnInit{
         const msg: string = `Are you sure to delete this manufacturer? (${typeName})`;
         const dialogRef = this.dialogService.openConfirmDialog(msg);
         
-        dialogRef.afterClosed().subscribe(action => {
+        this.dialogRefSubscr = dialogRef.afterClosed().subscribe(action => {
             if(action === dialogRef.componentInstance.ACTION_CONFIRM){
                 this.puzzleTypesService.delete(puzzleTypeId)
                     .subscribe(() => {
@@ -62,4 +65,11 @@ export class PuzzleTypesComponent implements OnInit{
                 console.log(this.puzzleTypes);
             });
     }
+
+    ngOnDestroy(): void {
+        if(this.dialogRefSubscr){
+            this.dialogRefSubscr.unsubscribe();
+        }
+    }
+    
 }
