@@ -54,7 +54,7 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     loadPuzzlesFromApi(){
         var filters: Filter[] = [];
         this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
-        const request = new PagedRequest('', '', this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
+        const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
         this.puzzleService.getAllPuzzles(request)
             .subscribe((response: PagedResponse<PuzzleModel>) => {
                 this.pagedPuzzles = response;

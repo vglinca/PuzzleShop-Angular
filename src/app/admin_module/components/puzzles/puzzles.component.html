@@ -31,7 +31,7 @@
   
                     <div class="toolbar-buttons-div">
   
-                        <button mat-mini-fab style="margin-right:10px; background-color:blue" (click)="openPageForEditingOrCreation(-1)">
+                        <button mat-mini-fab style="margin-right:10px; background-color:blue" [routerLink]="['/administration/puzzles/create', -1]">
                           <mat-icon>add</mat-icon>
                         </button>
                         <button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
@@ -58,17 +58,17 @@
                     matSort matSortActive="name" matSortDirection="asc">
           
             <ng-container matColumnDef="name">
-              <mat-header-cell fxFlex="200px" *matHeaderCellDef> Name </mat-header-cell>
+              <mat-header-cell fxFlex="200px" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
               <mat-cell fxFlex="200px" *matCellDef="let puzzle"> {{puzzle?.name}} </mat-cell>
             </ng-container>
             
             <ng-container matColumnDef="description">
               <mat-header-cell fxFlex="200px" *matHeaderCellDef> Description </mat-header-cell>
-              <mat-cell fxFlex="200px" *matCellDef="let puzzle"> DESCRIPTION </mat-cell>
+              <mat-cell fxFlex="200px" *matCellDef="let puzzle"> {{puzzle?.description | shorten:'20'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="price">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> Price </mat-header-cell>
+                <mat-header-cell fxFlex="80px" *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
                 <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.price | currency:'USD'}} </mat-cell>
             </ng-container>
 
@@ -83,13 +83,13 @@
             </ng-container>
 
             <ng-container matColumnDef="manufacturer">
-                <mat-header-cell fxFlex="90px" *matHeaderCellDef> Manufacturer </mat-header-cell>
-                <mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.manufacturer}} </mat-cell>
+                <mat-header-cell fxFlex="150px" *matHeaderCellDef mat-sort-header> Manufacturer </mat-header-cell>
+                <mat-cell fxFlex="150px" *matCellDef="let puzzle"> {{puzzle?.manufacturer}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="puzzleType">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> PuzzleType </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.puzzleType}} </mat-cell>
+                <mat-header-cell fxFlex="90px" *matHeaderCellDef> PuzzleType </mat-header-cell>
+                <mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.puzzleType}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="color">
@@ -115,7 +115,7 @@
                 
                 <mat-cell fxFlex="200px" *matCellDef="let puzzle" style="justify-content:right;">
 
-                  <button mat-mini-fab class="edit-button" (click)="openPageForEditingOrCreation(puzzle?.id)">
+                  <button mat-mini-fab class="edit-button" [routerLink]="['/administration/puzzles/edit', puzzle?.id]">
                     <mat-icon>edit</mat-icon>
                   </button>
 
@@ -134,9 +134,7 @@
         </div>
 
         <div class="paginator-div">
-
-            <mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" pageSize="10"></mat-paginator>
-
+          <mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons pageSize="10"></mat-paginator>
         </div>
 
 </div>

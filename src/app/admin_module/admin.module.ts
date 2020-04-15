@@ -20,6 +20,8 @@ import { PuzzleColorsService } from './services/puzzle-colors.service';
 import { CreateEditPuzzleColorComponent } from './components/puzzle_colors/create-edit-puzzle-color.component';
 import { PuzzleService } from './services/puzzle.service';
 import { PuzzlesComponent } from './components/puzzles/puzzles.component';
+import { ShortenStringPipe } from '../common/shorten-string.pipe';
+import { CreateEditPuzzleComponent } from './components/puzzles/create-edit-puzzle.component';
 
 
 
@@ -30,9 +32,11 @@ import { PuzzlesComponent } from './components/puzzles/puzzles.component';
     PuzzleTypesComponent,
     CreateEditPuzzleTypeComponent,
     PuzzleColorsComponent,
-    PuzzlesComponent,
     CreateEditPuzzleColorComponent,
+    PuzzlesComponent,
+    CreateEditPuzzleComponent,
     InsteadOfEmptyStringPipe,
+    ShortenStringPipe,
     ConfirmDialogComponent
   ],
   imports: [

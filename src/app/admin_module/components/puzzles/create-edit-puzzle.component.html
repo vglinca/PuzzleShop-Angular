@@ -1,0 +1,90 @@
+<mat-card>
+
+    <mat-card-header>
+      <mat-card-title class="view-card-title">
+        <h1>{{dialogTitle}}</h1>
+      </mat-card-title>
+    </mat-card-header>
+
+    <form novalidate [formGroup]="puzzleForm" (ngSubmit)="savePuzzle()"> 
+
+      <mat-toolbar style="background-color: #FFF">
+        <mat-toolbar-row>
+          <span class="title-spacer"></span>
+  
+          <mat-card-actions>
+            
+            <button class="save-button" [disabled]="puzzleForm.invalid" style="background-color: green;" mat-mini-fab type="submit">
+              <mat-icon>done</mat-icon>
+            </button>
+            
+            <button class="cancel-button" mat-mini-fab style="background-color: red;" type="button" [routerLink]="['/administration/puzzles']">
+              <mat-icon>cancel</mat-icon>
+            </button>
+
+          </mat-card-actions>
+  
+        </mat-toolbar-row>
+      </mat-toolbar>
+  
+      <mat-card-content>
+        <div class="form-card">
+          
+          <mat-form-field class="form-field-90">
+            <input matInput placeholder="Name" type="text" placeholder="Name. (required)" formControlName="name"/>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-90">
+            <input matInput placeholder="Price. (required)" type="number" formControlName="price"/>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-90">
+            <mat-select placeholder="Select answer" formControlName="isWcaPuzzle">
+                <mat-option value="true">Yes</mat-option>
+                <mat-option value="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-90">
+            <input matInput placeholder="Weight (required)" type="number" formControlName="weight" />
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Manufacturer" formControlName="manufacturerId">
+                <mat-option *ngFor="let m of manufacturers" [value]="m?.id">{{m?.name}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Puzzle Type" formControlName="puzzleTypeId">
+                  <mat-option *ngFor="let type of puzzleTypes" [value]="type?.id">{{type?.title}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Puzzle Color" formControlName="colorId">
+                <mat-option *ngFor="let color of puzzleColors" [value]="color?.id">{{color?.title}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Puzzle DifficultyLevel" formControlName="difficultyLevelId">
+                  <mat-option *ngFor="let dl of difficultyLevels" [value]="dl?.difficultyLevelId">{{dl?.title}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Material Type" formControlName="materialTypeId">
+                <mat-option *ngFor="let mt of materialTypes" [value]="mt?.id">{{mt?.title}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-90">
+            <textarea matInput placeholder="Description. (required)" formControlName="description" matTextareaAutosize></textarea>
+          </mat-form-field>
+
+
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>

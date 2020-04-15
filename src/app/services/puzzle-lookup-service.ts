@@ -10,36 +10,45 @@ import { PuzzleColorModel } from '../models/puzzle-colors/PuzzleColorModel';
 import { PagedRequest } from '../models/1pagination/paged-request';
 import { PagedResponse } from '../models/1pagination/paged-response';
 import { PuzzleModel } from '../models/puzzles/PuzzleModel';
+import { MaterialTypeModel } from '../models/material-types/material-type.model';
+import { DifficultyLevelModel } from '../models/difficulty-levels/difficulty-level.model';
 
 
 @Injectable()
 export class PuzzleLookupService{
 
     private baseUrl: string = environment.apiUrl;
+    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient){}
 
     getPuzzleTypes(): Observable<PuzzleTypeModel[]>{
-        var headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, headers)
+        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers)
             .pipe(catchError(handleError<PuzzleTypeModel[]>('getPuzzleTypes', [])));
     }
 
     getManufacturers() : Observable<ManufacturerModel[]>{
-        var headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-        return this.httpClient.get<ManufacturerModel[]>(`${this.baseUrl}manufacturers`, headers)
+        return this.httpClient.get<ManufacturerModel[]>(`${this.baseUrl}manufacturers`, this.headers)
             .pipe(catchError(handleError<ManufacturerModel[]>('getManufacturers', [])));
     }
 
     getPuzzleColors() : Observable<PuzzleColorModel[]> {
-        var headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-        return this.httpClient.get<PuzzleColorModel[]>(`${this.baseUrl}colors`, headers)
+        return this.httpClient.get<PuzzleColorModel[]>(`${this.baseUrl}colors`, this.headers)
         .pipe(catchError(handleError<PuzzleColorModel[]>('getColors', [])));
     }
 
     getPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleModel>>{
-        var headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-        return this.httpClient.post<PagedResponse<PuzzleModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, headers)
+        return this.httpClient.post<PagedResponse<PuzzleModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers)
             .pipe(catchError(handleError<PagedResponse<PuzzleModel>>('getPuzzles')));
+    }
+
+    getMaterialTypes(): Observable<MaterialTypeModel[]>{
+        return this.httpClient.get<MaterialTypeModel[]>(`${this.baseUrl}materialType`, this.headers)
+            .pipe(catchError(handleError<MaterialTypeModel[]>('getMaterialType')));
+    }
+
+    getDifficultyLevels(): Observable<DifficultyLevelModel[]>{
+        return this.httpClient.get<DifficultyLevelModel[]>(`${this.baseUrl}lookup/difficultylevels`, this.headers)
+            .pipe(catchError(handleError<DifficultyLevelModel[]>('getMaterialType')));
     }
 }
