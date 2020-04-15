@@ -86,7 +86,7 @@ mat-grid-tile {
     background-color: white;
     /* background-color: aqua; */
     border: solid;
-    border-color: rgb(134, 134, 134);
+    border-color: white;
     width: 300px;
     height: 295px;
 }

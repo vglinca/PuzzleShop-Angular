@@ -40,7 +40,8 @@ const materialDesignComponents = [
       MatSelectModule,
       MatSidenavModule,
       MatTableModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatSortModule
     ];
 
 @NgModule({

@@ -1,15 +1,15 @@
 .image-div {
     position: relative;
-    height: 190px;
-    width: 250px;
+    height: 210px;
+    width: 290px;
     margin-top: 5px;
     background-color: white;
     /* background-color: blue; */
 }
 
 .image-div img {
-    width: 250px;
-    height: 190px;
+    width: 290px;
+    height: 210px;
 }
 
 .manufacturer-name-div{
@@ -45,10 +45,15 @@
     /* background-color: orangered; */
 }
 
-.ad-to-cart-div{
+.add-to-cart-div{
     width: 70px;
     height: 50px;
     background-color: white;
     margin-right: 40px;
     /* background-color: orangered; */
+}
+
+.add-to-cart-div button{
+    color: white;
+    background-color: crimson;
 }

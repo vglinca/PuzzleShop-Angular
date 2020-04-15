@@ -56,7 +56,7 @@
     <div class="list-container" fxLayout="row | wrap" fxLayoutAlign="center center">
         <mat-grid-list rowHeight="400px" [cols]="rowsNumber" (window:resize)="onResize($event)" gutterSize="50px">
   
-          <mat-grid-tile class="mat-elevation-z8" fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of pagedPuzzles?.items">
+          <mat-grid-tile fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of pagedPuzzles?.items">
             
             <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
               

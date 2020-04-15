@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
 import { PuzzleTypeModel } from '../../models/puzzle-types/PuzzleTypeModel';
 import { ManufacturerModel } from '../../models/manufacturers/ManufacturerModel';
 import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
@@ -12,13 +12,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Filter } from '../../models/1pagination/filter';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
     templateUrl: './products-list.component.html',
     styleUrls: ['./products-list.component..css']
 })
-export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
+export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges{
 
     rowsNumber: number;
 
@@ -38,10 +39,15 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
     requestFilters: RequestFilters;
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+    
 
     constructor(private lookupService: PuzzleLookupService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router){
+    }
+
+    ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+        console.log('CHANGES: ' + changes);
     }
 
     onPageChanged(event){
@@ -62,7 +68,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
         console.log(`${orderby} | ${orderbyDirection}`);
         
         this.activatedRouteSubscr2 = this.activatedRoute.params
-            .subscribe((val) => this.getPuzzles(val));
+            .subscribe((val) => this.getPuzzles(val.puzzleType, orderby, orderbyDirection));
 
         this.subscriptions.push(this.activatedRouteSubscr2);
     }
@@ -91,7 +97,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
             .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
     }
 
-    private getPuzzles(val: any, orderby: string = '', orderbyDirection: string = ''){
+    private getPuzzles(val: any, orderby: string = 'name', orderbyDirection: string = 'asc'){
         var url = this.activatedRoute.snapshot.url.join().split(',');
 
         var filters: Filter[] = [];
