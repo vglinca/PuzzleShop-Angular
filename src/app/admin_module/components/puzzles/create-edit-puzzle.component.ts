@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
 import { PuzzleForCreationModel } from '../../models/puzzles/puzzle-for-creation.model';
-import { ImageForCreationModel } from '../../models/images/image-for-creation.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -26,7 +26,11 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
     dialogTitle: string;
     puzzleForm: FormGroup;
 
-    file: File = null;
+    file: File;
+    imageFiles: File[] = [];
+
+    puzzleModel: PuzzleModel;
+    staticFilesUrl: string = 'http://localhost:5000/images/';
 
     routerSubscription: Subscription;
     subscriptions: Subscription[] = [];
@@ -44,7 +48,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
                 private puzzleService: PuzzleService,
                 private formBuilder: FormBuilder,
                 private router: Router,
-                private activatedRoute: ActivatedRoute){}
+                private activatedRoute: ActivatedRoute,
+                public snackbar: MatSnackBar){}
                 
     ngOnInit(): void {
         var puzzleId: number;
@@ -89,11 +94,13 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
                 this.puzzleForm.patchValue({
                     ...p
                 });
+                this.puzzleModel = p;
             });
     }
 
     onFileSelected(event): void{
         this.file = <File> event.target.files[0];
+        this.imageFiles = <File[]> event.target.files;
     }
 
     savePuzzle(){
@@ -103,20 +110,39 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
 
         let fd: FormData = new FormData();
 
+        puzzle.price = puzzle.price.toString().replace('\.', ',');
+
         fd.append('name', puzzle.name);
         fd.append('description', puzzle.description);
-        fd.append('price', puzzle.price.toString());
-        fd.append('isWcaPuzzle', puzzle.isWcaPuzzle.toString());
-        fd.append('weight', puzzle.weight.toString());
-        fd.append('manufacturerId', puzzle.manufacturerId.toString());
-        fd.append('puzzleTypeId', puzzle.puzzleTypeId.toString());
-        fd.append('colorId', puzzle.colorId.toString());
-        fd.append('difficultyLevelId', puzzle.difficultyLevelId.toString());
-        fd.append('materialTypeId', puzzle.materialTypeId.toString());
+        fd.append('price', puzzle.price);
+        fd.append('isWcaPuzzle', puzzle.isWcaPuzzle);
+        fd.append('weight', puzzle.weight);
+        fd.append('manufacturerId', puzzle.manufacturerId);
+        fd.append('puzzleTypeId', puzzle.puzzleTypeId);
+        fd.append('colorId', puzzle.colorId);
+        fd.append('difficultyLevelId', puzzle.difficultyLevelId);
+        fd.append('materialTypeId', puzzle.materialTypeId);
+        for(let file of this.imageFiles){
+            fd.append('images', file);
+        }
 
-        fd.append('images', this.file);
-        this.puzzleService.addPuzzle(fd).subscribe();
+        this.puzzleService.addPuzzle(fd)
+            .subscribe(() => {
+                this.onChangesApplied();
+            }, err => {
+                this.onProblemsOccured();
+                console.log(err);
+            });
+    }
 
+    private onChangesApplied(): void{
+        this.snackbar.open('Puzzle has been successfully added.', 'Hide', {duration: 2000});
+        this.puzzleForm.reset();
+        this.router.navigate(['/administration/puzzles']);
+    }
+
+    private onProblemsOccured(){
+        this.snackbar.open('Some problems occured during saving puzzle.', 'Hide', {duration: 2000});
     }
                 
     private loadManufacturers(): void{

@@ -29,8 +29,8 @@ export class PuzzleService{
 
     public addPuzzle(model: FormData) : Observable<PuzzleModel>{
         var head = {headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})};
-        return this.httpClient.post<PuzzleModel>(this.baseUrl, model)
-        .pipe(catchError(handleError<PuzzleModel>('addPuzzle')));
+        return this.httpClient.post<PuzzleModel>(this.baseUrl, model);
+        // .pipe(catchError(handleError<PuzzleModel>('addPuzzle')));
     }  
 
     public updatePuzzle(puzzleId: number, model: PuzzleForCreationModel){

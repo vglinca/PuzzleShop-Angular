@@ -7,3 +7,29 @@
     margin-right:10px;
     background-color: crimson;
 }
+
+.images-div{
+    position: relative;
+}
+
+.img-div{
+    position: relative;
+    height: 150px;
+    width: 180px;
+    margin: 20px;
+}
+
+.img-div img {
+    height: 150px;
+    width: 180px;
+}
+
+.thumbnail{
+    position:relative;
+    top:-25px;
+    left:-35px;
+    width:500px;
+    height:auto;
+    display:block;
+    z-index:999;
+}
