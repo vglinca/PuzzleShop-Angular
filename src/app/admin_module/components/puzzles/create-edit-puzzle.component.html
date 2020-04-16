@@ -83,8 +83,11 @@
             <textarea matInput placeholder="Description. (required)" formControlName="description" matTextareaAutosize></textarea>
           </mat-form-field>
 
-
         </div>
       </mat-card-content>
     </form>
+    <mat-card-footer>
+      <h1>Image upload</h1>
+      <input type="file" (change)="onFileSelected($event)">
+    </mat-card-footer>
   </mat-card>

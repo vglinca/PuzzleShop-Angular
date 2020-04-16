@@ -1,4 +1,5 @@
 import { ImageModel } from 'src/app/models/images/ImageModel';
+import { ImageForCreationModel } from '../images/image-for-creation.model';
 
 export interface PuzzleForCreationModel{
     name: string;
@@ -11,5 +12,5 @@ export interface PuzzleForCreationModel{
     colorId: number;
     difficultyLevelId: number;
     materialTypeId: number;
-    images: ImageModel[];
+    images: ImageForCreationModel[];
 }

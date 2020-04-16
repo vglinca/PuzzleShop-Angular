@@ -14,6 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
 import { PuzzleForCreationModel } from '../../models/puzzles/puzzle-for-creation.model';
+import { ImageForCreationModel } from '../../models/images/image-for-creation.model';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
 {
     dialogTitle: string;
     puzzleForm: FormGroup;
+
+    file: File = null;
 
     routerSubscription: Subscription;
     subscriptions: Subscription[] = [];
@@ -89,11 +92,31 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
             });
     }
 
+    onFileSelected(event): void{
+        this.file = <File> event.target.files[0];
+    }
+
     savePuzzle(){
-        const puzzle: PuzzleForCreationModel = {
+        var puzzle: PuzzleForCreationModel = {
             ...this.puzzleForm.value
         };
-        console.log(puzzle);
+
+        let fd: FormData = new FormData();
+
+        fd.append('name', puzzle.name);
+        fd.append('description', puzzle.description);
+        fd.append('price', puzzle.price.toString());
+        fd.append('isWcaPuzzle', puzzle.isWcaPuzzle.toString());
+        fd.append('weight', puzzle.weight.toString());
+        fd.append('manufacturerId', puzzle.manufacturerId.toString());
+        fd.append('puzzleTypeId', puzzle.puzzleTypeId.toString());
+        fd.append('colorId', puzzle.colorId.toString());
+        fd.append('difficultyLevelId', puzzle.difficultyLevelId.toString());
+        fd.append('materialTypeId', puzzle.materialTypeId.toString());
+
+        fd.append('images', this.file);
+        this.puzzleService.addPuzzle(fd).subscribe();
+
     }
                 
     private loadManufacturers(): void{
@@ -132,3 +155,5 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
         });
     }
 }
+
+
