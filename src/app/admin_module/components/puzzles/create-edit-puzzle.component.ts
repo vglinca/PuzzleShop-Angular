@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ManufacturersService } from '../../services/manufacturers.service';
 import { PuzzleTypesService } from '../../services/puzzle-types.service';
@@ -21,13 +21,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: './create-edit-puzzle.component.html',
     styleUrls: ['./create-edit-puzzle.component.css']
 })
-export class CreateEditPuzzleComponent implements OnInit, OnDestroy
+export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewInit
 {
     dialogTitle: string;
     puzzleForm: FormGroup;
 
     file: File;
     imageFiles: File[] = [];
+
+    urls: Array<string> = new Array<string>();
 
     puzzleModel: PuzzleModel;
     staticFilesUrl: string = 'http://localhost:5000/images/';
@@ -50,6 +52,10 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 public snackbar: MatSnackBar){}
+
+
+    ngAfterViewInit(): void {
+    }
                 
     ngOnInit(): void {
         var puzzleId: number;
@@ -78,8 +84,9 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
                     
                     
         this.loadAllProperties();
+
     }
-                
+           
     private loadAllProperties(){
         this.loadManufacturers();
         this.loadPuzzleTypes();
@@ -101,6 +108,21 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
     onFileSelected(event): void{
         this.file = <File> event.target.files[0];
         this.imageFiles = <File[]> event.target.files;
+
+        this.urls = [];
+        if(this.imageFiles){
+            for(let file of this.imageFiles){
+                let reader = new FileReader();
+                reader.onload = e => {
+                    this.urls.push(<string>e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+
+    onImageClicked(event): void{
+        console.log(event);
     }
 
     savePuzzle(){
@@ -122,6 +144,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy
         fd.append('colorId', puzzle.colorId);
         fd.append('difficultyLevelId', puzzle.difficultyLevelId);
         fd.append('materialTypeId', puzzle.materialTypeId);
+
+
         for(let file of this.imageFiles){
             fd.append('images', file);
         }

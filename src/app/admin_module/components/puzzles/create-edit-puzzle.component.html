@@ -91,15 +91,22 @@
             </div>
           </mat-card-content>
         </form>
-        <div class="footer-div"  fxLayout="column" fxLayoutAlign="space-between center" >
+        <div class="footer-div"  fxLayout="column | wrap" fxLayoutAlign="space-between center" >
     
-          <div class="footer" fxLayout="row" fxLayoutAlign="center center" style="margin-bottom: 10px;">
-            <mat-card-footer>
+          <mat-card-footer>
+            <div class="footer" fxLayout="column | wrap" fxLayoutAlign="start center" style="margin-bottom: 10px;">
               <h1>Image upload</h1>
               <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-              <input hidden (change)="onFileSelected($event)" #fileInput type="file" multiple id="file">
-            </mat-card-footer>
-          </div>
+              <input id="file-input" hidden (change)="onFileSelected($event)" #fileInput type="file" multiple id="file">
+              
+              <div fxLayout="row | wrap" fxLayoutAlign="center center" style="margin-top: 10px;">
+                <div style="width: 100px; height: 80px; position: relative;" *ngFor="let url of urls">
+                  <img [src]="url" style="width: 100px; height: 80px;" (click)="onImageClicked($event)">
+                </div>
+              </div>
+
+            </div>
+          </mat-card-footer>
         </div>
     </mat-card>
   </div>
@@ -107,6 +114,11 @@
   <div fxLayout="row | wrap" fxLayoutAlign="start start" class="images-div" style="background-color: white; height: fit-content; width: fit-content; margin: 50px;">
     <div class="img-div" *ngFor="let image of puzzleModel?.images">
       <img class="thumbnail" [src]="staticFilesUrl + image?.fileName" alt="PUZZLE">
+      <div fxLayout="row | wrap" fxLayoutAlign="center center">
+        <button mat-mini-fab style="background-color: red;" type="button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 

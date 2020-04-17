@@ -1,4 +1,4 @@
 export interface ImageForCreationModel{
     title: string;
-    file: string;
+    file: File;
 }

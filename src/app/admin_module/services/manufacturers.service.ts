@@ -18,26 +18,21 @@ export class ManufacturersService{
 
     getAll() : Observable<ManufacturerModel[]>{
         return this.httpClient.get<ManufacturerModel[]>(this.baseUrl, this.headers)
-            .pipe(catchError(handleError<ManufacturerModel[]>('getManufacturers', [])));
     }
 
     getbyId(id: number): Observable<ManufacturerModel>{
         return this.httpClient.get<ManufacturerModel>(`${this.baseUrl}/${id}`, this.headers)
-        .pipe(catchError(handleError<ManufacturerModel>('getManufacturer')));
     }
 
     addNew(model: ManufacturerForManipulationModel){
         return this.httpClient.post(this.baseUrl, model, this.headers)
-        .pipe(catchError(handleError<ManufacturerForManipulationModel>('addManufacturer')));
     }
 
     update(id: number, model: ManufacturerForManipulationModel){
         return this.httpClient.put(`${this.baseUrl}/${id}`, model, this.headers)
-            .pipe(catchError(handleError<ManufacturerForManipulationModel>('updateManufacturer')));
     }
 
     delete(id: number){
         return this.httpClient.delete(`${this.baseUrl}/${id}`, this.headers)
-        .pipe(catchError(handleError<ManufacturerModel>('deleteManufacturer')));
     }
 }

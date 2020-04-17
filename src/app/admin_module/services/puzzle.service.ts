@@ -19,27 +19,22 @@ export class PuzzleService{
 
     public getAllPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleModel>>{
         return this.httpClient.post<PagedResponse<PuzzleModel>>(`${this.baseUrl}/getPuzzles`, pagedRequest, this.headers)
-            .pipe(catchError(handleError<PagedResponse<PuzzleModel>>('getPuzzles')));
     }
 
     public getPuzzle(puzzleId: number): Observable<PuzzleModel>{
         return this.httpClient.get<PuzzleModel>(`${this.baseUrl}/${puzzleId}`, this.headers)
-        .pipe(catchError(handleError<PuzzleModel>('getPuzzle')));
     }
 
     public addPuzzle(model: FormData) : Observable<PuzzleModel>{
         var head = {headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})};
         return this.httpClient.post<PuzzleModel>(this.baseUrl, model);
-        // .pipe(catchError(handleError<PuzzleModel>('addPuzzle')));
     }  
 
     public updatePuzzle(puzzleId: number, model: PuzzleForCreationModel){
         return this.httpClient.put(`${this.baseUrl}/${puzzleId}`, model, this.headers)
-            .pipe(catchError(handleError<PuzzleForCreationModel>('updatePuzzle')));
     }
 
     public deletePuzzle(puzzleId: number){
         return this.httpClient.delete(`${this.baseUrl}/${puzzleId}`, this.headers)
-            .pipe(catchError(handleError<PuzzleModel>('deletePuzzle')));
     }
 }

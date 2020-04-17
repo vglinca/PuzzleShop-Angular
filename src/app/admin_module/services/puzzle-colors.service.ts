@@ -17,26 +17,21 @@ export class PuzzleColorsService{
 
     public getAll(): Observable<PuzzleColorModel[]>{
         return this.httpClient.get<PuzzleColorModel[]>(this.baseUrl, this.headers)
-            .pipe(catchError(handleError<PuzzleColorModel[]>('getPuzzleColors', [])));
     }
 
     public getById(colorId: number): Observable<PuzzleColorModel>{
         return this.httpClient.get<PuzzleColorModel>(`${this.baseUrl}/${colorId}`, this.headers)
-            .pipe(catchError(handleError<PuzzleColorModel>('getPuzzleColor')));
     }
 
     public add(model: PuzzleColorForCreationModel): Observable<PuzzleColorModel>{
         return this.httpClient.post<PuzzleColorModel>(this.baseUrl, model, this.headers)
-        .pipe(catchError(handleError<PuzzleColorModel>('addPuzzleColor')));
     }
 
     public update(colorId: number, model: PuzzleColorForCreationModel){
         return this.httpClient.put(`${this.baseUrl}/${colorId}`, model, this.headers)
-        .pipe(catchError(handleError<PuzzleColorForCreationModel>('updatePuzzleColor')));
     }
 
     public delete(colorId: number){
         return this.httpClient.delete(`${this.baseUrl}/${colorId}`, this.headers)
-        .pipe(catchError(handleError<PuzzleColorModel>('deletePuzzleColor')));
     }
 }
