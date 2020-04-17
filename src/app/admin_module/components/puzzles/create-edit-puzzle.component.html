@@ -11,7 +11,7 @@
           </mat-card-title>
         </mat-card-header>
     
-        <form novalidate [formGroup]="puzzleForm" (ngSubmit)="savePuzzle()"> 
+        <form novalidate [formGroup]="puzzleForm" (ngSubmit)="saveChanges()"> 
     
           <mat-toolbar style="background-color: #FFF">
             <mat-toolbar-row>
@@ -115,7 +115,7 @@
     <div class="img-div" *ngFor="let image of puzzleModel?.images">
       <img class="thumbnail" [src]="staticFilesUrl + image?.fileName" alt="PUZZLE">
       <div fxLayout="row | wrap" fxLayoutAlign="center center">
-        <button mat-mini-fab style="background-color: red;" type="button">
+        <button mat-mini-fab style="background-color: red;" type="button" (click)="onDeleteImage(image?.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

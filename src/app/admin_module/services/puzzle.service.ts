@@ -8,6 +8,7 @@ import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
 import { catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/common/handleError';
 import { PuzzleForCreationModel } from '../models/puzzles/puzzle-for-creation.model';
+import { PuzzleForUpdateModel } from '../models/puzzles/puzzle-for-update.model';
 
 @Injectable()
 export class PuzzleService{
@@ -26,11 +27,10 @@ export class PuzzleService{
     }
 
     public addPuzzle(model: FormData) : Observable<PuzzleModel>{
-        var head = {headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})};
         return this.httpClient.post<PuzzleModel>(this.baseUrl, model);
     }  
 
-    public updatePuzzle(puzzleId: number, model: PuzzleForCreationModel){
+    public updatePuzzle(puzzleId: number, model: PuzzleForUpdateModel){
         return this.httpClient.put(`${this.baseUrl}/${puzzleId}`, model, this.headers)
     }
 

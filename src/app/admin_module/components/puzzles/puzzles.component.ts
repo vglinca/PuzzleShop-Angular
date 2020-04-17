@@ -9,6 +9,8 @@ import { LogicalOperator } from 'src/app/models/1pagination/logical-operator';
 import { PagedRequest } from 'src/app/models/1pagination/paged-request';
 import { MatSort } from '@angular/material/sort';
 import { Subscription, merge } from 'rxjs';
+import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     requestFilters: RequestFilters;
 
     matSortSubscription: Subscription;
+    dialogRefSubscription: Subscription;
     subscriptions: Subscription[] = [];
     
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
@@ -30,7 +33,9 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     tableColumns: string[] = ['id', 'name', 'description', 'price', 'isWcaPuzzle', 'weight', 
     'manufacturer', 'puzzleType', 'color', 'difficultyLevel', 'materialType'];
 
-    constructor(private puzzleService: PuzzleService){}
+    constructor(private puzzleService: PuzzleService,
+                private dialogService: ConfirmDialogService,
+                public snackBar: MatSnackBar){}
    
     
     ngOnInit(): void {
@@ -43,12 +48,23 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
             .subscribe(() => this.loadPuzzlesFromApi());
     }
 
-    openPageForEditingOrCreation(puzzleId: number): void{
-
-    }
-
     onDelete(puzzleId: number, puzzleName: string){
+        const msg: string = `Are you sure to delete this puzzle? (${name})`;
+        const dialogRef = this.dialogService.openConfirmDialog(msg);
 
+        this.dialogRefSubscription = dialogRef.afterClosed()
+            .subscribe(action => {
+                if(action === dialogRef.componentInstance.ACTION_CONFIRM){
+                    this.puzzleService.deletePuzzle(puzzleId)
+                        .subscribe(() =>{
+                            this.loadPuzzlesFromApi();
+                            this.snackBar.open(`Puzzle ${puzzleName} has been deleted from catalog.`, 'Hide', {duration: 2000});
+                        }, err => {
+                            this.snackBar.open('Something wrong happened during deletion.', 'Hide', {duration: 2000});
+                        });
+                }
+            });
+        this.subscriptions.push(this.dialogRefSubscription);
     }
 
     loadPuzzlesFromApi(){

@@ -15,6 +15,9 @@ import { Subscription } from 'rxjs';
 import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
 import { PuzzleForCreationModel } from '../../models/puzzles/puzzle-for-creation.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImagesService } from '../../services/images.service';
+import { PuzzleForUpdateModel } from '../../models/puzzles/puzzle-for-update.model';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -25,14 +28,17 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
 {
     dialogTitle: string;
     puzzleForm: FormGroup;
+    puzzleId: number;
 
     file: File;
-    imageFiles: File[] = [];
+    imageFiles: Array<File> = new Array<File>();
 
     urls: Array<string> = new Array<string>();
 
+    imageIdsToDelete: Array<number> = new Array<number>();
+
     puzzleModel: PuzzleModel;
-    staticFilesUrl: string = 'http://localhost:5000/images/';
+    staticFilesUrl: string = environment.staticFilesUrl;
 
     routerSubscription: Subscription;
     subscriptions: Subscription[] = [];
@@ -48,24 +54,26 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                 private puzzleColorService: PuzzleColorsService,
                 private lookupService: PuzzleLookupService,
                 private puzzleService: PuzzleService,
+                private imagesService: ImagesService,
                 private formBuilder: FormBuilder,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
-                public snackbar: MatSnackBar){}
+                public snackbar: MatSnackBar){
+                    this.imageIdsToDelete = [];
+                }
 
 
     ngAfterViewInit(): void {
     }
                 
     ngOnInit(): void {
-        var puzzleId: number;
         this.routerSubscription = this.activatedRoute.params.subscribe(param => {
-            puzzleId = +param['id'];
-            if(puzzleId === -1){
+            this.puzzleId = +param['id'];
+            if(this.puzzleId === -1){
                 this.dialogTitle = 'Add new puzzle';
             }else{
                 this.dialogTitle = 'Edit puzzle';
-                this.loadPuzzle(puzzleId);
+                this.loadPuzzle();
             }
         });
 
@@ -81,8 +89,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             difficultyLevelId: ['', Validators.required],
             materialTypeId: ['', Validators.required]
         });
-                    
-                    
+                             
         this.loadAllProperties();
 
     }
@@ -95,8 +102,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         this.loadDifficultyLevels();
     }
 
-    private loadPuzzle(puzzleId: number):void{
-        this.puzzleService.getPuzzle(puzzleId)
+    private loadPuzzle():void{
+        this.puzzleService.getPuzzle(this.puzzleId)
             .subscribe((p: PuzzleModel) => {
                 this.puzzleForm.patchValue({
                     ...p
@@ -114,7 +121,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             for(let file of this.imageFiles){
                 let reader = new FileReader();
                 reader.onload = e => {
-                    this.urls.push(<string>e.target.result);
+                   this.urls.push(<string>e.target.result);
                 }
                 reader.readAsDataURL(file);
             }
@@ -125,38 +132,77 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         console.log(event);
     }
 
-    savePuzzle(){
-        var puzzle: PuzzleForCreationModel = {
-            ...this.puzzleForm.value
-        };
+    onDeleteImage(imageId: number): void{
+        console.log(imageId);
+        this.imageIdsToDelete.push(imageId);
+    }
 
-        let fd: FormData = new FormData();
+    saveChanges(){
+        
+        if(this.puzzleId === -1){
 
-        puzzle.price = puzzle.price.toString().replace('\.', ',');
+            let puzzle: PuzzleForCreationModel = {
+                ...this.puzzleForm.value
+            };
 
-        fd.append('name', puzzle.name);
-        fd.append('description', puzzle.description);
-        fd.append('price', puzzle.price);
-        fd.append('isWcaPuzzle', puzzle.isWcaPuzzle);
-        fd.append('weight', puzzle.weight);
-        fd.append('manufacturerId', puzzle.manufacturerId);
-        fd.append('puzzleTypeId', puzzle.puzzleTypeId);
-        fd.append('colorId', puzzle.colorId);
-        fd.append('difficultyLevelId', puzzle.difficultyLevelId);
-        fd.append('materialTypeId', puzzle.materialTypeId);
+            let fd: FormData = new FormData();
+            puzzle.price = puzzle.price.toString().replace('\.', ',');
+    
+            fd.append('name', puzzle.name);
+            fd.append('description', puzzle.description);
+            fd.append('price', puzzle.price);
+            fd.append('isWcaPuzzle', puzzle.isWcaPuzzle);
+            fd.append('weight', puzzle.weight);
+            fd.append('manufacturerId', puzzle.manufacturerId);
+            fd.append('puzzleTypeId', puzzle.puzzleTypeId);
+            fd.append('colorId', puzzle.colorId);
+            fd.append('difficultyLevelId', puzzle.difficultyLevelId);
+            fd.append('materialTypeId', puzzle.materialTypeId);
+    
+            for(let file of this.imageFiles){
+                fd.append('images', file);
+            }
+    
+            this.puzzleService.addPuzzle(fd)
+                .subscribe(() => {
+                    this.onChangesApplied();
+                }, err => {
+                    this.onProblemsOccured('Some problems occured during saving new puzzle.');
+                    console.log(err);
+                });
+        }else{
+            let editedPuzzle: PuzzleForUpdateModel = {
+                ...this.puzzleForm.value
+            };
+            
+            if(this.imageFiles.length > 0){
+                let reqFormData: FormData = new FormData();
+                for(let img of this.imageFiles){
+                    reqFormData.append('id', '0');
+                    reqFormData.append('title', editedPuzzle.name);
+                    reqFormData.append('file', img);
+                    this.imagesService.addImages(this.puzzleId, reqFormData)
+                        .subscribe(() => {},
+                        err => {
+                            this.onProblemsOccured('Could not add image.')
+                            console.log(err)
+                        });
+                }
+            }
 
+            if(this.imageIdsToDelete.length > 0){
+                this.imagesService.deleteImages(this.puzzleId, this.imageIdsToDelete)
+                    .subscribe(() => {
+                    }, err => {
+                        this.onProblemsOccured('Could not perform operation of deleting images.');;
+                    });
+            }
 
-        for(let file of this.imageFiles){
-            fd.append('images', file);
+            this.puzzleService.updatePuzzle(this.puzzleId, editedPuzzle)
+                .subscribe(() => {
+                    this.onChangesApplied();
+                }, err => this.onProblemsOccured('Could not update puzzle.'));
         }
-
-        this.puzzleService.addPuzzle(fd)
-            .subscribe(() => {
-                this.onChangesApplied();
-            }, err => {
-                this.onProblemsOccured();
-                console.log(err);
-            });
     }
 
     private onChangesApplied(): void{
@@ -165,8 +211,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         this.router.navigate(['/administration/puzzles']);
     }
 
-    private onProblemsOccured(){
-        this.snackbar.open('Some problems occured during saving puzzle.', 'Hide', {duration: 2000});
+    private onProblemsOccured(msg: string){
+        this.snackbar.open(msg, 'Hide', {duration: 2000});
     }
                 
     private loadManufacturers(): void{

@@ -7,7 +7,6 @@ import { ManufacturersService } from '../../services/manufacturers.service';
 import { ManufacturerForManipulationModel } from '../../models/manufacturers/manufacturer-for-manipulation.model';
 import { ManufacturerModel } from 'src/app/models/manufacturers/ManufacturerModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 
 
 @Component({

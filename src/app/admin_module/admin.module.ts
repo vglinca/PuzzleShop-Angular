@@ -22,6 +22,7 @@ import { PuzzleService } from './services/puzzle.service';
 import { PuzzlesComponent } from './components/puzzles/puzzles.component';
 import { ShortenStringPipe } from '../common/shorten-string.pipe';
 import { CreateEditPuzzleComponent } from './components/puzzles/create-edit-puzzle.component';
+import { ImagesService } from './services/images.service';
 
 
 
@@ -53,6 +54,7 @@ import { CreateEditPuzzleComponent } from './components/puzzles/create-edit-puzz
     PuzzleTypesService,
     PuzzleColorsService,
     PuzzleService,
+    ImagesService,
     ConfirmDialogService
   ],
   entryComponents: [
