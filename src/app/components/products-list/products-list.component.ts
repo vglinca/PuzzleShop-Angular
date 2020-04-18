@@ -3,15 +3,15 @@ import { PuzzleTypeModel } from '../../models/puzzle-types/PuzzleTypeModel';
 import { ManufacturerModel } from '../../models/manufacturers/ManufacturerModel';
 import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
 import { PuzzleColorModel } from '../../models/puzzle-colors/PuzzleColorModel';
-import { PagedResponse } from '../../models/1pagination/paged-response';
+import { PagedResponse } from '../../infrastructure/paged-response';
 import { PuzzleModel } from '../../models/puzzles/PuzzleModel';
-import { PagedRequest } from '../../models/1pagination/paged-request';
-import { RequestFilters } from '../../models/1pagination/request-filters';
-import { LogicalOperator } from '../../models/1pagination/logical-operator';
+import { PagedRequest } from '../../infrastructure/paged-request';
+import { RequestFilters } from '../../infrastructure/request-filters';
+import { LogicalOperator } from '../../infrastructure/logical-operator';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Filter } from '../../models/1pagination/filter';
+import { Filter } from '../../infrastructure/filter';
 import { MatSort } from '@angular/material/sort';
 
 

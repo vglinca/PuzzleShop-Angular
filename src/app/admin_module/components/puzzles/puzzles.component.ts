@@ -1,12 +1,12 @@
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
 import { PuzzleService } from '../../services/puzzle.service';
-import { PagedResponse } from 'src/app/models/1pagination/paged-response';
+import { PagedResponse } from 'src/app/infrastructure/paged-response';
 import { MatPaginator } from '@angular/material/paginator';
-import { RequestFilters } from 'src/app/models/1pagination/request-filters';
-import { Filter } from 'src/app/models/1pagination/filter';
-import { LogicalOperator } from 'src/app/models/1pagination/logical-operator';
-import { PagedRequest } from 'src/app/models/1pagination/paged-request';
+import { RequestFilters } from 'src/app/infrastructure/request-filters';
+import { Filter } from 'src/app/infrastructure/filter';
+import { LogicalOperator } from 'src/app/infrastructure/logical-operator';
+import { PagedRequest } from 'src/app/infrastructure/paged-request';
 import { MatSort } from '@angular/material/sort';
 import { Subscription, merge } from 'rxjs';
 import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';

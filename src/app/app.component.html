@@ -36,6 +36,38 @@
 
     <mat-sidenav-content>
 
+      <!--header-->
+      <div fxLayout="row | wrap" fxLayoutAlign="space-between center" class="header">
+        <div class="logo-div mat-display-1">SpeedCubingStore</div>
+        <div fxLayout="column | wrap" fxLayoutAlign="space-between center">
+          
+          <div class="header-right-side">
+            <div class="container">
+              <input type="text" placeholder="Search...">
+              <div class="search"></div>
+            </div>
+
+            <div fxLayout="row | wrap" fxLayoutAlign="space-between center">
+
+              <div style="margin: 10px 45px 10px 10px;" fxLayout="row | wrap" fxLayoutAlign="start center">
+                <div style="margin-right: 5px;">
+                  <mat-icon>shopping_cart</mat-icon>
+                </div>
+                <div>
+                  <span>Shopping cart</span>
+                </div>
+              </div>
+              <div>
+                <button mat-button>Sign In</button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
       <nav-bar [sidenav]="sidenav"></nav-bar>
       <router-outlet></router-outlet>
 

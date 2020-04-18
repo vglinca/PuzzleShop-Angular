@@ -2,20 +2,31 @@
     <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon mat-list-icon>list</mat-icon>
     </button>
-    <span>SpeedCubing Store</span>
-    <div class="navitems">
-        
-        <mat-menu #appMenu="matMenu" xPosition="before">
-            <span (mouseleave)="menuTrigger.closeMenu()">
-                <button  mat-menu-item *ngFor="let puzzleType of puzzleTypes" 
-                [routerLink]="['/rubics-cubes', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
-            </span>
-        </mat-menu>
-        <a mat-button [matMenuTriggerFor]="appMenu" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Кубики Рубика</a>
-        <a mat-button [routerLink]="['/wca-puzzles']">WCA Головоломки</a>
-        <a mat-button>Головоломки</a>
-        <a mat-button>Новинки</a>
-        <a mat-button>Аксесуары</a>
+    <!-- <span>SpeedCubing Store</span> -->
+    <div class="navitems"  fxLayout="row | wrap" fxLayoutAlign="center center">
+        <div class="nav-item">
+            <mat-menu #appMenu="matMenu" xPosition="before">
+                <span (mouseleave)="menuTrigger.closeMenu()">
+                    <button  mat-menu-item *ngFor="let puzzleType of puzzleTypes" 
+                    [routerLink]="['/rubics-cubes', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
+                </span>
+            </mat-menu>
+        </div>
+        <div class="nav-item">
+            <a mat-button [matMenuTriggerFor]="appMenu" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Кубики Рубика</a>
+        </div>
+        <div class="nav-item">
+            <a mat-button [routerLink]="['/wca-puzzles']">WCA Головоломки</a>
+        </div>
+        <div class="nav-item">
+            <a mat-button>Головоломки</a>
+        </div>
+        <div class="nav-item">
+            <a mat-button>Новинки</a>
+        </div>
+        <div class="nav-item">
+            <a mat-button>Аксесуары</a>
+        </div>
     </div>
     <div class="navbar">
         <a mat-button (click)="loginUser()">Войти</a>
