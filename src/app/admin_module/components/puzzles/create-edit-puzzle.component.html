@@ -39,52 +39,46 @@
                 <input matInput placeholder="Name" type="text" placeholder="Name. (required)" formControlName="name"/>
               </mat-form-field>
     
-              <mat-form-field class="form-field-90">
+              <mat-form-field class="form-field-30">
                 <input matInput placeholder="Price. (required)" type="number" formControlName="price"/>
               </mat-form-field>
     
-              <mat-form-field class="form-field-90">
-                <mat-select placeholder="Is WCA puzzle?" formControlName="isWcaPuzzle">
+              <mat-form-field class="form-field-30">
+                <mat-select placeholder="Is magnetic?" formControlName="isMagnetic">
                     <mat-option value="true">Yes</mat-option>
                     <mat-option value="false">No</mat-option>
                 </mat-select>
               </mat-form-field>
     
-              <mat-form-field class="form-field-90">
+              <mat-form-field class="form-field-30">
                 <input matInput placeholder="Weight (required)" type="number" formControlName="weight" />
               </mat-form-field>
     
-              <mat-form-field>
+              <mat-form-field class="form-field-30">
                   <mat-select placeholder="Manufacturer" formControlName="manufacturerId">
                     <mat-option *ngFor="let m of manufacturers" [value]="m?.id">{{m?.name}}</mat-option>
                   </mat-select>
               </mat-form-field>
     
-              <mat-form-field>
+              <mat-form-field class="form-field-30">
                   <mat-select placeholder="Puzzle Type" formControlName="puzzleTypeId">
                       <mat-option *ngFor="let type of puzzleTypes" [value]="type?.id">{{type?.title}}</mat-option>
                   </mat-select>
               </mat-form-field>
     
-              <mat-form-field>
+              <mat-form-field class="form-field-30">
                 <mat-select placeholder="Puzzle Color" formControlName="colorId">
                     <mat-option *ngFor="let color of puzzleColors" [value]="color?.id">{{color?.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
     
-              <mat-form-field>
-                  <mat-select placeholder="Puzzle DifficultyLevel" formControlName="difficultyLevelId">
-                      <mat-option *ngFor="let dl of difficultyLevels" [value]="dl?.difficultyLevelId">{{dl?.title}}</mat-option>
-                  </mat-select>
-              </mat-form-field>
-    
-              <mat-form-field>
+              <mat-form-field class="form-field-30">
                 <mat-select placeholder="Material Type" formControlName="materialTypeId">
                     <mat-option *ngFor="let mt of materialTypes" [value]="mt?.id">{{mt?.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
     
-              <mat-form-field class="form-field-90">
+              <mat-form-field class="form-field-180" style="width: 100%;">
                 <textarea matInput placeholder="Description. (required)" formControlName="description" matTextareaAutosize></textarea>
               </mat-form-field>
     

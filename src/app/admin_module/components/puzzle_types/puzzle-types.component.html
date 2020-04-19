@@ -61,6 +61,21 @@
               <mat-header-cell *matHeaderCellDef> TypeName </mat-header-cell>
               <mat-cell *matCellDef="let puzzleType"> {{puzzleType?.title}} </mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="isRubicsCube">
+              <mat-header-cell *matHeaderCellDef> IsRubik's Cube </mat-header-cell>
+              <mat-cell *matCellDef="let puzzleType"> {{puzzleType?.isRubicsCube}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="isWca">
+              <mat-header-cell *matHeaderCellDef> IsWca </mat-header-cell>
+              <mat-cell *matCellDef="let puzzleType"> {{puzzleType?.isWca}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="difficultyLevel">
+              <mat-header-cell *matHeaderCellDef> DifficultyLevel </mat-header-cell>
+              <mat-cell *matCellDef="let puzzleType"> {{puzzleType?.difficultyLevel}} </mat-cell>
+            </ng-container>
           
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef style="justify-content:right;">

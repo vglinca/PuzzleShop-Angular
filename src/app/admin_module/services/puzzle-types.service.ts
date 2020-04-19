@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PuzzleTypeModel } from 'src/app/models/puzzle-types/PuzzleTypeModel';
+import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { handleError } from 'src/app/common/handleError';
 import { catchError } from 'rxjs/operators';
-import { PuzzleTypeForCreationModel } from '../models/puzzle_types/puzzle-type-for-creation.model';
+import { PuzzleTypeForCreationModel } from '../../models/puzzle-types/puzzle-type-for-creation.model';
+import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
 @Injectable()
 export class PuzzleTypesService{
@@ -14,8 +15,8 @@ export class PuzzleTypesService{
 
     constructor(private httpClient: HttpClient){}
 
-    public getAll(): Observable<PuzzleTypeModel[]>{
-        return this.httpClient.get<PuzzleTypeModel[]>(this.baseUrl, this.headers)
+    public getAll(): Observable<PuzzleTypeTableRowModel[]>{
+        return this.httpClient.get<PuzzleTypeTableRowModel[]>(this.baseUrl, this.headers)
     }
 
     public getById(puzzleTypeId: number): Observable<PuzzleTypeModel>{

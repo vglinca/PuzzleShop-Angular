@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { PuzzleTypeModel } from '../models/puzzle-types/PuzzleTypeModel';
+import { PuzzleTypeModel } from '../models/puzzle-types/puzzle-type.model';
 import { catchError } from 'rxjs/operators';
 import { handleError } from '../common/handleError';
-import { ManufacturerModel } from '../models/manufacturers/ManufacturerModel';
-import { PuzzleColorModel } from '../models/puzzle-colors/PuzzleColorModel';
-import { PagedRequest } from '../infrastructure/paged-request';
-import { PagedResponse } from '../infrastructure/paged-response';
-import { PuzzleModel } from '../models/puzzles/PuzzleModel';
+import { ManufacturerModel } from '../models/manufacturers/manufacturer.model';
+import { PuzzleColorModel } from '../models/puzzle-colors/puzzle-color.model';
+import { PagedRequest } from '../infrastructure/pagination/paged-request';
+import { PagedResponse } from '../infrastructure/pagination/paged-response';
+import { PuzzleModel } from '../models/puzzles/puzzle.model';
 import { MaterialTypeModel } from '../models/material-types/material-type.model';
 import { DifficultyLevelModel } from '../models/difficulty-levels/difficulty-level.model';
+import { PuzzleTableRowModel } from '../models/puzzles/puzzle-table-row.model';
+import { QueryParameters } from '../infrastructure/query-params/query-parameters';
 
 
 @Injectable()
@@ -22,9 +24,8 @@ export class PuzzleLookupService{
 
     constructor(private httpClient: HttpClient){}
 
-    getPuzzleTypes(): Observable<PuzzleTypeModel[]>{
-        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers)
-            .pipe(catchError(handleError<PuzzleTypeModel[]>('getPuzzleTypes', [])));
+    getPuzzleTypes(queryParams?: QueryParameters): Observable<PuzzleTypeModel[]>{
+        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers); //${queryParams !== null ? `&${queryParams.path}=${queryParams.value}` : ''}
     }
 
     getManufacturers() : Observable<ManufacturerModel[]>{
@@ -37,9 +38,9 @@ export class PuzzleLookupService{
         .pipe(catchError(handleError<PuzzleColorModel[]>('getColors', [])));
     }
 
-    getPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleModel>>{
-        return this.httpClient.post<PagedResponse<PuzzleModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers)
-            .pipe(catchError(handleError<PagedResponse<PuzzleModel>>('getPuzzles')));
+    getPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
+        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers)
+            .pipe(catchError(handleError<PagedResponse<PuzzleTableRowModel>>('getPuzzles')));
     }
 
     getMaterialTypes(): Observable<MaterialTypeModel[]>{

@@ -30,9 +30,29 @@
       <mat-card-content>
         <div class="form-card">
           
-          <mat-form-field class="form-field-90">
+          <mat-form-field class="form-field-30">
             <input matInput placeholder="TypeName" type="text" placeholder="TypeName. (required)" formControlName="title"/>
           </mat-form-field>
+
+          <mat-form-field class="form-field-30">
+            <mat-select placeholder="Is Rubik's Cube?" formControlName="isRubicsCube">
+                <mat-option value="true">Yes</mat-option>
+                <mat-option value="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-30">
+            <mat-select placeholder="Is Wca discipline?" formControlName="isWca">
+                <mat-option value="true">Yes</mat-option>
+                <mat-option value="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-30">
+            <mat-select placeholder="DifficultyLevel" formControlName="difficultyLevelId">
+                <mat-option *ngFor="let dl of difficultyLevels" [value]="dl?.difficultyLevelId">{{dl?.title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
         </div>
       </mat-card-content>

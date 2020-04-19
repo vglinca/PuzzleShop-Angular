@@ -5,19 +5,20 @@ import { PuzzleTypesService } from '../../services/puzzle-types.service';
 import { PuzzleColorsService } from '../../services/puzzle-colors.service';
 import { PuzzleService } from '../../services/puzzle.service';
 import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
-import { ManufacturerModel } from 'src/app/models/manufacturers/ManufacturerModel';
-import { PuzzleTypeModel } from 'src/app/models/puzzle-types/PuzzleTypeModel';
-import { PuzzleColorModel } from 'src/app/models/puzzle-colors/PuzzleColorModel';
+import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
+import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
+import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { MaterialTypeModel } from 'src/app/models/material-types/material-type.model';
 import { DifficultyLevelModel } from 'src/app/models/difficulty-levels/difficulty-level.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
-import { PuzzleForCreationModel } from '../../models/puzzles/puzzle-for-creation.model';
+import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
+import { PuzzleForCreationModel } from '../../../models/puzzles/puzzle-for-creation.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ImagesService } from '../../services/images.service';
-import { PuzzleForUpdateModel } from '../../models/puzzles/puzzle-for-update.model';
+import { PuzzleForUpdateModel } from '../../../models/puzzles/puzzle-for-update.model';
 import { environment } from 'src/environments/environment';
+import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
 
 @Component({
@@ -44,10 +45,9 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     subscriptions: Subscription[] = [];
 
     manufacturers: ManufacturerModel[];
-    puzzleTypes: PuzzleTypeModel[];
+    puzzleTypes: PuzzleTypeTableRowModel[];
     puzzleColors: PuzzleColorModel[];
     materialTypes: MaterialTypeModel[];
-    difficultyLevels: DifficultyLevelModel[];
 
     constructor(private manufacturerService: ManufacturersService,
                 private puzzleTypeService: PuzzleTypesService,
@@ -81,12 +81,11 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             name: ['', Validators.required],
             description: ['', [Validators.required, Validators.maxLength(1500)]],
             price: ['', Validators.required],
-            isWcaPuzzle: ['', Validators.required],
+            isMagnetic: ['', Validators.required],
             weight: ['', Validators.required],
             manufacturerId: ['', Validators.required],
             puzzleTypeId: ['', Validators.required],
             colorId: ['', Validators.required],
-            difficultyLevelId: ['', Validators.required],
             materialTypeId: ['', Validators.required]
         });
                              
@@ -99,7 +98,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         this.loadPuzzleTypes();
         this.loadPuzzleColors();
         this.loadMaterialTypes();
-        this.loadDifficultyLevels();
     }
 
     private loadPuzzle():void{
@@ -151,12 +149,11 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             fd.append('name', puzzle.name);
             fd.append('description', puzzle.description);
             fd.append('price', puzzle.price);
-            fd.append('isWcaPuzzle', puzzle.isWcaPuzzle);
+            fd.append('isMagnetic', puzzle.isMagnetic);
             fd.append('weight', puzzle.weight);
             fd.append('manufacturerId', puzzle.manufacturerId);
             fd.append('puzzleTypeId', puzzle.puzzleTypeId);
             fd.append('colorId', puzzle.colorId);
-            fd.append('difficultyLevelId', puzzle.difficultyLevelId);
             fd.append('materialTypeId', puzzle.materialTypeId);
     
             for(let file of this.imageFiles){
@@ -222,7 +219,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                 
     private loadPuzzleTypes(): void{
         this.puzzleTypeService.getAll()
-            .subscribe((pt: PuzzleTypeModel[]) => {
+            .subscribe((pt: PuzzleTypeTableRowModel[]) => {
                 this.puzzleTypes = pt;
                 console.log(this.puzzleTypes);
             });
@@ -238,10 +235,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         .subscribe((mt: MaterialTypeModel[]) => this.materialTypes = mt);
     }
     
-    private loadDifficultyLevels(): void{
-        this.lookupService.getDifficultyLevels()
-        .subscribe((dl: DifficultyLevelModel[]) => this.difficultyLevels = dl);
-    }
+    
 
     ngOnDestroy(): void {
         this.subscriptions.forEach((s: Subscription) => {

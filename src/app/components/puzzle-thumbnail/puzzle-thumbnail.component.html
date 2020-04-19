@@ -1,10 +1,10 @@
 <div class="image-div">
-    <img [src]="puzzle?.images[0].fileName">
+    <img [src]="baseStaticFilesUrl + puzzle.images[0]?.fileName">
   </div>
-  <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer | uppercase}}</div>
-  <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle?.name}}</div>
+  <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle.manufacturer | uppercase}}</div>
+  <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle.name}}</div>
   <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
-    <div class="price-div" fxLayoutAlign="center center"><b>{{puzzle?.price | currency:'USD'}}</b></div>
+    <div class="price-div" fxLayoutAlign="center center"><b>{{puzzle.price | currency:'USD'}}</b></div>
     <div class="add-to-cart-div">
       <button mat-button>Add to cart</button>
     </div>

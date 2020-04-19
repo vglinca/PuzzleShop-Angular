@@ -3,8 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PuzzleTypesService } from '../../services/puzzle-types.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PuzzleTypeModel } from 'src/app/models/puzzle-types/PuzzleTypeModel';
-import { PuzzleTypeForCreationModel } from '../../models/puzzle_types/puzzle-type-for-creation.model';
+import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
+import { PuzzleTypeForCreationModel } from '../../../models/puzzle-types/puzzle-type-for-creation.model';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { DifficultyLevelModel } from 'src/app/models/difficulty-levels/difficulty-level.model';
 
 
 @Component({
@@ -17,9 +19,12 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
     puzzleTypesForm: FormGroup;
     editMode: boolean = true;
 
+    difficultyLevels: DifficultyLevelModel[];
+
     constructor(@Inject(MAT_DIALOG_DATA) public puzzleTypeId: number,
                 private formBuilder: FormBuilder,
                 private puzzleTypesService: PuzzleTypesService,
+                private lookupService: PuzzleLookupService,
                 private dialogRef: MatDialogRef<CreateEditPuzzleTypeComponent>,
                 public snackBar: MatSnackBar){
     }
@@ -35,7 +40,12 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
 
         this.puzzleTypesForm = this.formBuilder.group({
             title: ['', Validators.required],
+            isRubicsCube: ['', Validators.required],
+            isWca: ['', Validators.required],
+            difficultyLevelId: ['', Validators.required],
         });
+
+        this.loadDifficultyLevels();
     }
 
     onSubmit(){
@@ -60,6 +70,11 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
                     ...pt
                 });
             }, err => this.onErrorOccured());
+    }
+
+    private loadDifficultyLevels(): void{
+        this.lookupService.getDifficultyLevels()
+        .subscribe((dl: DifficultyLevelModel[]) => this.difficultyLevels = dl);
     }
 
     private resetFormCloseDialog(){

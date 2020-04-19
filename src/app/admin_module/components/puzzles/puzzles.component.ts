@@ -1,16 +1,17 @@
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
+import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
 import { PuzzleService } from '../../services/puzzle.service';
-import { PagedResponse } from 'src/app/infrastructure/paged-response';
+import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { MatPaginator } from '@angular/material/paginator';
-import { RequestFilters } from 'src/app/infrastructure/request-filters';
-import { Filter } from 'src/app/infrastructure/filter';
-import { LogicalOperator } from 'src/app/infrastructure/logical-operator';
-import { PagedRequest } from 'src/app/infrastructure/paged-request';
+import { RequestFilters } from 'src/app/infrastructure/pagination/request-filters';
+import { Filter } from 'src/app/infrastructure/pagination/filter';
+import { LogicalOperator } from 'src/app/infrastructure/pagination/logical-operator';
+import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
 import { MatSort } from '@angular/material/sort';
 import { Subscription, merge } from 'rxjs';
 import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 
 
 @Component({
@@ -19,8 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     
-    puzzles: PuzzleModel[] = [];
-    pagedPuzzles: PagedResponse<PuzzleModel>;
+    puzzles: PuzzleTableRowModel[] = [];
+    pagedPuzzles: PagedResponse<PuzzleTableRowModel>;
     requestFilters: RequestFilters;
 
     matSortSubscription: Subscription;
@@ -30,8 +31,8 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
     
-    tableColumns: string[] = ['id', 'name', 'description', 'price', 'isWcaPuzzle', 'weight', 
-    'manufacturer', 'puzzleType', 'color', 'difficultyLevel', 'materialType'];
+    tableColumns: string[] = ['id', 'name', 'description', 'price', 'isMagnetic', 'weight', 
+    'manufacturer', 'puzzleType', 'color', 'materialType'];
 
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,
@@ -72,7 +73,7 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
         this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
         const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
         this.puzzleService.getAllPuzzles(request)
-            .subscribe((response: PagedResponse<PuzzleModel>) => {
+            .subscribe((response: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = response;
                 this.puzzles = response.items;
             });

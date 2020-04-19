@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ManufacturerModel } from 'src/app/models/manufacturers/ManufacturerModel';
+import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/common/handleError';
-import { ManufacturerForManipulationModel } from '../models/manufacturers/manufacturer-for-manipulation.model';
+import { ManufacturerForManipulationModel } from '../../models/manufacturers/manufacturer-for-manipulation.model';
 import { CreateEditManufacturerComponent } from '../components/manufacturers/create-edit-manufacturer.component';
 
 @Injectable()

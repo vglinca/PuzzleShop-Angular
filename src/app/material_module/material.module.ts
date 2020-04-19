@@ -19,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTreeModule} from '@angular/material/tree';
 
 const materialDesignComponents = [
       MatButtonModule, 
@@ -41,7 +42,8 @@ const materialDesignComponents = [
       MatSidenavModule,
       MatTableModule,
       MatSnackBarModule,
-      MatSortModule
+      MatSortModule,
+      MatTreeModule
     ];
 
 @NgModule({

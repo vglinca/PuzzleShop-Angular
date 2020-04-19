@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PagedRequest } from 'src/app/infrastructure/paged-request';
-import { PagedResponse } from 'src/app/infrastructure/paged-response';
-import { PuzzleModel } from 'src/app/models/puzzles/PuzzleModel';
+import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
+import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
+import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
 import { catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/common/handleError';
-import { PuzzleForCreationModel } from '../models/puzzles/puzzle-for-creation.model';
-import { PuzzleForUpdateModel } from '../models/puzzles/puzzle-for-update.model';
+import { PuzzleForCreationModel } from '../../models/puzzles/puzzle-for-creation.model';
+import { PuzzleForUpdateModel } from '../../models/puzzles/puzzle-for-update.model';
+import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 
 @Injectable()
 export class PuzzleService{
@@ -18,8 +19,8 @@ export class PuzzleService{
 
     constructor(private httpClient: HttpClient){}
 
-    public getAllPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleModel>>{
-        return this.httpClient.post<PagedResponse<PuzzleModel>>(`${this.baseUrl}/getPuzzles`, pagedRequest, this.headers)
+    public getAllPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
+        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}/getPuzzles`, pagedRequest, this.headers)
     }
 
     public getPuzzle(puzzleId: number): Observable<PuzzleModel>{

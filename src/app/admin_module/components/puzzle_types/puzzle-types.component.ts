@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PuzzleTypeModel } from 'src/app/models/puzzle-types/PuzzleTypeModel';
+import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { PuzzleTypesService } from '../../services/puzzle-types.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateEditPuzzleTypeComponent } from './create-edit-puzzle-type.component';
 import { Subscription } from 'rxjs';
+import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
 
 @Component({
@@ -14,11 +15,11 @@ import { Subscription } from 'rxjs';
 })
 export class PuzzleTypesComponent implements OnInit, OnDestroy{
 
-    puzzleTypes: PuzzleTypeModel[] = [];
+    puzzleTypes: PuzzleTypeTableRowModel[] = [];
 
     dialogRefSubscr: Subscription;
 
-    tableColumns: string[] = ['id', 'title'];
+    tableColumns: string[] = ['id', 'title', 'isRubicsCube', 'isWca', 'difficultyLevel'];
 
     constructor(private puzzleTypesService: PuzzleTypesService,
                 private matDialog: MatDialog,
@@ -60,7 +61,7 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
 
     loadPuzzleTypes(){
         this.puzzleTypesService.getAll()
-            .subscribe((pt : PuzzleTypeModel[]) => {
+            .subscribe((pt : PuzzleTypeTableRowModel[]) => {
                 this.puzzleTypes = pt;
                 console.log(this.puzzleTypes);
             });

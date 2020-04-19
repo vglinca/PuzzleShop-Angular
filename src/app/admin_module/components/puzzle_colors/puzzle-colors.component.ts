@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PuzzleColorModel } from 'src/app/models/puzzle-colors/PuzzleColorModel';
+import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { PuzzleColorsService } from '../../services/puzzle-colors.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';

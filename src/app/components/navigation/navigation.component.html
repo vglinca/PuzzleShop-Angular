@@ -4,32 +4,44 @@
     </button>
     <!-- <span>SpeedCubing Store</span> -->
     <div class="navitems"  fxLayout="row | wrap" fxLayoutAlign="center center">
-        <div class="nav-item">
-            <mat-menu #appMenu="matMenu" xPosition="before">
-                <span (mouseleave)="menuTrigger.closeMenu()">
-                    <button  mat-menu-item *ngFor="let puzzleType of puzzleTypes" 
+        <div>
+            <mat-menu #rubicsCubesMatMenu="matMenu" xPosition="before">
+                <span (mouseleave)="closeMenu(0)">
+                    <button  mat-menu-item *ngFor="let puzzleType of rcPuzzles" 
                     [routerLink]="['/rubics-cubes', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
                 </span>
             </mat-menu>
         </div>
         <div class="nav-item">
-            <a mat-button [matMenuTriggerFor]="appMenu" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Кубики Рубика</a>
+            <a mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger" (mouseenter)="openMenu(0)">SpeedCubes</a>
+        </div>
+        
+        <div>
+            <mat-menu #wcaPuzzlesMatMenu="matMenu" xPosition="before">
+                <span (mouseleave)="closeMenu(1)">
+                    <button  mat-menu-item *ngFor="let puzzleType of wcaPuzzles" 
+                    [routerLink]="['/wca-puzzles', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
+                </span>
+            </mat-menu>
         </div>
         <div class="nav-item">
-            <a mat-button [routerLink]="['/wca-puzzles']">WCA Головоломки</a>
+            <a  [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA Puzzles</a>
         </div>
+
         <div class="nav-item">
-            <a mat-button>Головоломки</a>
+            <a mat-button>Other puzzles</a>
         </div>
+
         <div class="nav-item">
-            <a mat-button>Новинки</a>
+            <a mat-button>New</a>
         </div>
+
         <div class="nav-item">
-            <a mat-button>Аксесуары</a>
+            <a mat-button>Accessories</a>
         </div>
     </div>
     <div class="navbar">
-        <a mat-button (click)="loginUser()">Войти</a>
+        <a mat-button (click)="loginUser()">Login</a>
         <!-- <a mat-button [routerLink]="['user/register']">Зарегистрироваться</a> -->
     </div>
 </mat-toolbar>

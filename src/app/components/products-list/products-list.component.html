@@ -3,6 +3,12 @@
 <div class="big-container" fxLayout="row | wrap" fxLayoutAlign="space-between start">
   <div class="category-list" >
     <!-- <img src="../../assets/moyugtsm.jpg"> -->
+
+      <!-- <mat-tree>
+        <mat-tree-node> parent node </mat-tree-node>
+        <mat-tree-node> -- child node1 </mat-tree-node>
+        <mat-tree-node> -- child node2 </mat-tree-node>
+      </mat-tree> -->
   
       <mat-accordion multi="true">
           <mat-expansion-panel class="mat-elevation-z0 exp-panel">
@@ -31,7 +37,10 @@
   <div class="list-with-header-div" fxLayout="column | wrap" fxLayoutAlign="center start">
 
     <div class="list-header" fxLayout="column | wrap" fxLayoutAlign="space-between start">
-      <div class="list-header-puzzle-type" fxLayout="row" fxLayoutAlign="start center">3x3x3 Speed Cubes</div>
+      
+      <div *ngIf="currentPuzzleType?.isRubicsCube" class="list-header-puzzle-type" fxLayout="row" fxLayoutAlign="start center">{{currentPuzzleType?.title}} Speed Cubes</div>
+      <div *ngIf="! currentPuzzleType?.isRubicsCube" class="list-header-puzzle-type" fxLayout="row" fxLayoutAlign="start center">{{currentPuzzleType?.title}}</div>
+      
       <div class="list-header-filter-sort-info" fxLayoutAlign="end center">
         <div>
           SORT BY
@@ -59,8 +68,21 @@
           <mat-grid-tile fxLayout="row | wrap" fxLayoutAlign="center center" *ngFor="let puzzle of pagedPuzzles?.items">
             
             <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
+
+<!-- 
+              <div class="image-div">
+                <img [src]="baseStaticFilesUrl + puzzle.images[0]?.fileName">
+              </div>
+              <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer | uppercase}}</div>
+              <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle?.name}}</div>
+              <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+                <div class="price-div" fxLayoutAlign="center center"><b>{{puzzle?.price | currency:'USD'}}</b></div>
+                <div class="add-to-cart-div">
+                  <button mat-button>Add to cart</button>
+                </div>
+              </div> -->
               
-              <puzzle-thumbnail [puzzle]="puzzle"></puzzle-thumbnail>
+              <puzzle-thumbnail [puzzle]="puzzle" ></puzzle-thumbnail>
             
             </div>
   

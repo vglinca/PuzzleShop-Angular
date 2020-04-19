@@ -72,9 +72,9 @@
                 <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.price | currency:'USD'}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="isWcaPuzzle">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> Official WCA discipline </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.isWcaPuzzle}} </mat-cell>
+            <ng-container matColumnDef="isMagnetic">
+                <mat-header-cell fxFlex="80px" *matHeaderCellDef> Magnetic </mat-header-cell>
+                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.isMagnetic}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="weight">
@@ -95,11 +95,6 @@
             <ng-container matColumnDef="color">
                 <mat-header-cell fxFlex="90px" *matHeaderCellDef> Color </mat-header-cell>
                 <mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.color}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="difficultyLevel">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> DifficultyLevel </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.difficultyLevel}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="materialType">
