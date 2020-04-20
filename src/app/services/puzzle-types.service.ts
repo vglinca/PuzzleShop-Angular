@@ -25,6 +25,10 @@ export class PuzzleTypesService{
         return this.httpClient.get<PuzzleTypeModel>(`${this.baseUrl}/${puzzleTypeId}`, this.headers)
     }
 
+    public getByIdFriendly(puzzleTypeId: number): Observable<PuzzleTypeTableRowModel>{
+        return this.httpClient.get<PuzzleTypeTableRowModel>(`${this.baseUrl}/getPuzzleTypeFriendly/${puzzleTypeId}`, this.headers)
+    }
+
     public add(model: PuzzleTypeForCreationModel): Observable<PuzzleTypeModel>{
         return this.httpClient.post<PuzzleTypeModel>(this.baseUrl, model, this.headers)
     }

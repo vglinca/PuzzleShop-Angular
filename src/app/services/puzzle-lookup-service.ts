@@ -43,7 +43,7 @@ export class PuzzleLookupService{
     }
 
     getPuzzle(puzzleId: number): Observable<PuzzleTableRowModel>{
-        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}puzzles/${puzzleId}`, this.headers);
+        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}puzzles/getPuzzleFriendly/${puzzleId}`, this.headers);
     }
 
     getMaterialTypes(): Observable<MaterialTypeModel[]>{
