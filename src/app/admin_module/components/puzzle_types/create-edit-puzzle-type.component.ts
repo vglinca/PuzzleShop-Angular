@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PuzzleTypesService } from '../../services/puzzle-types.service';
+import { PuzzleTypesService } from '../../../services/puzzle-types.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { PuzzleTypeForCreationModel } from '../../../models/puzzle-types/puzzle-type-for-creation.model';

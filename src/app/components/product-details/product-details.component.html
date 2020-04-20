@@ -1,0 +1,78 @@
+<div class="single">
+    <div class="container"  fxLayout="row | wrap" fxLayoutAlign="start start">
+        
+        <div class="main-image-part-div" fxFlex="45" fxLayout="column">
+            <div class="large-image-div" fxFlex="80">
+            </div>
+           
+            <div class="little-images-list-div" fxFlex="20" fxLayout="row" fxLayoutAlign="start center">
+                <div class="little-image-div"></div>
+                <div class="little-image-div"></div>
+                <div class="little-image-div"></div>
+            </div>
+        </div>
+
+        <div class="order-details-div" fxFlex="55" fxLayout="column" fxLayoutAlign="start start" >
+            <div class="puzzle-name-div" fxLayoutAlign="start center">{{puzzle?.name}}</div>
+            
+            <div class="puzzle-color-div" fxLayout="column" fxLayoutAlign="center start">
+                <div class="color-title-div">Color</div>
+                <div class="color-radio-buttons-div">Radiobuttons here</div>
+            </div>
+            <div class="puzzle-prica-div" fxLayoutAlign="start center" >{{puzzle?.price | currency:'USD'}}</div>
+            
+            <div class="increment-decrement-quantity-outer-div" fxLayout="column" fxLayoutAlign="center start">
+                <div class="increment-decrement-quantity-inner-div" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="increment-decrement-button" fxLayoutAlign="start center">Button1</div>
+                    <div>Input</div>
+                    <div class="increment-decrement-button" fxLayoutAlign="start center">Button2</div>
+                </div>
+                <div class="subtotal-amount-div" fxLayoutAlign="start center">Subtotal: </div>
+            </div>
+
+            <div class="add-to-cart-button-div" fxLayoutAlign="center start">
+
+            </div>
+            
+        </div>
+
+        <div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="space-between start">
+            <div class="puzzle-characteristics-div" fxLayout="column" fxLayoutAlign="start center">
+                <div class="details-text-div" fxLayoutAlign="center center">Details</div>
+                <div class="details-list-container" fxLayout="column" fxLayoutAlign="start center">
+                    
+                    <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div>Manufacturer</div>
+                        <div>{{puzzle?.manufacturer}}</div>
+                    </div>
+                    
+                    <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div >PuzzleType</div>
+                        <div>{{puzzle?.puzzleType}}</div>
+                    </div>
+                    <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div>Difficulty</div>
+                        <div>DifficultyLevel</div>
+                    </div>
+                    <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div>Material</div>
+                        <div>MaterialName</div>
+                    </div>
+                    <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div>Weight</div>
+                        <div>Weight value</div>
+                    </div>
+                    <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div>Magnets</div>
+                        <div>Yes/No</div>
+                    </div>
+                </div>
+            </div>
+            <div class="puzzle-description-div" fxLayout="column" fxLayoutAlign="start center">
+                <div class="description-header-div" fxLayoutAlign="center center">Description</div>
+                <div class="description-text-div">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus, distinctio officiis quibusdam facilis provident similique. Illum magnam dolor veritatis deserunt saepe sint consequatur aperiam sapiente dignissimos, mollitia beatae ab. Aliquam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, natus rerum corrupti asperiores ad aut saepe iure recusandae minima a reprehenderit nihil. Voluptatibus ipsum illum nesciunt quae rerum doloribus autem. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione doloremque ad voluptatem ea, hic ex sint rem molestias harum similique laudantium quis mollitia ab consequuntur et minima, fuga, numquam odit! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus, incidunt! Minima beatae voluptatem neque quas eius ab alias nesciunt non modi, provident sunt officia inventore soluta optio delectus iure maxime?</div>
+            </div>
+        </div>
+        
+    </div>
+</div>

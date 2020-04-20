@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ManufacturersComponent } from './components/manufacturers/manufacturers.component';
 import { MaterialModule } from '../material_module/material.module';
-import { ManufacturersService } from './services/manufacturers.service';
+import { ManufacturersService } from '../services/manufacturers.service';
 import { RouterModule } from '@angular/router';
 import { adminRoutes } from './admin-routes';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -13,16 +13,16 @@ import { ConfirmDialogService } from './shared/confirm_dialog/confirm-dialog.ser
 import { ConfirmDialogComponent } from './shared/confirm_dialog/confirm-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PuzzleTypesComponent } from './components/puzzle_types/puzzle-types.component';
-import { PuzzleTypesService } from './services/puzzle-types.service';
+import { PuzzleTypesService } from '../services/puzzle-types.service';
 import { CreateEditPuzzleTypeComponent } from './components/puzzle_types/create-edit-puzzle-type.component';
 import { PuzzleColorsComponent } from './components/puzzle_colors/puzzle-colors.component';
-import { PuzzleColorsService } from './services/puzzle-colors.service';
+import { PuzzleColorsService } from '../services/puzzle-colors.service';
 import { CreateEditPuzzleColorComponent } from './components/puzzle_colors/create-edit-puzzle-color.component';
-import { PuzzleService } from './services/puzzle.service';
+import { PuzzleService } from '../services/puzzle.service';
 import { PuzzlesComponent } from './components/puzzles/puzzles.component';
 import { ShortenStringPipe } from '../common/shorten-string.pipe';
 import { CreateEditPuzzleComponent } from './components/puzzles/create-edit-puzzle.component';
-import { ImagesService } from './services/images.service';
+import { ImagesService } from '../services/images.service';
 
 
 
@@ -50,11 +50,6 @@ import { ImagesService } from './services/images.service';
     ReactiveFormsModule, 
   ],
   providers:[
-    ManufacturersService,
-    PuzzleTypesService,
-    PuzzleColorsService,
-    PuzzleService,
-    ImagesService,
     ConfirmDialogService
   ],
   entryComponents: [

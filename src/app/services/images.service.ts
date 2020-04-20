@@ -4,7 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ImageModel } from 'src/app/models/images/image.model';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ImagesService{
     private baseUrl: string = environment.apiUrl;
     private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};

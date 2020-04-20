@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { ManufacturersService } from '../../services/manufacturers.service';
+import { ManufacturersService } from '../../../services/manufacturers.service';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateEditManufacturerComponent } from './create-edit-manufacturer.component';

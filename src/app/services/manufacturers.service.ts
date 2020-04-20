@@ -5,10 +5,12 @@ import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.mod
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/common/handleError';
-import { ManufacturerForManipulationModel } from '../../models/manufacturers/manufacturer-for-manipulation.model';
-import { CreateEditManufacturerComponent } from '../components/manufacturers/create-edit-manufacturer.component';
+import { ManufacturerForManipulationModel } from '../models/manufacturers/manufacturer-for-manipulation.model';
+import { CreateEditManufacturerComponent } from '../admin_module/components/manufacturers/create-edit-manufacturer.component';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ManufacturersService{
 
     private baseUrl: string = environment.apiUrl + 'manufacturers';

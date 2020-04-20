@@ -5,13 +5,12 @@ import { Observable } from 'rxjs';
 import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
-import { catchError } from 'rxjs/operators';
-import { handleError } from 'src/app/common/handleError';
-import { PuzzleForCreationModel } from '../../models/puzzles/puzzle-for-creation.model';
-import { PuzzleForUpdateModel } from '../../models/puzzles/puzzle-for-update.model';
+import { PuzzleForUpdateModel } from '../models/puzzles/puzzle-for-update.model';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class PuzzleService{
 
     private baseUrl: string = environment.apiUrl + 'puzzles';

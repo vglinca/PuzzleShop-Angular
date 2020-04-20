@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { handleError } from 'src/app/common/handleError';
 import { catchError } from 'rxjs/operators';
-import { PuzzleTypeForCreationModel } from '../../models/puzzle-types/puzzle-type-for-creation.model';
+import { PuzzleTypeForCreationModel } from '../models/puzzle-types/puzzle-type-for-creation.model';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class PuzzleTypesService{
     private baseUrl: string = environment.apiUrl + 'puzzleTypes';
     private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};

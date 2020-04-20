@@ -3,11 +3,11 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { handleError } from 'src/app/common/handleError';
-import { PuzzleColorForCreationModel } from '../../models/puzzle-colors/puzzle-color-for-creation.model';
+import { PuzzleColorForCreationModel } from '../models/puzzle-colors/puzzle-color-for-creation.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class PuzzleColorsService{
 
     private baseUrl: string = environment.apiUrl + 'colors';

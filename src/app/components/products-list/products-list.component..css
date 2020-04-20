@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
 .big-container {
     margin-top: 50px;
@@ -104,18 +105,30 @@ mat-grid-tile {
     /* background-color: lawngreen; */
 }
 
+
+
+
+
+.pagination-data-div {
+    width: 1000px;
+    height: 50px;
+    margin-top: 50px;
+}
+
+
 .image-div {
     position: relative;
-    height: 190px;
-    width: 250px;
+    height: 210px;
+    width: 290px;
     margin-top: 5px;
     background-color: white;
+    cursor: pointer;
     /* background-color: blue; */
 }
 
 .image-div img {
-    width: 250px;
-    height: 190px;
+    width: 290px;
+    height: 210px;
 }
 
 .manufacturer-name-div{
@@ -124,14 +137,14 @@ mat-grid-tile {
     margin-top: 15px;
     background-color: white;
     /* background-color: crimson; */
-    text-transform: uppercase;
 }
 
 .puzzle-name-div {
     width: 250px;
     height: 50px;
-    margin-top: 15px;
+    margin-top: 5px;
     background-color: white;
+    cursor: pointer;
     /* background-color: darkgreen; */
     max-lines: 2;
 }
@@ -152,18 +165,20 @@ mat-grid-tile {
     /* background-color: orangered; */
 }
 
-.ad-to-cart-div{
+.add-to-cart-div{
     width: 70px;
     height: 50px;
     background-color: white;
+    margin-right: 20px;
     /* background-color: orangered; */
 }
 
-.pagination-data-div {
-    width: 1000px;
-    height: 50px;
-    margin-top: 50px;
+.add-to-cart-div button{
+    color: white;
+    background-color: crimson;
+    font-family: 'Inconsolata', monospace;
 }
+
 
 
 /*------------------------------------------------------------------------------------*/

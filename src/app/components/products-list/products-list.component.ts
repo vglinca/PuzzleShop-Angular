@@ -10,12 +10,13 @@ import { RequestFilters } from '../../infrastructure/pagination/request-filters'
 import { LogicalOperator } from '../../infrastructure/pagination/logical-operator';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Filter } from '../../infrastructure/pagination/filter';
 import { MatSort } from '@angular/material/sort';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 import { environment } from 'src/environments/environment';
 import { ImageModel } from 'src/app/models/images/image.model';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -27,13 +28,18 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     rowsNumber: number;
 
     currentPuzzleType: PuzzleTypeModel;
+    prevPuzzleTypeTitle: string;
     currentPuzzleTypeTitle: string;
 
     baseStaticFilesUrl: string = environment.staticFilesUrl;
 
+    sortOptions: SortingOption[] = SORTING_OPTIONS;
+    currentSortOption: string;
+
     activatedRouteSubscr1: Subscription;
     activatedRouteSubscr2: Subscription;
     activatedRouteSubscr3: Subscription;
+    routerSubscription: Subscription;
     subscriptions: Subscription[] = [];
 
     puzzleTypes: PuzzleTypeModel[];
@@ -57,6 +63,48 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
         console.log('CHANGES: ' + changes);
     }
 
+    ngOnInit(): void {
+
+        console.log();
+        this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
+        this.lookupService.getPuzzleTypes()
+            .subscribe((pt: PuzzleTypeModel[]) => {
+                this.puzzleTypes = pt;
+                this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
+                console.log('On init ' + this.currentPuzzleTypeTitle);
+            });
+        
+        this.lookupService.getManufacturers()
+            .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
+
+        this.lookupService.getPuzzleColors()
+            .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
+
+    }
+
+    
+    ngAfterViewInit(): void {
+        this.routerSubscription = this.router.events.subscribe((e) => {
+            if(e instanceof NavigationStart){
+                this.paginator.pageIndex = 0;
+                this.currentSortOption = this.sortOptions[0].value;
+                console.log('Event from router ' + e);
+            }
+        })
+
+        this.activatedRouteSubscr3 = this.activatedRoute.params
+            .subscribe((val) => {
+                this.getPuzzles(val.puzzleType);
+                this.currentPuzzleTypeTitle = val.puzzleType;
+                if(this.puzzleTypes){
+                    this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
+                }
+                console.log('After view init ' + this.currentPuzzleTypeTitle);
+            });
+
+        this.subscriptions.push(this.activatedRouteSubscr3);
+    }
+   
     onPageChanged(event){
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.pageSize = event.pageSize;
@@ -77,51 +125,22 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
         var orderby: string = value.split(',')[0];
         var orderbyDirection: string = value.split(',')[1];
         console.log(`${orderby} | ${orderbyDirection}`);
+
+        this.currentSortOption = value;
         
         this.activatedRouteSubscr2 = this.activatedRoute.params
             .subscribe((val) => {
+                this.paginator.pageIndex = 0;
                 this.getPuzzles(val.puzzleType, orderby, orderbyDirection);
                 this.currentPuzzleTypeTitle = val.puzzleType;
                 this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
+                
                 console.log('OnChnage mat select ' + this.currentPuzzleTypeTitle);
             });
 
         this.subscriptions.push(this.activatedRouteSubscr2);
     }
 
-
-    ngAfterViewInit(): void {
-        this.activatedRouteSubscr3 = this.activatedRoute.params
-            .subscribe((val) => {
-                this.getPuzzles(val.puzzleType);
-                this.currentPuzzleTypeTitle = val.puzzleType;
-                if(this.puzzleTypes){
-                    this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
-                }
-                console.log('After view init ' + this.currentPuzzleTypeTitle);
-            });
-
-            this.subscriptions.push(this.activatedRouteSubscr3);
-    }
-   
-    ngOnInit(): void {
-        
-        console.log();
-        this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
-        this.lookupService.getPuzzleTypes()
-            .subscribe((pt: PuzzleTypeModel[]) => {
-                this.puzzleTypes = pt;
-                this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
-                console.log('On init ' + this.currentPuzzleTypeTitle);
-            });
-        
-        this.lookupService.getManufacturers()
-            .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
-
-        this.lookupService.getPuzzleColors()
-            .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
-
-    }
 
     private getPuzzles(val: any, orderby: string = 'name', orderbyDirection: string = 'asc'){
         var url = this.activatedRoute.snapshot.url.join().split(',');
@@ -136,15 +155,16 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                                                 this.paginator.pageSize, 
                                                 this.requestFilters);
         
-
-        //console.log(pagedRequest);
         this.lookupService.getPuzzles(pagedRequest)
             .subscribe((pagedPuzzles: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = pagedPuzzles;
             }, err => {console.log(err)});
-
-       
     }
+
+    openProductDetails(id: number): void{
+        this.router.navigate(['/collections', this.currentPuzzleType.title, id]);
+    }
+
 
     @HostListener('window:resize', ['$event'])
     onResize(event){
@@ -155,3 +175,35 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
         this.subscriptions.forEach(subscr => subscr.unsubscribe());
     }
 }
+
+export interface SortingOption{
+    value: string;
+    title: string;
+}
+
+const SORTING_OPTIONS: SortingOption[] = [
+    {
+        title: 'A-Z by title',
+        value: 'name,asc'
+    },
+    {
+        title: 'Z-A by title',
+        value: 'name,desc'
+    },
+    {
+        title: 'A-Z by manufacturer',
+        value: 'manufacturer,asc'
+    },
+    {
+        title: 'Z-A by manufacturer',
+        value: 'manufacturer,desc'
+    },
+    {
+        title: 'By price, low to high',
+        value: 'price,asc'
+    },
+    {
+        title: 'By price, high to low',
+        value: 'price,desc'
+    }
+]

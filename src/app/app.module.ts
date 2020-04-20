@@ -15,6 +15,7 @@ import { PuzzleLookupService } from './services/puzzle-lookup-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-thumbnail.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-t
       NavigationComponent,
       ProductsListComponent,
       PuzzleThumbnailComponent,
+      ProductDetailsComponent
     ],
   providers: [
     DatePipe,

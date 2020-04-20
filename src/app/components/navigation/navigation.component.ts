@@ -52,7 +52,7 @@ export class NavigationComponent implements OnInit, AfterViewInit{
 
     onClick(puzzleType){
         console.log('onclick' + puzzleType);
-        this.router.navigate(['/rubics-cubes', puzzleType]);
+        this.router.navigate(['/collections', puzzleType]);
     }
 
     private loadPuzzleTypesFromApi(){

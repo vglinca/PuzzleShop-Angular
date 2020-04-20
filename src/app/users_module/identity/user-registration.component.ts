@@ -4,7 +4,6 @@ import { AccountService } from './services/account.service';
 import { userForRegistrationModel } from '../models/userForRegistrationModel';
 import { DatePipe } from '@angular/common';
 import { first } from 'rxjs/operators';
-import { AlertService } from 'src/app/services/alert.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -19,7 +18,6 @@ export class UserRegistrationComponent implements OnInit{
     constructor(private formBuilder: FormBuilder,
                 private accountService: AccountService,
                 private datePipe: DatePipe,
-                private alertService: AlertService,
                 private dialogRef: MatDialogRef<UserRegistrationComponent>){}
     
     ngOnInit(): void {
@@ -53,7 +51,6 @@ export class UserRegistrationComponent implements OnInit{
         this.accountService.register(userDto)
             .pipe(first())
             .subscribe(r => {
-                this.alertService.success('Registration successful', true);
                 this.dialogRef.close();
             }, err => {
                 err.error.forEach(el => {
@@ -62,7 +59,6 @@ export class UserRegistrationComponent implements OnInit{
                 });
                 console.log(this.errorMessage);
                 
-                this.alertService.error(err);
             });
     }
 

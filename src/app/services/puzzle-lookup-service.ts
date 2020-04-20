@@ -16,7 +16,9 @@ import { PuzzleTableRowModel } from '../models/puzzles/puzzle-table-row.model';
 import { QueryParameters } from '../infrastructure/query-params/query-parameters';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class PuzzleLookupService{
 
     private baseUrl: string = environment.apiUrl;
@@ -29,27 +31,26 @@ export class PuzzleLookupService{
     }
 
     getManufacturers() : Observable<ManufacturerModel[]>{
-        return this.httpClient.get<ManufacturerModel[]>(`${this.baseUrl}manufacturers`, this.headers)
-            .pipe(catchError(handleError<ManufacturerModel[]>('getManufacturers', [])));
+        return this.httpClient.get<ManufacturerModel[]>(`${this.baseUrl}manufacturers`, this.headers);
     }
 
     getPuzzleColors() : Observable<PuzzleColorModel[]> {
-        return this.httpClient.get<PuzzleColorModel[]>(`${this.baseUrl}colors`, this.headers)
-        .pipe(catchError(handleError<PuzzleColorModel[]>('getColors', [])));
+        return this.httpClient.get<PuzzleColorModel[]>(`${this.baseUrl}colors`, this.headers);
     }
 
     getPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
-        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers)
-            .pipe(catchError(handleError<PagedResponse<PuzzleTableRowModel>>('getPuzzles')));
+        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers);
+    }
+
+    getPuzzle(puzzleId: number): Observable<PuzzleTableRowModel>{
+        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}puzzles/${puzzleId}`, this.headers);
     }
 
     getMaterialTypes(): Observable<MaterialTypeModel[]>{
-        return this.httpClient.get<MaterialTypeModel[]>(`${this.baseUrl}materialType`, this.headers)
-            .pipe(catchError(handleError<MaterialTypeModel[]>('getMaterialType')));
+        return this.httpClient.get<MaterialTypeModel[]>(`${this.baseUrl}materialType`, this.headers);
     }
 
     getDifficultyLevels(): Observable<DifficultyLevelModel[]>{
-        return this.httpClient.get<DifficultyLevelModel[]>(`${this.baseUrl}lookup/difficultylevels`, this.headers)
-            .pipe(catchError(handleError<DifficultyLevelModel[]>('getMaterialType')));
+        return this.httpClient.get<DifficultyLevelModel[]>(`${this.baseUrl}lookup/difficultylevels`, this.headers);
     }
 }

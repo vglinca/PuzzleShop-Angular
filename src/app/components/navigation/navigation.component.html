@@ -8,7 +8,7 @@
             <mat-menu #rubicsCubesMatMenu="matMenu" xPosition="before">
                 <span (mouseleave)="closeMenu(0)">
                     <button  mat-menu-item *ngFor="let puzzleType of rcPuzzles" 
-                    [routerLink]="['/rubics-cubes', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
+                    [routerLink]="['/collections', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
                 </span>
             </mat-menu>
         </div>
@@ -20,7 +20,7 @@
             <mat-menu #wcaPuzzlesMatMenu="matMenu" xPosition="before">
                 <span (mouseleave)="closeMenu(1)">
                     <button  mat-menu-item *ngFor="let puzzleType of wcaPuzzles" 
-                    [routerLink]="['/wca-puzzles', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
+                    [routerLink]="['/collections', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
                 </span>
             </mat-menu>
         </div>

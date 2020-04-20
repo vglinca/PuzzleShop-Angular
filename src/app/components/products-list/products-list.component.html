@@ -1,33 +1,25 @@
-<!-- <div class="mat-display-3 puzzle-typename-header">Кубик Рубика</div> -->
 
 <div class="big-container" fxLayout="row | wrap" fxLayoutAlign="space-between start">
   <div class="category-list" >
-    <!-- <img src="../../assets/moyugtsm.jpg"> -->
-
-      <!-- <mat-tree>
-        <mat-tree-node> parent node </mat-tree-node>
-        <mat-tree-node> -- child node1 </mat-tree-node>
-        <mat-tree-node> -- child node2 </mat-tree-node>
-      </mat-tree> -->
   
       <mat-accordion multi="true">
           <mat-expansion-panel class="mat-elevation-z0 exp-panel">
               <mat-expansion-panel-header  class="exp-panel-header">
-               <span style="padding-top: 10px;">Категории</span> 
+               <span style="padding-top: 10px;">Categories</span> 
               </mat-expansion-panel-header>
               <div style="padding-top: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
             </mat-expansion-panel>
           
             <mat-expansion-panel class="mat-elevation-z0 exp-panel">
               <mat-expansion-panel-header class="exp-panel-header">
-                  <span style="padding-top: 10px;">Производители</span>
+                  <span style="padding-top: 10px;">Manufacturers</span>
               </mat-expansion-panel-header>
               <div style="padding-top: 10px;" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
             </mat-expansion-panel>
   
             <mat-expansion-panel class="mat-elevation-z0 exp-panel">
               <mat-expansion-panel-header class="exp-panel-header">
-                <span style="padding-top: 10px;">Цвет Пластика</span>
+                <span style="padding-top: 10px;">Color</span>
               </mat-expansion-panel-header>
               <div style="padding-top: 10px;" *ngFor="let color of puzzleColors">{{color.title}}</div>
             </mat-expansion-panel>
@@ -48,13 +40,8 @@
         
         <div class="mat-select-div">
           <mat-form-field>
-            <mat-select value="name,asc" (selectionChange)="onChangeMatSelect($event.value)">
-              <mat-option value="name,asc">A-Z by title</mat-option>
-              <mat-option value="name,desc">Z-A by title</mat-option>
-              <mat-option value="manufacturer,asc">A-Z by manufacturer</mat-option>
-              <mat-option value="manufacturer,desc">Z-A by manufacturer</mat-option>
-              <mat-option value="price,desc">By price, high to low</mat-option>
-              <mat-option value="price,asc">By price, low to high</mat-option>
+            <mat-select [(ngModel)]="currentSortOption" (selectionChange)="onChangeMatSelect($event.value)">
+              <mat-option *ngFor="let option of sortOptions" [value]="option?.value">{{option?.title}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -69,21 +56,21 @@
             
             <div class="grid-tile-parent-div" fxLayout="column | wrap" fxLayoutAlign="start center">
 
-<!-- 
-              <div class="image-div">
+              <div class="image-div" (click)="openProductDetails(puzzle?.id)">
                 <img [src]="baseStaticFilesUrl + puzzle.images[0]?.fileName">
               </div>
               <div class="manufacturer-name-div" fxLayoutAlign="center center">{{puzzle?.manufacturer | uppercase}}</div>
-              <div class="puzzle-name-div" fxLayoutAlign="center center">{{puzzle?.name}}</div>
+              <div class="puzzle-name-div" fxLayoutAlign="center center" (click)="openProductDetails(puzzle?.id)">{{puzzle?.name}}</div>
               <div class="puzzle-price-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
                 <div class="price-div" fxLayoutAlign="center center"><b>{{puzzle?.price | currency:'USD'}}</b></div>
                 <div class="add-to-cart-div">
-                  <button mat-button>Add to cart</button>
+                  <button mat-flat-button matTooltip="Add to cart" 
+                          matTooltipPosition="right">
+                    <mat-icon>shopping_cart</mat-icon>
+                  </button>
                 </div>
-              </div> -->
+              </div>
               
-              <puzzle-thumbnail [puzzle]="puzzle" ></puzzle-thumbnail>
-            
             </div>
   
           </mat-grid-tile>
@@ -95,31 +82,6 @@
       <div>
 
         <mat-paginator (page)="onPageChanged($event)" [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[12, 24, 48, 96]" pageSize="24"></mat-paginator>
-
-        <!-- <mat-form-field>
-          <mat-label>List length</mat-label>
-          <input matInput [(ngModel)]="length" type="number">
-        </mat-form-field>
-        
-        <mat-form-field>
-          <mat-label>Page size</mat-label>
-          <input matInput [(ngModel)]="pageSize" type="number">
-        </mat-form-field>
-  
-        <mat-form-field>
-          <mat-label>Page size options</mat-label>
-          <input matInput [ngModel]="pageSizeOptions" (ngModelChange)="setPageSizeOptions($event)" [ngModelOptions]="{updateOn: 'blur'}" placeholder="Ex. 10,25,50">
-        </mat-form-field>
-
-      </div>
-
-      <div>
-        <mat-paginator [length]="length"
-                       [pageSize]="pageSize"
-                       [pageSizeOptions]="pageSizeOptions"
-                       (page)="pageEvent = $event">
-        </mat-paginator>
-      </div> -->
       
     </div>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
-import { PuzzleService } from '../../services/puzzle.service';
+import { PuzzleService } from '../../../services/puzzle.service';
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { MatPaginator } from '@angular/material/paginator';
 import { RequestFilters } from 'src/app/infrastructure/pagination/request-filters';
