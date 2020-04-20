@@ -162,7 +162,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     }
 
     openProductDetails(id: number): void{
-        this.router.navigate(['/collections', this.currentPuzzleType.title, id]);
+        this.router.navigate(['/collections', this.currentPuzzleType.title, id], 
+            {queryParams: {puzzletype: this.currentPuzzleType.isRubicsCube ? `${this.currentPuzzleType.title} SpeedCubes` : this.currentPuzzleType.title}});
     }
 
 

@@ -4,11 +4,12 @@ import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.mod
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PuzzleService } from 'src/app/services/puzzle.service';
-import { DifficultyLevelModel } from 'src/app/models/difficulty-levels/difficulty-level.model';
 import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
 import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
-import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
+import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
+import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -17,38 +18,53 @@ import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type
 })
 export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy{
 
+    staticFilesUrl: string = environment.staticFilesUrl;
+
     puzzle: PuzzleTableRowModel;
     difficultyLevel: string;
     puzzleId: number;
+    queryParam: string;
+    colors: PuzzleColorModel[] = [];
 
-    activatedRouteSubscription: Subscription;
+    quantity: number = 1;
+    subtotal: number;
+
+    activatedRouteSubscription1: Subscription;
+    activatedRouteSubscription2: Subscription;
     subscriptions: Subscription[] = [];
 
     constructor(private lookupService: PuzzleLookupService,
                 private puzzleService: PuzzleService,
                 private puzzleTypeService: PuzzleTypesService,
+                private puzzleColorService: PuzzleColorsService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute){
     }
     
     ngOnInit(): void {
-        this.activatedRouteSubscription = this.activatedRoute.paramMap.subscribe(params => {
+        this.activatedRouteSubscription1 = this.activatedRoute.paramMap.subscribe(params => {
             this.puzzleId = +params.get('id');
             console.log(this.puzzleId);
-            this.getPuzzle();
+            this.loadDataFromApi();
+        });
+        this.activatedRouteSubscription2 = this.activatedRoute.queryParams.subscribe(params => {
+            this.queryParam = params['puzzletype'];
+            console.log(this.queryParam);
         });
 
-        this.subscriptions.push(this.activatedRouteSubscription);
+        this.subscriptions.push(this.activatedRouteSubscription1);
+        this.subscriptions.push(this.activatedRouteSubscription2);
     }
     
     ngAfterViewInit(): void {
     }
 
-    getPuzzle(): void{
+    loadDataFromApi(): void{
         this.lookupService.getPuzzle(this.puzzleId)
             .subscribe((p: PuzzleTableRowModel) => {
                 this.puzzle = p;
                 console.log(this.puzzle);
+                this.subtotal = this.puzzle.price;
             });
 
         this.puzzleService.getPuzzle(this.puzzleId)
@@ -58,6 +74,28 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
                         this.difficultyLevel = pt.difficultyLevel;
                     });
             });
+        this.puzzleColorService.getAll()
+            .subscribe((c : PuzzleColorModel[]) => {
+                this.colors = c;
+            });
+    }
+
+    navigateToCollections(): void{
+        this.router.navigate(['/collections', this.puzzle.puzzleType]);
+    }
+
+    incrementQuantity(): void{
+        if(this.quantity < 100){
+            this.quantity++;
+            this.subtotal += this.puzzle.price;
+        }
+    }
+
+    decrementQuantity(): void{
+        if(this.quantity > 1){
+            this.quantity--;
+            this.subtotal -= this.puzzle.price;
+        }
     }
 
 
