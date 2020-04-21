@@ -17,6 +17,14 @@ import { environment } from 'src/environments/environment';
     styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy{
+    items = [
+        { title: 'Slide 1' },
+        { title: 'Slide 2' },
+        { title: 'Slide 3' },
+      ]
+     
+
+    // items: Array<any> = []
 
     staticFilesUrl: string = environment.staticFilesUrl;
 

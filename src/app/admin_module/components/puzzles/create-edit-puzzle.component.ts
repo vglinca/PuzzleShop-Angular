@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, ElementRef, QueryList, Renderer2, DoCheck, Directive } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ManufacturersService } from '../../../services/manufacturers.service';
 import { PuzzleTypesService } from '../../../services/puzzle-types.service';
@@ -19,17 +19,25 @@ import { ImagesService } from '../../../services/images.service';
 import { PuzzleForUpdateModel } from '../../../models/puzzles/puzzle-for-update.model';
 import { environment } from 'src/environments/environment';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
+import { element } from 'protractor';
 
+@Directive({
+    selector: '.image-item'
+})
+export class ImageItemElement{
+}
 
 @Component({
     templateUrl: './create-edit-puzzle.component.html',
     styleUrls: ['./create-edit-puzzle.component.css']
 })
-export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewInit
+export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewInit, DoCheck
 {
     dialogTitle: string;
     puzzleForm: FormGroup;
     puzzleId: number;
+
+    imageOpacity: number = 1;
 
     file: File;
     imageFiles: Array<File> = new Array<File>();
@@ -37,6 +45,11 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     urls: Array<string> = new Array<string>();
 
     imageIdsToDelete: Array<number> = new Array<number>();
+    imagesToDelete: Array<ImageDictionary> = new Array<ImageDictionary>();
+
+    isDeletingImages: boolean = false;
+
+    @ViewChildren('element', {read: ElementRef}) images: QueryList<ElementRef>;
 
     puzzleModel: PuzzleModel;
     staticFilesUrl: string = environment.staticFilesUrl;
@@ -58,12 +71,38 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                 private formBuilder: FormBuilder,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
-                public snackbar: MatSnackBar){
+                public snackbar: MatSnackBar,
+                private renderer: Renderer2){
                     this.imageIdsToDelete = [];
                 }
+    ngDoCheck(): void {
+    }
 
 
     ngAfterViewInit(): void {
+
+
+
+        setTimeout(() => {
+            // console.log('IMAGES: ', this.images);
+
+            this.images.forEach((element: ElementRef) => {
+                element.nativeElement.addEventListener('click', (event) => {
+
+
+                    let target = this.imagesToDelete.find(img => img.imageId === +event.target.alt);
+                    target.deleteMode = !target.deleteMode;
+                    
+                    if(target.deleteMode){
+                        this.renderer.setStyle(element.nativeElement.children[0], 'opacity', '0.3');
+                    }else{
+                        this.renderer.setStyle(element.nativeElement.children[0], 'opacity', '1.0');
+                    }
+                    console.log('target ',target);
+                    console.log(event.target.alt);
+                });
+            });
+        }, 1000);
     }
                 
     ngOnInit(): void {
@@ -107,6 +146,12 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                     ...p
                 });
                 this.puzzleModel = p;
+                this.puzzleModel.images.forEach(image => {
+                    console.log(image.id);
+                    var imageDictionary = new ImageDictionary(image.id);
+                    this.imagesToDelete.push(imageDictionary);
+                });
+                // console.log(this.imagesToDelete);
             });
     }
 
@@ -126,13 +171,24 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         }
     }
 
-    onImageClicked(event): void{
-        console.log(event);
-    }
-
-    onDeleteImage(imageId: number): void{
-        console.log(imageId);
-        this.imageIdsToDelete.push(imageId);
+    onDeleteImage(): void {
+        this.imagesToDelete.forEach(element => {
+            if (element.deleteMode) {
+                this.imageIdsToDelete.push(element.imageId);
+            }
+        });
+        if(this.imageIdsToDelete.length > 0){
+            this.imagesService.deleteImages(this.puzzleId, this.imageIdsToDelete)
+                .subscribe(() => {
+                    this.snackbar.open('Images has been successfully deleted.', 'Hide', {duration: 1500});
+                    this.puzzleForm.reset();
+                    this.ngOnInit();
+                }, err => {
+                    this.onProblemsOccured('Could not perform operation of deleting images.');;
+                });
+        }else{
+            this.snackbar.open('Select at least one image to perform deletion.', 'Hide', {duration: 1500});
+        }
     }
 
     saveChanges(){
@@ -173,8 +229,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             };
             
             if(this.imageFiles.length > 0){
-                let reqFormData: FormData = new FormData();
                 for(let img of this.imageFiles){
+                    let reqFormData: FormData = new FormData();
                     reqFormData.append('id', '0');
                     reqFormData.append('title', editedPuzzle.name);
                     reqFormData.append('file', img);
@@ -187,14 +243,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                 }
             }
 
-            if(this.imageIdsToDelete.length > 0){
-                this.imagesService.deleteImages(this.puzzleId, this.imageIdsToDelete)
-                    .subscribe(() => {
-                    }, err => {
-                        this.onProblemsOccured('Could not perform operation of deleting images.');;
-                    });
-            }
-
+           
             this.puzzleService.updatePuzzle(this.puzzleId, editedPuzzle)
                 .subscribe(() => {
                     this.onChangesApplied();
@@ -246,4 +295,12 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     }
 }
 
+export class ImageDictionary{
+    imageId: number;
+    deleteMode: boolean;
 
+    constructor(id: number){
+        this.imageId = id;
+        this.deleteMode = false;
+    }
+}

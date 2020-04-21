@@ -16,6 +16,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-thumbnail.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CarouselItemDirective } from './common/carousel/carousel-item.directive';
+import { CarouselItemElement, CarouselComponent } from './common/carousel/carousel.component';
+import { ImageItemElement } from './admin_module/components/puzzles/create-edit-puzzle.component';
 
 
 @NgModule({
@@ -27,14 +30,20 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
     ],
   declarations: [
       AppComponent,
       NavigationComponent,
       ProductsListComponent,
       PuzzleThumbnailComponent,
-      ProductDetailsComponent
+      ProductDetailsComponent,
+      
+      CarouselComponent, 
+      CarouselItemDirective, 
+      CarouselItemElement,
+
+      ImageItemElement
     ],
   providers: [
     DatePipe,

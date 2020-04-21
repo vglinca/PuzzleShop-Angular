@@ -12,14 +12,14 @@
     position: relative;
 }
 
-.img-div{
+.image-item{
     position: relative;
     height: 150px;
     width: 180px;
     margin: 20px;
 }
 
-.img-div img {
+.image-item img {
     height: 150px;
     width: 180px;
 }

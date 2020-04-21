@@ -165,7 +165,16 @@ body {
 }
 
 
-
+.item {
+  padding: 0;
+  width: 300px;
+  height: 300px;
+  background-color: crimson;
+  color: #fff;
+  font-size: 50px;
+  line-height: 300px;
+  text-align: center;
+}
 
 
 /* .parent{
