@@ -29,6 +29,16 @@ mat-sidenav{
     margin-right: 100px;
 }
 
+.action{
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.action:hover{
+  cursor: pointer;
+    text-decoration: underline;
+}
+
 
 * {
   margin: 0;

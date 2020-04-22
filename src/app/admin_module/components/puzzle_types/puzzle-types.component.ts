@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { PuzzleTypesService } from '../../../services/puzzle-types.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';
+import { ConfirmDialogService } from '../../../common/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateEditPuzzleTypeComponent } from './create-edit-puzzle-type.component';
 import { Subscription } from 'rxjs';

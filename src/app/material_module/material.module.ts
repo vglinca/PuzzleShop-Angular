@@ -22,6 +22,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const materialDesignComponents = [
       MatButtonModule, 
@@ -47,7 +48,8 @@ const materialDesignComponents = [
       MatSortModule,
       MatTreeModule,
       MatTooltipModule,
-      MatRadioModule
+      MatRadioModule,
+      MatProgressSpinnerModule
     ];
 
 @NgModule({

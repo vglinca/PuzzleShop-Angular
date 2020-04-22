@@ -6,19 +6,19 @@ Html, body{
 
   .container {
     height:100%;
-      margin: 0 auto;
-      padding:0px;
-      position: relative;
-      top: 20 auto;
+    margin: 0 auto;
+     padding:0px;
+    position: relative;
+    top: 10 auto;
   }
-  .grandParentContaniner{
-          display:table;
-          height:100%;
-          margin: 20 auto;
+.grandParentContaniner{
+    display:table;
+    height:100%;
+    margin: 20 auto;
   }
   .parentContainer{
       display:table-cell;
-      vertical-align:middle;
+      /* vertical-align:middle; */
   }
   .parentContainer .loginForm{
       padding:50px;
@@ -36,6 +36,7 @@ Html, body{
   }
 
   .login-button {
+    border-radius: 30px;
       width: 100%;
       color: white;
       background-color: #e62047;
@@ -46,6 +47,7 @@ Html, body{
 }
 
   .registration-button {
+    
       margin-top: 5px;
       text-align: left;
       color: #e62047;

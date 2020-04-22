@@ -13,7 +13,8 @@ Html, body{
     margin: 0 auto;
     padding:0px;
     position: relative;
-    top: 20px;
+    top: 10px;
+    margin-bottom: 20px;
   }
   .grandParentContaniner{
     display:table;
@@ -22,7 +23,7 @@ Html, body{
   }
   .parentContainer{
       display:table-cell;
-      vertical-align:middle;
+      /* vertical-align:middle; */
   }
   .parentContainer .registrationForm{
       padding:10px;
@@ -36,6 +37,7 @@ Html, body{
   }
 
   .registerButton{
+    border-radius: 30px;
     width: 100%;
     color: white;
     background-color: #e62047;

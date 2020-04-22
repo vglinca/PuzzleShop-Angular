@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:5000/api/',
-  staticFilesUrl: 'http://localhost:5000/images/'
+  staticFilesUrl: 'http://localhost:5000/images/',
+  whitelistedDomains: 'localhost:5000',
+  blacklistedRoutes: 'http://localhost:5000/api/auth/authenticate',
+  accessToken: 'accessToken'
 };
 
 /*

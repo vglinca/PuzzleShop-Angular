@@ -9,8 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateEditManufacturerComponent } from './components/manufacturers/create-edit-manufacturer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InsteadOfEmptyStringPipe } from '../common/instead-of-empty-string.pipe';
-import { ConfirmDialogService } from './shared/confirm_dialog/confirm-dialog.service';
-import { ConfirmDialogComponent } from './shared/confirm_dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../common/confirm_dialog/confirm-dialog.service';
+import { ConfirmDialogComponent } from '../common/confirm_dialog/confirm-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PuzzleTypesComponent } from './components/puzzle_types/puzzle-types.component';
 import { PuzzleTypesService } from '../services/puzzle-types.service';
@@ -56,7 +56,7 @@ import { ImagesService } from '../services/images.service';
     CreateEditManufacturerComponent,
     CreateEditPuzzleTypeComponent,
     CreateEditPuzzleColorComponent,
-    ConfirmDialogComponent
+    
   ]
 })
 export class AdminModule { }

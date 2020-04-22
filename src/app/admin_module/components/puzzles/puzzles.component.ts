@@ -9,7 +9,7 @@ import { LogicalOperator } from 'src/app/infrastructure/pagination/logical-opera
 import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
 import { MatSort } from '@angular/material/sort';
 import { Subscription, merge } from 'rxjs';
-import { ConfirmDialogService } from '../../shared/confirm_dialog/confirm-dialog.service';
+import { ConfirmDialogService } from '../../../common/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 

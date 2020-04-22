@@ -21,9 +21,27 @@ import { ImageItemElement } from './admin_module/components/puzzles/create-edit-
 import { CarouselItemElement } from './common/carousel/carousel-item-element.directive';
 import { UserRegistrationComponent } from './components/account/registration/user-registration.component';
 import { UserLoginComponent } from './components/account/auth/user-login.component';
-
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { ConfirmDialogComponent } from './common/confirm_dialog/confirm-dialog.component';
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    NavigationComponent,
+    ProductsListComponent,
+    PuzzleThumbnailComponent,
+    ProductDetailsComponent,
+    
+    CarouselComponent, 
+    CarouselItemDirective, 
+    CarouselItemElement,
+
+    ImageItemElement,
+
+    UserRegistrationComponent,
+    UserLoginComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,27 +50,22 @@ import { UserLoginComponent } from './components/account/auth/user-login.compone
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
-    ],
-  declarations: [
-      AppComponent,
-      NavigationComponent,
-      ProductsListComponent,
-      PuzzleThumbnailComponent,
-      ProductDetailsComponent,
-      
-      CarouselComponent, 
-      CarouselItemDirective, 
-      CarouselItemElement,
-
-      ImageItemElement,
-
-      UserRegistrationComponent,
-      UserLoginComponent
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem(environment.accessToken),
+        whitelistedDomains: [environment.whitelistedDomains],
+        blacklistedRoutes: [environment.blacklistedRoutes]
+      }})
     ],
   providers: [
     DatePipe,
     PuzzleLookupService,
+  ],
+  entryComponents: [
+    UserRegistrationComponent,
+    UserLoginComponent,
+    ConfirmDialogComponent
   ],
   bootstrap: [AppComponent]
 })
