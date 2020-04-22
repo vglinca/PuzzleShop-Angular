@@ -1,0 +1,27 @@
+@mixin bp-small {
+    @media (min-width: 600px) {
+      @content;
+    }
+  }
+  
+  // Medium devices (large tablets)
+  @mixin bp-medium {
+    @media (min-width: 1023px) {
+      @content;
+    }
+  }
+  
+  // Large devices (desktops < 1080p)
+  @mixin bp-large {
+    @media (min-width: 1439px) {
+      @content;
+    }
+  }
+  
+  // Extra Large devices (desktops >= 1080p)
+  @mixin bp-xlarge {
+    @media (min-width: 1919px) {
+      @content;
+    }
+  }
+  

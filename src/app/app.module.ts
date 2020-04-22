@@ -8,17 +8,19 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app-routes';
-import { UsersModule } from './users_module/users.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { PuzzleLookupService } from './services/puzzle-lookup-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-thumbnail.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CarouselItemDirective } from './common/carousel/carousel-item.directive';
-import { CarouselItemElement, CarouselComponent } from './common/carousel/carousel.component';
+import { CarouselComponent } from './common/carousel/carousel.component';
 import { ImageItemElement } from './admin_module/components/puzzles/create-edit-puzzle.component';
+import { CarouselItemElement } from './common/carousel/carousel-item-element.directive';
+import { UserRegistrationComponent } from './components/account/registration/user-registration.component';
+import { UserLoginComponent } from './components/account/auth/user-login.component';
 
 
 @NgModule({
@@ -26,11 +28,11 @@ import { ImageItemElement } from './admin_module/components/puzzles/create-edit-
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    UsersModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule
     ],
   declarations: [
       AppComponent,
@@ -43,7 +45,10 @@ import { ImageItemElement } from './admin_module/components/puzzles/create-edit-
       CarouselItemDirective, 
       CarouselItemElement,
 
-      ImageItemElement
+      ImageItemElement,
+
+      UserRegistrationComponent,
+      UserLoginComponent
     ],
   providers: [
     DatePipe,

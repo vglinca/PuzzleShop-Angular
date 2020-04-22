@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserRegistrationComponent } from './user-registration.component';
+import { UserRegistrationComponent } from '../registration/user-registration.component';
 import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 
 @Component({

@@ -1,17 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
 
+
 .item {
-    position: relative;
     padding: 0;
-    width: 600px;
-    height: 400px;
+    width: 100vw;
+    height: 300px;
+    margin-right: 100px;
+    transition: transform .4s;
     // background-color: crimson;
     // color: #fff;
     // font-size: 50px;
     // line-height: 300px;
     // text-align: center;
   }
+
+.item:hover{
+    transform: scale(1.2);
+}
 
 .path-div{
     display: flex;
@@ -48,7 +54,9 @@
 
 .large-image-div{
     position: relative;
+    width: 600px;
 }
+
 
 .large-image-div img{
     width: inherit;
@@ -56,13 +64,30 @@
 }
 
 .little-images-list-div{
+    
+    margin-top: 100px;
     // background-color: red;
 }
 
 .little-image-div{
+    position: relative;
     // background-color: chartreuse; 
-    margin: 5px; width: 70px; 
-    height: 60px
+    margin: 5px;
+    width: 70px; 
+    height: 60px;
+}
+
+.little-image-div img{
+    width: 70px; 
+    height: 60px;
+}
+
+.little-imageitem {
+    transition: transform .5s;
+}
+
+.little-imageitem:hover{
+    transform: scale(1.6);
 }
 
 .order-details-div{

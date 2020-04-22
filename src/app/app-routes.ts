@@ -7,5 +7,4 @@ export const appRoutes: Routes = [
     { path: 'collections/:puzzleType/:id', component: ProductDetailsComponent },
     // { path: 'wca-puzzles', component: ProductsListComponent},
     { path: 'administration', loadChildren: () => import('./admin_module/admin.module').then(a => a.AdminModule)},
-    { path: 'user', loadChildren: () => import('./users_module/users.module').then(u => u.UsersModule) }
 ];
