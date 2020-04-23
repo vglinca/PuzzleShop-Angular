@@ -11,6 +11,8 @@ import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { environment } from 'src/environments/environment';
 import { map, mergeMap } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddToCartDialogComponent } from '../add-to-cart-dialog/add-to-cart-dialog.component';
 
 
 @Component({
@@ -23,8 +25,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         { title: 'Slide 2' },
         { title: 'Slide 3' },
     ]
-
-
 
     staticFilesUrl: string = environment.staticFilesUrl;
 
@@ -46,7 +46,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         private puzzleTypeService: PuzzleTypesService,
         private puzzleColorService: PuzzleColorsService,
         private router: Router,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private matDialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -80,12 +81,9 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         forkJoin(puzzle, puzzleType, colors)
             .subscribe(([p, pt, c]) => {
                 this.colors = c;
-
                 this.puzzle = p;
-                console.log(this.puzzle);
-                this.subtotal = this.puzzle.price;
-
                 this.difficultyLevel = pt.difficultyLevel;
+                this.subtotal = this.puzzle.price;
             });
     }
 
@@ -105,6 +103,20 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.quantity--;
             this.subtotal -= this.puzzle.price;
         }
+    }
+
+    addToCart(): void{
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.disableClose = false;
+        dialogConfig.height = "25%";
+        dialogConfig.width = "30%";
+        dialogConfig.data = {
+            puzzleName: this.puzzle.name,
+            puzzleColor: this.puzzle.color,
+            imageLink: this.puzzle.images[0].fileName
+        };
+        this.matDialog.open(AddToCartDialogComponent, dialogConfig);
     }
 
 

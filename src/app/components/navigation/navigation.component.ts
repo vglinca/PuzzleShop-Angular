@@ -89,6 +89,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy{
                 localStorage.removeItem(environment.accessToken);
                 this.notificationService.success('Logged off.');
                 this.ngOnInit();
+                this.router.navigate(['home']);
               }, err => console.log(err));
           }
         });

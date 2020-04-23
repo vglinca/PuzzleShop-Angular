@@ -27,6 +27,7 @@ import { ConfirmDialogComponent } from './common/confirm_dialog/confirm-dialog.c
 import { NotFoundPageComponent } from './common/not_found_page/not-found-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
+import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to-cart-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HomeComponent } from './components/home/home.component';
     UserRegistrationComponent,
     UserLoginComponent,
     HomeComponent,
+    AddToCartDialogComponent,
 
     NotFoundPageComponent
   ],
@@ -72,7 +74,8 @@ import { HomeComponent } from './components/home/home.component';
   entryComponents: [
     UserRegistrationComponent,
     UserLoginComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    AddToCartDialogComponent
   ],
   bootstrap: [AppComponent]
 })
