@@ -33,6 +33,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     return this.accountService.isAuthenticated();
   }
 
+  
   constructor(private matDialog: MatDialog,
     private accountService: AccountService,
     private dialogService: ConfirmDialogService,

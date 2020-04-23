@@ -8,6 +8,7 @@ import { UserForAuthModel } from '../models/users/user-for-auth.model';
 import { BearerToken } from '../models/users/jwt-bearer-token';
 import { LoggedInUserInfo } from '../models/users/logged-in-user-info';
 import * as jwt_decode from 'jwt-decode';
+import * as _ from 'lodash';
 
 @Injectable({providedIn: 'root'})
 export class AccountService{
@@ -35,19 +36,36 @@ export class AccountService{
         return token ? true : false;
     }
 
-    public parseToken(): LoggedInUserInfo{
+    public parseToken(): LoggedInUserInfo | null{
         const token = localStorage.getItem(environment.accessToken);
         if(token){
             let decodedToken = jwt_decode(token);
-            let loggedInUser: LoggedInUserInfo = {
-                userId: decodedToken.nameid,
-                email: decodedToken.email,
-                name: decodedToken.unique_name,
-                roles: decodedToken.role
-            };
+            let loggedInUser: LoggedInUserInfo = new LoggedInUserInfo(); 
+            loggedInUser.userId = decodedToken.nameid;
+            loggedInUser.email = decodedToken.email;
+            loggedInUser.name = decodedToken.unique_name;
+            loggedInUser.roles = <Array<string>>decodedToken.role;
+            
             return loggedInUser;
+        }
+    }
+
+    public isInAdminRole(): boolean{
+        if(this.isAuthenticated()){
+            // debugger;
+            // let userInfo: LoggedInUserInfo = new LoggedInUserInfo();
+            const userInfo = this.parseToken();
+            // console.log('USERINFO: ', userInfo.roles);
+            // let roles: Array<string> = new Array<string>();
+            // [...userInfo.roles].forEach(r => {
+            //     roles.push(r);
+            // });
+            
+            console.log([...userInfo.roles]);
+            console.log([...userInfo.roles].some(r => r === "admin" || r === "moderator"));
+            return [...userInfo.roles].some(r => r === "admin" || r === "moderator");
         }else{
-            return null;
+            return false;
         }
     }
 }

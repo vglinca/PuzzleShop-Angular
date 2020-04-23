@@ -24,6 +24,15 @@
             </mat-form-field>
           </div>
 
+          <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.username)}">
+            <em
+              *ngIf="!validateFormControl(registrationForm.controls.username) && registrationForm.controls.username.errors.required">First
+              Name is required</em>
+            <mat-form-field style="display: block">
+              <input matInput type="text" placeholder="Username" formControlName="username" />
+            </mat-form-field>
+          </div>
+
           <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.password)}">
             <em
               *ngIf="!validateFormControl(registrationForm.controls.password) && registrationForm.controls.password.errors.required">Password

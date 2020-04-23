@@ -1,31 +1,34 @@
-<mat-toolbar color="primary" >
-    <button mat-icon-button (click)="sidenav.toggle()">
+<mat-toolbar color="primary">
+    <button *ngIf="isLoggedIn && isInAdminRole" mat-icon-button (click)="sidenav.toggle()">
         <mat-icon mat-list-icon>list</mat-icon>
     </button>
-    <!-- <span>SpeedCubing Store</span> -->
-    <div class="navitems"  fxLayout="row | wrap" fxLayoutAlign="center center">
+    <div class="navitems" fxLayout="row | wrap" fxLayoutAlign="center center">
         <div>
             <mat-menu #rubicsCubesMatMenu="matMenu" xPosition="before">
                 <span (mouseleave)="closeMenu(0)">
-                    <button  mat-menu-item *ngFor="let puzzleType of rcPuzzles" 
-                    [routerLink]="['/collections', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
+                    <button mat-menu-item *ngFor="let puzzleType of rcPuzzles"
+                        [routerLink]="['/collections', puzzleType?.title]"
+                        (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}</button>
                 </span>
             </mat-menu>
         </div>
         <div class="nav-item">
-            <a mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger" (mouseenter)="openMenu(0)">SpeedCubes</a>
+            <a mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
+                (mouseenter)="openMenu(0)">SpeedCubes</a>
         </div>
-        
+
         <div>
             <mat-menu #wcaPuzzlesMatMenu="matMenu" xPosition="before">
                 <span (mouseleave)="closeMenu(1)">
-                    <button  mat-menu-item *ngFor="let puzzleType of wcaPuzzles" 
-                    [routerLink]="['/collections', puzzleType?.title]" (click)="onClick(puzzleType?.title)" >{{puzzleType?.title}}</button>
+                    <button mat-menu-item *ngFor="let puzzleType of wcaPuzzles"
+                        [routerLink]="['/collections', puzzleType?.title]"
+                        (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}</button>
                 </span>
             </mat-menu>
         </div>
         <div class="nav-item">
-            <a  [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA Puzzles</a>
+            <a [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA
+                Puzzles</a>
         </div>
 
         <div class="nav-item">
@@ -40,7 +43,4 @@
             <a mat-button>Accessories</a>
         </div>
     </div>
-    <!-- <div class="navbar">
-        <a mat-button (click)="loginUser()">Login</a>
-    </div> -->
 </mat-toolbar>

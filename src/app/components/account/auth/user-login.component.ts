@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { NotificationService } from 'src/app/services/notification.service';
 import * as jwt_decode from 'jwt-decode';
 import { LoggedInUserInfo } from 'src/app/models/users/logged-in-user-info';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './user-login.component.html',
@@ -23,6 +24,7 @@ export class UserLoginComponent implements OnInit{
         private accountService: AccountService,
         private notificationService: NotificationService,
         private dialogRef: MatDialogRef<UserLoginComponent>,
+        private router: Router,
         private builder: FormBuilder,
         private dialog: MatDialog){}
     
@@ -51,7 +53,8 @@ export class UserLoginComponent implements OnInit{
                 console.log('User info ', userInfo);
                 this.notificationService.success('You have logged in a system.');
             }, err => {
-                this.notificationService.warn('Some problems happened during the request. Try again later.')
+                console.log(err.error.Error);
+                this.notificationService.warn(err.error.Error)
             });
         this.dialogRef.close();
     }

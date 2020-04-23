@@ -7,6 +7,8 @@ import { PuzzleModel } from '../../models/puzzles/puzzle.model';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { AccountService } from 'src/app/services/account.service';
+import { LoggedInUserInfo } from 'src/app/models/users/logged-in-user-info';
 
 @Component({
     selector: 'nav-bar',
@@ -21,15 +23,24 @@ export class NavigationComponent implements OnInit, AfterViewInit{
     @Input() sidenav: MatSidenav;
     @ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
 
+    public get isInAdminRole(): boolean {
+        return this.accountService.isInAdminRole();
+    }
 
+    public get isLoggedIn(): boolean {
+        return this.accountService.isAuthenticated();
+    }
+    
     constructor(private matDialog: MatDialog,
                 private lookupService: PuzzleLookupService,
+                private accountService: AccountService,
                 private router: Router){}
 
     ngAfterViewInit(): void {
     }
 
     ngOnInit(): void {
+        //this.isInAdminRole = this.accountService.isInAdminRole();
         this.loadPuzzleTypesFromApi();
     }
 
