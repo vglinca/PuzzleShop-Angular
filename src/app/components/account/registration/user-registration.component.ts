@@ -39,12 +39,11 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
             confirmPassword: new FormControl('', [Validators.required]),
             firstName: new FormControl('', Validators.required),
             lastName: new FormControl('', Validators.required),
-            birthDate: new FormControl('', Validators.required),
+            birthDate: ['', Validators.required],
         });
     }
 
     ngAfterViewInit(): void {
-        
     }
 
     register() {
@@ -104,14 +103,23 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
     onCloseClick(): void {
         this.dialogRef.close();
     }
+
+    passwordErrorValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+        if(control.get('confirmPassword').dirty){
+            let password = control.get('password');
+            let repeatPassword = control.get('confirmPassword');
+            return password.value != repeatPassword.value ? { 'passwordError': true } : null;
+        }
+    };
 }
 
 const DUPLICATE_USERNAME_CODE: string = 'DuplicateUserName';
 const DUPLICATE_EMAIL_CODE: string = 'DuplicateEmail';
 
+
 const passwordErrorValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    const password = control.get('password');
-    const repeatPassword = control.get('confirmPassword');
+    let password = control.get('password');
+    let repeatPassword = control.get('confirmPassword');
     return password.value != repeatPassword.value ? { 'passwordError': true } : null;
 };
 

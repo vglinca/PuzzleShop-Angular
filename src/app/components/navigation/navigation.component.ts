@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UserLoginComponent } from '../account/auth/user-login.component';
 import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
 import { PuzzleTypeModel } from '../../models/puzzle-types/puzzle-type.model';
@@ -9,17 +9,25 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { AccountService } from 'src/app/services/account.service';
 import { LoggedInUserInfo } from 'src/app/models/users/logged-in-user-info';
+import { ConfirmDialogService } from 'src/app/common/confirm_dialog/confirm-dialog.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'nav-bar',
     templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.css']
+    styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit, AfterViewInit{
+export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy{
 
     puzzleTypes: PuzzleTypeModel[] = [];
     rcPuzzles: PuzzleTypeModel[] = [];
     wcaPuzzles: PuzzleTypeModel[] = [];
+
+    dialogRefSubscription: Subscription;
+  dialogRefSubscription1: Subscription;
+  subscriptions: Subscription[] = [];
     @Input() sidenav: MatSidenav;
     @ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
 
@@ -30,11 +38,25 @@ export class NavigationComponent implements OnInit, AfterViewInit{
     public get isLoggedIn(): boolean {
         return this.accountService.isAuthenticated();
     }
+
+    public get accountInfo(): LoggedInUserInfo{
+        return this.accountService.parseToken();
+      }
     
     constructor(private matDialog: MatDialog,
                 private lookupService: PuzzleLookupService,
                 private accountService: AccountService,
-                private router: Router){}
+                private router: Router,
+                private dialogService: ConfirmDialogService,
+                private notificationService: NotificationService){}
+    
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(s => {
+            if(s){
+              s.unsubscribe();
+            }
+          });
+    }
 
     ngAfterViewInit(): void {
     }
@@ -44,6 +66,36 @@ export class NavigationComponent implements OnInit, AfterViewInit{
         this.loadPuzzleTypesFromApi();
     }
 
+    onSignInClick(): void {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.disableClose = false;
+        dialogConfig.height = "70%";
+        dialogConfig.width = "30%";
+        const dialogRef: MatDialogRef<UserLoginComponent> = this.matDialog.open(UserLoginComponent, dialogConfig);
+        this.dialogRefSubscription = dialogRef.afterClosed().subscribe(() => {
+          console.log('After closed.');
+          this.ngOnInit();
+        });
+        this.subscriptions.push(this.dialogRefSubscription);
+      }
+    
+      onSignOutClick(): void {
+        const dialogRef = this.dialogService.openConfirmDialog('Do You really wish to logout?');
+        this.dialogRefSubscription1 = dialogRef.afterClosed().subscribe(action => {
+          if (action === dialogRef.componentInstance.ACTION_CONFIRM) {
+            this.accountService.logout()
+              .subscribe(() => {
+                localStorage.removeItem(environment.accessToken);
+                this.notificationService.success('Logged off.');
+                this.ngOnInit();
+              }, err => console.log(err));
+          }
+        });
+        this.subscriptions.push(this.dialogRefSubscription1);
+    
+      }
+
     openMenu(i: number){
         this.triggers.toArray()[i].openMenu();
     }
@@ -52,15 +104,7 @@ export class NavigationComponent implements OnInit, AfterViewInit{
         this.triggers.toArray()[i].closeMenu();
     }
 
-    loginUser(){
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.autoFocus = true;
-        dialogConfig.height = "65%";
-        dialogConfig.width = "30%";
-        this.matDialog.open(UserLoginComponent, dialogConfig);
-    }
-
-    onClick(puzzleType){
+    onClick(puzzleType: string){
         console.log('onclick' + puzzleType);
         this.router.navigate(['/collections', puzzleType]);
     }

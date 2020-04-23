@@ -1,3 +1,40 @@
+<div fxLayout="row | wrap" fxLayoutAlign="space-between center" class="header">
+    <div class="logo-div mat-display-1">SpeedCubingStore</div>
+    <div fxLayout="column | wrap" fxLayoutAlign="space-between center">
+
+        <div class="header-right-side">
+            <div class="container">
+                <input type="text" placeholder="Search...">
+                <div class="search"></div>
+            </div>
+
+            <div fxLayout="row | wrap" fxLayoutAlign="space-between center">
+                <div *ngIf="isLoggedIn">
+                    Hello, {{accountInfo?.name}}
+                </div>
+
+                <div>
+                    <span *ngIf="!isLoggedIn" class="action" (click)="onSignInClick()">Sign In</span>
+                    <span *ngIf="isLoggedIn" class="action" (click)="onSignOutClick()">Sign out</span>
+                </div>
+
+                <div style="margin: 10px 5px 10px 10px;" fxLayout="row | wrap" fxLayoutAlign="end center">
+                    <div style="margin-right: 5px;">
+                        <mat-icon>shopping_cart</mat-icon>
+                    </div>
+                    <div>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 <mat-toolbar color="primary">
     <button *ngIf="isLoggedIn && isInAdminRole" mat-icon-button (click)="sidenav.toggle()">
         <mat-icon mat-list-icon>list</mat-icon>
@@ -6,8 +43,8 @@
         <div>
             <mat-menu #rubicsCubesMatMenu="matMenu" xPosition="before">
                 <span (mouseleave)="closeMenu(0)">
-                    <button mat-menu-item *ngFor="let puzzleType of rcPuzzles"
-                        [routerLink]="['/collections', puzzleType?.title]"
+                    <button mat-menu-item *ngFor="let puzzleType of rcPuzzles;"
+                        
                         (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}</button>
                 </span>
             </mat-menu>
@@ -44,3 +81,5 @@
         </div>
     </div>
 </mat-toolbar>
+
+

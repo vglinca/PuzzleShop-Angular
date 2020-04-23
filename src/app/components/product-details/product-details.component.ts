@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { PuzzleService } from 'src/app/services/puzzle.service';
 import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
 import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
@@ -10,21 +10,21 @@ import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type
 import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { environment } from 'src/environments/environment';
+import { map, mergeMap } from 'rxjs/operators';
 
 
 @Component({
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy{
+export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     items = [
         { title: 'Slide 1' },
         { title: 'Slide 2' },
         { title: 'Slide 3' },
-      ]
-     
+    ]
 
-    // items: Array<any> = []
+
 
     staticFilesUrl: string = environment.staticFilesUrl;
 
@@ -42,13 +42,13 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     subscriptions: Subscription[] = [];
 
     constructor(private lookupService: PuzzleLookupService,
-                private puzzleService: PuzzleService,
-                private puzzleTypeService: PuzzleTypesService,
-                private puzzleColorService: PuzzleColorsService,
-                private router: Router,
-                private activatedRoute: ActivatedRoute){
+        private puzzleService: PuzzleService,
+        private puzzleTypeService: PuzzleTypesService,
+        private puzzleColorService: PuzzleColorsService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute) {
     }
-    
+
     ngOnInit(): void {
         this.activatedRouteSubscription1 = this.activatedRoute.paramMap.subscribe(params => {
             this.puzzleId = +params.get('id');
@@ -63,44 +63,45 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         this.subscriptions.push(this.activatedRouteSubscription1);
         this.subscriptions.push(this.activatedRouteSubscription2);
     }
-    
+
     ngAfterViewInit(): void {
     }
 
-    loadDataFromApi(): void{
-        this.lookupService.getPuzzle(this.puzzleId)
-            .subscribe((p: PuzzleTableRowModel) => {
+    loadDataFromApi(): void {
+
+        const puzzle = this.lookupService.getPuzzle(this.puzzleId);
+
+        const puzzleType = this.puzzleService.getPuzzle(this.puzzleId)
+            .pipe(mergeMap((p: PuzzleModel) =>
+                this.puzzleTypeService.getByIdFriendly(p.puzzleTypeId)));
+
+        const colors = this.puzzleColorService.getAll();
+
+        forkJoin(puzzle, puzzleType, colors)
+            .subscribe(([p, pt, c]) => {
+                this.colors = c;
+
                 this.puzzle = p;
                 console.log(this.puzzle);
                 this.subtotal = this.puzzle.price;
-            });
 
-        this.puzzleService.getPuzzle(this.puzzleId)
-            .subscribe((pzl: PuzzleModel) => {
-                this.puzzleTypeService.getByIdFriendly(pzl.puzzleTypeId)
-                    .subscribe((pt : PuzzleTypeTableRowModel) => {
-                        this.difficultyLevel = pt.difficultyLevel;
-                    });
-            });
-        this.puzzleColorService.getAll()
-            .subscribe((c : PuzzleColorModel[]) => {
-                this.colors = c;
+                this.difficultyLevel = pt.difficultyLevel;
             });
     }
 
-    navigateToCollections(): void{
+    navigateToCollections(): void {
         this.router.navigate(['/collections', this.puzzle.puzzleType]);
     }
 
-    incrementQuantity(): void{
-        if(this.quantity < 100){
+    incrementQuantity(): void {
+        if (this.quantity < 100) {
             this.quantity++;
             this.subtotal += this.puzzle.price;
         }
     }
 
-    decrementQuantity(): void{
-        if(this.quantity > 1){
+    decrementQuantity(): void {
+        if (this.quantity > 1) {
             this.quantity--;
             this.subtotal -= this.puzzle.price;
         }
@@ -109,7 +110,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     ngOnDestroy(): void {
         this.subscriptions.forEach(s => {
-            if(s){
+            if (s) {
                 s.unsubscribe();
             }
         });

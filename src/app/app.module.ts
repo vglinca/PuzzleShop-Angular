@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment';
 import { ConfirmDialogComponent } from './common/confirm_dialog/confirm-dialog.component';
 import { NotFoundPageComponent } from './common/not_found_page/not-found-page.component';
 import { AuthGuard } from './guards/auth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AuthGuard } from './guards/auth.guard';
 
     UserRegistrationComponent,
     UserLoginComponent,
+    HomeComponent,
 
     NotFoundPageComponent
   ],

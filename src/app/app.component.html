@@ -1,90 +1,40 @@
 <mat-sidenav-container>
+    <mat-sidenav dark #sidenav mode="push" [opened]="false" (click)="sidenav.toggle()">
 
-  <mat-sidenav dark #sidenav mode="push" [opened]="false" (click)="sidenav.toggle()">
+        <mat-nav-list>
 
-    <mat-nav-list>
+            <a mat-list-item>
+                <span mat-line [routerLink]="['administration/puzzles']">Puzzles</span>
+            </a>
 
-      <a mat-list-item>
-        <span mat-line [routerLink]="['administration/puzzles']">Puzzles</span>
-      </a>
+            <a mat-list-item [routerLink]="['administration/manufacturers']">
+                <span mat-line>Manufacturers</span>
+            </a>
 
-      <a mat-list-item [routerLink]="['administration/manufacturers']">
-        <span mat-line>Manufacturers</span>
-      </a>
+            <a mat-list-item [routerLink]="['administration/puzzletypes']">
+                <span mat-line>Puzzle Types</span>
+            </a>
 
-      <a mat-list-item [routerLink]="['administration/puzzletypes']">
-        <span mat-line>Puzzle Types</span>
-      </a>
+            <a mat-list-item [routerLink]="['administration/puzzlecolors']">
+                <span mat-line>Puzzle Colors</span>
+            </a>
 
-      <a mat-list-item [routerLink]="['administration/puzzlecolors']">
-        <span mat-line>Puzzle Colors</span>
-      </a>
+            <a mat-list-item>
+                <span mat-line>Users</span>
+            </a>
 
-      <a mat-list-item>
-        <span mat-line>Users</span>
-      </a>
+            <a mat-list-item>
+                <span mat-line>Orders</span>
+            </a>
 
-      <a mat-list-item>
-        <span mat-line>Orders</span>
-      </a>
+        </mat-nav-list>
 
-    </mat-nav-list>
+    </mat-sidenav>
 
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-
-    <!--header-->
-    <div fxLayout="row | wrap" fxLayoutAlign="space-between center" class="header">
-      <div class="logo-div mat-display-1">SpeedCubingStore</div>
-      <div fxLayout="column | wrap" fxLayoutAlign="space-between center">
-
-        <div class="header-right-side">
-          <div class="container">
-            <input type="text" placeholder="Search...">
-            <div class="search"></div>
-          </div>
-
-          <div fxLayout="row | wrap" fxLayoutAlign="space-between center">
-            <div *ngIf="isLoggedIn">
-              Hello, {{accountInfo?.name}}
-            </div>
-
-            <div>
-              <span *ngIf="!isLoggedIn" class="action" (click)="onSignInClick()">Sign In</span>
-              <span *ngIf="isLoggedIn" class="action" (click)="onSignOutClick()">Sign out</span>
-              <!-- <button mat-button (click)="onSignInClick()">Sign In</button> -->
-            </div>
-
-            <div style="margin: 10px 5px 10px 10px;" fxLayout="row | wrap" fxLayoutAlign="end center">
-              <div style="margin-right: 5px;">
-                <mat-icon>shopping_cart</mat-icon>
-              </div>
-              <div>
-                <span>Shopping cart</span>
-              </div>
-            </div>
-            
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <nav-bar [sidenav]="sidenav"></nav-bar>
-    <router-outlet></router-outlet>
-
-  </mat-sidenav-content>
+    <mat-sidenav-content>
+        <nav-bar [sidenav]="sidenav"></nav-bar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
 
 </mat-sidenav-container>
 
-
-<!-- <carousel>
-    <ng-container *ngFor="let item of items;">
-      <ng-container *carouselItem>
-        <div class="item">{{item.title}}</div>
-      </ng-container>
-    </ng-container>
-  </carousel> -->
