@@ -13,5 +13,6 @@ export interface PuzzleModel{
     colorId: number;
     materialTypeId: number;
     rating: number;
+    availableInStock: number;
     images: ImageModel[];
 }

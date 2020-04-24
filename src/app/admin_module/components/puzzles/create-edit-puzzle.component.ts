@@ -119,7 +119,8 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             manufacturerId: ['', Validators.required],
             puzzleTypeId: ['', Validators.required],
             colorId: ['', Validators.required],
-            materialTypeId: ['', Validators.required]
+            materialTypeId: ['', Validators.required],
+            availableInStock: ['', Validators.required]
         });
 
         this.loadAllProperties();
@@ -205,6 +206,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             fd.append('puzzleTypeId', puzzle.puzzleTypeId);
             fd.append('colorId', puzzle.colorId);
             fd.append('materialTypeId', puzzle.materialTypeId);
+            fd.append('availableInStock', puzzle.availableInStock);
 
             for (let file of this.imageFiles) {
                 fd.append('images', file);

@@ -11,5 +11,6 @@ export interface PuzzleForCreationModel{
     puzzleTypeId: string;
     colorId: string;
     materialTypeId: string;
+    availableInStock: string;
     images: ImageForCreationModel[];
 }

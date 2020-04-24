@@ -17,8 +17,13 @@ import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.mod
 import { environment } from 'src/environments/environment';
 import { ImageModel } from 'src/app/models/images/image.model';
 import { ThrowStmt } from '@angular/compiler';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { AddToCartDialogComponent } from '../add-to-cart-dialog/add-to-cart-dialog.component';
+import { OrderService } from 'src/app/services/order.service';
+import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-for-create.model';
+import { AccountService } from 'src/app/services/account.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { UserLoginComponent } from '../account/auth/user-login.component';
 
 
 @Component({
@@ -58,7 +63,10 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     constructor(private lookupService: PuzzleLookupService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private matDialog: MatDialog){
+                private matDialog: MatDialog,
+                private accountService: AccountService,
+                private orderService: OrderService,
+                private notificationService: NotificationService){
                     let puzzles: PuzzleTableRowModel[] = [];
     }
 
@@ -170,18 +178,38 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     }
 
     addToCart(puzzle: PuzzleTableRowModel): void{
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.autoFocus = true;
-        dialogConfig.disableClose = false;
-        dialogConfig.height = "35%";
-        dialogConfig.width = "35%";
-        dialogConfig.data = {
-            puzzleName: puzzle.name,
-            puzzleColor: puzzle.color,
-            puzzleType: puzzle.puzzleType,
-            imageLink: puzzle.images[0].fileName
-        };
-        this.matDialog.open(AddToCartDialogComponent, dialogConfig);
+        if(this.accountService.isAuthenticated()){
+
+            let orderItem: OrderItemForCreateModel = {
+                puzzleId: puzzle.id,
+                quantity: 1,
+                cost: puzzle.price,
+                userId: this.accountService.parseToken().userId
+            };
+            this.orderService.editCart(orderItem)
+                .subscribe(() => {
+                    const dialogConfig = new MatDialogConfig();
+                    dialogConfig.autoFocus = true;
+                    dialogConfig.disableClose = false;
+                    dialogConfig.height = "35%";
+                    dialogConfig.width = "35%";
+                    dialogConfig.data = {
+                        puzzleName: puzzle.name,
+                        puzzleColor: puzzle.color,
+                        puzzleType: puzzle.puzzleType,
+                        imageLink: puzzle.images[0].fileName
+                    };
+                    this.matDialog.open(AddToCartDialogComponent, dialogConfig);
+                }, err => this.notificationService.warn('Some problem happened.'));
+        }else{
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.autoFocus = true;
+            dialogConfig.disableClose = false;
+            dialogConfig.height = "70%";
+            dialogConfig.width = "30%";
+            this.matDialog.open(UserLoginComponent, dialogConfig);
+        }
+
     }
 
 

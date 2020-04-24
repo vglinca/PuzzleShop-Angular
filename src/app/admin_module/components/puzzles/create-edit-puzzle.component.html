@@ -56,6 +56,10 @@
             </mat-form-field>
 
             <mat-form-field class="form-field-30">
+              <input matInput placeholder="Available In Stock (required)" type="number" formControlName="availableInStock" />
+            </mat-form-field>
+
+            <mat-form-field class="form-field-30">
               <mat-select placeholder="Manufacturer" formControlName="manufacturerId">
                 <mat-option *ngFor="let m of manufacturers" [value]="m?.id">{{m?.name}}</mat-option>
               </mat-select>

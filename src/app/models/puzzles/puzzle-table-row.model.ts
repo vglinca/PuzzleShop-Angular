@@ -13,6 +13,7 @@ export class PuzzleTableRowModel{
     color: string;
     materialType: string;
     rating: number;
+    availableInStock: number;
     images: ImageModel[];
 
     constructor(){

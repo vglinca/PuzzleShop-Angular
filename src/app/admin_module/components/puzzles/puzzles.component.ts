@@ -32,7 +32,7 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
     
     tableColumns: string[] = ['id', 'name', 'description', 'price', 'isMagnetic', 'weight', 
-    'manufacturer', 'puzzleType', 'color', 'materialType'];
+    'manufacturer', 'puzzleType', 'color', 'materialType', 'availableInStock'];
 
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,

@@ -101,6 +101,11 @@
                 <mat-header-cell fxFlex="80px" *matHeaderCellDef> MaterialType </mat-header-cell>
                 <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.materialType}} </mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="availableInStock">
+              <mat-header-cell fxFlex="80px" *matHeaderCellDef> Available In Stock </mat-header-cell>
+              <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.availableInStock}} </mat-cell>
+          </ng-container>
           
             <ng-container matColumnDef="id">
                 
@@ -129,7 +134,7 @@
         </div>
 
         <div class="paginator-div">
-          <mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons pageSize="10"></mat-paginator>
+          <mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons pageSize="25"></mat-paginator>
         </div>
 
 </div>

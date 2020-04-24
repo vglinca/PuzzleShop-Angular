@@ -52,15 +52,8 @@ export class AccountService{
 
     public isInAdminRole(): boolean{
         if(this.isAuthenticated()){
-            // debugger;
-            // let userInfo: LoggedInUserInfo = new LoggedInUserInfo();
             const userInfo = this.parseToken();
-            // console.log('USERINFO: ', userInfo.roles);
-            // let roles: Array<string> = new Array<string>();
-            // [...userInfo.roles].forEach(r => {
-            //     roles.push(r);
-            // });
-            
+        
             console.log([...userInfo.roles]);
             console.log([...userInfo.roles].some(r => r === "admin" || r === "moderator"));
             return [...userInfo.roles].some(r => r === "admin" || r === "moderator");

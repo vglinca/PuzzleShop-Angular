@@ -9,4 +9,5 @@ export interface PuzzleForUpdateModel{
     colorId: number;
     materialTypeId: number;
     rating: number;
+    availableInStock: number;
 }
