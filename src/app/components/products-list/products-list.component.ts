@@ -17,6 +17,8 @@ import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.mod
 import { environment } from 'src/environments/environment';
 import { ImageModel } from 'src/app/models/images/image.model';
 import { ThrowStmt } from '@angular/compiler';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddToCartDialogComponent } from '../add-to-cart-dialog/add-to-cart-dialog.component';
 
 
 @Component({
@@ -55,7 +57,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     constructor(private lookupService: PuzzleLookupService,
                 private activatedRoute: ActivatedRoute,
-                private router: Router){
+                private router: Router,
+                private matDialog: MatDialog){
                     let puzzles: PuzzleTableRowModel[] = [];
     }
 
@@ -164,6 +167,21 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     openProductDetails(id: number): void{
         this.router.navigate(['/collections', this.currentPuzzleType.title, id], 
             {queryParams: {puzzletype: this.currentPuzzleType.isRubicsCube ? `${this.currentPuzzleType.title} SpeedCubes` : this.currentPuzzleType.title}});
+    }
+
+    addToCart(puzzle: PuzzleTableRowModel): void{
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.disableClose = false;
+        dialogConfig.height = "35%";
+        dialogConfig.width = "35%";
+        dialogConfig.data = {
+            puzzleName: puzzle.name,
+            puzzleColor: puzzle.color,
+            puzzleType: puzzle.puzzleType,
+            imageLink: puzzle.images[0].fileName
+        };
+        this.matDialog.open(AddToCartDialogComponent, dialogConfig);
     }
 
 

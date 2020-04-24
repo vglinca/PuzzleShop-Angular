@@ -65,7 +65,7 @@
                 <div class="price-div" fxLayoutAlign="center center"><b>{{puzzle?.price | currency:'USD'}}</b></div>
                 <div class="add-to-cart-div">
                   <button mat-flat-button matTooltip="Add to cart" 
-                          matTooltipPosition="right">
+                          matTooltipPosition="right" (click)="addToCart(puzzle)">
                     <mat-icon>shopping_cart</mat-icon>
                   </button>
                 </div>

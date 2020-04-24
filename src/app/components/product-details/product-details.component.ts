@@ -109,11 +109,12 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = false;
-        dialogConfig.height = "25%";
-        dialogConfig.width = "30%";
+        dialogConfig.height = "35%";
+        dialogConfig.width = "35%";
         dialogConfig.data = {
             puzzleName: this.puzzle.name,
             puzzleColor: this.puzzle.color,
+            puzzleType: this.puzzle.puzzleType,
             imageLink: this.puzzle.images[0].fileName
         };
         this.matDialog.open(AddToCartDialogComponent, dialogConfig);

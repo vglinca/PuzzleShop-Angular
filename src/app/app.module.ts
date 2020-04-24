@@ -28,6 +28,7 @@ import { NotFoundPageComponent } from './common/not_found_page/not-found-page.co
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to-cart-dialog.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to
     UserLoginComponent,
     HomeComponent,
     AddToCartDialogComponent,
+    CartComponent,
 
     NotFoundPageComponent
   ],

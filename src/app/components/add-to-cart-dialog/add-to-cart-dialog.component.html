@@ -1,11 +1,25 @@
-<div fxLayout="column">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="image-container">
-            <img [src]="imageLink" alt="">
+<div class="container" fxLayout="row" fxLayoutAlign="center stretch">
+    <div class="image" fxFlex="25">
+        <img [src]="imageLink" alt="">
+    </div>
+    <div fxFlex="75" fxLayout="column" fxLayoutAlign="start stretch" >
+        <div class="puzzle-name">
+            <span>{{puzzleName}}</span>
         </div>
-        <div>
-            {{puzzleName}} | {{puzzleColor}}
+        <div class="puzzle-color">
+            <span>{{puzzleColor}}</span>
+        </div>
+        <div class="done">
+            <mat-icon>done</mat-icon>
+            <span>added to your cart</span>
+        </div>
+        <div class="buttons" fxLayoutGap="3%"  fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="65">
+                <button mat-flat-button color="primary" (click)="onContinueShoppingClick()">continue shopping</button>
+            </div>
+            <div fxFlex="35">
+                <button mat-flat-button color="primary" (click)="onGoToCartClick()">go to cart</button>
+            </div>
         </div>
     </div>
-    <div>Added to your cart</div>
 </div>
