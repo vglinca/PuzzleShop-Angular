@@ -29,6 +29,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to-cart-dialog.component';
 import { CartComponent } from './components/cart/cart.component';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { CartComponent } from './components/cart/cart.component';
   providers: [
     DatePipe,
     PuzzleLookupService,
-    AuthGuard
+    AuthGuard,
+    AdminAuthGuard
   ],
   entryComponents: [
     UserRegistrationComponent,

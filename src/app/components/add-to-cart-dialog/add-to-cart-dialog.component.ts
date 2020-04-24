@@ -33,6 +33,7 @@ export class AddToCartDialogComponent implements OnInit{
     }
 
     onGoToCartClick(): void{
-
+        this.router.navigate(['/cart']);
+        this.dialogRef.close();
     }
 }

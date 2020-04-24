@@ -3,8 +3,8 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderModel } from '../models/orders/order.model';
-import { threadId } from 'worker_threads';
 import { OrderItemForCreateModel } from '../models/order-items/order-item-for-create.model';
+import { logging } from 'protractor';
 
 @Injectable({
     providedIn: 'root'
@@ -26,5 +26,9 @@ export class OrderService{
 
     public editCart(orderItem: OrderItemForCreateModel){
         return this.http.post(`${this.baseUrl}/addToCart`, orderItem, this.headers);
+    }
+
+    public removeOrderItem(userId: number, itemId: number){
+        return this.http.delete(`${this.baseUrl}/removeOrderItem/${userId}/${itemId}`, this.headers);
     }
 }

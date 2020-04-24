@@ -54,8 +54,6 @@ export class AccountService{
         if(this.isAuthenticated()){
             const userInfo = this.parseToken();
         
-            console.log([...userInfo.roles]);
-            console.log([...userInfo.roles].some(r => r === "admin" || r === "moderator"));
             return [...userInfo.roles].some(r => r === "admin" || r === "moderator");
         }else{
             return false;

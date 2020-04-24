@@ -82,7 +82,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
             .subscribe((pt: PuzzleTypeModel[]) => {
                 this.puzzleTypes = pt;
                 this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
-                console.log('On init ' + this.currentPuzzleTypeTitle);
             });
         
         this.lookupService.getManufacturers()
@@ -99,7 +98,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
             if(e instanceof NavigationStart){
                 this.paginator.pageIndex = 0;
                 this.currentSortOption = this.sortOptions[0].value;
-                console.log('Event from router ' + e);
             }
         })
 
@@ -110,7 +108,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                 if(this.puzzleTypes){
                     this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
                 }
-                console.log('After view init ' + this.currentPuzzleTypeTitle);
             });
 
         this.subscriptions.push(this.activatedRouteSubscr3);
@@ -146,7 +143,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                 this.currentPuzzleTypeTitle = val.puzzleType;
                 this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
                 
-                console.log('OnChnage mat select ' + this.currentPuzzleTypeTitle);
             });
 
         this.subscriptions.push(this.activatedRouteSubscr2);

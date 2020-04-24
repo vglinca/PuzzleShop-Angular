@@ -74,7 +74,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy{
         dialogConfig.width = "30%";
         const dialogRef: MatDialogRef<UserLoginComponent> = this.matDialog.open(UserLoginComponent, dialogConfig);
         this.dialogRefSubscription = dialogRef.afterClosed().subscribe(() => {
-          console.log('After closed.');
           this.ngOnInit();
         });
         this.subscriptions.push(this.dialogRefSubscription);
@@ -106,7 +105,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     onClick(puzzleType: string){
-        console.log('onclick' + puzzleType);
         this.router.navigate(['/collections', puzzleType]);
     }
 

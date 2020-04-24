@@ -14,151 +14,40 @@
 <div class="list-container">
     <mat-list>
 
-        <mat-list-item class="list-item">
+        <mat-list-item class="list-item" *ngFor="let item of orderItems">
             <div class="list-item-container" fxLayout="row" fxLayoutAlign="center center" >
                 <div class="image-container" fxFlex="20">
-                    <img src="https://cccstore.ru/upload/resize_cache/iblock/279/320_320_1/2794a14f4940bbc98dffdfb1297ee396.jpg" alt="">
+                    <img [src]="staticFilesUrl + item?.puzzle.images[0].fileName" alt="item?.puzzle.name">
                 </div>
                 <div class="order-item-info" fxFlex="80" fxLayout="row" fxLayoutAlign="center stretch">
                     <div class="puzzle-details" fxFlex="45" fxLayout="column" fxLayoutAlign="center stretch">
-                        <span class="puzzle-name" style="font-size: 20px;">Puzzle name</span>
-                        <span class="puzzle-color" style="font-size: 15px;">Puzzle color</span>
+                        <span class="puzzle-name">{{item?.puzzle.name}}</span>
+                        <span class="puzzle-color" style="font-size: 15px;">{{item.puzzle?.color}}</span>
                     </div>
                     <div class="quantity" fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
                         <div class="increment-decrement-button" fxLayoutAlign="start center" >
-                            <button mat-button color="primary">
+                            <button mat-button color="primary" (click)="decrementQuantity(item)">
                                 <mat-icon>remove</mat-icon>
                             </button>
                         </div>
                         <div>
-                            <input matInput type="number" placeholder="1" min="1" max="100">
+                            <input matInput type="number" placeholder="1" min="1" max="100" [(ngModel)]="item.quantity">
                         </div>
                         <div class="increment-decrement-button" fxLayoutAlign="start center">
-                            <button mat-button color="primary">
+                            <button mat-button color="primary" (click)="incrementQuantity(item)">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </div>
                     </div>
                     <div class="price" fxFlex="15" fxLayout="row" fxLayoutAlign="center center">
-                        <span>$ 35.99</span>
+                        <span>{{item?.cost | currency:'USD'}}</span>
                     </div>
                     <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
-                        <button mat-mini-fab >
+                        <button mat-mini-fab color="primary" style="margin: 5px;" (click)="onDeleteItem(item)">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <button mat-mini-fab >
+                        <button mat-mini-fab color="primary" style="margin: 5px;" (click)="onRefresh(item)">
                             <mat-icon>refresh</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </mat-list-item>
-
-        <mat-list-item class="list-item">
-            <div class="list-item-container" fxLayout="row" fxLayoutAlign="center center" >
-                <div class="image-container" fxFlex="20">
-                    <img src="https://cccstore.ru/upload/resize_cache/iblock/279/320_320_1/2794a14f4940bbc98dffdfb1297ee396.jpg" alt="">
-                </div>
-                <div class="order-item-info" fxFlex="80" fxLayout="row" fxLayoutAlign="center stretch">
-                    <div class="puzzle-details" fxFlex="45" fxLayout="column" fxLayoutAlign="center stretch">
-                        <span class="puzzle-name" style="font-size: 20px;">Puzzle name</span>
-                        <span class="puzzle-color" style="font-size: 15px;">Puzzle color</span>
-                    </div>
-                    <div class="quantity" fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
-                        <div class="increment-decrement-button" fxLayoutAlign="start center" >
-                            <button mat-button color="primary">
-                                <mat-icon>remove</mat-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <input matInput type="number" placeholder="1" min="1" max="100">
-                        </div>
-                        <div class="increment-decrement-button" fxLayoutAlign="start center">
-                            <button mat-button color="primary">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="price" fxFlex="15" fxLayout="row" fxLayoutAlign="center center">
-                        <span>$ 35.99</span>
-                    </div>
-                    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-mini-fab >
-                            <mat-icon>close</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </mat-list-item>
-
-        <mat-list-item class="list-item">
-            <div class="list-item-container" fxLayout="row" fxLayoutAlign="center center" >
-                <div class="image-container" fxFlex="20">
-                    <img src="https://cccstore.ru/upload/resize_cache/iblock/279/320_320_1/2794a14f4940bbc98dffdfb1297ee396.jpg" alt="">
-                </div>
-                <div class="order-item-info" fxFlex="80" fxLayout="row" fxLayoutAlign="center stretch">
-                    <div class="puzzle-details" fxFlex="45" fxLayout="column" fxLayoutAlign="center stretch">
-                        <span class="puzzle-name" style="font-size: 20px;">Puzzle name</span>
-                        <span class="puzzle-color" style="font-size: 15px;">Puzzle color</span>
-                    </div>
-                    <div class="quantity" fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
-                        <div class="increment-decrement-button" fxLayoutAlign="start center" >
-                            <button mat-button color="primary">
-                                <mat-icon>remove</mat-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <input matInput type="number" placeholder="1" min="1" max="100">
-                        </div>
-                        <div class="increment-decrement-button" fxLayoutAlign="start center">
-                            <button mat-button color="primary">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="price" fxFlex="15" fxLayout="row" fxLayoutAlign="center center">
-                        <span>$ 35.99</span>
-                    </div>
-                    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-mini-fab >
-                            <mat-icon>close</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </mat-list-item>
-
-        <mat-list-item class="list-item">
-            <div class="list-item-container" fxLayout="row" fxLayoutAlign="center center" >
-                <div class="image-container" fxFlex="20">
-                    <img src="https://cccstore.ru/upload/resize_cache/iblock/279/320_320_1/2794a14f4940bbc98dffdfb1297ee396.jpg" alt="">
-                </div>
-                <div class="order-item-info" fxFlex="80" fxLayout="row" fxLayoutAlign="center stretch">
-                    <div class="puzzle-details" fxFlex="45" fxLayout="column" fxLayoutAlign="center stretch">
-                        <span class="puzzle-name" style="font-size: 20px;">Puzzle name</span>
-                        <span class="puzzle-color" style="font-size: 15px;">Puzzle color</span>
-                    </div>
-                    <div class="quantity" fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
-                        <div class="increment-decrement-button" fxLayoutAlign="start center" >
-                            <button mat-button color="primary">
-                                <mat-icon>remove</mat-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <input matInput type="number" placeholder="1" min="1" max="100">
-                        </div>
-                        <div class="increment-decrement-button" fxLayoutAlign="start center">
-                            <button mat-button color="primary">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="price" fxFlex="15" fxLayout="row" fxLayoutAlign="center center">
-                        <span>$ 35.99</span>
-                    </div>
-                    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-mini-fab >
-                            <mat-icon>close</mat-icon>
                         </button>
                     </div>
                 </div>
@@ -168,7 +57,7 @@
     </mat-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="footer">
-    <div class="total">Total: $59.60</div>
+    <div class="total">Total: {{total | currency:'USD'}}</div>
     <div class="place-order">
         <button mat-button>PLACE ORDER</button>
     </div>

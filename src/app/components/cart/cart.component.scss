@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
 .path{
     display: flex; 
@@ -40,12 +41,12 @@
 .list-item-container{
     width: 900px; 
     height: 150px; 
-    background-color: green;
+    // background-color: green;
 }
 
 .image-container{
     height: 150px; 
-    background-color: yellow; 
+    // background-color: yellow; 
     display: flex; 
     justify-content: center; 
     align-items: center; 
@@ -59,14 +60,19 @@
 
 .order-item-info{
     height: 150px; 
-    background-color: orangered;
+    // background-color: orangered;
 }
 
 .puzzle-details{
-    background-color: orchid; 
+    // background-color: orchid; 
     height: 150px; 
     padding-left: 10px; 
     line-height: 1.7;
+}
+
+.puzzle-name{
+    font-family: 'Inconsolata', monospace;
+    font-size: 20px;
 }
 
 .quantity{
@@ -89,8 +95,11 @@ input{
 }
 
 .price{
-    background-color: greenyellow;
-     height: 150px;
+    // background-color: greenyellow;
+    font-family: 'Inconsolata', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    height: 150px;
 }
 
 .footer{

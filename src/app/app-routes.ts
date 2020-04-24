@@ -6,13 +6,14 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'collections/:puzzleType', component: ProductsListComponent },
     { path: 'collections/:puzzleType/:id', component: ProductDetailsComponent },
-    { path: 'cart', component: CartComponent },
-    { path: 'administration', loadChildren: () => import('./admin_module/admin.module').then(a => a.AdminModule), canActivate: [AuthGuard]},
+    { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+    { path: 'administration', loadChildren: () => import('./admin_module/admin.module').then(a => a.AdminModule), canActivate: [AdminAuthGuard]},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', component: NotFoundPageComponent }
 ];
