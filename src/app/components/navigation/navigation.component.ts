@@ -13,116 +13,125 @@ import { ConfirmDialogService } from 'src/app/common/confirm_dialog/confirm-dial
 import { NotificationService } from 'src/app/services/notification.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserRegistrationComponent } from '../account/registration/user-registration.component';
 
 @Component({
-    selector: 'nav-bar',
-    templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.scss']
+  selector: 'nav-bar',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy{
+export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    puzzleTypes: PuzzleTypeModel[] = [];
-    rcPuzzles: PuzzleTypeModel[] = [];
-    wcaPuzzles: PuzzleTypeModel[] = [];
+  puzzleTypes: PuzzleTypeModel[] = [];
+  rcPuzzles: PuzzleTypeModel[] = [];
+  wcaPuzzles: PuzzleTypeModel[] = [];
 
-    dialogRefSubscription: Subscription;
+  dialogRefSubscription: Subscription;
   dialogRefSubscription1: Subscription;
   subscriptions: Subscription[] = [];
-    @Input() sidenav: MatSidenav;
-    @ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
+  @Input() sidenav: MatSidenav;
+  @ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
 
-    public get isInAdminRole(): boolean {
-        return this.accountService.isInAdminRole();
-    }
+  public get isInAdminRole(): boolean {
+    return this.accountService.isInAdminRole();
+  }
 
-    public get isLoggedIn(): boolean {
-        return this.accountService.isAuthenticated();
-    }
+  public get isLoggedIn(): boolean {
+    return this.accountService.isAuthenticated();
+  }
 
-    public get accountInfo(): LoggedInUserInfo{
-        return this.accountService.parseToken();
+  public get accountInfo(): LoggedInUserInfo {
+    return this.accountService.parseToken();
+  }
+
+  constructor(private matDialog: MatDialog,
+    private lookupService: PuzzleLookupService,
+    private accountService: AccountService,
+    private router: Router,
+    private dialogService: ConfirmDialogService,
+    private notificationService: NotificationService) { }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => {
+      if (s) {
+        s.unsubscribe();
       }
-    
-    constructor(private matDialog: MatDialog,
-                private lookupService: PuzzleLookupService,
-                private accountService: AccountService,
-                private router: Router,
-                private dialogService: ConfirmDialogService,
-                private notificationService: NotificationService){}
-    
-    ngOnDestroy(): void {
-        this.subscriptions.forEach(s => {
-            if(s){
-              s.unsubscribe();
-            }
-          });
-    }
+    });
+  }
 
-    ngAfterViewInit(): void {
-    }
+  ngAfterViewInit(): void {
+  }
 
-    ngOnInit(): void {
-        //this.isInAdminRole = this.accountService.isInAdminRole();
-        this.loadPuzzleTypesFromApi();
-    }
+  ngOnInit(): void {
+    //this.isInAdminRole = this.accountService.isInAdminRole();
+    this.loadPuzzleTypesFromApi();
+  }
 
-    onSignInClick(): void {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.autoFocus = true;
-        dialogConfig.disableClose = false;
-        dialogConfig.height = "70%";
-        dialogConfig.width = "30%";
-        const dialogRef: MatDialogRef<UserLoginComponent> = this.matDialog.open(UserLoginComponent, dialogConfig);
-        this.dialogRefSubscription = dialogRef.afterClosed().subscribe(() => {
-          this.ngOnInit();
-        });
-        this.subscriptions.push(this.dialogRefSubscription);
+  onSignInClick(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = false;
+    dialogConfig.height = "70%";
+    dialogConfig.width = "30%";
+    const dialogRef: MatDialogRef<UserLoginComponent> = this.matDialog.open(UserLoginComponent, dialogConfig);
+    this.dialogRefSubscription = dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+    this.subscriptions.push(this.dialogRefSubscription);
+  }
+
+  onSignOutClick(): void {
+    const dialogRef = this.dialogService.openConfirmDialog('Do You really wish to logout?');
+    this.dialogRefSubscription1 = dialogRef.afterClosed().subscribe(action => {
+      if (action === dialogRef.componentInstance.ACTION_CONFIRM) {
+        this.accountService.logout()
+          .subscribe(() => {
+            localStorage.removeItem(environment.accessToken);
+            this.notificationService.success('Logged off.');
+            this.ngOnInit();
+            this.router.navigate(['home']);
+          }, err => console.log(err));
       }
-    
-      onSignOutClick(): void {
-        const dialogRef = this.dialogService.openConfirmDialog('Do You really wish to logout?');
-        this.dialogRefSubscription1 = dialogRef.afterClosed().subscribe(action => {
-          if (action === dialogRef.componentInstance.ACTION_CONFIRM) {
-            this.accountService.logout()
-              .subscribe(() => {
-                localStorage.removeItem(environment.accessToken);
-                this.notificationService.success('Logged off.');
-                this.ngOnInit();
-                this.router.navigate(['home']);
-              }, err => console.log(err));
-          }
-        });
-        this.subscriptions.push(this.dialogRefSubscription1);
-    
-      }
+    });
+    this.subscriptions.push(this.dialogRefSubscription1);
 
-    openMenu(i: number){
-        this.triggers.toArray()[i].openMenu();
-    }
+  }
 
-    closeMenu(i: number){
-        this.triggers.toArray()[i].closeMenu();
-    }
+  onCreateAccountClick(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = false;
+    dialogConfig.height = "85%";
+    dialogConfig.width = "35%";
+    this.matDialog.open(UserRegistrationComponent, dialogConfig);
+  }
 
-    onClick(puzzleType: string){
-        this.router.navigate(['/collections', puzzleType]);
-    }
+  openMenu(i: number) {
+    this.triggers.toArray()[i].openMenu();
+  }
 
-    private loadPuzzleTypesFromApi(){
-        this.lookupService.getPuzzleTypes()
-            .subscribe((pt: PuzzleTypeModel[]) => {
-                this.puzzleTypes = pt;
-                this.rcPuzzles = this.puzzleTypes
-                    .filter(pt => pt.isRubicsCube == true && pt.isWca == true)
-                    .sort(this.sortAsc);
-                console.log(this.rcPuzzles);
-                this.wcaPuzzles = this.puzzleTypes
-                    .filter(pt => pt.isWca == true)
-                    .sort(this.sortAsc);
-            });
-    }
+  closeMenu(i: number) {
+    this.triggers.toArray()[i].closeMenu();
+  }
 
-    private sortAsc(a: PuzzleTypeModel, b: PuzzleTypeModel){
-       return (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
-    }
+  onClick(puzzleType: string) {
+    this.router.navigate(['/collections', puzzleType]);
+  }
+
+  private loadPuzzleTypesFromApi() {
+    this.lookupService.getPuzzleTypes()
+      .subscribe((pt: PuzzleTypeModel[]) => {
+        this.puzzleTypes = pt;
+        this.rcPuzzles = this.puzzleTypes
+          .filter(pt => pt.isRubicsCube == true && pt.isWca == true)
+          .sort(this.sortAsc);
+        console.log(this.rcPuzzles);
+        this.wcaPuzzles = this.puzzleTypes
+          .filter(pt => pt.isWca == true)
+          .sort(this.sortAsc);
+      });
+  }
+
+  private sortAsc(a: PuzzleTypeModel, b: PuzzleTypeModel) {
+    return (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
+  }
 }

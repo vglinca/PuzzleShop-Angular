@@ -1,10 +1,14 @@
+
+<div *ngIf="showSpinner" class="spinner" style="position: absolute; top: 50%; left: 50%; z-index: 5;">
+    <mat-spinner></mat-spinner>
+</div>
 <div class="path">
     <div class="path-item">
-        <span class="link">Home</span>
+        <span class="link" [routerLink]="['/home']">Home</span>
         <mat-icon>navigate_next</mat-icon>
     </div>
     <div>
-        <span class="link">Shopping Cart</span>
+        <span>Shopping Cart</span>
     </div>
 </div>
 <div class="title">
@@ -31,7 +35,7 @@
                             </button>
                         </div>
                         <div>
-                            <input matInput type="number" placeholder="1" min="1" max="100" [(ngModel)]="item.quantity">
+                            <input matInput type="number" placeholder="1" min="1" [max]="item?.puzzle.availableInStock" [(ngModel)]="item.quantity">
                         </div>
                         <div class="increment-decrement-button" fxLayoutAlign="start center">
                             <button mat-button color="primary" (click)="incrementQuantity(item)">
@@ -44,11 +48,11 @@
                     </div>
                     <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
                         <button mat-mini-fab color="primary" style="margin: 5px;" (click)="onDeleteItem(item)">
-                            <mat-icon>close</mat-icon>
+                            <mat-icon>clear</mat-icon>
                         </button>
-                        <button mat-mini-fab color="primary" style="margin: 5px;" (click)="onRefresh(item)">
-                            <mat-icon>refresh</mat-icon>
-                        </button>
+                        <!-- <button mat-mini-fab color="primary" style="margin: 5px;" (click)="onRefresh(item)">
+                            Update
+                        </button> -->
                     </div>
                 </div>
             </div>

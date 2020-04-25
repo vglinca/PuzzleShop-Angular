@@ -1,24 +1,39 @@
 <div fxLayout="row | wrap" fxLayoutAlign="space-between center" class="header">
     <div class="logo-div mat-display-1">SpeedCubingStore</div>
+    <div>
+        <img src="../../assets/images/scslogo.png" style="width: 100px; height: 100px;" alt="">
+    </div>
     <div fxLayout="column | wrap" fxLayoutAlign="space-between center">
 
         <div class="header-right-side">
-            <div class="container">
+            <div>
+                <mat-form-field class="example-form-field">
+                    <mat-label>Search</mat-label>
+                    <input matInput type="text">
+                    <button mat-button matSuffix mat-icon-button aria-label="Search">
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+            </div>
+            <!-- <div class="container">
                 <input type="text" placeholder="Search...">
                 <div class="search"></div>
-            </div>
+            </div> -->
 
             <div fxLayout="row | wrap" fxLayoutAlign="space-between center">
-                <div *ngIf="isLoggedIn">
-                    Hello, {{accountInfo?.name}}
+                <div *ngIf="isLoggedIn" class="hello">
+                   <span>Hello, {{accountInfo?.name}}!</span>
                 </div>
 
                 <div>
-                    <span *ngIf="!isLoggedIn" class="action" (click)="onSignInClick()">Sign In</span>
+                    <div *ngIf="!isLoggedIn">
+                        <span  class="action" (click)="onSignInClick()">Sign In</span><span> or </span>
+                        <span class="action" (click)="onCreateAccountClick()">Create Account</span>
+                    </div>
                     <span *ngIf="isLoggedIn" class="action" (click)="onSignOutClick()">Sign out</span>
                 </div>
 
-                <div style="margin: 10px 5px 10px 10px;" fxLayout="row | wrap" fxLayoutAlign="end center">
+                <div *ngIf="isLoggedIn" style="margin: 10px 5px 10px 15px;" fxLayout="row | wrap" fxLayoutAlign="end center">
                     <div style="margin-right: 5px;">
                         <mat-icon>shopping_cart</mat-icon>
                     </div>

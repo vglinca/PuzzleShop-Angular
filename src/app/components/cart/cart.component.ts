@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
   orderItems: OrderItemModel[] = [];
   userId: number;
   total: number = 0;
+  showSpinner: boolean = true;
 
   constructor(private orderService: OrderService,
               private accountService: AccountService,
@@ -28,6 +29,7 @@ export class CartComponent implements OnInit {
      }
 
   ngOnInit(): void {
+    this.showSpinner = true;
     this.getCart();
   }
 
@@ -35,15 +37,17 @@ export class CartComponent implements OnInit {
     if(item.quantity < item.puzzle.availableInStock){
       item.quantity++;
       item.cost += item.puzzle.price;
-      this.total += item.puzzle.price;
+      this.onRefresh(item);
+      // this.total += item.puzzle.price;
     }
   }
 
   decrementQuantity(item: OrderItemModel): void{
-    if(item.quantity > 0){
+    if(item.quantity > 1){
       item.quantity--;
       item.cost -= item.puzzle.price;
-      this.total -= item.puzzle.price;
+      this.onRefresh(item);
+      // this.total -= item.puzzle.price;
     }
   }
 
@@ -73,6 +77,7 @@ export class CartComponent implements OnInit {
   private getCart() {
     this.orderService.getCart(this.userId)
       .subscribe((order: OrderModel) => {
+        this.showSpinner = false;
         console.log('ORDER ', order);
         this.order = order;
         if(order){
