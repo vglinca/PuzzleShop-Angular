@@ -17,7 +17,7 @@ import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-t
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CarouselItemDirective } from './common/carousel/carousel-item.directive';
 import { CarouselComponent } from './common/carousel/carousel.component';
-import { ImageItemElement } from './admin_module/components/puzzles/create-edit-puzzle.component';
+import { ImageItemElement } from './admin_module/components/puzzles/create-edit/create-edit-puzzle.component';
 import { CarouselItemElement } from './common/carousel/carousel-item-element.directive';
 import { UserRegistrationComponent } from './components/account/registration/user-registration.component';
 import { UserLoginComponent } from './components/account/auth/user-login.component';

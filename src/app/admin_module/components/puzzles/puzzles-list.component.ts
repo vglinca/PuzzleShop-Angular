@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
 import { PuzzleService } from '../../../services/puzzle.service';
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,12 +11,13 @@ import { Subscription, merge } from 'rxjs';
 import { ConfirmDialogService } from '../../../common/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FilterColumn } from 'src/app/infrastructure/filter-column';
 
 
 @Component({
-    templateUrl: './puzzles.component.html',
-    styleUrls: ['./puzzles.component.css']
+    templateUrl: './puzzles-list.component.html',
+    styleUrls: ['./puzzles-list.component.css']
 })
 export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     
@@ -25,28 +25,39 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     pagedPuzzles: PagedResponse<PuzzleTableRowModel>;
     requestFilters: RequestFilters;
     filterForm: FormGroup;
+    searchInput: FormControl = new FormControl('');
 
     matSortSubscription: Subscription;
     dialogRefSubscription: Subscription;
     subscriptions: Subscription[] = [];
 
     filterColumns: FilterColumn[] = [
-        {name: 'title', property: 'name'},
-        {name: 'manufacturer', property: 'manufacturer'}
+        {name: 'availableInStock', property: 'availableInStock', useInSearch: false},
+        {name: 'name', property: 'name', useInSearch: true},
+        {name: 'manufacturer', property: 'manufacturer', useInSearch: true},
+        {name: 'price', property: 'price', useInSearch: false},
+        {name: 'isMagnetic', property: 'isMagnetic', useInSearch: false},
+        {name: 'weight', property: 'weight', useInSearch: false},
+        {name: 'puzzleType', property: 'puzzleType', useInSearch: true},
+        {name: 'color', property: 'color', useInSearch: true},
+        {name: 'materialType', property: 'materialType', useInSearch: false},
+        {name: 'id', property: 'id', useInSearch: false}
     ];
     
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
     
-    tableColumns: string[] = ['availableInStock', 'name', 'description', 'price', 'isMagnetic', 'weight', 
-    'manufacturer', 'puzzleType', 'color', 'materialType', 'id'];
+    tableColumns: string[] = [];
+    // ['availableInStock', 'name', 'price', 'isMagnetic', 'weight', 
+    // 'manufacturer', 'puzzleType', 'color', 'materialType', 'id'];
 
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,
                 private formBuilder: FormBuilder,
                 public snackBar: MatSnackBar){
+                    this.tableColumns = this.filterColumns.map(c => c.name);
                     this.filterForm = this.formBuilder.group({
-                        title: [''],
+                        name: [''],
                         manufacturer: ['']
                     });
                 }
@@ -96,7 +107,23 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     resetAll(): void{
         this.requestFilters = {operator: LogicalOperator.AND, filters: []};
         this.loadPuzzlesFromApi();
+        this.searchInput.reset();
         this.filterForm.reset();
+    }
+
+    onSearchClick(): void{
+        const searchField = this.searchInput.value.trim();
+        if(searchField){
+            const filters: Filter[] = [];
+            this.filterColumns.forEach(column => {
+                if(column.useInSearch){
+                    const filter: Filter = {propertyName: column.property, propertyValue: searchField};
+                    filters.push(filter);
+                }
+            });
+            this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
+        }
+        this.loadPuzzlesFromApi();
     }
 
     filterPuzzles(): void{
@@ -126,11 +153,7 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
             if(subscr){
                 subscr.unsubscribe();
             }
-        })
+        });
     }
 }
 
-export interface FilterColumn{
-    name: string;
-    property: string;
-}

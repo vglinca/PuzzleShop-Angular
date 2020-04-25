@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PuzzleColorsService } from '../../../services/puzzle-colors.service';
+import { PuzzleColorsService } from '../../../../services/puzzle-colors.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
-import { PuzzleColorForCreationModel } from '../../../models/puzzle-colors/puzzle-color-for-creation.model';
+import { PuzzleColorForCreationModel } from '../../../../models/puzzle-colors/puzzle-color-for-creation.model';
 
   
   @Component({

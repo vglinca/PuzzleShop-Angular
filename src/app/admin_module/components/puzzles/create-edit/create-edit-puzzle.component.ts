@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, ElementRef, QueryList, Renderer2, DoCheck, Directive } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ManufacturersService } from '../../../services/manufacturers.service';
-import { PuzzleTypesService } from '../../../services/puzzle-types.service';
-import { PuzzleColorsService } from '../../../services/puzzle-colors.service';
-import { PuzzleService } from '../../../services/puzzle.service';
+import { ManufacturersService } from '../../../../services/manufacturers.service';
+import { PuzzleTypesService } from '../../../../services/puzzle-types.service';
+import { PuzzleColorsService } from '../../../../services/puzzle-colors.service';
+import { PuzzleService } from '../../../../services/puzzle.service';
 import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
@@ -11,10 +11,10 @@ import { MaterialTypeModel } from 'src/app/models/material-types/material-type.m
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
-import { PuzzleForCreationModel } from '../../../models/puzzles/puzzle-for-creation.model';
+import { PuzzleForCreationModel } from '../../../../models/puzzles/puzzle-for-creation.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ImagesService } from '../../../services/images.service';
-import { PuzzleForUpdateModel } from '../../../models/puzzles/puzzle-for-update.model';
+import { ImagesService } from '../../../../services/images.service';
+import { PuzzleForUpdateModel } from '../../../../models/puzzles/puzzle-for-update.model';
 import { environment } from 'src/environments/environment';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 

@@ -1,17 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { PuzzleTypesService } from '../../../services/puzzle-types.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogService } from '../../../common/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CreateEditPuzzleTypeComponent } from './create-edit-puzzle-type.component';
+import { CreateEditPuzzleTypeComponent } from './create-edit/create-edit-puzzle-type.component';
 import { Subscription } from 'rxjs';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
-
 @Component({
-    templateUrl: './puzzle-types.component.html',
-    styleUrls: ['./puzzle-types.component.css']
+    templateUrl: './puzzle-types-list.component.html',
+    styleUrls: ['./puzzle-types-list.component.css']
 })
 export class PuzzleTypesComponent implements OnInit, OnDestroy{
 

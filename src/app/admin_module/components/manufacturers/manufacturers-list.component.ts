@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ManufacturersService } from '../../../services/manufacturers.service';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CreateEditManufacturerComponent } from './create-edit-manufacturer.component';
+import { CreateEditManufacturerComponent } from './create-edit/create-edit-manufacturer.component';
 import { ConfirmDialogService } from 'src/app/common/confirm_dialog/confirm-dialog.service';
 import { ConfirmDialogComponent } from '../../../common/confirm_dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-    templateUrl: './manufacturers.component.html',
-    styleUrls: ['./manufacturers.component.css']
+    templateUrl: './manufacturers-list.component.html',
+    styleUrls: ['./manufacturers-list.component.css']
 })
 export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
 

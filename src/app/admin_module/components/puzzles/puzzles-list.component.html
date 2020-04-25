@@ -1,13 +1,10 @@
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
-
 	<div class="toolbar-container">
-
 		<mat-card class="light">
-
 			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
 				<mat-card-header>
 					<mat-card-title class="view-card-title">
-						<h1>Puzzles</h1>
+						<h1 style="color: teal;">Puzzles</h1>
 					</mat-card-title>
 				</mat-card-header>
 			</div>
@@ -18,9 +15,9 @@
 							<mat-form-field>
 								<mat-placeholder>
 									<mat-icon>search</mat-icon>
-									<b> Search</b>
+									<i> Search</i>
 								</mat-placeholder>
-								<input matInput>
+								<input matInput [formControl]="searchInput" (keyup.enter)="onSearchClick()">
 							</mat-form-field>
 							<span class="title-spacer"></span>
 						</div>
@@ -48,19 +45,19 @@
 			matSortDirection="asc">
 
 			<ng-container matColumnDef="availableInStock">
-				<mat-header-cell fxFlex="80px" *matHeaderCellDef> Available In Stock </mat-header-cell>
-				<mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.availableInStock}} </mat-cell>
+				<mat-header-cell fxFlex="150px" *matHeaderCellDef> Available In Stock </mat-header-cell>
+				<mat-cell fxFlex="150px" *matCellDef="let puzzle"> {{puzzle?.availableInStock}} units.</mat-cell>
 			</ng-container>
 
 			<ng-container matColumnDef="name">
-				<mat-header-cell fxFlex="200px" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-				<mat-cell fxFlex="200px" *matCellDef="let puzzle"> {{puzzle?.name}} </mat-cell>
+				<mat-header-cell fxFlex="350px" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+				<mat-cell fxFlex="350px" *matCellDef="let puzzle"> {{puzzle?.name}} </mat-cell>
 			</ng-container>
-
+<!-- 
 			<ng-container matColumnDef="description">
 				<mat-header-cell fxFlex="250px" *matHeaderCellDef> Description </mat-header-cell>
 				<mat-cell fxFlex="250px" *matCellDef="let puzzle"> {{puzzle?.description | shorten:'30'}} </mat-cell>
-			</ng-container>
+			</ng-container> -->
 
 			<ng-container matColumnDef="price">
 				<mat-header-cell fxFlex="80px" *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
@@ -108,7 +105,7 @@
 						[routerLink]="['/administration/puzzles/edit', puzzle?.id]">
 						<mat-icon>edit</mat-icon>
 					</button>
-					<button mat-mini-fab class="delete-button" (click)="onDelete(puzzle?.id, puzzle?.name)">
+					<button mat-mini-fab class="delete-button" color="accent" (click)="onDelete(puzzle?.id, puzzle?.name)">
 						<mat-icon>delete</mat-icon>
 					</button>
 				</mat-cell>
@@ -122,7 +119,8 @@
 
 	<div class="paginator-div">
 		<mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons
-			pageSize="25"></mat-paginator>
+			pageSize="25">
+		</mat-paginator>
 	</div>
 
 </div>
@@ -142,7 +140,7 @@
     <mat-nav-list style="margin-left:20px; margin-right: 20px; display: flex; justify-content: center;">
       <form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()" fxLayout="column">
         <mat-form-field>
-          <input matInput type="text" placeholder="Title" style="width:300px;" formControlName="title" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
+          <input matInput type="text" placeholder="Puzzle name" style="width:300px;" formControlName="name" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" placeholder="Manufacturer" style="width:300px;" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />

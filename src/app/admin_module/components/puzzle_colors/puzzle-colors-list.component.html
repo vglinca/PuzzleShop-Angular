@@ -1,0 +1,57 @@
+<div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
+	<div class="toolbar-container">
+		<mat-card>
+			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
+				<mat-card-header>
+					<mat-card-title><h1 style="color: teal;">PuzzleColors</h1></mat-card-title>
+				</mat-card-header>
+			</div>
+			<mat-toolbar>
+				<mat-toolbar-row>
+					<div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+						<div class="toolbar-buttons-div">
+							<button mat-mini-fab style="margin-right:10px; background-color:blue"
+								(click)="openDialogForEditOrCreate(-1)">
+								<mat-icon>add</mat-icon>
+							</button>
+							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
+								<mat-icon>search</mat-icon>
+							</button>
+							<button mat-mini-fab style="margin-right:10px; background-color:darkgray"
+								(click)="loadPuzzleColors()">
+								<mat-icon>refresh</mat-icon>
+							</button>
+						</div>
+					</div>
+				</mat-toolbar-row>
+			</mat-toolbar>
+		</mat-card>
+	</div>
+
+	<div class="table-container" fxLayout="row" fxLayoutAlign="center start">
+
+		<mat-table #table [dataSource]="puzzleColors" class="mat-elevation-z8">
+
+			<ng-container matColumnDef="title">
+				<mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+				<mat-cell *matCellDef="let puzzleColor"> {{puzzleColor?.title}} </mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="id">
+				<mat-header-cell *matHeaderCellDef style="justify-content:right;">
+					<span>Edit/Delete</span>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let puzzleColor" style="justify-content:right;">
+					<button mat-mini-fab class="edit-button" (click)="openDialogForEditOrCreate(puzzleColor?.id)">
+						<mat-icon>edit</mat-icon>
+					</button>
+					<button mat-mini-fab class="delete-button" color="accent" (click)="onDelete(puzzleColor?.id, puzzleColor?.title)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</mat-cell>
+			</ng-container>
+			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+		</mat-table>
+	</div>
+</div>

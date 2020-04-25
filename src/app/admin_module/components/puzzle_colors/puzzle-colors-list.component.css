@@ -35,13 +35,13 @@ mat-toolbar-row{
 .edit-button{
     min-height: 30px;   
     margin: 5px;
-    background-color: green;
+    background-color: teal;
 }
 
 .delete-button{
     min-height: 30px;  
     margin: 5px;
-    background-color: red;
+    /* background-color: red; */
 }
 
 mat-table{

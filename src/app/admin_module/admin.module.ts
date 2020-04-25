@@ -1,28 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ManufacturersComponent } from './components/manufacturers/manufacturers.component';
+import { ManufacturersComponent } from './components/manufacturers/manufacturers-list.component';
 import { MaterialModule } from '../material_module/material.module';
-import { ManufacturersService } from '../services/manufacturers.service';
 import { RouterModule } from '@angular/router';
 import { adminRoutes } from './admin-routes';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CreateEditManufacturerComponent } from './components/manufacturers/create-edit-manufacturer.component';
+import { CreateEditManufacturerComponent } from './components/manufacturers/create-edit/create-edit-manufacturer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InsteadOfEmptyStringPipe } from '../common/instead-of-empty-string.pipe';
 import { ConfirmDialogService } from '../common/confirm_dialog/confirm-dialog.service';
 import { ConfirmDialogComponent } from '../common/confirm_dialog/confirm-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
-import { PuzzleTypesComponent } from './components/puzzle_types/puzzle-types.component';
-import { PuzzleTypesService } from '../services/puzzle-types.service';
-import { CreateEditPuzzleTypeComponent } from './components/puzzle_types/create-edit-puzzle-type.component';
-import { PuzzleColorsComponent } from './components/puzzle_colors/puzzle-colors.component';
-import { PuzzleColorsService } from '../services/puzzle-colors.service';
-import { CreateEditPuzzleColorComponent } from './components/puzzle_colors/create-edit-puzzle-color.component';
-import { PuzzleService } from '../services/puzzle.service';
-import { PuzzlesComponent } from './components/puzzles/puzzles.component';
+import { PuzzleTypesComponent } from './components/puzzle_types/puzzle-types-list.component';
+import { CreateEditPuzzleTypeComponent } from './components/puzzle_types/create-edit/create-edit-puzzle-type.component';
+import { PuzzleColorsComponent } from './components/puzzle_colors/puzzle-colors-list.component';
+import { CreateEditPuzzleColorComponent } from './components/puzzle_colors/create-edit/create-edit-puzzle-color.component';
+import { PuzzlesComponent } from './components/puzzles/puzzles-list.component';
 import { ShortenStringPipe } from '../common/shorten-string.pipe';
-import { CreateEditPuzzleComponent } from './components/puzzles/create-edit-puzzle.component';
-import { ImagesService } from '../services/images.service';
+import { CreateEditPuzzleComponent } from './components/puzzles/create-edit/create-edit-puzzle.component';
+import { UsersListComponent } from './components/users/users-list.component';
 
 
 
@@ -38,7 +34,8 @@ import { ImagesService } from '../services/images.service';
     CreateEditPuzzleComponent,
     InsteadOfEmptyStringPipe,
     ShortenStringPipe,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UsersListComponent
   ],
   imports: [
     CommonModule,

@@ -3,8 +3,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ManufacturersService } from '../../../services/manufacturers.service';
-import { ManufacturerForManipulationModel } from '../../../models/manufacturers/manufacturer-for-manipulation.model';
+import { ManufacturersService } from '../../../../services/manufacturers.service';
+import { ManufacturerForManipulationModel } from '../../../../models/manufacturers/manufacturer-for-manipulation.model';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

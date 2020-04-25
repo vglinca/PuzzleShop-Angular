@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/common/handleError';
 import { ManufacturerForManipulationModel } from '../models/manufacturers/manufacturer-for-manipulation.model';
-import { CreateEditManufacturerComponent } from '../admin_module/components/manufacturers/create-edit-manufacturer.component';
+import { CreateEditManufacturerComponent } from '../admin_module/components/manufacturers/create-edit/create-edit-manufacturer.component';
 
 @Injectable({
     providedIn: 'root'

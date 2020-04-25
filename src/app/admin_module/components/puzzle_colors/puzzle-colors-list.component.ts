@@ -4,12 +4,12 @@ import { PuzzleColorsService } from '../../../services/puzzle-colors.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogService } from '../../../common/confirm_dialog/confirm-dialog.service';
-import { CreateEditPuzzleColorComponent } from './create-edit-puzzle-color.component';
+import { CreateEditPuzzleColorComponent } from './create-edit/create-edit-puzzle-color.component';
 import { Subscription } from 'rxjs';
 
 @Component({
-    templateUrl: './puzzle-colors.component.html',
-    styleUrls: ['./puzzle-colors.component.css']
+    templateUrl: './puzzle-colors-list.component.html',
+    styleUrls: ['./puzzle-colors-list.component.css']
 })
 export class PuzzleColorsComponent implements OnInit, OnDestroy{
 
