@@ -1,140 +1,152 @@
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
 
-    <div class="toolbar-container" >
+	<div class="toolbar-container">
 
-      <mat-card>
+		<mat-card class="light">
 
-        <div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
+			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
+				<mat-card-header>
+					<mat-card-title class="view-card-title">
+						<h1>Puzzles</h1>
+					</mat-card-title>
+				</mat-card-header>
+			</div>
+			<mat-toolbar>
+				<mat-toolbar-row style="display: flex; justify-content: flex-end;">
+					<div class="toolbar-row-div" style="width: 100%;" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+						<div class="mat-form-field-div">
+							<mat-form-field>
+								<mat-placeholder>
+									<mat-icon>search</mat-icon>
+									<b> Search</b>
+								</mat-placeholder>
+								<input matInput>
+							</mat-form-field>
+							<span class="title-spacer"></span>
+						</div>
+						<div class="toolbar-buttons-div" >
+							<button mat-mini-fab style="margin-right:10px; background-color:blue"
+								[routerLink]="['/administration/puzzles/create', -1]">
+								<mat-icon>add</mat-icon>
+							</button>
+							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e" (click)="sidenav.toggle()">
+								<mat-icon>search</mat-icon>
+							</button>
+							<button mat-mini-fab style="margin-right:10px; background-color:darkgray">
+								<mat-icon>refresh</mat-icon>
+							</button>
+						</div>
+					</div>
+				</mat-toolbar-row>
+			</mat-toolbar>
+		</mat-card>
+	</div>
 
-          <mat-card-header>
-            <mat-card-title>Puzzles</mat-card-title>
-          </mat-card-header>
+	<div class="table-container" fxLayout="row" fxLayoutAlign="center start">
 
-        </div>
+		<mat-table #table [dataSource]="pagedPuzzles?.items" class="mat-elevation-z8" matSort matSortActive="name"
+			matSortDirection="asc">
 
-        <mat-toolbar>
-            <mat-toolbar-row>
-                <div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
-  
-                    <!-- <div class="mat-form-field-div">
-  
-                        <mat-form-field>
-                          <mat-placeholder>
-                            <mat-icon>subject</mat-icon>
-                            <b> Search</b>
-                          </mat-placeholder>
-                          <input matInput>
-                        </mat-form-field>
-                        <span class="title-spacer"></span>
-                    
-                    </div> -->
-  
-                    <div class="toolbar-buttons-div">
-  
-                        <button mat-mini-fab style="margin-right:10px; background-color:blue" [routerLink]="['/administration/puzzles/create', -1]">
-                          <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
-                          <mat-icon>search</mat-icon>
-                        </button>
-                        <button mat-mini-fab style="margin-right:10px; background-color:darkgray">
-                          <mat-icon>refresh</mat-icon>
-                        </button>
-                    
-                    </div>
-  
-                </div>
-            </mat-toolbar-row>
-          </mat-toolbar>
+			<ng-container matColumnDef="availableInStock">
+				<mat-header-cell fxFlex="80px" *matHeaderCellDef> Available In Stock </mat-header-cell>
+				<mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.availableInStock}} </mat-cell>
+			</ng-container>
 
-      </mat-card>
+			<ng-container matColumnDef="name">
+				<mat-header-cell fxFlex="200px" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+				<mat-cell fxFlex="200px" *matCellDef="let puzzle"> {{puzzle?.name}} </mat-cell>
+			</ng-container>
 
+			<ng-container matColumnDef="description">
+				<mat-header-cell fxFlex="250px" *matHeaderCellDef> Description </mat-header-cell>
+				<mat-cell fxFlex="250px" *matCellDef="let puzzle"> {{puzzle?.description | shorten:'30'}} </mat-cell>
+			</ng-container>
 
-    </div>
-    
-    <div class="table-container" fxLayout="row" fxLayoutAlign="center start">
+			<ng-container matColumnDef="price">
+				<mat-header-cell fxFlex="80px" *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+				<mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.price | currency:'USD'}} </mat-cell>
+			</ng-container>
 
-        <mat-table #table [dataSource]="pagedPuzzles?.items" class="mat-elevation-z8" 
-                    matSort matSortActive="name" matSortDirection="asc">
-          
-            <ng-container matColumnDef="name">
-              <mat-header-cell fxFlex="200px" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-              <mat-cell fxFlex="200px" *matCellDef="let puzzle"> {{puzzle?.name}} </mat-cell>
-            </ng-container>
-            
-            <ng-container matColumnDef="description">
-              <mat-header-cell fxFlex="200px" *matHeaderCellDef> Description </mat-header-cell>
-              <mat-cell fxFlex="200px" *matCellDef="let puzzle"> {{puzzle?.description | shorten:'20'}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="isMagnetic">
+				<mat-header-cell fxFlex="80px" *matHeaderCellDef> Magnetic </mat-header-cell>
+				<mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.isMagnetic}} </mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="price">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.price | currency:'USD'}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="weight">
+				<mat-header-cell fxFlex="80px" *matHeaderCellDef> Weight </mat-header-cell>
+				<mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.weight}} </mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="isMagnetic">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> Magnetic </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.isMagnetic}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="manufacturer">
+				<mat-header-cell fxFlex="150px" *matHeaderCellDef mat-sort-header> Manufacturer </mat-header-cell>
+				<mat-cell fxFlex="150px" *matCellDef="let puzzle"> {{puzzle?.manufacturer}} </mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="weight">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> Weight </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.weight}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="puzzleType">
+				<mat-header-cell fxFlex="90px" *matHeaderCellDef> PuzzleType </mat-header-cell>
+				<mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.puzzleType}} </mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="manufacturer">
-                <mat-header-cell fxFlex="150px" *matHeaderCellDef mat-sort-header> Manufacturer </mat-header-cell>
-                <mat-cell fxFlex="150px" *matCellDef="let puzzle"> {{puzzle?.manufacturer}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="color">
+				<mat-header-cell fxFlex="90px" *matHeaderCellDef> Color </mat-header-cell>
+				<mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.color}} </mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="puzzleType">
-                <mat-header-cell fxFlex="90px" *matHeaderCellDef> PuzzleType </mat-header-cell>
-                <mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.puzzleType}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="materialType">
+				<mat-header-cell fxFlex="80px" *matHeaderCellDef> MaterialType </mat-header-cell>
+				<mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.materialType}} </mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="color">
-                <mat-header-cell fxFlex="90px" *matHeaderCellDef> Color </mat-header-cell>
-                <mat-cell fxFlex="90px" *matCellDef="let puzzle"> {{puzzle?.color}} </mat-cell>
-            </ng-container>
+			<ng-container matColumnDef="id">
+				<mat-header-cell fxFlex="150px" *matHeaderCellDef style="display: flex; justify-content: center;">
+					<!-- <span>Edit/Delete</span> -->
+					<button mat-raised-button style="color:white; background-color:lightseagreen;" (click)="resetAll();">
+						<mat-icon>refresh</mat-icon>Reset</button>
+				</mat-header-cell>
+				<mat-cell fxFlex="150px" *matCellDef="let puzzle" style="display: flex; justify-content: center;">
+					<button mat-mini-fab class="edit-button"
+						[routerLink]="['/administration/puzzles/edit', puzzle?.id]">
+						<mat-icon>edit</mat-icon>
+					</button>
+					<button mat-mini-fab class="delete-button" (click)="onDelete(puzzle?.id, puzzle?.name)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</mat-cell>
+			</ng-container>
 
-            <ng-container matColumnDef="materialType">
-                <mat-header-cell fxFlex="80px" *matHeaderCellDef> MaterialType </mat-header-cell>
-                <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.materialType}} </mat-cell>
-            </ng-container>
+			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+		</mat-table>
 
-            <ng-container matColumnDef="availableInStock">
-              <mat-header-cell fxFlex="80px" *matHeaderCellDef> Available In Stock </mat-header-cell>
-              <mat-cell fxFlex="80px" *matCellDef="let puzzle"> {{puzzle?.availableInStock}} </mat-cell>
-          </ng-container>
-          
-            <ng-container matColumnDef="id">
-                
-                <mat-header-cell fxFlex="200px" *matHeaderCellDef style="justify-content:right;">
-                  <span>Edit/Delete</span>
-                </mat-header-cell>
-                
-                <mat-cell fxFlex="200px" *matCellDef="let puzzle" style="justify-content:right;">
+	</div>
 
-                  <button mat-mini-fab class="edit-button" [routerLink]="['/administration/puzzles/edit', puzzle?.id]">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-
-                  <button mat-mini-fab class="delete-button" (click)="onDelete(puzzle?.id, puzzle?.name)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-
-                </mat-cell>
-
-              </ng-container>
-          
-            <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
-          </mat-table>
-    
-        </div>
-
-        <div class="paginator-div">
-          <mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons pageSize="25"></mat-paginator>
-        </div>
+	<div class="paginator-div">
+		<mat-paginator [length]="pagedPuzzles?.totalItems" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons
+			pageSize="25"></mat-paginator>
+	</div>
 
 </div>
+
+<mat-sidenav class="search-panel" dark #sidenav mode="push" opened="false" style="height: 500px; margin-top: 140px;">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <div mat-card-avatar class="avatar"></div>
+        <mat-card-subtitle>
+          <button mat-mini-fab color="primary" style="margin: 5px;" (click)="filterPuzzles(); sidenav.toggle()">
+            <mat-icon>search</mat-icon></button>
+          <button mat-mini-fab style="margin: 5px;" (click)="resetAll() ;sidenav.toggle()">
+            <mat-icon>refresh</mat-icon></button>
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <mat-nav-list style="margin-left:20px; margin-right: 20px; display: flex; justify-content: center;">
+      <form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()" fxLayout="column">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Title" style="width:300px;" formControlName="title" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Manufacturer" style="width:300px;" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />
+        </mat-form-field>
+      </form>
+    </mat-nav-list>
+  </mat-sidenav>

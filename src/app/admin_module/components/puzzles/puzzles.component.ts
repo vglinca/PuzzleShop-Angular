@@ -12,6 +12,7 @@ import { Subscription, merge } from 'rxjs';
 import { ConfirmDialogService } from '../../../common/confirm_dialog/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -23,20 +24,32 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     puzzles: PuzzleTableRowModel[] = [];
     pagedPuzzles: PagedResponse<PuzzleTableRowModel>;
     requestFilters: RequestFilters;
+    filterForm: FormGroup;
 
     matSortSubscription: Subscription;
     dialogRefSubscription: Subscription;
     subscriptions: Subscription[] = [];
+
+    filterColumns: FilterColumn[] = [
+        {name: 'title', property: 'name'},
+        {name: 'manufacturer', property: 'manufacturer'}
+    ];
     
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
     
-    tableColumns: string[] = ['id', 'name', 'description', 'price', 'isMagnetic', 'weight', 
-    'manufacturer', 'puzzleType', 'color', 'materialType', 'availableInStock'];
+    tableColumns: string[] = ['availableInStock', 'name', 'description', 'price', 'isMagnetic', 'weight', 
+    'manufacturer', 'puzzleType', 'color', 'materialType', 'id'];
 
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,
-                public snackBar: MatSnackBar){}
+                private formBuilder: FormBuilder,
+                public snackBar: MatSnackBar){
+                    this.filterForm = this.formBuilder.group({
+                        title: [''],
+                        manufacturer: ['']
+                    });
+                }
    
     
     ngOnInit(): void {
@@ -69,14 +82,43 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     loadPuzzlesFromApi(){
-        var filters: Filter[] = [];
-        this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
+        // var filters: Filter[] = [];
+        // this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
         const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
+        console.log(request);
         this.puzzleService.getAllPuzzles(request)
             .subscribe((response: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = response;
                 this.puzzles = response.items;
             });
+    }
+
+    resetAll(): void{
+        this.requestFilters = {operator: LogicalOperator.AND, filters: []};
+        this.loadPuzzlesFromApi();
+        this.filterForm.reset();
+    }
+
+    filterPuzzles(): void{
+        this.retrieveFilteringValuesFromForm();
+        this.loadPuzzlesFromApi();
+    }
+
+    private retrieveFilteringValuesFromForm(): void{
+        if(this.filterForm.value){
+            const filters: Filter[] = [];
+            Object.keys(this.filterForm.controls).forEach(key => {
+                const controlValue = this.filterForm.controls[key].value;
+                if(controlValue){
+                    const column: FilterColumn = [...this.filterColumns].find(c => c.name === key);
+                    if(column){
+                        const filter: Filter = {propertyName: column.property, propertyValue: controlValue};
+                        filters.push(filter);
+                    }
+                }
+            });
+            this.requestFilters = {operator: LogicalOperator.AND, filters: filters};
+        }
     }
 
     ngOnDestroy(): void {
@@ -86,4 +128,9 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
             }
         })
     }
+}
+
+export interface FilterColumn{
+    name: string;
+    property: string;
 }
