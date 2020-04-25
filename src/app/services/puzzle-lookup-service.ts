@@ -14,6 +14,7 @@ import { MaterialTypeModel } from '../models/material-types/material-type.model'
 import { DifficultyLevelModel } from '../models/difficulty-levels/difficulty-level.model';
 import { PuzzleTableRowModel } from '../models/puzzles/puzzle-table-row.model';
 import { QueryParameters } from '../infrastructure/query-params/query-parameters';
+import { RoleModel } from '../models/roles/role.model';
 
 
 @Injectable({
@@ -52,5 +53,9 @@ export class PuzzleLookupService{
 
     getDifficultyLevels(): Observable<DifficultyLevelModel[]>{
         return this.httpClient.get<DifficultyLevelModel[]>(`${this.baseUrl}lookup/difficultylevels`, this.headers);
+    }
+
+    getUserRoles(): Observable<RoleModel[]>{
+        return this.httpClient.get<RoleModel[]>(`${this.baseUrl}lookup/roles`, this.headers);
     }
 }

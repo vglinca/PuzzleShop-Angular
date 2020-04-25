@@ -75,12 +75,7 @@
                     <button mat-button style="color:white; background-color:teal">Reset</button>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let user" style="justify-content:right;">
-                    <button mat-mini-fab style="background-color:teal; min-height: 30px;   margin: 5px;">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-mini-fab style="background-color:lightblue; min-height: 30px;  margin: 5px;">
-                        <mat-icon>delete</mat-icon>
-                    </button>
+                    <button mat-button style="background-color:teal; min-height: 30px;" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>

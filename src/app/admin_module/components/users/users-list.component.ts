@@ -9,6 +9,8 @@ import { Subscription, merge } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { UserRolesDialogComponent } from './dialog/user-roles-dialog.component';
 
 @Component({
     templateUrl: './users-list.component.html',
@@ -23,7 +25,6 @@ export class UsersListComponent implements OnInit, AfterViewInit{
         {name: 'email', property: 'email', useInSearch: true},
         {name: 'age', property: 'age', useInSearch: false},
         {name: 'id', property: 'id', useInSearch: false}
-        // {name: 'roles', property: 'roles', useInSearch: true}
     ];
 
     tableColumns: string[] = [];
@@ -41,7 +42,8 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
 
-    constructor(private usersService: UsersService){
+    constructor(private usersService: UsersService,
+                private dialog: MatDialog){
         this.tableColumns = this.filterColumns.map(c => c.name);
     }
 
@@ -53,6 +55,16 @@ export class UsersListComponent implements OnInit, AfterViewInit{
         this.loadUsersFromApi();
         this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
         merge(this.matSort.sortChange, this.paginator.page).subscribe(() => this.loadUsersFromApi());
+    }
+
+    openManageRolesDialog(userId: number): void{
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = false;
+        dialogConfig.disableClose = true;
+        dialogConfig.height = "45%";
+        dialogConfig.width = "30%";
+        dialogConfig.data = userId;
+        this.dialog.open(UserRolesDialogComponent, dialogConfig);
     }
 
     loadUsersFromApi(): void{

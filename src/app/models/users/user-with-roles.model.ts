@@ -1,3 +1,5 @@
+import { RoleModel } from '../roles/role.model';
+
 export interface UserWithRolesModel{
     id: number;
     firstName: string;

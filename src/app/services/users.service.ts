@@ -19,4 +19,8 @@ export class UsersService{
     public getPagedUsers(pagedRequest: PagedRequest): Observable<PagedResponse<UserWithRolesModel>>{
         return this.http.post<PagedResponse<UserWithRolesModel>>(`${this.baseUrl}/getPagedUsers`, pagedRequest, this.headers);
     }
+
+    public getUser(userId: number): Observable<UserWithRolesModel>{
+        return this.http.get<UserWithRolesModel>(`${this.baseUrl}/${userId}`, this.headers);
+    }
 }
