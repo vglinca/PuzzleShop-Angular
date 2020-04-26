@@ -23,4 +23,8 @@ export class UsersService{
     public getUser(userId: number): Observable<UserWithRolesModel>{
         return this.http.get<UserWithRolesModel>(`${this.baseUrl}/${userId}`, this.headers);
     }
+
+    public editRoles(userId: number, roles: Array<string> ){
+        return this.http.put(`${this.baseUrl}/manageroles/${userId}`, roles);
+    }
 }

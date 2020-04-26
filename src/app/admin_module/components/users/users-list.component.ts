@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserRolesDialogComponent } from './dialog/user-roles-dialog.component';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
     templateUrl: './users-list.component.html',
@@ -26,6 +27,8 @@ export class UsersListComponent implements OnInit, AfterViewInit{
         {name: 'age', property: 'age', useInSearch: false},
         {name: 'id', property: 'id', useInSearch: false}
     ];
+
+    currentId: number = 0;
 
     tableColumns: string[] = [];
 
@@ -43,6 +46,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
 
     constructor(private usersService: UsersService,
+                private accountService: AccountService,
                 private dialog: MatDialog){
         this.tableColumns = this.filterColumns.map(c => c.name);
     }
@@ -52,6 +56,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     }
 
     ngAfterViewInit(): void {
+        this.currentId = this.accountService.parseToken().userId;
         this.loadUsersFromApi();
         this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
         merge(this.matSort.sortChange, this.paginator.page).subscribe(() => this.loadUsersFromApi());

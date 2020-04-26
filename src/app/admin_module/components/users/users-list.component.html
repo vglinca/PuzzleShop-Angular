@@ -30,7 +30,7 @@
                                 (click)="sidenav.toggle()">
                                 <mat-icon>search</mat-icon>
                             </button>
-                            <button mat-mini-fab style="margin-right:10px; background-color:darkgray">
+                            <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadUsersFromApi()">
                                 <mat-icon>refresh</mat-icon>
                             </button>
                         </div>
@@ -76,6 +76,7 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let user" style="justify-content:right;">
                     <button mat-button style="background-color:teal; min-height: 30px;" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
+                    <span *ngIf="user?.id === currentId">You</span>
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>

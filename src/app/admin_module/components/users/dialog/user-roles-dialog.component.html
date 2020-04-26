@@ -1,17 +1,18 @@
 <mat-card>
     <mat-card-title>
-        Full Name: {{user?.firstName}} {{user?.lastName}}
+       <span>Full Name: {{user?.firstName}} {{user?.lastName}}</span>
+       <span *ngIf="containsAdminRole"> | ADMIN</span>  
     </mat-card-title>
-    <mat-card-subtitle>Email: {{user.email}}</mat-card-subtitle>
+    <mat-card-subtitle>Email: {{user?.email}}</mat-card-subtitle>
     <mat-card-content>
         <div class="cd-wrapper"  *ngFor="let role of roles">
-            <mat-checkbox color='primary'>
-                {{role.name}}
+            <mat-checkbox color='primary' [checked]="role?.isMatched" (change)="onChange($event, role?.id)">
+                {{role?.name}}
             </mat-checkbox>
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="primary" style="margin: 5px;">APPLY CHANGES</button>
-        <button mat-raised-button color="accent" style="margin: 5px;">CANCEL</button>
+        <button mat-raised-button color="primary" style="margin: 5px;" (click)="onSubmit()">APPLY CHANGES</button>
+        <button mat-raised-button color="accent" style="margin: 5px;" (click)="onCancel()">CANCEL</button>
       </mat-card-actions>
 </mat-card>
