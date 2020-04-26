@@ -24,6 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSliderModule} from '@angular/material/slider';
 
 const materialDesignComponents = [
       MatButtonModule, 
@@ -51,7 +52,8 @@ const materialDesignComponents = [
       MatTooltipModule,
       MatRadioModule,
       MatProgressSpinnerModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatSliderModule
     ];
 
 @NgModule({

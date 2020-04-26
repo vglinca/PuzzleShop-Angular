@@ -7,7 +7,7 @@
 .category-list{
     float: left;    
     width: 300px;
-    margin-left: 0 auto;
+    margin-left: 30px;
     margin-top: 300px;
     margin-bottom: 50px;
     background-color: white;
@@ -28,7 +28,7 @@
 
 .exp-panel-header {
     font-size: 25px;
-    height: 90px;
+    height: 100px;
 }
 
 .exp-panel-header:hover{
@@ -42,7 +42,7 @@ mat-grid-list{
 /*------------------------------------------------------------------------------------*/
 
 .list-with-header-div{
-    margin-left: 50px;
+    margin-left: 40px;
     margin-right: 50px;
     margin-bottom: 200px;
 }
@@ -60,6 +60,7 @@ mat-grid-list{
     width: 300px;
     height: 45px;
     background-color: white;
+    font-family: Inconsolata;
     /* background-color: green; */
     font-size: 25px;
     padding-left: 5px;

@@ -33,6 +33,7 @@ import { UserLoginComponent } from '../account/auth/user-login.component';
 export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges{
 
     rowsNumber: number;
+    showSpinner: boolean = true;
 
     currentPuzzleType: PuzzleTypeModel;
     prevPuzzleTypeTitle: string;
@@ -75,7 +76,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     }
 
     ngOnInit(): void {
-
+        this.showSpinner = true;
         console.log();
         this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
         this.lookupService.getPuzzleTypes()
@@ -94,6 +95,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     
     ngAfterViewInit(): void {
+        this.showSpinner = true;
         this.routerSubscription = this.router.events.subscribe((e) => {
             if(e instanceof NavigationStart){
                 this.paginator.pageIndex = 0;
@@ -114,6 +116,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     }
    
     onPageChanged(event){
+        this.showSpinner = true;
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.pageSize = event.pageSize;
         this.activatedRouteSubscr1 = this.activatedRoute.params.subscribe((val) => {
@@ -129,6 +132,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     
     onChangeMatSelect(value: string){
+        this.showSpinner = true;
         console.log(value);
         var orderby: string = value.split(',')[0];
         var orderbyDirection: string = value.split(',')[1];
@@ -165,6 +169,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
         this.lookupService.getPuzzles(pagedRequest)
             .subscribe((pagedPuzzles: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = pagedPuzzles;
+                this.showSpinner = false;
             }, err => {console.log(err)});
     }
 

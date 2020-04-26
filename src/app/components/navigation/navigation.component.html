@@ -1,5 +1,5 @@
 <div fxLayout="row | wrap" fxLayoutAlign="space-between center" class="header">
-    <div class="logo-div mat-display-1">SpeedCubingStore</div>
+    <div class="logo-div mat-display-1"><span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore</div>
     <div>
         <img src="../../assets/images/scslogo.png" style="width: 100px; height: 100px;" alt="">
     </div>
@@ -7,19 +7,14 @@
 
         <div class="header-right-side">
             <div>
-                <mat-form-field class="example-form-field">
+                <mat-form-field class="example-form-field" >
                     <mat-label>Search</mat-label>
                     <input matInput type="text">
                     <button mat-button matSuffix mat-icon-button aria-label="Search">
-                      <mat-icon>search</mat-icon>
+                      <mat-icon color="primary">search</mat-icon>
                     </button>
                   </mat-form-field>
             </div>
-            <!-- <div class="container">
-                <input type="text" placeholder="Search...">
-                <div class="search"></div>
-            </div> -->
-
             <div fxLayout="row | wrap" fxLayoutAlign="space-between center">
                 <div *ngIf="isLoggedIn" class="hello">
                    <span>Hello, {{accountInfo?.name}}!</span>
@@ -27,7 +22,8 @@
 
                 <div>
                     <div *ngIf="!isLoggedIn">
-                        <span  class="action" (click)="onSignInClick()">Sign In</span><span> or </span>
+                        <span  class="action" (click)="onSignInClick()">Sign In</span>
+                        <span> or </span>
                         <span class="action" (click)="onCreateAccountClick()">Create Account</span>
                     </div>
                     <span *ngIf="isLoggedIn" class="action" (click)="onSignOutClick()">Sign out</span>
@@ -65,8 +61,8 @@
             </mat-menu>
         </div>
         <div class="nav-item">
-            <a mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
-                (mouseenter)="openMenu(0)">SpeedCubes</a>
+            <span class="nav-span" mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
+                (mouseenter)="openMenu(0)">SpeedCubes</span>
         </div>
 
         <div>
@@ -79,8 +75,8 @@
             </mat-menu>
         </div>
         <div class="nav-item">
-            <a [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA
-                Puzzles</a>
+            <span class="nav-span" [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA
+                Puzzles</span>
         </div>
 
         <div class="nav-item">

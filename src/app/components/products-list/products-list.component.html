@@ -1,12 +1,15 @@
+<div *ngIf="showSpinner" class="spinner" style="position: absolute; top: 50%; left: 50%; z-index: 5;">
+	<mat-spinner></mat-spinner>
+</div>
 <div class="big-container" fxLayout="row | wrap" fxLayoutAlign="space-between start">
 	<div class="category-list">
 
 		<mat-accordion multi="true">
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
 				<mat-expansion-panel-header class="exp-panel-header">
-					<span style="padding-top: 10px;">Categories</span>
+					<span style="padding-bottom: 10px;">Categories</span>
 				</mat-expansion-panel-header>
-				<div style="padding-top: 10px;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
+				<div style="padding-top: 10px;;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
 			</mat-expansion-panel>
 
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
@@ -18,9 +21,11 @@
 
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
 				<mat-expansion-panel-header class="exp-panel-header">
-					<span style="padding-top: 10px;">Color</span>
+					<span style="padding-top: 10px;">Price</span>
 				</mat-expansion-panel-header>
-				<div style="padding-top: 10px;" *ngFor="let color of puzzleColors">{{color.title}}</div>
+				<div style="padding-top: 10px;" >
+					<mat-slider style="width: 100%;" min="1" max="1000" step="10" thumbLabel="true"></mat-slider>
+				</div>
 			</mat-expansion-panel>
 		</mat-accordion>
 	</div>
@@ -76,7 +81,7 @@
 		<div class="pagination-data-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 			<div>
 				<mat-paginator (page)="onPageChanged($event)" [length]="pagedPuzzles?.totalItems"
-					[pageSizeOptions]="[12, 24, 48, 96]" pageSize="24">
+					 pageSize="24">
 				</mat-paginator>
 			</div>
 		</div>

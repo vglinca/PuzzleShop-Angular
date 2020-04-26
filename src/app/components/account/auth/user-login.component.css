@@ -43,20 +43,24 @@ Html, body{
   }
 
 .reg-button-container {
-    align-content: flex-start;
+    display: flex;
+    justify-content: flex-end;
 }
 
   .registration-button {
-    
       margin-top: 5px;
-      text-align: left;
+      text-align: right;
       color: #e62047;
   }
 
+  .registration-button:hover{
+    cursor: pointer;
+  }
 
+/* 
   input {
     text-align: center;
-  }
+  } */
   
   ::-webkit-input-placeholder {
     text-align: center;

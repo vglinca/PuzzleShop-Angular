@@ -2,7 +2,7 @@
 	<div class="grandParentContaniner">
 		<div class="parentContainer">
 			<mat-toolbar
-				style="display: flex; justify-content: flex-end; background-color: white; margin-bottom: 10px;">
+				style="display: flex; justify-content: flex-end; background-color: white; margin-bottom: 5px;">
 				<button mat-icon-button (click)="onCloseClick()">
 					<mat-icon>close</mat-icon>
 				</button>
@@ -10,7 +10,7 @@
 			<form novalidate class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="login()">
 				<div>
 					<span class="login-span-header">
-						<h2>Login into personal cabinet</h2>
+						<h2>SIGNIN</h2>
 					</span>
 
 					<div class="form-group" [ngClass]="{'error': !validateFormControl(userLoginForm.controls.email)}">
@@ -33,7 +33,7 @@
 					</div>
 					<button [disabled]="userLoginForm.invalid" class="login-button" mat-raised-button>Login</button>
 					<div class="reg-button-container">
-						<a mat-button class="registration-button"
+						<a class="registration-button"
 							(click)="redirectToRegistration()"><u>Registration</u></a>
 					</div>
 				</div>
