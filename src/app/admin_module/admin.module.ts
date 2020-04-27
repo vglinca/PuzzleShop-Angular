@@ -20,6 +20,7 @@ import { ShortenStringPipe } from '../common/shorten-string.pipe';
 import { CreateEditPuzzleComponent } from './components/puzzles/create-edit/create-edit-puzzle.component';
 import { UsersListComponent } from './components/users/users-list.component';
 import { UserRolesDialogComponent } from './components/users/dialog/user-roles-dialog.component';
+import { OrdersListComponent } from './components/orders/orders-list.component';
 
 
 
@@ -37,7 +38,8 @@ import { UserRolesDialogComponent } from './components/users/dialog/user-roles-d
     ShortenStringPipe,
     ConfirmDialogComponent,
     UsersListComponent,
-    UserRolesDialogComponent
+    UserRolesDialogComponent,
+    OrdersListComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,6 @@ import { UserRolesDialogComponent } from './components/users/dialog/user-roles-d
     CreateEditPuzzleTypeComponent,
     CreateEditPuzzleColorComponent,
     UserRolesDialogComponent
-    
   ]
 })
 export class AdminModule { }
