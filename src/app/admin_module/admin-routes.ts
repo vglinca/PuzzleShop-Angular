@@ -7,6 +7,7 @@ import { PuzzlesComponent } from './components/puzzles/puzzles-list.component';
 import { CreateEditPuzzleComponent } from './components/puzzles/create-edit/create-edit-puzzle.component';
 import { UsersListComponent } from './components/users/users-list.component';
 import { OrdersListComponent } from './components/orders/orders-list.component';
+import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 
 export const adminRoutes: Routes = [
     { path: '', children: [
@@ -20,7 +21,8 @@ export const adminRoutes: Routes = [
                 { path: 'puzzles/edit/:id', component: CreateEditPuzzleComponent },
                 { path: 'puzzles/create/:id', component: CreateEditPuzzleComponent },
                 { path: 'users', component: UsersListComponent },
-                { path: 'orders', component: OrdersListComponent }
+                { path: 'orders', component: OrdersListComponent },
+                { path: 'orders/:id', component: OrderDetailsComponent }
             ]
         }
     ]}

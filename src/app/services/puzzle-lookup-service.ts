@@ -15,6 +15,7 @@ import { DifficultyLevelModel } from '../models/difficulty-levels/difficulty-lev
 import { PuzzleTableRowModel } from '../models/puzzles/puzzle-table-row.model';
 import { QueryParameters } from '../infrastructure/query-params/query-parameters';
 import { RoleModel } from '../models/roles/role.model';
+import { OrderStatusModel } from '../models/order-status/order-status.model';
 
 
 @Injectable({
@@ -28,7 +29,7 @@ export class PuzzleLookupService{
     constructor(private httpClient: HttpClient){}
 
     getPuzzleTypes(queryParams?: QueryParameters): Observable<PuzzleTypeModel[]>{
-        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers); //${queryParams !== null ? `&${queryParams.path}=${queryParams.value}` : ''}
+        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers);
     }
 
     getManufacturers() : Observable<ManufacturerModel[]>{
@@ -57,5 +58,9 @@ export class PuzzleLookupService{
 
     getUserRoles(): Observable<RoleModel[]>{
         return this.httpClient.get<RoleModel[]>(`${this.baseUrl}lookup/roles`, this.headers);
+    }
+
+    getOrderStatusList(): Observable<OrderStatusModel[]>{
+        return this.httpClient.get<OrderStatusModel[]>(`${this.baseUrl}lookup/orderstatuslist`, this.headers);
     }
 }

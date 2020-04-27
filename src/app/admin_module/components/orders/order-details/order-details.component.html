@@ -1,0 +1,55 @@
+<mat-card style="margin: 25px;">
+    <mat-card-title style="display: flex; justify-content: center; align-items: center;">
+        <span>Order № {{orderId}}</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+
+    </mat-card-subtitle>
+    <mat-card-content style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span class="content-span">UserId: <b>{{order?.userId}}</b></span>
+        <span class="content-span">OrderStatus: <b>{{order?.orderStatus}}</b></span>
+        <span class="content-span">OrderDate: <b>{{order?.orderDate | date}}</b></span>
+        <span class="content-span">TotalItems: <b>{{order?.totalItems}}</b></span>
+        <mat-divider></mat-divider>
+        <div class="total-cost" style="width: 100%; display: flex; justify-content: flex-end;">
+            <span>TotalCost: {{order?.totalCost | currency:'USD'}}</span>
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card style="margin: 25px;">
+    <mat-card-title>Order Items</mat-card-title>
+    <mat-card-content>
+        <mat-table #table [dataSource]="order?.orderItems">
+
+			<ng-container matColumnDef="id">
+				<mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+				<mat-cell *matCellDef="let orderItem"> {{orderItem?.id}}</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="cost">
+				<mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
+				<mat-cell *matCellDef="let orderItem">
+					<span> {{orderItem?.cost | currency:'USD'}} </span>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="quantity">
+				<mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+				<mat-cell *matCellDef="let orderItem"> {{orderItem?.quantity}} </mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="puzzleName">
+				<mat-header-cell *matHeaderCellDef> Puzzle Id </mat-header-cell>
+				<mat-cell *matCellDef="let orderItem"> {{orderItem?.puzzle.name}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="itemPrice">
+				<mat-header-cell *matHeaderCellDef> Item Price </mat-header-cell>
+				<mat-cell *matCellDef="let orderItem"> {{orderItem?.puzzle.price | currency:'USD'}} </mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+		</mat-table>
+    </mat-card-content>
+</mat-card>

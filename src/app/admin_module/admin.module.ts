@@ -21,6 +21,7 @@ import { CreateEditPuzzleComponent } from './components/puzzles/create-edit/crea
 import { UsersListComponent } from './components/users/users-list.component';
 import { UserRolesDialogComponent } from './components/users/dialog/user-roles-dialog.component';
 import { OrdersListComponent } from './components/orders/orders-list.component';
+import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 
 
 
@@ -39,7 +40,8 @@ import { OrdersListComponent } from './components/orders/orders-list.component';
     ConfirmDialogComponent,
     UsersListComponent,
     UserRolesDialogComponent,
-    OrdersListComponent
+    OrdersListComponent,
+    OrderDetailsComponent
   ],
   imports: [
     CommonModule,

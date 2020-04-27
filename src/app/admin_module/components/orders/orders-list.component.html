@@ -45,6 +45,13 @@
 				<mat-cell *matCellDef="let order"> {{order?.userId}}</mat-cell>
 			</ng-container>
 
+			<ng-container matColumnDef="orderStatus">
+				<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+				<mat-cell *matCellDef="let order">
+					<span [ngClass]="{'red': order?.orderStatus === 'ConfirmedPayment'}"> {{order?.orderStatus}} </span>
+				</mat-cell>
+			</ng-container>
+
 			<ng-container matColumnDef="orderDate">
 				<mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </mat-header-cell>
 				<mat-cell *matCellDef="let order"> {{order?.orderDate | date}} </mat-cell>
@@ -60,24 +67,14 @@
 				<mat-cell *matCellDef="let order"> {{order?.totalCost | currency:'USD'}} </mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="orderStatus">
-				<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-				<mat-cell *matCellDef="let order"> {{order?.orderStatus}} </mat-cell>
-			</ng-container>
-
-
 			<ng-container matColumnDef="id">
 				<mat-header-cell *matHeaderCellDef style="display: flex; justify-content: center;">
-					<!-- <span>Edit/Delete</span> -->
 					<button mat-raised-button style="color:white; background-color:lightseagreen;">
 						<mat-icon>refresh</mat-icon>Reset</button>
 				</mat-header-cell>
-				<mat-cell *matCellDef="let puzzle" style="display: flex; justify-content: center;">
-					<button mat-mini-fab class="edit-button">
-						<mat-icon>edit</mat-icon>
-					</button>
-					<button mat-mini-fab class="delete-button" color="accent">
-						<mat-icon>delete</mat-icon>
+				<mat-cell *matCellDef="let order" style="display: flex; justify-content: center;">
+					<button mat-mini-fab class="edit-button" [routerLink]="['/administration/orders', order?.id]">
+						<mat-icon>details</mat-icon>
 					</button>
 				</mat-cell>
 			</ng-container>

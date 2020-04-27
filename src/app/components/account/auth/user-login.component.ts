@@ -40,20 +40,14 @@ export class UserLoginComponent implements OnInit{
     }
 
     login(){
-        console.log(this.userLoginForm.value);
         const userForLogin: UserForAuthModel = {...this.userLoginForm.value};
-        console.log(userForLogin);
         this.accountService.login(userForLogin)
             .subscribe((bearerToken: BearerToken) => {
                 localStorage.setItem(environment.accessToken, bearerToken.accessToken);
                 let decodeToken = jwt_decode(bearerToken.accessToken);
-                console.log(bearerToken.accessToken);
-                console.log('Decoded: ', decodeToken);
                 let userInfo: LoggedInUserInfo = this.accountService.parseToken();
-                console.log('User info ', userInfo);
                 this.notificationService.success('You have logged in a system.');
             }, err => {
-                console.log(err.error.Error);
                 this.notificationService.warn(err.error.Error)
             });
         this.dialogRef.close();

@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { OrderModel } from 'src/app/models/orders/order.model';
 import { RequestFilters } from 'src/app/infrastructure/pagination/request-filters';
@@ -9,14 +9,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ManageOrderService } from 'src/app/services/manage-order.service';
 import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { OrderStatusModel } from 'src/app/models/order-status/order-status.model';
+import { OrderTableRowModel } from 'src/app/models/orders/order-table-row.model';
 
 @Component({
     templateUrl: './orders-list.component.html',
     styleUrls: ['./orders-list.component.scss']
 })
-export class OrdersListComponent implements AfterViewInit, OnDestroy{
+export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
 
-    pagedOrders: PagedResponse<OrderModel>;
+    pagedOrders: PagedResponse<OrderTableRowModel>;
+    orderStatusList: OrderStatusModel[] = [];
 
     requestFilters: RequestFilters;
     filterForm: FormGroup;
@@ -41,8 +45,13 @@ export class OrdersListComponent implements AfterViewInit, OnDestroy{
     tableColumns: string[] = [];
 
     constructor(private formBuilder: FormBuilder,
-                private manageOrdersService: ManageOrderService){
+                private manageOrdersService: ManageOrderService,
+                private lookupService: PuzzleLookupService){
                 this.tableColumns = this.filterColumns.map(c => c.name);
+    }
+
+    ngOnInit(): void {
+        this.loadOrderStatusList();
     }
     
     ngAfterViewInit(): void {
@@ -56,8 +65,15 @@ export class OrdersListComponent implements AfterViewInit, OnDestroy{
         const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
         console.log(request);
         this.manageOrdersService.getOrdersPaged(request)
-            .subscribe((resp: PagedResponse<OrderModel>) => {
+            .subscribe((resp: PagedResponse<OrderTableRowModel>) => {
                 this.pagedOrders = resp;
+            }, err => console.log(err));
+    }
+
+    private loadOrderStatusList(): void{
+        this.lookupService.getOrderStatusList()
+            .subscribe((os: OrderStatusModel[]) =>{
+                this.orderStatusList = os;
             }, err => console.log(err));
     }
 
