@@ -38,7 +38,7 @@
 			<ng-container matColumnDef="orderStatus">
 				<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
 				<mat-cell *matCellDef="let order">
-					<span [ngClass]="{'red': order?.orderStatus === 'ConfirmedPayment'}"> {{order?.orderStatus}} </span>
+					<span [ngClass]="{'red': order?.orderStatus === 'ConfirmedPayment'}"><b> {{order?.orderStatus}} </b></span>
 				</mat-cell>
 			</ng-container>
 
@@ -104,5 +104,6 @@
           <input matInput type="text" placeholder="Manufacturer" style="width:300px;" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />
         </mat-form-field>
       </form>
-    </mat-nav-list>
+	</mat-nav-list>
+	sk_test_lDCvMfC3VPB8wGOuFxjCmrLb003Iqr9r9F
   </mat-sidenav> -->

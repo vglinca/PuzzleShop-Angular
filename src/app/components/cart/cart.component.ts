@@ -8,84 +8,103 @@ import { PuzzleService } from 'src/app/services/puzzle.service';
 import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-for-create.model';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { StripePaymentComponent } from '../payment/stripe-payment.component';
 
 @Component({
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+	templateUrl: './cart.component.html',
+	styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
 
-  staticFilesUrl: string = environment.staticFilesUrl;
-  order: OrderModel;
-  orderItems: OrderItemModel[] = [];
-  userId: number;
-  total: number = 0;
-  showSpinner: boolean = true;
+	staticFilesUrl: string = environment.staticFilesUrl;
+	order: OrderModel;
+	orderItems: OrderItemModel[] = [];
+	userId: number;
+	total: number = 0;
+	showSpinner: boolean = true;
 
-  constructor(private orderService: OrderService,
-              private accountService: AccountService,
-              private puzzleService: PuzzleService) {
-      this.userId = this.accountService.parseToken().userId;
-     }
+	constructor(private orderService: OrderService,
+		private accountService: AccountService,
+		private dialog: MatDialog,
+		private puzzleService: PuzzleService) {
+		this.userId = this.accountService.parseToken().userId;
+	}
 
-  ngOnInit(): void {
-    this.showSpinner = true;
-    this.getCart();
-  }
+	ngOnInit(): void {
+		this.showSpinner = true;
+		this.getCart();
+	}
 
-  incrementQuantity(item: OrderItemModel): void{
-    if(item.quantity < item.puzzle.availableInStock){
-      item.quantity++;
-      item.cost += item.puzzle.price;
-      this.onRefresh(item);
-      // this.total += item.puzzle.price;
-    }
-  }
+	incrementQuantity(item: OrderItemModel): void {
+		if (item.quantity < item.puzzle.availableInStock) {
+			item.quantity++;
+			item.cost += item.puzzle.price;
+			this.onRefresh(item);
+			// this.total += item.puzzle.price;
+		}
+	}
 
-  decrementQuantity(item: OrderItemModel): void{
-    if(item.quantity > 1){
-      item.quantity--;
-      item.cost -= item.puzzle.price;
-      this.onRefresh(item);
-      // this.total -= item.puzzle.price;
-    }
-  }
+	decrementQuantity(item: OrderItemModel): void {
+		if (item.quantity > 1) {
+			item.quantity--;
+			item.cost -= item.puzzle.price;
+			this.onRefresh(item);
+			// this.total -= item.puzzle.price;
+		}
+	}
 
-  onRefresh(item: OrderItemModel): void{
-    let orderItemForCreate: OrderItemForCreateModel = {
-      cost: item.cost,
-      quantity: item.quantity,
-      puzzleId: item.puzzle.id,
-      userId: this.userId
-    };
-    this.orderService.editCart(orderItemForCreate)
-      .subscribe(() => {
-        this.total = 0;
-        this.ngOnInit();
-      }, err => console.log(err));
-  }
+	onRefresh(item: OrderItemModel): void {
+		let orderItemForCreate: OrderItemForCreateModel = {
+			cost: item.cost,
+			quantity: item.quantity,
+			puzzleId: item.puzzle.id,
+			userId: this.userId
+		};
+		this.orderService.editCart(orderItemForCreate)
+			.subscribe(() => {
+				this.total = 0;
+				this.ngOnInit();
+			}, err => console.log(err));
+	}
 
-  onDeleteItem(item: OrderItemModel): void{
-    this.orderService.removeOrderItem(this.userId, item.id)
-      .subscribe(() => {
-        this.total = 0;
-        this.orderItems = [];
-        this.ngOnInit();
-      }, err => console.log(err));
-  }
+	onDeleteItem(item: OrderItemModel): void {
+		this.orderService.removeOrderItem(this.userId, item.id)
+			.subscribe(() => {
+				this.total = 0;
+				this.orderItems = [];
+				this.ngOnInit();
+			}, err => console.log(err));
+	}
 
-  private getCart() {
-    this.orderService.getCart(this.userId)
-      .subscribe((order: OrderModel) => {
-        this.showSpinner = false;
-        console.log('ORDER ', order);
-        this.order = order;
-        if(order){
-          this.orderItems = order.orderItems;
-          this.orderItems.forEach(item => {
-            this.total += item.cost;
-          });
-        }
-      });
-  }
+	private getCart() {
+		this.orderService.getCart(this.userId)
+			.subscribe((order: OrderModel) => {
+				this.showSpinner = false;
+				console.log('ORDER ', order);
+				this.order = order;
+				if (order) {
+					this.orderItems = order.orderItems;
+					this.orderItems.forEach(item => {
+						this.total += item.cost;
+					});
+				}
+			});
+	}
+
+	checkout(): void {
+		const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = false;
+        dialogConfig.height = "65%";
+		dialogConfig.width = "35%";
+		dialogConfig.data = {totalAmount: this.total};
+		const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
+
+		dialogRef.afterClosed()
+			.subscribe((result: any) =>{
+				if(result){
+					console.log('RESULT: ', result);
+				}
+			});
+	}
 }

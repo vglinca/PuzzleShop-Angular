@@ -30,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to-cart-dialog.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { StripePaymentComponent } from './components/payment/stripe-payment.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
     HomeComponent,
     AddToCartDialogComponent,
     CartComponent,
+    StripePaymentComponent,
 
     NotFoundPageComponent
   ],
@@ -79,7 +81,8 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
     UserRegistrationComponent,
     UserLoginComponent,
     ConfirmDialogComponent,
-    AddToCartDialogComponent
+    AddToCartDialogComponent,
+    StripePaymentComponent
   ],
   bootstrap: [AppComponent]
 })

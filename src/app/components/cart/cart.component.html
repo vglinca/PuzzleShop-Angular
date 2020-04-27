@@ -63,6 +63,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="footer">
     <div class="total">Total: {{total | currency:'USD'}}</div>
     <div class="place-order">
-        <button mat-button>PLACE ORDER</button>
+        <button mat-button (click)="checkout()">PLACE ORDER</button>
     </div>
 </div>
