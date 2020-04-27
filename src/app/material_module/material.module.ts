@@ -25,6 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 const materialDesignComponents = [
       MatButtonModule, 
@@ -53,7 +54,8 @@ const materialDesignComponents = [
       MatRadioModule,
       MatProgressSpinnerModule,
       MatCheckboxModule,
-      MatSliderModule
+      MatSliderModule,
+      MatBottomSheetModule
     ];
 
 @NgModule({

@@ -2,21 +2,18 @@
     <mat-card-title style="display: flex; justify-content: center; align-items: center;">
         <span>Order № {{orderId}}</span>
     </mat-card-title>
-    <mat-card-subtitle>
-
-    </mat-card-subtitle>
     <mat-card-content style="display: flex; flex-direction: column; align-items: flex-start;">
-        <span class="content-span">UserId: <b>{{order?.userId}}</b></span>
-        <span class="content-span">OrderStatus: <b>{{order?.orderStatus}}</b></span>
-        <span class="content-span">OrderDate: <b>{{order?.orderDate | date}}</b></span>
-        <span class="content-span">TotalItems: <b>{{order?.totalItems}}</b></span>
+        <span class="content-span">Customer email: <b>{{customer?.email}}</b></span>
+        <span class="content-span">Order Status: <b>{{order?.orderStatus}}</b></span>
+        <span class="content-span">Order Date: <b>{{order?.orderDate | date}}</b></span>
+        <span class="content-span">Total Items: <b>{{order?.totalItems}}</b></span>
         <mat-divider></mat-divider>
         <div class="total-cost" style="width: 100%; display: flex; justify-content: flex-end;">
             <span>TotalCost: {{order?.totalCost | currency:'USD'}}</span>
         </div>
     </mat-card-content>
 </mat-card>
-<mat-card style="margin: 25px;">
+<mat-card style="margin: 25px 25px 100px 25px;">
     <mat-card-title>Order Items</mat-card-title>
     <mat-card-content>
         <mat-table #table [dataSource]="order?.orderItems">
@@ -39,17 +36,45 @@
 			</ng-container>
 
 			<ng-container matColumnDef="puzzleName">
-				<mat-header-cell *matHeaderCellDef> Puzzle Id </mat-header-cell>
+				<mat-header-cell *matHeaderCellDef> Puzzle </mat-header-cell>
 				<mat-cell *matCellDef="let orderItem"> {{orderItem?.puzzle.name}} </mat-cell>
             </ng-container>
             
             <ng-container matColumnDef="itemPrice">
 				<mat-header-cell *matHeaderCellDef> Item Price </mat-header-cell>
-				<mat-cell *matCellDef="let orderItem"> {{orderItem?.puzzle.price | currency:'USD'}} </mat-cell>
+				<mat-cell *matCellDef="let orderItem"> {{orderItem?.cost / orderItem?.quantity | currency:'USD'}} </mat-cell>
 			</ng-container>
 
 			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
 		</mat-table>
     </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent" matTooltip="Back" [routerLink]="['/administration/orders']">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" matTooltip="Change order status" (click)="sidenav.toggle()">Change Status</button>
+    </mat-card-actions>
 </mat-card>
+
+<mat-sidenav dark #sidenav mode="push" opened="false" style="margin-top: 140px; height: 450px;">
+    <mat-card>
+        <mat-card-title style="margin: 25px;">
+            Change order status to:
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-radio-group class="radio-group" [(ngModel)]="changeOrderStatus">
+                <mat-radio-button class="rb" *ngFor="let status of orderStatusList" [value]="status?.orderStatusId">{{status?.name}}</mat-radio-button>
+            </mat-radio-group>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-mini-fab color="accent" style="margin: 5px;" matTooltip="Cancel" (click)="sidenav.toggle()">
+                <mat-icon>close</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" style="margin: 5px;" matTooltip="Apply changes and Update" (click)="updateOrdrStatus(); sidenav.toggle()">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</mat-sidenav>

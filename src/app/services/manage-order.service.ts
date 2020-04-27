@@ -6,6 +6,7 @@ import { OrderModel } from '../models/orders/order.model';
 import { Observable } from 'rxjs';
 import { PagedResponse } from '../infrastructure/pagination/paged-response';
 import { OrderTableRowModel } from '../models/orders/order-table-row.model';
+import { OrderStatusForSettingModel } from '../models/order-status/order-status-for-setting.model';
 
 @Injectable({
     providedIn: 'root'
@@ -24,5 +25,9 @@ export class ManageOrderService{
 
     public getOrder(orderId: number): Observable<OrderModel>{
         return this.http.get<OrderModel>(`${this.baseUrl}/${orderId}`, this.headers);
+    }
+
+    public changeOrderStatus(orderId: number, model: OrderStatusForSettingModel){
+        return this.http.put(`${this.baseUrl}/orderStatus/${orderId}`, model, this.headers);
     }
 }
