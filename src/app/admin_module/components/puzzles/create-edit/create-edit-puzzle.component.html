@@ -1,128 +1,136 @@
 <div class="parent-div" fxLayout="column" fxLayoutAlign="center start">
 
 
-  <div>
-    <mat-card>
+	<div>
+		<mat-card>
 
-      <mat-card-header>
-        <mat-card-title class="view-card-title">
-          <h1>{{dialogTitle}}</h1>
-        </mat-card-title>
-      </mat-card-header>
+			<mat-card-header>
+				<mat-card-title class="view-card-title">
+					<h1>{{dialogTitle}}</h1>
+				</mat-card-title>
+			</mat-card-header>
 
-      <form novalidate [formGroup]="puzzleForm" (ngSubmit)="saveChanges()">
+			<form novalidate [formGroup]="puzzleForm" (ngSubmit)="saveChanges()">
 
-        <mat-toolbar style="background-color: #FFF">
-          <mat-toolbar-row>
-            <span class="title-spacer"></span>
+				<mat-toolbar style="background-color: #FFF">
+					<mat-toolbar-row>
+						<span class="title-spacer"></span>
 
-            <mat-card-actions>
+						<mat-card-actions>
 
-              <button class="save-button" [disabled]="puzzleForm.invalid" style="background-color: green;" mat-mini-fab
-                type="submit">
-                <mat-icon>done</mat-icon>
-              </button>
+							<button class="save-button" [disabled]="puzzleForm.invalid" style="background-color: teal;"
+								mat-mini-fab type="submit">
+								<mat-icon>done</mat-icon>
+							</button>
 
-              <button class="cancel-button" mat-mini-fab style="background-color: red;" type="button"
-                [routerLink]="['/administration/puzzles']">
-                <mat-icon>cancel</mat-icon>
-              </button>
+							<button class="cancel-button" mat-mini-fab color="accent" type="button"
+								[routerLink]="['/administration/puzzles']">
+								<mat-icon>cancel</mat-icon>
+							</button>
 
-            </mat-card-actions>
+						</mat-card-actions>
 
-          </mat-toolbar-row>
-        </mat-toolbar>
+					</mat-toolbar-row>
+				</mat-toolbar>
 
-        <mat-card-content>
-          <div class="form-card">
+				<mat-card-content>
+					<div class="form-card">
 
-            <mat-form-field class="form-field-90">
-              <input matInput placeholder="Name" type="text" placeholder="Name. (required)" formControlName="name" />
-            </mat-form-field>
+						<mat-form-field class="form-field-90">
+							<input matInput placeholder="Name" type="text" placeholder="Name. (required)"
+								formControlName="name" />
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <input matInput placeholder="Price. (required)" type="number" formControlName="price" />
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<input matInput placeholder="Price. (required)" type="number" formControlName="price" />
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <mat-select placeholder="Is magnetic?" formControlName="isMagnetic">
-                <mat-option value="true">Yes</mat-option>
-                <mat-option value="false">No</mat-option>
-              </mat-select>
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<mat-select placeholder="Is magnetic?" formControlName="isMagnetic">
+								<mat-option value="true">Yes</mat-option>
+								<mat-option value="false">No</mat-option>
+							</mat-select>
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <input matInput placeholder="Weight (required)" type="number" formControlName="weight" />
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<input matInput placeholder="Weight (required)" type="number" formControlName="weight" />
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <input matInput placeholder="Available In Stock (required)" type="number" formControlName="availableInStock" />
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<input matInput placeholder="Available In Stock (required)" type="number"
+								formControlName="availableInStock" />
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <mat-select placeholder="Manufacturer" formControlName="manufacturerId">
-                <mat-option *ngFor="let m of manufacturers" [value]="m?.id">{{m?.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<mat-select placeholder="Manufacturer" formControlName="manufacturerId">
+								<mat-option *ngFor="let m of manufacturers" [value]="m?.id">{{m?.name}}</mat-option>
+							</mat-select>
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <mat-select placeholder="Puzzle Type" formControlName="puzzleTypeId">
-                <mat-option *ngFor="let type of puzzleTypes" [value]="type?.id">{{type?.title}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<mat-select placeholder="Puzzle Type" formControlName="puzzleTypeId">
+								<mat-option *ngFor="let type of puzzleTypes" [value]="type?.id">{{type?.title}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <mat-select placeholder="Puzzle Color" formControlName="colorId">
-                <mat-option *ngFor="let color of puzzleColors" [value]="color?.id">{{color?.title}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<mat-select placeholder="Puzzle Color" formControlName="colorId">
+								<mat-option *ngFor="let color of puzzleColors" [value]="color?.id">{{color?.title}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
 
-            <mat-form-field class="form-field-30">
-              <mat-select placeholder="Material Type" formControlName="materialTypeId">
-                <mat-option *ngFor="let mt of materialTypes" [value]="mt?.id">{{mt?.title}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+						<mat-form-field class="form-field-30">
+							<mat-select placeholder="Material Type" formControlName="materialTypeId">
+								<mat-option *ngFor="let mt of materialTypes" [value]="mt?.id">{{mt?.title}}</mat-option>
+							</mat-select>
+						</mat-form-field>
 
-            <mat-form-field class="form-field-180" style="width: 100%;">
-              <textarea matInput placeholder="Description. (required)" formControlName="description"
-                matTextareaAutosize></textarea>
-            </mat-form-field>
+						<mat-form-field class="form-field-180" style="width: 100%;">
+							<textarea matInput placeholder="Description. (required)" formControlName="description"
+								matTextareaAutosize></textarea>
+						</mat-form-field>
 
-          </div>
-        </mat-card-content>
-      </form>
-      <div class="footer-div" fxLayout="column | wrap" fxLayoutAlign="space-between center">
+					</div>
+				</mat-card-content>
+			</form>
+			<div class="footer-div" fxLayout="column | wrap" fxLayoutAlign="space-between center">
 
-        <mat-card-footer>
-          <div class="footer" fxLayout="column | wrap" fxLayoutAlign="start center" style="margin-bottom: 10px;">
-            <h1>Image upload</h1>
-            <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-            <input id="file-input" hidden (change)="onFileSelected($event)" #fileInput type="file" multiple id="file">
+				<mat-card-footer>
+					<div class="footer" fxLayout="column | wrap" fxLayoutAlign="start center"
+						style="margin-bottom: 10px;">
+						<h1>Image upload</h1>
+						<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+						<input id="file-input" hidden (change)="onFileSelected($event)" #fileInput type="file" multiple
+							id="file">
 
-            <div fxLayout="row | wrap" fxLayoutAlign="center center" style="margin-top: 10px;">
-              <div style="width: 100px; height: 80px; position: relative;" *ngFor="let url of urls">
-                <img [src]="url" style="width: 100px; height: 80px;">
-              </div>
-            </div>
+						<div fxLayout="row | wrap" fxLayoutAlign="center center" style="margin-top: 10px;">
+							<div style="width: 100px; height: 80px; position: relative;" *ngFor="let url of urls">
+								<img [src]="url" style="width: 100px; height: 80px;">
+							</div>
+						</div>
 
-          </div>
-        </mat-card-footer>
-      </div>
-    </mat-card>
-  </div>
+					</div>
+				</mat-card-footer>
+			</div>
+		</mat-card>
+	</div>
 
-  <div fxLayout="row | wrap" fxLayoutAlign="start start" class="images-div"
-    style="background-color: white; height: fit-content; width: fit-content; margin: 50px;">
-    <div #element class="image-item" *ngFor="let image of puzzleModel?.images" >
-      <img  class="thumbnail" [src]="staticFilesUrl + image?.fileName" [alt]="image?.id">
-      
-    </div>
-  </div>
-  <div class="buttons" fxLayout="row | wrap" fxLayoutAlign="center center" style="margin-bottom: 50px; margin-left: 50px;">
-    <button mat-mini-fab style="background-color: red;" type="button" matTooltip="Delete all selected images." (click)="onDeleteImage()">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </div>
+	<div fxLayout="row | wrap" fxLayoutAlign="start start" class="images-div"
+		style="background-color: white; height: fit-content; width: fit-content; margin: 50px;">
+		<div #element class="image-item" *ngFor="let image of puzzleModel?.images">
+			<img class="thumbnail" [src]="staticFilesUrl + image?.fileName" [alt]="image?.id">
+
+		</div>
+	</div>
+	<div class="buttons" fxLayout="row | wrap" fxLayoutAlign="center center"
+		style="margin-bottom: 50px; margin-left: 50px;">
+		<button mat-mini-fab style="background-color: red;" type="button" matTooltip="Delete all selected images."
+			(click)="onDeleteImage()">
+			<mat-icon>delete</mat-icon>
+		</button>
+	</div>
 
 
 </div><!-- </parent div> -->

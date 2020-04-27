@@ -4,7 +4,7 @@
             <div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
                 <mat-card-header>
                     <mat-card-title class="view-card-title">
-                        <h1 style="color: teal;">Users</h1>
+                        <h1 style="color: teal; letter-spacing: 2px; font-size: 35px;"><b>Users</b></h1>
                     </mat-card-title>
                 </mat-card-header>
             </div>
@@ -13,23 +13,16 @@
                     <div class="toolbar-row-div" style="width: 100%;" fxLayout="row | wrap"
                         fxLayoutAlign="space-between center">
                         <div class="mat-form-field-div">
-                            <!-- <mat-form-field>
+                            <mat-form-field>
                                 <mat-placeholder>
                                     <mat-icon>search</mat-icon>
-                                    <i> Search</i>
+                                    <i>Search</i>
                                 </mat-placeholder>
                                 <input matInput [formControl]="searchInput" (keyup.enter)="onSearchClick()">
-                            </mat-form-field> -->
+                            </mat-form-field>
                             <span class="title-spacer"></span>
                         </div>
                         <div class="toolbar-buttons-div">
-                            <button mat-mini-fab style="margin-right:10px; background-color:blue">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                            <button mat-mini-fab style="margin-right:10px; background-color:#a28b6e"
-                                (click)="sidenav.toggle()">
-                                <mat-icon>search</mat-icon>
-                            </button>
                             <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadUsersFromApi()">
                                 <mat-icon>refresh</mat-icon>
                             </button>
@@ -72,11 +65,10 @@
 
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef style="justify-content:right;">
-                    <button mat-button style="color:white; background-color:teal">Reset</button>
+                    <button mat-button style="color:white; background-color:teal" (click)="onResetClick()">Reset</button>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let user" style="justify-content:right;">
                     <button mat-button style="background-color:teal; min-height: 30px;" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
-                    <span *ngIf="user?.id === currentId">You</span>
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
@@ -88,33 +80,3 @@
         </mat-paginator>
     </div>
 </div>
-
-
-<mat-sidenav class="search-panel" dark #sidenav mode="push" opened="false">
-    <mat-card class="profile-card">
-        <mat-card-header>
-            <div mat-card-avatar class="avatar"></div>
-            <mat-card-subtitle>
-                <button mat-raised-button style="color:lightgrey; background-color:darkgreen"
-                    (click)="sidenav.toggle()">
-                    <mat-icon>search</mat-icon>Search
-                </button>
-                <button mat-raised-button style="color:lightgrey; background-color:darkred" (click)="sidenav.toggle()">
-                    <mat-icon>refresh</mat-icon>Reset
-                </button>
-            </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
-    <mat-nav-list style="margin-left:20px;">
-        <!-- <form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()">
-            <mat-form-field>
-                <input matInput type="text" placeholder="Title" style="width:200px;" formControlName="title"
-                    (keyup.enter)="filterBooksFromForm();sidenav.toggle()" />
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput type="text" placeholder="Publisher" style="width:200px;" formControlName="publisher"
-                    (keyup.enter)="filterBooksFromForm();sidenav.toggle()" />
-            </mat-form-field>
-        </form> -->
-    </mat-nav-list>
-</mat-sidenav>

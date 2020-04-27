@@ -9,7 +9,7 @@ import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.mod
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { MaterialTypeModel } from 'src/app/models/material-types/material-type.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { PuzzleModel } from 'src/app/models/puzzles/puzzle.model';
 import { PuzzleForCreationModel } from '../../../../models/puzzles/puzzle-for-creation.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -83,7 +83,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
             this.images.forEach((element: ElementRef) => {
                 element.nativeElement.addEventListener('click', (event) => {
 
-
                     let target = this.imagesToDelete.find(img => img.imageId === +event.target.alt);
                     target.deleteMode = !target.deleteMode;
 
@@ -124,22 +123,33 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         });
 
         this.loadAllProperties();
-
     }
 
     private loadAllProperties() {
-        this.loadManufacturers();
-        this.loadPuzzleTypes();
-        this.loadPuzzleColors();
-        this.loadMaterialTypes();
+        const manufacturers = this.manufacturerService.getAll();
+        const puzzleTypes =  this.puzzleTypeService.getAll();
+        const puzzleColors = this.puzzleColorService.getAll();
+        const materialTypes = this.lookupService.getMaterialTypes();
+
+        forkJoin(manufacturers, puzzleTypes, puzzleColors, materialTypes)
+            .subscribe(([m, pt, pc, mt]) => {
+                this.manufacturers = m;
+                this.puzzleTypes = pt;
+                this.puzzleColors = pc;
+                this.materialTypes = mt;
+            });
+
+        //this.loadManufacturers();
+        //this.loadPuzzleTypes();
+        //this.loadPuzzleColors();
+        //this.loadMaterialTypes();
     }
 
     private loadPuzzle(): void {
         this.puzzleService.getPuzzle(this.puzzleId)
             .subscribe((p: PuzzleModel) => {
-                this.puzzleForm.patchValue({
-                    ...p
-                });
+                this.puzzleForm.patchValue({...p});
+                this.puzzleForm.controls['isMagnetic'].setValue(p.isMagnetic ? 'true' : 'false');
                 this.puzzleModel = p;
                 this.puzzleModel.images.forEach(image => {
                     console.log(image.id);
