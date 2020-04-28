@@ -9,7 +9,7 @@ import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-for-create.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { StripePaymentComponent } from '../payment/stripe-payment.component';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './cart.component.html',
@@ -26,6 +26,7 @@ export class CartComponent implements OnInit {
 
 	constructor(private orderService: OrderService,
 		private accountService: AccountService,
+		private router: Router,
 		private dialog: MatDialog,
 		private puzzleService: PuzzleService) {
 		this.userId = this.accountService.parseToken().userId;
@@ -93,18 +94,23 @@ export class CartComponent implements OnInit {
 	}
 
 	checkout(): void {
-		const dialogConfig = new MatDialogConfig();
-        dialogConfig.autoFocus = false;
-        dialogConfig.height = "65%";
-		dialogConfig.width = "35%";
-		dialogConfig.data = {totalAmount: this.total};
-		const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
+		this.router.navigate(['/checkout']);
+		// const dialogConfig = new MatDialogConfig();
+        // dialogConfig.autoFocus = false;
+        // dialogConfig.height = "65%";
+		// dialogConfig.width = "35%";
+		// dialogConfig.data = {totalAmount: this.total};
+		// const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
 
-		dialogRef.afterClosed()
-			.subscribe((result: any) =>{
-				if(result){
-					console.log('RESULT: ', result);
-				}
-			});
+		// dialogRef.afterClosed()
+		// 	.subscribe((result: any) =>{
+		// 		if(result){
+		// 			console.log('RESULT: ', result);
+		// 		}
+		// 	});
+	}
+
+	openHomePage(): void{
+		this.router.navigate(['/home']);
 	}
 }

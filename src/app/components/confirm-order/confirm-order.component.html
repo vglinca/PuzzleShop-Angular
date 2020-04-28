@@ -34,7 +34,7 @@
                 </mat-form-field>
             </div>
             <div class="buttons">
-                <button mat-raised-button type="button">
+                <button mat-raised-button type="button" (click)="onReturnClick()">
                     <mat-icon>keyboard_arrow_left</mat-icon>
                     <span>Return to Cart</span>
                 </button>
@@ -46,22 +46,29 @@
         <mat-card>
             <mat-card-content>
                 <mat-list>
-                    <mat-list-item *ngFor="let i of items">
+                    <mat-list-item *ngFor="let item of pendingOrder?.orderItems">
                         <div class="list-item-container">
-                            <div matBadge="2">
-                                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu">
+                            <div [matBadge]="item?.quantity">
+                                <img [src]="staticFileUrl + item?.puzzle.images[0].fileName">
                             </div>
                             <div class="order-item-details">
-                                <div class="puzzle-name-color">
-                                    <span style="font-weight: 500;">PuzzleName</span>
-                                    <span style="color: gray;">PuzzleColor</span>
+                                <div class="puzzle-name-color" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;">
+                                    <span style="font-weight: 500;"> {{item?.puzzle.name}} </span>
+                                    <span style="color: gray;">{{item?.puzzle.color}}</span>
                                 </div>
-                                <h3 style="font-weight: 600;">$15.95</h3>
+                                <h3 style="font-weight: 600;">{{item?.cost | currency:'USD'}}</h3>
                             </div>
                         </div>
                     </mat-list-item>
                 </mat-list>
             </mat-card-content>
+            <mat-card-actions>
+                <mat-divider></mat-divider>
+                <div class="amount">
+                    <span>Subtotal:</span>
+                    <span> {{pendingOrder?.totalCost |currency:'USD'}} </span>
+                </div>
+            </mat-card-actions>
         </mat-card>
     </div>
 </div>

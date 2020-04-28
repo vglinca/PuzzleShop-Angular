@@ -2,6 +2,10 @@
 <div *ngIf="showSpinner" class="spinner" style="position: absolute; top: 50%; left: 50%; z-index: 5;">
     <mat-spinner></mat-spinner>
 </div>
+<div *ngIf="order === null" style="position: absolute; margin-top: 100px; top: 50%; left: 40%; z-index: 5;">
+    <h1 style="font-weight: 600; letter-spacing: 2px;">Your cart is empty</h1>
+    <h2 class="start-shopping" (click)="openHomePage()">Start shopping now!</h2>
+</div>
 <div class="path">
     <div class="path-item">
         <span class="link" [routerLink]="['/home']">Home</span>
@@ -17,7 +21,6 @@
 <mat-divider></mat-divider>
 <div class="list-container">
     <mat-list>
-
         <mat-list-item class="list-item" *ngFor="let item of orderItems">
             <div class="list-item-container" fxLayout="row" fxLayoutAlign="center center" >
                 <div class="image-container" fxFlex="20">
@@ -57,10 +60,9 @@
                 </div>
             </div>
         </mat-list-item>
-
     </mat-list>
 </div>
-<div fxLayout="row" fxLayoutAlign="space-between center" class="footer">
+<div *ngIf="order !== null" fxLayout="row" fxLayoutAlign="space-between center" class="footer">
     <div class="total">Total: {{total | currency:'USD'}}</div>
     <div class="place-order">
         <button mat-button (click)="checkout()">PLACE ORDER</button>

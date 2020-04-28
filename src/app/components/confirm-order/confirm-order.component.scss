@@ -92,6 +92,15 @@ mat-list-item img{
     border-radius: 10px;
 }
 
+
+.amount{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 @media screen and (max-width: 812px){
     .field{
         width: 280px;

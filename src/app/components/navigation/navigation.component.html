@@ -30,11 +30,11 @@
                 </div>
 
                 <div *ngIf="isLoggedIn" style="margin: 10px 5px 10px 15px;" fxLayout="row | wrap" fxLayoutAlign="end center">
-                    <div style="margin-right: 5px;">
-                        <mat-icon>shopping_cart</mat-icon>
+                    <div style="margin-right: 5px;" (click)="openShoppingCart()">
+                        <mat-icon class="shop-cart-icon">shopping_cart</mat-icon>
                     </div>
                     <div>
-                        <span>Shopping cart</span>
+                        <span class="shop-cart" (click)="openShoppingCart()">Shopping cart</span>
                     </div>
                 </div>
 

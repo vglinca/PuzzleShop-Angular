@@ -15,7 +15,7 @@ export const appRoutes: Routes = [
     { path: 'collections/:puzzleType', component: ProductsListComponent },
     { path: 'collections/:puzzleType/:id', component: ProductDetailsComponent },
     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-    { path: 'checkout', component: ConfirmOrderComponent },
+    { path: 'checkout', component: ConfirmOrderComponent, canActivate: [AuthGuard] },
     { path: 'payment', component: StripePaymentComponent },
     { path: 'administration', loadChildren: () => import('./admin_module/admin.module').then(a => a.AdminModule), canActivate: [AdminAuthGuard]},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
