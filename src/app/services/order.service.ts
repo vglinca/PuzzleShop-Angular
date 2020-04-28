@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { OrderModel } from '../models/orders/order.model';
 import { OrderItemForCreateModel } from '../models/order-items/order-item-for-create.model';
 import { logging } from 'protractor';
+import { CustomerDetailsModel } from '../models/customers/customer-details.model';
 
 @Injectable({
     providedIn: 'root'
@@ -30,5 +31,9 @@ export class OrderService{
 
     public removeOrderItem(userId: number, itemId: number){
         return this.http.delete(`${this.baseUrl}/removeOrderItem/${userId}/${itemId}`, this.headers);
+    }
+
+    public confirmOrder(userId: number, customerDetails: CustomerDetailsModel){
+        return this.http.put(`${this.baseUrl}/confirmOrder/${userId}`, customerDetails, this.headers);
     }
 }

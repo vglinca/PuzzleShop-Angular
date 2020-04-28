@@ -31,6 +31,8 @@ import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to
 import { CartComponent } from './components/cart/cart.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { StripePaymentComponent } from './components/payment/stripe-payment.component';
+import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { StripePaymentComponent } from './components/payment/stripe-payment.comp
     AddToCartDialogComponent,
     CartComponent,
     StripePaymentComponent,
+    ConfirmOrderComponent,
 
     NotFoundPageComponent
   ],
@@ -59,6 +62,7 @@ import { StripePaymentComponent } from './components/payment/stripe-payment.comp
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    MatSelectCountryModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FlexLayoutModule,
@@ -82,6 +86,7 @@ import { StripePaymentComponent } from './components/payment/stripe-payment.comp
     UserLoginComponent,
     ConfirmDialogComponent,
     AddToCartDialogComponent,
+    ConfirmOrderComponent,
     StripePaymentComponent
   ],
   bootstrap: [AppComponent]
