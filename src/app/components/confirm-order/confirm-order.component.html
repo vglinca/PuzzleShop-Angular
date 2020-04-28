@@ -1,4 +1,4 @@
-<div class="page-container" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="1%">
+<div class="page-container" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="2%">
     <div>
         <form novalidate [formGroup]="emailForm" class="contact-form">
             <span>Contact Information</span>
@@ -6,7 +6,7 @@
                 <input matInput placeholder="Email" formControlName="email">
             </mat-form-field>
         </form>
-        <form novalidate [formGroup]="customerForm" class="shipping-address-form">
+        <form novalidate [formGroup]="customerForm" class="shipping-address-form" (ngSubmit)="onSubmit()">
             <span>Shipping Address</span>
             <div fxLayout="row | wrap" fxLayoutAlign="center center">
                 <mat-form-field appearance="outline" class="name">
@@ -33,9 +33,35 @@
                     <input matInput placeholder="Phone" formControlName="phone">
                 </mat-form-field>
             </div>
+            <div class="buttons">
+                <button mat-raised-button type="button">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                    <span>Return to Cart</span>
+                </button>
+                <button class="continue-button" mat-raised-button [disabled]="customerForm.invalid && emailForm.invalid">Continue</button>
+            </div>
         </form>
     </div>
     <div class="order-details">
-
+        <mat-card>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item *ngFor="let i of items">
+                        <div class="list-item-container">
+                            <div matBadge="2">
+                                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu">
+                            </div>
+                            <div class="order-item-details">
+                                <div class="puzzle-name-color">
+                                    <span style="font-weight: 500;">PuzzleName</span>
+                                    <span style="color: gray;">PuzzleColor</span>
+                                </div>
+                                <h3 style="font-weight: 600;">$15.95</h3>
+                            </div>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

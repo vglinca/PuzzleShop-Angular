@@ -13,6 +13,31 @@
     margin: 10px;
 }
 
+.buttons{
+    width: 580px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons button{
+    margin: 5px;
+    width: 150px;
+}
+
+.continue-button{
+    letter-spacing: 2px;
+    height: 70px;
+    background-color: green;
+    color: white;
+}
+
+.continue-button:disabled{
+    background-color: #6fe76b;
+    color: white;
+}
+
 .shipping-address-form{
     margin-top: 20px;
     text-align: center;
@@ -25,13 +50,68 @@
 }
 
 .order-details{
-    width: 400px;
+    max-width: 500px;
     height: 400px;
-    background-color: aqua;
+}
+
+mat-card{
+    width: 480px;
+    margin: 10px;
+}
+
+mat-list-item{
+    margin-top: 50px;
+}
+
+.list-item-container{
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.order-item-details{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.puzzle-name-color{
+    margin-left: 15px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-list-item img{
+    width: 70px;
+    height: 60px;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 812px){
     .field{
         width: 280px;
+        margin: 10px;
+    }
+
+    .customer-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 666px){
+    .buttons{
+        width: 280px;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }

@@ -26,6 +26,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatBadgeModule} from '@angular/material/badge';
 
 const materialDesignComponents = [
       MatButtonModule, 
@@ -55,7 +56,8 @@ const materialDesignComponents = [
       MatProgressSpinnerModule,
       MatCheckboxModule,
       MatSliderModule,
-      MatBottomSheetModule
+      MatBottomSheetModule,
+      MatBadgeModule
     ];
 
 @NgModule({
