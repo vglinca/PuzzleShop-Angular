@@ -30,9 +30,24 @@
 		<mat-table #table [dataSource]="pagedOrders?.items" class="mat-elevation-z8" matSort matSortActive="orderDate"
 			matSortDirection="desc">
 
-			<ng-container matColumnDef="userId">
-				<mat-header-cell *matHeaderCellDef> UserId </mat-header-cell>
-				<mat-cell *matCellDef="let order"> {{order?.userId}}</mat-cell>
+			<ng-container matColumnDef="contactEmail">
+				<mat-header-cell *matHeaderCellDef mat-sort-header> Contact Email </mat-header-cell>
+				<mat-cell *matCellDef="let order"> {{order?.contactEmail}}</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="address">
+				<mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+				<mat-cell *matCellDef="let order"> {{order?.address}}</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="city">
+				<mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+				<mat-cell *matCellDef="let order"> {{order?.city}}</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="country">
+				<mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+				<mat-cell *matCellDef="let order"> {{order?.country}}</mat-cell>
 			</ng-container>
 
 			<ng-container matColumnDef="orderStatus">

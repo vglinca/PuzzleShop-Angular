@@ -32,8 +32,11 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
 
     filterColumns: FilterColumn[] = [
         {name: 'orderStatus', property: 'orderStatus', useInSearch: true},
-        {name: 'userId', property: 'userId', useInSearch: false},
+        {name: 'contactEmail', property: 'contactEmail', useInSearch: true},
         {name: 'orderDate', property: 'orderDate', useInSearch: false},
+        {name: 'address', property: 'address', useInSearch: true},
+        {name: 'city', property: 'city', useInSearch: true},
+        {name: 'country', property: 'country', useInSearch: true},
         {name: 'totalItems', property: 'totalItems', useInSearch: false},
         {name: 'totalCost', property: 'totalCost', useInSearch: false},
         {name: 'id', property: 'id', useInSearch: false}

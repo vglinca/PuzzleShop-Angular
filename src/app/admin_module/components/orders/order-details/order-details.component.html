@@ -3,7 +3,9 @@
         <span>Order № {{orderId}}</span>
     </mat-card-title>
     <mat-card-content style="display: flex; flex-direction: column; align-items: flex-start;">
-        <span class="content-span">Customer email: <b>{{customer?.email}}</b></span>
+        <span class="content-span">Customer email: <b>{{order?.contactEmail}}</b></span>
+        <span class="content-span">Customer name: <b>{{order?.customerFirstName}} {{order?.customerLastName}}</b></span>
+        <span class="content-span">Location: <b>{{order?.address}}, {{order?.city}} - {{order?.country}}</b></span>
         <span class="content-span">Order Status: <b>{{order?.orderStatus}}</b></span>
         <span class="content-span">Order Date: <b>{{order?.orderDate | date}}</b></span>
         <span class="content-span">Total Items: <b>{{order?.totalItems}}</b></span>
@@ -53,7 +55,7 @@
         <button mat-raised-button color="accent" matTooltip="Back" [routerLink]="['/administration/orders']">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <button mat-raised-button color="primary" matTooltip="Change order status" (click)="sidenav.toggle()">Change Status</button>
+        <button mat-raised-button color="primary" matTooltip="Change order status" (click)="sidenav.toggle()" [disabled]="!isNotAwaitingPayment">Change Status</button>
     </mat-card-actions>
 </mat-card>
 

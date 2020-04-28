@@ -11,6 +11,7 @@ import { forkJoin } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { OrderStatusForSettingModel } from 'src/app/models/order-status/order-status-for-setting.model';
 import { NotificationService } from 'src/app/services/notification.service';
+import { OrderStatusId } from 'src/app/models/order-status/order-status-id';
 
 @Component({
     templateUrl: './order-details.component.html',
@@ -24,6 +25,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
     orderStatusList: OrderStatusModel[] = [];
     orderStatus: OrderStatusModel;
     changeOrderStatus: number;
+    isNotAwaitingPayment: boolean = true;
 
     tableColumns: string[] = ['id', 'cost', 'quantity', 'puzzleName', 'itemPrice'];
 
@@ -58,6 +60,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
             .subscribe(([c, os]) => {
                 this.customer = c;
                 this.orderStatusList = os.filter(s => s.orderStatusId > 2 && s.name !== this.order.orderStatus);
+                this.isNotAwaitingPayment = this.order.orderStatusId !== OrderStatusId.AwaitingPayment;
                 console.log(this.orderStatusList);
             });
     }
