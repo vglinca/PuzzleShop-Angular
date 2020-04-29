@@ -30,7 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to-cart-dialog.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
-import { StripePaymentComponent } from './components/payment/stripe-payment.component';
+import { StripePaymentComponent } from './components/stripe-payment/stripe-payment.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { StylePaginatorDirective } from './common/style-paginator.directive';
@@ -89,7 +89,7 @@ import { StylePaginatorDirective } from './common/style-paginator.directive';
     ConfirmDialogComponent,
     AddToCartDialogComponent,
     ConfirmOrderComponent,
-    StripePaymentComponent
+    StripePaymentComponent,
   ],
   bootstrap: [AppComponent]
 })

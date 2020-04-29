@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -8,16 +9,22 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class StripePaymentComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('cardInfo') cardInfo: ElementRef;
+    @ViewChild('cardNumber') cardNumber: ElementRef;
+    @ViewChild('cardExp') cardExpiry: ElementRef;
+    @ViewChild('cardCvc') cardCvc: ElementRef;
 
     _totalAmount: number;
     card: any;
+    expiry: any;
+    cvc: any;
     cardHandler = this.onChange.bind(this);
     cardError: string;
-    
+
+    _cardNumber: FormControl = new FormControl('');
+
     constructor(private cd: ChangeDetectorRef,
-                @Inject(MAT_DIALOG_DATA) private data: any,
-                private dialogRef: MatDialogRef<StripePaymentComponent>) {
+        @Inject(MAT_DIALOG_DATA) private data: any,
+        private dialogRef: MatDialogRef<StripePaymentComponent>) {
         this._totalAmount = data['totalAmount'];
     }
 
@@ -27,15 +34,12 @@ export class StripePaymentComponent implements AfterViewInit, OnDestroy {
     }
 
     initiateCardElement(): void {
-        // Giving a base style here, but most of the style is in scss file
         const cardStyle = {
             base: {
                 color: '#32325d',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
+                fontSize: '14px',
                 '::placeholder': {
-                    color: '#aab7c4',
+                    color: 'lightgrey',
                 },
             },
             invalid: {
@@ -43,9 +47,21 @@ export class StripePaymentComponent implements AfterViewInit, OnDestroy {
                 iconColor: '#fa755a',
             },
         };
-        this.card = elements.create('card', { cardStyle });
-        this.card.mount(this.cardInfo.nativeElement);
-        this.card.addEventListener('change', this.cardHandler);
+        if(this.card == null){
+            this.card = elements.create('cardNumber', {classes: {base: "inpt"}, style: {cardStyle}});
+            this.card.mount(this.cardNumber.nativeElement);
+            this.card.addEventListener('change', this.cardHandler);
+        }
+        if(this.expiry == null){
+            this.expiry = elements.create('cardExpiry', {classes: {base: "cvc-exp-inpt"}, style: {cardStyle}});
+            this.expiry.mount(this.cardExpiry.nativeElement);
+        }
+        if(this.cvc == null){
+            this.cvc = elements.create('cardCvc', {classes: {base: "cvc-exp-inpt"}, style: {cardStyle}});
+            this.cvc.mount(this.cardCvc.nativeElement);
+        }
+        
+
     }
 
     onChange({ error }): void {
@@ -57,7 +73,7 @@ export class StripePaymentComponent implements AfterViewInit, OnDestroy {
         this.cd.detectChanges();
     }
 
-    async createStripeToken(){
+    async createStripeToken() {
         const { token, error } = await stripe.createToken(this.card);
         if (token) {
             this.onSuccess(token);
@@ -77,5 +93,8 @@ export class StripePaymentComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+       console.log('DESTROY');
     }
 }
+
+

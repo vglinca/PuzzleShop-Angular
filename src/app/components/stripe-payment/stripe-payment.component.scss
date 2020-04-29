@@ -1,0 +1,63 @@
+.form-group{
+    width: 300px;
+}
+
+.form-group mat-form-field{
+    width: 300px;
+}
+
+.form-group input{
+    width: 300px;
+}
+
+::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+       color: lightgrey;
+    }
+    mat-form-field {
+       .mat-hint, input, ::placeholder, .mat-form-field-label {
+          color: lightgrey;
+       }
+    }
+ }
+
+ .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline {
+    border: 0.5px solid #666;
+    opacity: 1;
+   
+    .mat-form-field-outline-start,
+    .mat-form-field-outline-gap,
+    .mat-form-field-outline-end {
+        border: none;
+    }
+   }
+
+
+
+.inpt{
+    text-align: center;
+    padding-left: 7px;
+    width: 293px;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: 400;
+    border: 0.5px solid lightgrey;
+}
+
+.cvc-exp-inpt{
+    text-align: center;
+    padding-left: 8px;
+    width: 137px;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: 400;
+    border: 0.5px solid lightgrey;
+}
+
+.inpt:hover{
+    border: 0.5px solid black;
+}
+
+.cvc-exp-inpt:hover{
+    border: 0.5px solid black;
+}

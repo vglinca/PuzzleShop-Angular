@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { CountryService } from 'src/app/services/country.service';
 import { CountryModel } from 'src/app/infrastructure/countries/country.model';
 import { forkJoin } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { StripePaymentComponent } from '../stripe-payment/stripe-payment.component';
 
 
 @Component({
@@ -17,6 +19,8 @@ import { forkJoin } from 'rxjs';
     styleUrls: ['./confirm-order.component.scss']
 })
 export class ConfirmOrderComponent implements OnInit{
+    
+    handler: any;
 
     emailForm: FormGroup;
     customerForm: FormGroup;
@@ -30,6 +34,7 @@ export class ConfirmOrderComponent implements OnInit{
     constructor(private orderService: OrderService,
                 private formBuilder: FormBuilder,
                 private router: Router,
+                private dialog: MatDialog,
                 private countryService: CountryService,
                 private accountService: AccountService){
                     this.userId = this.accountService.parseToken().userId;
@@ -51,6 +56,7 @@ export class ConfirmOrderComponent implements OnInit{
         });
 
         this.loadOrderFromApi();
+        this.configureHandler();
     }
 
     private loadOrderFromApi(): void{
@@ -64,14 +70,45 @@ export class ConfirmOrderComponent implements OnInit{
             }, err => console.log(err));
     }
 
+    private configureHandler(): void{
+        this.handler = StripeCheckout.configure({
+            key: environment.stripeKey,
+            locale: 'auto',
+            token: token => {
+                console.log(token);
+            }
+        });
+    }
+
     onSubmit(): void{
-        let customer: CustomerDetailsModel = {...this.customerForm.value};
-        customer.contactEmail = this.emailForm.controls['email'].value;
-        console.log(customer);
-        this.orderService.confirmOrder(this.userId, customer)
-            .subscribe(() => {
-                
-            }, err => console.log(err));
+        // this.handler.open({
+        //     name: 'Payment',
+        //     description: 'Puzzle Shop',
+        //     amount: 6000
+        // });
+
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = false;
+        dialogConfig.height = "70%";
+		dialogConfig.width = "500px";
+		dialogConfig.data = {totalAmount: 2000};
+		const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
+
+		dialogRef.afterClosed()
+			.subscribe((result: any) =>{
+				if(result){
+					console.log('RESULT: ', result);
+				}
+            });
+            
+
+        // let customer: CustomerDetailsModel = {...this.customerForm.value};
+        // customer.contactEmail = this.emailForm.controls['email'].value;
+        // console.log(customer);
+        // this.orderService.confirmOrder(this.userId, customer)
+        //     .subscribe(() => {
+        //         this.router.navigate(['/payment']);
+        //     }, err => console.log(err));
     }
 
     onReturnClick():void{

@@ -7,7 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
-import { StripePaymentComponent } from './components/payment/stripe-payment.component';
+import { StripePaymentComponent } from './components/stripe-payment/stripe-payment.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 
 export const appRoutes: Routes = [

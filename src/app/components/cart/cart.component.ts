@@ -95,19 +95,7 @@ export class CartComponent implements OnInit {
 
 	checkout(): void {
 		this.router.navigate(['/checkout']);
-		// const dialogConfig = new MatDialogConfig();
-        // dialogConfig.autoFocus = false;
-        // dialogConfig.height = "65%";
-		// dialogConfig.width = "35%";
-		// dialogConfig.data = {totalAmount: this.total};
-		// const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
-
-		// dialogRef.afterClosed()
-		// 	.subscribe((result: any) =>{
-		// 		if(result){
-		// 			console.log('RESULT: ', result);
-		// 		}
-		// 	});
+		
 	}
 
 	openHomePage(): void{

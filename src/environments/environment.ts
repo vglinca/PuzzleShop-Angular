@@ -9,7 +9,8 @@ export const environment = {
   whitelistedDomains: 'localhost:5000',
   blacklistedRoutes: 'http://localhost:5000/api/auth/authenticate',
   accessToken: 'accessToken',
-  countriesApiUrl: 'https://restcountries.eu/rest/v2/'
+  countriesApiUrl: 'https://restcountries.eu/rest/v2/',
+  stripeKey: 'pk_test_V09CopHIOVUlcRIKNVNg7PyG00Ypz2imat'
 };
 
 /*
