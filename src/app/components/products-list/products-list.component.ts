@@ -9,7 +9,7 @@ import { PagedRequest } from '../../infrastructure/pagination/paged-request';
 import { RequestFilters } from '../../infrastructure/pagination/request-filters';
 import { LogicalOperator } from '../../infrastructure/pagination/logical-operator';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Filter } from '../../infrastructure/pagination/filter';
 import { MatSort } from '@angular/material/sort';

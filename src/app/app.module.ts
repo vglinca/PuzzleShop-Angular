@@ -33,6 +33,7 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { StripePaymentComponent } from './components/payment/stripe-payment.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+import { StylePaginatorDirective } from './common/style-paginator.directive';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
     CartComponent,
     StripePaymentComponent,
     ConfirmOrderComponent,
+    StylePaginatorDirective,
 
     NotFoundPageComponent
   ],

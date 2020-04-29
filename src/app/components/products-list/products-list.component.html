@@ -80,8 +80,12 @@
 
 		<div class="pagination-data-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 			<div>
-				<mat-paginator (page)="onPageChanged($event)" [length]="pagedPuzzles?.totalItems"
-					 pageSize="24">
+				<mat-paginator 	style-paginator showFirstLastButtons 
+								[showTotalPages]="3" 
+								(page)="onPageChanged($event)" 
+								[length]="pagedPuzzles?.totalItems"
+								pageSize="5"
+								[pageSizeOptions]="[5, 10, 25, 100]">
 				</mat-paginator>
 			</div>
 		</div>

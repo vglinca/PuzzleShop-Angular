@@ -8,7 +8,8 @@ export const environment = {
   staticFilesUrl: 'http://localhost:5000/images/',
   whitelistedDomains: 'localhost:5000',
   blacklistedRoutes: 'http://localhost:5000/api/auth/authenticate',
-  accessToken: 'accessToken'
+  accessToken: 'accessToken',
+  countriesApiUrl: 'https://restcountries.eu/rest/v2/'
 };
 
 /*

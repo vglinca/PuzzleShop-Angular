@@ -24,7 +24,15 @@
             </mat-form-field>
             <div fxLayout="row | wrap" fxLayoutAlign="center center">
                 <mat-form-field appearance="outline" class="name">
-                    <input matInput placeholder="Country" formControlName="country">
+                    <mat-select placeholder="Country" formControlName="country">
+                        <mat-option *ngFor="let country of countries" [value]="country?.name">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>{{country?.name}}</span>
+                                <img [src]="country?.flag" style="width: 25px; height: 15px;">
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                    <!-- <input matInput placeholder="Country" formControlName="country"> -->
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="name">
                     <input matInput placeholder="Postal Code" formControlName="postalCode">

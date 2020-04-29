@@ -7,6 +7,9 @@ import { OrderModel } from 'src/app/models/orders/order.model';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { CountryService } from 'src/app/services/country.service';
+import { CountryModel } from 'src/app/infrastructure/countries/country.model';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -22,19 +25,17 @@ export class ConfirmOrderComponent implements OnInit{
 
     pendingOrder: OrderModel;
 
-    items: Array<number> = new Array<number>();
+    countries: CountryModel[] = [];
 
     constructor(private orderService: OrderService,
                 private formBuilder: FormBuilder,
                 private router: Router,
+                private countryService: CountryService,
                 private accountService: AccountService){
                     this.userId = this.accountService.parseToken().userId;
     }
 
     ngOnInit(): void {
-        for(let i = 0; i < 5; i++){
-            this.items.push(i);
-        }
 
         this.customerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -53,9 +54,13 @@ export class ConfirmOrderComponent implements OnInit{
     }
 
     private loadOrderFromApi(): void{
-        this.orderService.getCart(this.userId)
-            .subscribe((o: OrderModel) => {
-                this.pendingOrder = o;
+        const cart = this.orderService.getCart(this.userId);
+        const countries = this.countryService.getAll();
+
+        forkJoin(cart, countries)
+            .subscribe(([ca, co]) =>{
+                this.pendingOrder = ca;
+                this.countries = co;
             }, err => console.log(err));
     }
 
