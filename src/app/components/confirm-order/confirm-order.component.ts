@@ -12,6 +12,8 @@ import { CountryModel } from 'src/app/infrastructure/countries/country.model';
 import { forkJoin } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StripePaymentComponent } from '../stripe-payment/stripe-payment.component';
+import { LoggedInUserInfo } from 'src/app/models/users/logged-in-user-info';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
@@ -25,6 +27,7 @@ export class ConfirmOrderComponent implements OnInit{
     emailForm: FormGroup;
     customerForm: FormGroup;
     userId: number;
+    currentUser: LoggedInUserInfo;
     staticFileUrl: string = environment.staticFilesUrl;
 
     pendingOrder: OrderModel;
@@ -35,16 +38,18 @@ export class ConfirmOrderComponent implements OnInit{
                 private formBuilder: FormBuilder,
                 private router: Router,
                 private dialog: MatDialog,
+                private notificationService: NotificationService,
                 private countryService: CountryService,
                 private accountService: AccountService){
-                    this.userId = this.accountService.parseToken().userId;
+                    this.currentUser = this.accountService.parseToken();
     }
 
     ngOnInit(): void {
+        let userName: string[] = this.currentUser.name.split(" ");
 
         this.customerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+            firstName: [userName[0], Validators.required],
+            lastName: [userName[1], Validators.required],
             address: ['', Validators.required],
             city: ['', Validators.required],
             country: ['', Validators.required],
@@ -60,7 +65,7 @@ export class ConfirmOrderComponent implements OnInit{
     }
 
     private loadOrderFromApi(): void{
-        const cart = this.orderService.getCart(this.userId);
+        const cart = this.orderService.getCart(this.currentUser.userId);
         const countries = this.countryService.getAll();
 
         forkJoin(cart, countries)
@@ -73,18 +78,32 @@ export class ConfirmOrderComponent implements OnInit{
     private configureHandler(): void{
         this.handler = StripeCheckout.configure({
             key: environment.stripeKey,
-            locale: 'auto',
+            locale: 'en',
             token: token => {
-                console.log(token);
+                console.log(token.id);
+                this.callPaymentOnApi(token.id);
             }
         });
+    }
+
+    private callPaymentOnApi(token: string): void{
+        let customerDetails: CustomerDetailsModel = {
+            ...this.customerForm.value
+        };
+        customerDetails.contactEmail = this.emailForm.controls['email'].value;
+        customerDetails.token = token;
+        this.orderService.placeOrder(this.currentUser.userId, this.pendingOrder.id, customerDetails)
+            .subscribe(() => this.notificationService.success('Your order has been successfully placed.'), err => {
+                this.notificationService.warn('Could not perform transaction.');
+                console.log(err);
+            });
     }
 
     onSubmit(): void{
         // this.handler.open({
         //     name: 'Payment',
         //     description: 'Puzzle Shop',
-        //     amount: 6000
+        //     amount: this.pendingOrder.totalCost * 100
         // });
 
         const dialogConfig = new MatDialogConfig();
@@ -97,7 +116,8 @@ export class ConfirmOrderComponent implements OnInit{
 		dialogRef.afterClosed()
 			.subscribe((result: any) =>{
 				if(result){
-					console.log('RESULT: ', result);
+                    console.log('RESULT: ', result.token.id);
+                    this.callPaymentOnApi(result.token.id);
 				}
             });
             

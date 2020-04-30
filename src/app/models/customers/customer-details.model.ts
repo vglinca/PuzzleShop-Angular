@@ -7,4 +7,5 @@ export interface CustomerDetailsModel{
     country: string;
     postalCode: string;
     phone: string;
+    token: string;
 }

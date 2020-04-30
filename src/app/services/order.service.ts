@@ -36,4 +36,8 @@ export class OrderService{
     public confirmOrder(userId: number, customerDetails: CustomerDetailsModel){
         return this.http.put(`${this.baseUrl}/confirmOrder/${userId}`, customerDetails, this.headers);
     }
+
+    public placeOrder(userId: number, orderId: number, customerDetails: CustomerDetailsModel){
+        return this.http.put(`${this.baseUrl}/placeOrder/${userId}/${orderId}`, customerDetails, this.headers);
+    }
 }
