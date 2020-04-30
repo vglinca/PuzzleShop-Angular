@@ -18,6 +18,8 @@ import { OrderService } from 'src/app/services/order.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-for-create.model';
 import { UserLoginComponent } from '../account/auth/user-login.component';
+import { GalleryItem, ImageItem } from '@ngx-gallery/core';
+import { ImageModel } from 'src/app/models/images/image.model';
 
 
 @Component({
@@ -27,6 +29,8 @@ import { UserLoginComponent } from '../account/auth/user-login.component';
 export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     staticFilesUrl: string = environment.staticFilesUrl;
+    puzzleImages: ImageModel[] = [];
+    images: GalleryItem[] = [];
 
     puzzle: PuzzleTableRowModel;
     difficultyLevel: string;
@@ -54,6 +58,11 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngOnInit(): void {
+        this.activatedRoute.data.subscribe((data: {images: ImageModel[]}) => {
+            data.images.forEach(image => {
+                this.images.push(new ImageItem({src: this.staticFilesUrl + image.fileName, thumb: this.staticFilesUrl + image.fileName}));
+            });
+        });
         this.activatedRouteSubscription1 = this.activatedRoute.paramMap.subscribe(params => {
             this.puzzleId = +params.get('id');
             console.log(this.puzzleId);
@@ -63,12 +72,14 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.queryParam = params['puzzletype'];
             console.log(this.queryParam);
         });
+        
 
         this.subscriptions.push(this.activatedRouteSubscription1);
         this.subscriptions.push(this.activatedRouteSubscription2);
     }
 
     ngAfterViewInit(): void {
+       
     }
 
     loadDataFromApi(): void {

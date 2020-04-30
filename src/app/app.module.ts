@@ -34,6 +34,8 @@ import { StripePaymentComponent } from './components/stripe-payment/stripe-payme
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { StylePaginatorDirective } from './common/style-paginator.directive';
+import { GalleryModule } from  '@ngx-gallery/core';
+import { PuzzleImagesResolver } from './resolvers/puzzle-images.resolver';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,7 @@ import { StylePaginatorDirective } from './common/style-paginator.directive';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    GalleryModule,
     MatSelectCountryModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,

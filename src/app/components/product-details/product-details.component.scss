@@ -43,13 +43,14 @@
 }
 
 .container{    
+    margin-top: 30px;
     width: 100%;
 }
 
 .main-image-part-div{
     position: relative; 
-    height: 500px;
     width: 600px;
+    height: 500px;
 }
 
 .large-image-div{
@@ -61,33 +62,6 @@
 .large-image-div img{
     width: inherit;
     height: 400px;
-}
-
-.little-images-list-div{
-    
-    margin-top: 100px;
-    // background-color: red;
-}
-
-.little-image-div{
-    position: relative;
-    // background-color: chartreuse; 
-    margin: 5px;
-    width: 70px; 
-    height: 60px;
-}
-
-.little-image-div img{
-    width: 70px; 
-    height: 60px;
-}
-
-.little-imageitem {
-    transition: transform .5s;
-}
-
-.little-imageitem:hover{
-    transform: scale(1.6);
 }
 
 .order-details-div{

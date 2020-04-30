@@ -9,11 +9,12 @@ import { CartComponent } from './components/cart/cart.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { StripePaymentComponent } from './components/stripe-payment/stripe-payment.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
+import { PuzzleImagesResolver } from './resolvers/puzzle-images.resolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'collections/:puzzleType', component: ProductsListComponent },
-    { path: 'collections/:puzzleType/:id', component: ProductDetailsComponent },
+    { path: 'collections/:puzzleType/:id', component: ProductDetailsComponent, resolve: {images: PuzzleImagesResolver} },
     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
     { path: 'checkout', component: ConfirmOrderComponent},
     { path: 'payment', component: StripePaymentComponent },

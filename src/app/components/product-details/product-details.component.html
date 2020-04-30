@@ -20,21 +20,9 @@
 
             <div class="main-image-part-div" fxLayout="column">
                 <div class="large-image-div" fxFlex="80">
-                    <carousel>
-                        <ng-container *ngFor="let image of puzzle?.images">
-                            <ng-container *carouselItem>
-                                    <img class="item" [src]="staticFilesUrl + image?.fileName" alt="">
-                                    <!-- <div class="item">{{ item.title }}</div> -->
-                            </ng-container>
-                        </ng-container>
-                    </carousel>
-                    <!-- <img [src]="staticFilesUrl + puzzle?.images[0].fileName" alt=""> -->
-                </div>
-
-                <div class="little-images-list-div" fxFlex="20" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="little-image-div" *ngFor="let image of puzzle?.images">
-                        <img class="little-imageitem" [src]="staticFilesUrl + image?.fileName" alt="">
-                    </div>
+                    <gallery [items]="images" thumbPosition="bottom"
+                        imageSize="contain" style="width: 500px; height: 400px; background-color: white;">
+                    </gallery>
                 </div>
             </div>
 
@@ -123,5 +111,5 @@
     </div>
 
 
-    
+
 </div>
