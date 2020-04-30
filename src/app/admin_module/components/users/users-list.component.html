@@ -67,7 +67,7 @@
                     <button mat-button style="color:white; background-color:teal" (click)="onResetClick()">Reset</button>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let user" style="justify-content:right;">
-                    <button mat-button style="background-color:teal; min-height: 30px;" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
+                    <button mat-button style="background-color:teal; min-height: 30px;" [disabled]="hasNotAdminRole" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>

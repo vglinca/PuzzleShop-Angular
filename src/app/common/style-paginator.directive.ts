@@ -88,7 +88,7 @@ export class StylePaginatorDirective {
 
 		let dots = false;
 
-		for (let i = 0; i < this.matPag.getNumberOfPages(); i = i + 1) {
+		for (let i = 0; i < this.matPag.getNumberOfPages(); i++) {
 			if (
 				(i < this._showTotalPages && this._currentPage < this._showTotalPages && i > this._rangeStart) ||
 				(i >= this._rangeStart && i <= this._rangeEnd)

@@ -52,8 +52,8 @@
 
 			<ng-container matColumnDef="orderStatus">
 				<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-				<mat-cell *matCellDef="let order">
-					<span [ngClass]="{'red': order?.orderStatus === 'ConfirmedPayment'}"><b> {{order?.orderStatus}} </b></span>
+				<mat-cell *matCellDef="let order" [ngClass]="{'red': order?.orderStatus === 'ConfirmedPayment', 'green': order?.orderStatus === 'Completed', 'blue': order?.orderStatus === 'AwaitingShipment'}">
+					<span ><b> {{order?.orderStatus}} </b></span>
 				</mat-cell>
 			</ng-container>
 
@@ -69,7 +69,7 @@
 
 			<ng-container matColumnDef="totalCost">
 				<mat-header-cell *matHeaderCellDef> Total Cost </mat-header-cell>
-				<mat-cell *matCellDef="let order"> {{order?.totalCost | currency:'USD'}} </mat-cell>
+				<mat-cell *matCellDef="let order"><b> {{order?.totalCost | currency:'USD'}} </b></mat-cell>
 			</ng-container>
 
 			<ng-container matColumnDef="id">

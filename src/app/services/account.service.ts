@@ -59,4 +59,14 @@ export class AccountService{
             return false;
         }
     }
+
+    public hasNotAdminRole(): boolean{
+        if(this.isAuthenticated()){
+            const userInfo = this.parseToken();
+
+            return [...userInfo.roles].some(r => r === "admin") ? false : true;
+        }else{
+            return false;
+        }
+    }
 }

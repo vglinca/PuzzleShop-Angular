@@ -100,26 +100,26 @@ export class ConfirmOrderComponent implements OnInit{
     }
 
     onSubmit(): void{
-        // this.handler.open({
-        //     name: 'Payment',
-        //     description: 'Puzzle Shop',
-        //     amount: this.pendingOrder.totalCost * 100
-        // });
+        this.handler.open({
+            name: 'Payment',
+            description: 'Puzzle Shop',
+            amount: this.pendingOrder.totalCost * 100
+        });
 
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.autoFocus = false;
-        dialogConfig.height = "70%";
-		dialogConfig.width = "500px";
-		dialogConfig.data = {totalAmount: 2000};
-		const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
+        // const dialogConfig = new MatDialogConfig();
+        // dialogConfig.autoFocus = false;
+        // dialogConfig.height = "70%";
+		// dialogConfig.width = "500px";
+		// dialogConfig.data = {totalAmount: 2000};
+		// const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
 
-		dialogRef.afterClosed()
-			.subscribe((result: any) =>{
-				if(result){
-                    console.log('RESULT: ', result.token.id);
-                    this.callPaymentOnApi(result.token.id);
-				}
-            });
+		// dialogRef.afterClosed()
+		// 	.subscribe((result: any) =>{
+		// 		if(result){
+        //             console.log('RESULT: ', result.token.id);
+        //             this.callPaymentOnApi(result.token.id);
+		// 		}
+        //     });
             
 
         // let customer: CustomerDetailsModel = {...this.customerForm.value};

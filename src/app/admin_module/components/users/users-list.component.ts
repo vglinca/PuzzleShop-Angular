@@ -31,6 +31,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     ];
 
     currentId: number = 0;
+    hasNotAdminRole: boolean = true;
 
     tableColumns: string[] = [];
 
@@ -55,6 +56,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
 
 
     ngOnInit(): void {
+        this.hasNotAdminRole = this.accountService.hasNotAdminRole();
     }
 
     ngAfterViewInit(): void {

@@ -12,6 +12,7 @@ import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
 import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
 import { OrderStatusModel } from 'src/app/models/order-status/order-status.model';
 import { OrderTableRowModel } from 'src/app/models/orders/order-table-row.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
     templateUrl: './orders-list.component.html',
@@ -21,6 +22,7 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
 
     pagedOrders: PagedResponse<OrderTableRowModel>;
     orderStatusList: OrderStatusModel[] = [];
+
 
     requestFilters: RequestFilters;
     filterForm: FormGroup;
@@ -48,6 +50,7 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
     tableColumns: string[] = [];
 
     constructor(private formBuilder: FormBuilder,
+                private accountService: AccountService,
                 private manageOrdersService: ManageOrderService,
                 private lookupService: PuzzleLookupService){
                 this.tableColumns = this.filterColumns.map(c => c.name);

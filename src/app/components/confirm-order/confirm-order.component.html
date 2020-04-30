@@ -1,4 +1,9 @@
-<div class="page-container" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="2%">
+<div *ngIf="pendingOrder === null" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <img src="../../assets/images/complete.png">
+    <span class="span-empty-page">Your order is being processed!</span>
+    <span class="span-empty-page span-link" [routerLink]="['/home']">Choose some puzzle right now!</span>
+</div>
+<div *ngIf="pendingOrder !== null" class="page-container" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="2%">
     <div>
         <form novalidate [formGroup]="emailForm" class="contact-form">
             <span>Contact Information</span>
