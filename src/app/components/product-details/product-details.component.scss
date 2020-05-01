@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Oswald:wght@500&display=swap');
 
+
+
+.single{
+    margin-bottom: 100px;
+}
 
 .item {
     padding: 0;
@@ -54,7 +60,7 @@
 
 .large-image-div{
     position: relative;
-    width: 600px;
+    width: 500px;
 
     &img{
         width: inherit;
@@ -116,6 +122,34 @@
 
 .color-img-div{
     width: 100%;
+    margin-bottom: 20px;
+}
+
+.availability{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 20px;
+    .sign{
+        font-family: 'Inconsolata', monospace;
+        margin-right: 5px; 
+    }
+    .in-stock{
+        margin-top: 3px;
+        font-family: 'Oswald', sans-serif;
+        color: #2eb515;
+        .units-number{
+            font-family: 'Oswald', sans-serif;
+            color: gray;
+            font-size: 15px;
+        }
+    }
+    .out-of-stock{
+        margin-top: 3px;
+        font-family: 'Oswald', sans-serif;
+        color: red;
+    }
 }
 
 .puzzle-price-div{
@@ -177,12 +211,12 @@
 .puzzle-details-description-div{
     width: 100%; 
     margin-top: 20px;
-    margin-bottom: 150px;
+    margin-bottom: 20px;
 }
 
 .puzzle-characteristics-div{
     height: 300px; 
-    width: 500px;
+    width: 300px;
 }
 
 .details-text-div{
@@ -215,7 +249,7 @@
 
 .puzzle-description-div{
     height: fit-content; 
-    width: 700px;
+    width: 900px;
 }
 
 .description-header-div{
@@ -233,7 +267,7 @@
     font-size: 18px;
 }
 
-button, mat-radio-button{
+button{
     font-family: 'Inconsolata';
 }
 

@@ -47,6 +47,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     rating: number = 0;
     starColor: StarRatingColor = StarRatingColor.accent;
 
+    showReviews: boolean = false;
+
     activatedRouteSubscription1: Subscription;
     activatedRouteSubscription2: Subscription;
     subscriptions: Subscription[] = [];
@@ -136,7 +138,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     incrementQuantity(): void {
-        if (this.quantity < 100) {
+        if (this.quantity < this.puzzle.availableInStock) {
             this.quantity++;
             this.subtotal += this.puzzle.price;
         }
@@ -151,6 +153,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     onRatingChanged(rating: number): void{
         this.rating = rating;
+    }
+
+    toggleReviews():void {
+        this.showReviews = !this.showReviews;
     }
 
     addToCart(): void{

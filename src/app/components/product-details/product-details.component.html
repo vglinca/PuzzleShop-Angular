@@ -1,6 +1,6 @@
-<div class="single">
+<div class="single" fxLayout="column | wrap" fxLayoutAlign="start center">
 
-	<div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; margin-bottom: 100px;">
+	<div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; margin-bottom: 70px;">
 
 		<div class="path-div" fxLayout="row" fxLayoutAlign="start center">
 
@@ -16,7 +16,9 @@
 			<div style="font-family: 'Montserrat', sans-serif;">{{puzzle?.name}}</div>
 		</div>
 
-		<div class="container" fxLayoutGap="5%">
+		<mat-divider></mat-divider>
+
+		<div class="container" fxLayoutGap="10%">
 
 			<div class="main-image-part-div" fxLayout="column">
 				<div class="large-image-div" fxFlex="80">
@@ -39,6 +41,11 @@
 						<img [src]="'../../assets/images/puzzle-colors/' + puzzle?.color.trim() + '.png'">
 					</div>
 				</div>
+				<div class="availability">
+					<label class="sign">Availability</label>
+					<span class="in-stock" *ngIf="puzzle?.availableInStock > 0">In stock <span class="units-number">({{puzzle?.availableInStock}} units)</span></span>
+					<span class="out-of-stock" *ngIf="puzzle.availableInStock < 1">Out of stock</span>
+				</div>
 				<div class="puzzle-price-div" fxLayoutAlign="start center">{{puzzle?.price | currency:'USD'}}</div>
 
 				<div class="increment-decrement-quantity-outer-div" fxLayout="column" fxLayoutAlign="center start">
@@ -52,7 +59,7 @@
 							<input matInput type="number" placeholder="1" min="1" max="100" [(ngModel)]="quantity">
 						</div>
 						<div class="increment-decrement-button" fxLayoutAlign="start center">
-							<button mat-stroked-button color="primary" (click)="incrementQuantity()">
+							<button mat-stroked-button color="primary" (click)="incrementQuantity()" [disabled]="quantity >= puzzle?.availableInStock">
 								<mat-icon>add</mat-icon>
 							</button>
 						</div>
@@ -71,12 +78,15 @@
 			</div>
 		</div>
 	</div>
+	
+	<div style="width: 100%;">
+		<mat-divider></mat-divider>
+	</div>
 
-	<mat-divider></mat-divider>
 
-	<div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="center start">
+	<div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="0.5%">
 		<div class="puzzle-characteristics-div" fxLayout="column" fxLayoutAlign="start center">
-			<div class="details-text-div" fxLayoutAlign="center center">Details</div>
+			<div class="details-text-div" fxLayoutAlign="center center">Product Specifications</div>
 			<div class="details-list-container" fxLayout="column" fxLayoutAlign="start center">
 
 				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
@@ -113,5 +123,20 @@
 				<p>{{puzzle?.description}}</p>
 			</div>
 		</div>
+	</div>
+
+	<mat-divider></mat-divider>
+
+	<div fxLayout="row | wrap" fxLayoutAlign="center start" style=" width: 100%; margin-top: 20px; margin-bottom: 20px;">
+		<div class="customer-reviews" style="display: flex; flex-direction: column; align-items: flex-start; width: 900px;">
+			<span (click)="toggleReviews()">Customer Reviews</span>
+			<div></div>
+		</div>
+		<div style="width: 300px;">
+			<button mat-raised-button color="primary">Write A review</button>
+		</div>
+	</div>
+	<div style="width: 100%;">
+		<mat-divider></mat-divider>
 	</div>
 </div>
