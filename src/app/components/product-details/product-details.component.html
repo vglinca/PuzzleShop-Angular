@@ -1,123 +1,117 @@
 <div class="single">
 
-    <div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; margin-bottom: 100px;">
+	<div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; margin-bottom: 100px;">
 
-        <div class="path-div" fxLayout="row" fxLayoutAlign="start center">
+		<div class="path-div" fxLayout="row" fxLayoutAlign="start center">
 
-            <div class="path-div-item">
-                <span class="txt">Home</span>
-                <mat-icon>navigate_next</mat-icon>
-            </div>
+			<div class="path-div-item">
+				<span class="txt">Home</span>
+				<mat-icon>navigate_next</mat-icon>
+			</div>
 
-            <div class="path-div-item">
-                <span class="txt" (click)="navigateToCollections()">{{queryParam}}</span>
-                <mat-icon>navigate_next</mat-icon>
-            </div>
-            <div>{{puzzle?.name}}</div>
-        </div>
+			<div class="path-div-item">
+				<span class="txt" (click)="navigateToCollections()">{{queryParam}}</span>
+				<mat-icon>navigate_next</mat-icon>
+			</div>
+			<div style="font-family: 'Montserrat', sans-serif;">{{puzzle?.name}}</div>
+		</div>
 
-        <div class="container" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="5%">
+		<div class="container" fxLayoutGap="5%">
 
-            <div class="main-image-part-div" fxLayout="column">
-                <div class="large-image-div" fxFlex="80">
-                    <gallery [items]="images" thumbPosition="bottom"
-                        imageSize="contain" [counter]="false" style="width: 500px; height: 400px; background-color: white;">
-                    </gallery>
-                </div>
-            </div>
+			<div class="main-image-part-div" fxLayout="column">
+				<div class="large-image-div" fxFlex="80">
+					<gallery class="images-gallery" [items]="images" thumbPosition="bottom" imageSize="contain" [counter]="false">
+					</gallery>
+				</div>
+			</div>
 
-            <div class="order-details-div" fxLayout="column" fxLayoutAlign="start start">
-                <div class="puzzle-name-div" fxLayoutAlign="start center">{{puzzle?.name}}</div>
+			<div class="order-details-div" fxLayout="column" fxLayoutAlign="start start">
+				<div class="puzzle-name-div" fxLayoutAlign="start center">{{puzzle?.name}}</div>
 
-                <div class="rating" style="display: flex; justify-content: flex-start; align-items: center;">
-                    <mat-icon *ngFor="let starId of ratingArr; index as i">{{showStar(i)}}</mat-icon>
-                    <span>{{puzzle.rating}}</span>
-                </div>
+				<div class="rating" style="display: flex; justify-content: flex-start; align-items: center;">
+					<mat-icon *ngFor="let starId of ratingArr; index as i">{{showStar(i)}}</mat-icon>
+					<span>{{puzzle.rating}}</span>
+				</div>
 
-                <div class="puzzle-color-div" fxLayout="column" fxLayoutAlign="center start">
-                    <div class="color-title-div">Plastic color</div>
-                    <div class="color-radio-buttons-div">
-                        <mat-radio-group>
-                            <mat-radio-button value="1">Stickerless</mat-radio-button>
-                            <mat-radio-button value="2">Black</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                </div>
-                <div class="puzzle-price-div" fxLayoutAlign="start center">{{puzzle?.price | currency:'USD'}}</div>
+				<div class="puzzle-color-div" fxLayout="column" fxLayoutAlign="center start">
+					<div class="color-title-div">Plastic color</div>
+					<div class="color-img-div">
+						<img [src]="'../../assets/images/puzzle-colors/' + puzzle?.color.trim() + '.png'">
+					</div>
+				</div>
+				<div class="puzzle-price-div" fxLayoutAlign="start center">{{puzzle?.price | currency:'USD'}}</div>
 
-                <div class="increment-decrement-quantity-outer-div" fxLayout="column" fxLayoutAlign="center start">
-                    <div class="increment-decrement-quantity-inner-div" fxLayout="row" fxLayoutAlign="start center">
-                        <div class="increment-decrement-button" fxLayoutAlign="start center">
-                            <button mat-stroked-button color="primary" (click)="decrementQuantity()">
-                                <mat-icon>remove</mat-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <input matInput type="number" placeholder="1" min="1" max="100" [(ngModel)]="quantity">
-                        </div>
-                        <div class="increment-decrement-button" fxLayoutAlign="start center">
-                            <button mat-stroked-button color="primary" (click)="incrementQuantity()">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="subtotal-amount-div" fxLayoutAlign="start center">Subtotal:
-                        <span>{{subtotal | currency:'USD'}}</span>
-                    </div>
-                </div>
+				<div class="increment-decrement-quantity-outer-div" fxLayout="column" fxLayoutAlign="center start">
+					<div class="increment-decrement-quantity-inner-div" fxLayout="row" fxLayoutAlign="start center">
+						<div class="increment-decrement-button" fxLayoutAlign="start center">
+							<button mat-stroked-button color="primary" (click)="decrementQuantity()">
+								<mat-icon>remove</mat-icon>
+							</button>
+						</div>
+						<div>
+							<input matInput type="number" placeholder="1" min="1" max="100" [(ngModel)]="quantity">
+						</div>
+						<div class="increment-decrement-button" fxLayoutAlign="start center">
+							<button mat-stroked-button color="primary" (click)="incrementQuantity()">
+								<mat-icon>add</mat-icon>
+							</button>
+						</div>
+					</div>
+					<div class="subtotal-amount-div" fxLayoutAlign="start center">Subtotal:
+						<span style="margin-left: 5px;"> {{subtotal | currency:'USD'}}</span>
+					</div>
+				</div>
 
-                <div class="add-to-cart-button-div" fxLayoutAlign="center center" (click)="addToCart()">
-                    <button mat-raised-button color="primary">
-                        <mat-icon>shopping_cart</mat-icon>
-                        Add to cart</button>
-                </div>
-            </div>
+				<div class="add-to-cart-button-div" fxLayoutAlign="center center" (click)="addToCart()">
+					<button mat-raised-button color="primary">
+						<mat-icon>shopping_cart</mat-icon>
+						Add to cart
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        </div>
+	<mat-divider></mat-divider>
 
-    </div>
+	<div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="center start">
+		<div class="puzzle-characteristics-div" fxLayout="column" fxLayoutAlign="start center">
+			<div class="details-text-div" fxLayoutAlign="center center">Details</div>
+			<div class="details-list-container" fxLayout="column" fxLayoutAlign="start center">
 
-    <div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="center start">
-        <div class="puzzle-characteristics-div" fxLayout="column" fxLayoutAlign="start center">
-            <div class="details-text-div" fxLayoutAlign="center center">Details</div>
-            <div class="details-list-container" fxLayout="column" fxLayoutAlign="start center">
+				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+					<div>Manufacturer</div>
+					<div class="property-value">{{puzzle?.manufacturer}}</div>
+				</div>
 
-                <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>Manufacturer</div>
-                    <div class="property-value">{{puzzle?.manufacturer}}</div>
-                </div>
-
-                <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>PuzzleType</div>
-                    <div class="property-value">{{puzzle?.puzzleType}}</div>
-                </div>
-                <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>Difficulty</div>
-                    <div class="property-value">{{difficultyLevel}}</div>
-                </div>
-                <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>Material</div>
-                    <div class="property-value">{{puzzle?.materialType}}</div>
-                </div>
-                <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>Weight</div>
-                    <div class="property-value">{{puzzle?.weight}} g</div>
-                </div>
-                <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>Magnets</div>
-                    <div class="property-value" *ngIf="puzzle?.isMagnetic">Yes</div>
-                    <div class="property-value" *ngIf="! puzzle?.isMagnetic">No</div>
-                </div>
-            </div>
-        </div>
-        <div class="puzzle-description-div" fxLayout="column" fxLayoutAlign="start center">
-            <div class="description-header-div" fxLayoutAlign="center center">Description</div>
-            <div class="description-text-div">
-                <p>{{puzzle?.description}}</p>
-            </div>
-        </div>
-    </div>
-
-
-
+				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+					<div>PuzzleType</div>
+					<div class="property-value">{{puzzle?.puzzleType}}</div>
+				</div>
+				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+					<div>Difficulty</div>
+					<div class="property-value">{{difficultyLevel}}</div>
+				</div>
+				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+					<div>Material</div>
+					<div class="property-value">{{puzzle?.materialType}}</div>
+				</div>
+				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+					<div>Weight</div>
+					<div class="property-value">{{puzzle?.weight}} g</div>
+				</div>
+				<div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
+					<div>Magnets</div>
+					<div class="property-value" *ngIf="puzzle?.isMagnetic">Yes</div>
+					<div class="property-value" *ngIf="! puzzle?.isMagnetic">No</div>
+				</div>
+			</div>
+		</div>
+		<div class="puzzle-description-div" fxLayout="column" fxLayoutAlign="start center">
+			<div class="description-header-div" fxLayoutAlign="center center">Description</div>
+			<div class="description-text-div">
+				<p>{{puzzle?.description}}</p>
+			</div>
+		</div>
+	</div>
 </div>
