@@ -43,6 +43,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     subtotal: number;
 
     starCount: number = 5;
+    ratingArr: number[] = [];
     rating: number = 0;
     starColor: StarRatingColor = StarRatingColor.accent;
 
@@ -63,47 +64,70 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngOnInit(): void {
+        for(let i = 0; i < this.starCount; i++){
+            this.ratingArr.push(i);
+        }
+
         this.activatedRoute.data.subscribe((data: {images: ImageModel[]}) => {
             data.images.forEach(image => {
                 this.images.push(new ImageItem({src: this.staticFilesUrl + image.fileName, thumb: this.staticFilesUrl + image.fileName}));
             });
         });
-        this.activatedRouteSubscription1 = this.activatedRoute.paramMap.subscribe(params => {
-            this.puzzleId = +params.get('id');
-            console.log(this.puzzleId);
+
+        this.activatedRoute.data.subscribe((data: {puzzle: PuzzleTableRowModel}) => {
+            this.rating = data.puzzle.rating;
+            this.puzzle = data.puzzle;
+            this.subtotal = this.puzzle.price;
+            this.rating = this.puzzle.rating;
+            this.puzzleId = data.puzzle.id;
             this.loadDataFromApi();
         });
+
+        // this.activatedRouteSubscription1 = this.activatedRoute.paramMap.subscribe(params => {
+        //     this.puzzleId = +params.get('id');
+        //     console.log(this.puzzleId);
+        //     this.loadDataFromApi();
+        // });
         this.activatedRouteSubscription2 = this.activatedRoute.queryParams.subscribe(params => {
             this.queryParam = params['puzzletype'];
-            console.log(this.queryParam);
         });
         
 
-        this.subscriptions.push(this.activatedRouteSubscription1);
+        //this.subscriptions.push(this.activatedRouteSubscription1);
         this.subscriptions.push(this.activatedRouteSubscription2);
     }
 
     ngAfterViewInit(): void {
-       
+    }
+
+    showStar(index: number): string{
+        if (this.rating >= index + 1 && (this.rating - index - 1) >= 0.8) {
+			return 'star';
+        } 
+        else if(this.rating >= index + 1 && (this.rating - index - 1) < 0.8){
+            return 'star_half';
+        }
+        else {
+			return 'star_border';
+		}
     }
 
     loadDataFromApi(): void {
 
-        const puzzle = this.lookupService.getPuzzle(this.puzzleId);
-
+        //const puzzle = this.lookupService.getPuzzle(this.puzzleId);
         const puzzleType = this.puzzleService.getPuzzle(this.puzzleId)
             .pipe(mergeMap((p: PuzzleModel) =>
                 this.puzzleTypeService.getByIdFriendly(p.puzzleTypeId)));
 
         const colors = this.puzzleColorService.getAll();
 
-        forkJoin(puzzle, puzzleType, colors)
-            .subscribe(([p, pt, c]) => {
+        forkJoin(puzzleType, colors)
+            .subscribe(([pt, c]) => {
                 this.colors = c;
-                this.puzzle = p;
+                // this.puzzle = p;
                 this.difficultyLevel = pt.difficultyLevel;
-                this.subtotal = this.puzzle.price;
-                this.rating = this.puzzle.rating;
+                //this.subtotal = this.puzzle.price;
+                //this.rating = this.puzzle.rating;
             });
     }
 

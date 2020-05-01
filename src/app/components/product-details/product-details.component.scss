@@ -8,12 +8,7 @@
     height: 300px;
     margin-right: 100px;
     transition: transform .4s;
-    // background-color: crimson;
-    // color: #fff;
-    // font-size: 50px;
-    // line-height: 300px;
-    // text-align: center;
-  }
+}
 
 .item:hover{
     transform: scale(1.2);
@@ -35,11 +30,10 @@
 
 .txt{
     vertical-align: top;
-}
-
-.txt:hover{
-    cursor: pointer;
+    &:hover{
+        cursor: pointer;
     text-decoration: underline;
+    }
 }
 
 .container{    
@@ -56,23 +50,21 @@
 .large-image-div{
     position: relative;
     width: 600px;
+
+    &img{
+        width: inherit;
+        height: 400px;
+    }
 }
 
-
-.large-image-div img{
-    width: inherit;
-    height: 400px;
-}
 
 .order-details-div{
-    // background-color: blueviolet; 
     position: relative; 
     height: 600px;
     width: 500px;
 }
 
 .puzzle-name-div{
-    // background-color: lime; 
     width: 100%; 
     height: 80px; 
     font-size: 30px; 
@@ -82,33 +74,40 @@
     line-height: 1.5;
 }
 
+.rating{
+    mat-icon{
+        color: #d9d91e;
+    }
+    
+    span{
+        font-family: 'Inconsolata', monospace;
+        font-size: 25px;
+        font-weight: 500;
+    }
+} 
+
 .puzzle-color-div{
-    // background-color: magenta;
     width: 100%; 
     height: 100px; 
-    // font-size: 30px; 
     margin-bottom: 20px;
 }
 
 .color-title-div{
     font-size: 20px; 
     font-family: 'Inconsolata', monospace;
-    // background-color: navy; 
     margin-bottom: 10px; 
     height: fit-content;
 }
 
 .color-radio-buttons-div{
     width: 100%;
-    // background-color: mediumseagreen;
 }
 
 mat-radio-button{
     margin-right: 5px;
 }
 
-.puzzle-prica-div{
-    // background-color: orange; 
+.puzzle-price-div{
     height: 50px; 
     font-size: 40px; 
     margin-bottom: 20px;
@@ -120,7 +119,6 @@ mat-radio-button{
 }
 
 .increment-decrement-quantity-inner-div{
-    // background-color: pink;  
     width: 100%; 
     height: 90px;
 }
@@ -135,18 +133,17 @@ mat-radio-button{
 }
 
 .increment-decrement-button{
-    // background-color: springgreen; 
     height: 40px;
+    &button{
+        width: 40px; 
+        height: 40px;
+    }
 }
 
-.increment-decrement-button button{
-    width: 40px; height: 40px;
-}
 
 .subtotal-amount-div{
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Inconsolata';
     font-size: 18px;
-    // background-color: royalblue;
     width: 100%; 
     height: 30px;
 }
@@ -154,15 +151,14 @@ mat-radio-button{
 .add-to-cart-button-div{
     width: 100%; 
     height: 100px; 
-    // background-color: seagreen;
 }
 
 .add-to-cart-button-div button{
-    width: 250px;
+    width: 100%;
     height: 60px; 
     font-size: 25px;
     color: white;
-    background-color: #38ad27
+    // background-color: #38ad27
 }
 
 .puzzle-details-description-div{
@@ -172,7 +168,6 @@ mat-radio-button{
 }
 
 .puzzle-characteristics-div{
-    // background-color: tomato; 
     height: 300px; 
     width: 500px;
 }
@@ -180,36 +175,40 @@ mat-radio-button{
 .details-text-div{
     font-family: 'Inconsolata', monospace;
     font-size: 25px;
-    // background-color: green; 
+    border-bottom: 1px solid black;
     height: 20%; 
     width: 80%;
 }
 
 .details-list-container{
-    // background-color: lawngreen; 
+    border-left: 1px solid black;
+    border-right: 1px solid black;
     width: 80%; 
     height: 70%; 
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .details-list-item{
+    border-bottom: 1px solid black;
     padding: 5px; 
     width: 100%; 
     height: 20%; 
-    // background-color: violet;
+}
+
+.property-value{
+    font-weight: 500;
+
 }
 
 .puzzle-description-div{
-    // background-color: violet; 
     height: fit-content; 
     width: 700px;
 }
 
 .description-header-div{
-    // background-color: green; 
     height: 10%; 
     width: 80%; 
-    margin-top: 5px; 
+    margin-top: 20px; 
     margin-bottom: 10px; 
     font-size: 25px;
     font-family: 'Inconsolata', monospace;
@@ -217,7 +216,6 @@ mat-radio-button{
 
 .description-text-div{
     width: 90%; 
-    // background-color:blue; 
     height: fit-content; 
     font-size: 18px;
 }

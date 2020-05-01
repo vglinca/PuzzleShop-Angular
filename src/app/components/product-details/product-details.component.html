@@ -29,8 +29,9 @@
             <div class="order-details-div" fxLayout="column" fxLayoutAlign="start start">
                 <div class="puzzle-name-div" fxLayoutAlign="start center">{{puzzle?.name}}</div>
 
-                <div class="rating">
-                    <mat-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></mat-star-rating>
+                <div class="rating" style="display: flex; justify-content: flex-start; align-items: center;">
+                    <mat-icon *ngFor="let starId of ratingArr; index as i">{{showStar(i)}}</mat-icon>
+                    <span>{{puzzle.rating}}</span>
                 </div>
 
                 <div class="puzzle-color-div" fxLayout="column" fxLayoutAlign="center start">
@@ -42,7 +43,7 @@
                         </mat-radio-group>
                     </div>
                 </div>
-                <div class="puzzle-prica-div" fxLayoutAlign="start center">{{puzzle?.price | currency:'USD'}}</div>
+                <div class="puzzle-price-div" fxLayoutAlign="start center">{{puzzle?.price | currency:'USD'}}</div>
 
                 <div class="increment-decrement-quantity-outer-div" fxLayout="column" fxLayoutAlign="center start">
                     <div class="increment-decrement-quantity-inner-div" fxLayout="row" fxLayoutAlign="start center">
@@ -61,11 +62,14 @@
                         </div>
                     </div>
                     <div class="subtotal-amount-div" fxLayoutAlign="start center">Subtotal:
-                        {{subtotal | currency:'USD'}}</div>
+                        <span>{{subtotal | currency:'USD'}}</span>
+                    </div>
                 </div>
 
                 <div class="add-to-cart-button-div" fxLayoutAlign="center center" (click)="addToCart()">
-                    <button mat-raised-button>Add to cart</button>
+                    <button mat-raised-button color="primary">
+                        <mat-icon>shopping_cart</mat-icon>
+                        Add to cart</button>
                 </div>
             </div>
 
@@ -80,29 +84,29 @@
 
                 <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
                     <div>Manufacturer</div>
-                    <div>{{puzzle?.manufacturer}}</div>
+                    <div class="property-value">{{puzzle?.manufacturer}}</div>
                 </div>
 
                 <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
                     <div>PuzzleType</div>
-                    <div>{{puzzle?.puzzleType}}</div>
+                    <div class="property-value">{{puzzle?.puzzleType}}</div>
                 </div>
                 <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
                     <div>Difficulty</div>
-                    <div>{{difficultyLevel}}</div>
+                    <div class="property-value">{{difficultyLevel}}</div>
                 </div>
                 <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
                     <div>Material</div>
-                    <div>{{puzzle?.materialType}}</div>
+                    <div class="property-value">{{puzzle?.materialType}}</div>
                 </div>
                 <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
                     <div>Weight</div>
-                    <div>{{puzzle?.weight}} g</div>
+                    <div class="property-value">{{puzzle?.weight}} g</div>
                 </div>
                 <div class="details-list-item" fxLayout="row" fxLayoutAlign="space-between center">
                     <div>Magnets</div>
-                    <div *ngIf="puzzle?.isMagnetic">Yes</div>
-                    <div *ngIf="! puzzle?.isMagnetic">No</div>
+                    <div class="property-value" *ngIf="puzzle?.isMagnetic">Yes</div>
+                    <div class="property-value" *ngIf="! puzzle?.isMagnetic">No</div>
                 </div>
             </div>
         </div>
