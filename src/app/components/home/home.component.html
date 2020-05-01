@@ -1,7 +1,85 @@
-<div>HOME</div>
+<div class="content-container">
+	<gallery class="carousel" 
+			[items]="images" 
+			[autoPlay]="true" 
+			[playerInterval]="5000" 
+			[thumb]="false" 
+			[dots]="true"
+			[dotsSize]="40" 
+			[counter]="false" 
+			autoplay="true" 
+			thumbMode="free" 
+			imageSize="contain">
+	</gallery>
+	<span class="arrivals">New Arrivals</span>
+	<div fxLayout="row | wrap" fxLayoutAlign="center center">
+		<mat-card>
+			<img mat-card-image src="../../assets/images/ganx.jpg">
+			<mat-card-content>
+				<span>Gan 356 X</span>
+				<span><b>$45.95</b></span>
+			</mat-card-content>
+		</mat-card>
 
-<gallery [items]="images" 
-        thumbPosition="bottom" 
-        autoplay="true" 
-        thumbMode="free" 
-        imageSize="contain" style="width: 500px; height: 400px;"></gallery>
+		<mat-card>
+			<img mat-card-image src="../../assets/images/3x3-dayan-guhong-v3-magnetic-3x3-1_1024x1024.jpg">
+			<mat-card-content>
+				<span>DaYan GuHong V3 M</span>
+				<span><b>$25.95</b></span>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<img mat-card-image src="../../assets/images/CubeSolveHero_Valk_3_Elite_Magnetic_3x3.jpg">
+			<mat-card-content>
+				<span>CubeSolveHero Valk 3 Elite M</span>
+				<span><b>$35.95</b></span>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<img mat-card-image src="../../assets/images/3x3-cubeorithms-thunderclap-v3-magnetic-3x3-2_1024x1024.jpg">
+			<mat-card-content>
+				<span>Cubeorithms Thunderclap V3 M</span>
+				<span><b>$36.95</b></span>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+
+	<div fxLayout="row | wrap" fxLayoutAlign="center center">
+
+		<mat-card>
+			<img mat-card-image src="../../assets/images/CubeSolveHero_Valk_3_Elite_Magnetic_3x3.jpg">
+			<mat-card-content>
+				<span>CubeSolveHero Valk 3 Elite M</span>
+				<span><b>$35.95</b></span>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<img mat-card-image src="../../assets/images/3x3-cubeorithms-thunderclap-v3-magnetic-3x3-2_1024x1024.jpg">
+			<mat-card-content>
+				<span>Cubeorithms Thunderclap V3 M</span>
+				<span><b>$36.95</b></span>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<img mat-card-image src="../../assets/images/3x3-dayan-guhong-v3-magnetic-3x3-1_1024x1024.jpg">
+			<mat-card-content>
+				<span>DaYan GuHong V3 M</span>
+				<span><b>$25.95</b></span>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<img mat-card-image src="../../assets/images/ganx.jpg">
+			<mat-card-content>
+				<span>Gan 356 X</span>
+				<span><b>$45.95</b></span>
+			</mat-card-content>
+		</mat-card>
+		
+	</div>
+</div>

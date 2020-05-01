@@ -20,6 +20,7 @@ import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-f
 import { UserLoginComponent } from '../account/auth/user-login.component';
 import { GalleryItem, ImageItem } from '@ngx-gallery/core';
 import { ImageModel } from 'src/app/models/images/image.model';
+import { StarRatingColor } from 'src/app/common/star-rating/star-rating.component';
 
 
 @Component({
@@ -40,6 +41,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     quantity: number = 1;
     subtotal: number;
+
+    starCount: number = 5;
+    rating: number = 0;
+    starColor: StarRatingColor = StarRatingColor.accent;
 
     activatedRouteSubscription1: Subscription;
     activatedRouteSubscription2: Subscription;
@@ -98,6 +103,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
                 this.puzzle = p;
                 this.difficultyLevel = pt.difficultyLevel;
                 this.subtotal = this.puzzle.price;
+                this.rating = this.puzzle.rating;
             });
     }
 
@@ -117,6 +123,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.quantity--;
             this.subtotal -= this.puzzle.price;
         }
+    }
+
+    onRatingChanged(rating: number): void{
+        this.rating = rating;
     }
 
     addToCart(): void{

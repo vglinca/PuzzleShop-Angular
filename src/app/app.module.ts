@@ -36,6 +36,7 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
 import { StylePaginatorDirective } from './common/style-paginator.directive';
 import { GalleryModule } from  '@ngx-gallery/core';
 import { PuzzleImagesResolver } from './resolvers/puzzle-images.resolver';
+import { StarRatingComponent } from './common/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { PuzzleImagesResolver } from './resolvers/puzzle-images.resolver';
     StripePaymentComponent,
     ConfirmOrderComponent,
     StylePaginatorDirective,
+    StarRatingComponent,
 
     NotFoundPageComponent
   ],

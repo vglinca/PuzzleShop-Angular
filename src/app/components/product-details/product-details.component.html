@@ -21,13 +21,17 @@
             <div class="main-image-part-div" fxLayout="column">
                 <div class="large-image-div" fxFlex="80">
                     <gallery [items]="images" thumbPosition="bottom"
-                        imageSize="contain" style="width: 500px; height: 400px; background-color: white;">
+                        imageSize="contain" [counter]="false" style="width: 500px; height: 400px; background-color: white;">
                     </gallery>
                 </div>
             </div>
 
             <div class="order-details-div" fxLayout="column" fxLayoutAlign="start start">
                 <div class="puzzle-name-div" fxLayoutAlign="start center">{{puzzle?.name}}</div>
+
+                <div class="rating">
+                    <mat-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></mat-star-rating>
+                </div>
 
                 <div class="puzzle-color-div" fxLayout="column" fxLayoutAlign="center start">
                     <div class="color-title-div">Plastic color</div>

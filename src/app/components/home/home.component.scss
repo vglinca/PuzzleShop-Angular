@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+
+
+.content-container{
+    margin-bottom: 50px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
+.carousel{
+    width: 1300px;
+    height: 380px; 
+    background-color: white;
+}
+
+.arrivals{
+    margin-top: 25px;
+    font-family: 'Inconsolata', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+mat-card{
+    margin: 10px
+}
+
+mat-card img{
+    width: 300px;
+    height: 240px;
+}
+
+mat-card-content{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start;
+}
