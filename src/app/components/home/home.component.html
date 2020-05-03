@@ -93,12 +93,15 @@
 				<label>Based on n reviews</label>
 			</div>
 			<div style="display: flex; flex-direction: column;">
-				<div style="display: flex; justify-content: space-around; align-items: center; width: 305px;">
+				<div style="display: flex; justify-content: space-around; align-items: center; width: 400px;">
 					<div style="display: flex; justify-content: flex-start; align-items: center; ">
 						<mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star_border</mat-icon>
 					</div>
-					<mat-progress-bar mode="determinate" value="100" style="width: 100px;"></mat-progress-bar>
-					<span> 100% (n)</span>
+					<div>
+						<mat-progress-bar mode="determinate" value="100" style="width: 100px;"></mat-progress-bar>
+						<span> 100% (n)</span>
+					</div>
+
 				</div>
 
 				<div style="display: flex; justify-content: space-around; align-items: center; width: 300px;">
@@ -130,7 +133,7 @@
 						<mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star_border</mat-icon><mat-icon style="color: yellow;">star_border</mat-icon><mat-icon style="color: yellow;">star_border</mat-icon><mat-icon style="color: yellow;">star_border</mat-icon>
 					</div>
 					<mat-progress-bar mode="determinate" value="20" style="width: 100px;"></mat-progress-bar>
-					<span> 20% (n)</span>
+					<span> 0% (n)</span>
 				</div>
 
 			</div>
@@ -187,6 +190,36 @@
 			</mat-card-content>
 		</mat-card>
 		
+	</div>
+
+
+	<div style="width: 80%;">
+		<form style="display: flex; flex-direction: column; align-items: flex-start;">
+			<mat-form-field appearance="outline" style="width: 300px;">
+				<mat-label>Name</mat-label>
+				<input matInput placeholder="Name">
+			  </mat-form-field>
+
+			  <mat-form-field appearance="outline" style="width: 300px;">
+				<mat-label>Email</mat-label>
+				<input matInput placeholder="john.smith@example.com">
+			  </mat-form-field>
+
+			  <mat-form-field appearance="outline" style="width: 300px;">
+				<mat-label>Review Title</mat-label>
+				<input matInput placeholder="Give your review a title">
+			  </mat-form-field>
+
+			  <mat-form-field>
+				<mat-label>Rating</mat-label>
+				<input matInput>
+			  </mat-form-field>
+			
+			<mat-form-field appearance="outline">
+				<mat-label>Body of review (1500)</mat-label>
+				<textarea matInput placeholder="Write your comments here" rows="10" style="min-width:500px; max-width:100%;min-height:50px;height:100%;width:100%;" ></textarea>
+			</mat-form-field>
+		</form>
 	</div>
 
 </div>

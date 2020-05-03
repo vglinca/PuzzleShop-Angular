@@ -23,14 +23,17 @@ import { ImageModel } from 'src/app/models/images/image.model';
 import { StarRatingColor } from 'src/app/common/star-rating/star-rating.component';
 import { ReviewService } from 'src/app/services/review.service';
 import { ReviewModel } from 'src/app/models/reviews/review.model';
+import { heightAnimation } from 'src/app/common/animations/height-animation';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReviewForCreationModel } from 'src/app/models/reviews/review-for-creation.model';
 
 
 @Component({
     templateUrl: './product-details.component.html',
-    styleUrls: ['./product-details.component.scss']
+    styleUrls: ['./product-details.component.scss'],
+    animations: [heightAnimation]
 })
 export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
-
     staticFilesUrl: string = environment.staticFilesUrl;
     puzzleImages: ImageModel[] = [];
     images: GalleryItem[] = [];
@@ -51,6 +54,9 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     starColor: StarRatingColor = StarRatingColor.accent;
 
     showReviews: boolean = false;
+    descriptionAnimationState: string = 'initial';
+    ratingForReview: number = 0;
+    reviewForm: FormGroup;
 
     activatedRouteSubscription1: Subscription;
     activatedRouteSubscription2: Subscription;
@@ -62,6 +68,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         private puzzleColorService: PuzzleColorsService,
         private reviewService: ReviewService,
         private router: Router,
+        private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
         private accountService: AccountService,
         private orderService: OrderService,
@@ -81,26 +88,25 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         });
 
         this.activatedRoute.data.subscribe((data: {puzzle: PuzzleTableRowModel}) => {
-            this.rating = data.puzzle.rating;
             this.puzzle = data.puzzle;
             this.subtotal = this.puzzle.price;
-            this.rating = this.puzzle.rating;
             this.puzzleId = data.puzzle.id;
             this.loadDataFromApi();
         });
 
-        // this.activatedRouteSubscription1 = this.activatedRoute.paramMap.subscribe(params => {
-        //     this.puzzleId = +params.get('id');
-        //     console.log(this.puzzleId);
-        //     this.loadDataFromApi();
-        // });
         this.activatedRouteSubscription2 = this.activatedRoute.queryParams.subscribe(params => {
             this.queryParam = params['puzzletype'];
         });
-        
 
-        //this.subscriptions.push(this.activatedRouteSubscription1);
+        this.reviewForm = this.formBuilder.group({
+            reviewerName: ['', Validators.required],
+            reviewerEmail: ['', [Validators.required]],
+            reviewTitle: ['', Validators.maxLength(100)],
+            reviewBody: ['', Validators.maxLength(1500)]
+        });
+        
         this.subscriptions.push(this.activatedRouteSubscription2);
+
     }
 
     ngAfterViewInit(): void {
@@ -158,6 +164,16 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     toggleReviews():void {
         this.showReviews = !this.showReviews;
+    }
+
+    changeDescriptionAnimationState(){
+        this.descriptionAnimationState = this.descriptionAnimationState === 'initial' ? 'final' : 'initial';
+    }
+
+    onSubmitReview(): void{
+        let review: ReviewForCreationModel = {...this.reviewForm.value};
+        review.rating = this.rating;
+        console.log(review);
     }
 
     addToCart(): void{

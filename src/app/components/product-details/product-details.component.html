@@ -1,6 +1,6 @@
 <div class="single" fxLayout="column | wrap" fxLayoutAlign="start center">
 
-	<div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; margin-bottom: 70px;">
+	<div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; width: 80%; margin-bottom: 70px;">
 
 		<div class="path-div" fxLayout="row" fxLayoutAlign="start center">
 
@@ -18,11 +18,12 @@
 
 		<mat-divider></mat-divider>
 
-		<div class="container" fxLayoutGap="10%">
+		<div class="container" fxLayout="row | wrap" fxLayoutAlign="space-between start">
 
 			<div class="main-image-part-div" fxLayout="column">
 				<div class="large-image-div" fxFlex="80">
-					<gallery class="images-gallery" [items]="images" thumbPosition="bottom" imageSize="contain" [counter]="false">
+					<gallery class="images-gallery" [items]="images" thumbPosition="bottom" imageSize="contain"
+						[counter]="false">
 					</gallery>
 				</div>
 			</div>
@@ -43,7 +44,8 @@
 				</div>
 				<div class="availability">
 					<label class="sign">Availability</label>
-					<span class="in-stock" *ngIf="puzzle?.availableInStock > 0">In stock <span class="units-number">({{puzzle?.availableInStock}} units)</span></span>
+					<span class="in-stock" *ngIf="puzzle?.availableInStock > 0">In stock <span
+							class="units-number">({{puzzle?.availableInStock}} units)</span></span>
 					<span class="out-of-stock" *ngIf="puzzle.availableInStock < 1">Out of stock</span>
 				</div>
 				<div class="puzzle-price-div" fxLayoutAlign="start center">{{puzzle?.price | currency:'USD'}}</div>
@@ -59,7 +61,8 @@
 							<input matInput type="number" placeholder="1" min="1" max="100" [(ngModel)]="quantity">
 						</div>
 						<div class="increment-decrement-button" fxLayoutAlign="start center">
-							<button mat-stroked-button color="primary" (click)="incrementQuantity()" [disabled]="quantity >= puzzle?.availableInStock">
+							<button mat-stroked-button color="primary" (click)="incrementQuantity()"
+								[disabled]="quantity >= puzzle?.availableInStock">
 								<mat-icon>add</mat-icon>
 							</button>
 						</div>
@@ -78,13 +81,13 @@
 			</div>
 		</div>
 	</div>
-	
-	<div style="width: 100%;">
+
+	<div style="width: 80%;">
 		<mat-divider></mat-divider>
 	</div>
 
 
-	<div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="0.5%">
+	<div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="space-between start">
 		<div class="puzzle-characteristics-div" fxLayout="column" fxLayoutAlign="start center">
 			<div class="details-text-div" fxLayoutAlign="center center">Product Specifications</div>
 			<div class="details-list-container" fxLayout="column" fxLayoutAlign="start center">
@@ -125,69 +128,137 @@
 		</div>
 	</div>
 
-	<mat-divider></mat-divider>
-
-	<div fxLayout="row | wrap" fxLayoutAlign="center start" style=" width: 100%; margin-top: 20px; margin-bottom: 20px;">
-		<div class="customer-reviews" style="display: flex; flex-direction: column; align-items: flex-start; width: 900px;">
-			<span (click)="toggleReviews()">Customer Reviews</span>
-			<div></div>
-		</div>
-		<div style="width: 300px;">
-			<button mat-raised-button color="primary">Write A review</button>
-		</div>
-	</div>
-	<div style="width: 100%;">
+	<div style="width: 80%;">
 		<mat-divider></mat-divider>
 	</div>
 
-	<div class="test-list" style="width: 80%;">
+	<div fxLayout="row | wrap" fxLayoutAlign="space-between center"
+		style=" width: 80%; margin-top: 20px; margin-bottom: 20px;">
+		<div class="customer-reviews"
+			style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+			<h2 (click)="toggleReviews()">Customer Reviews</h2>
+		</div>
+		<button mat-raised-button color="primary" (click)="changeDescriptionAnimationState()">Write A review</button>
+	</div>
+	<div style="width: 80%; margin-bottom: 25px; display: flex; flex-direction: column; align-items: flex-start;"
+		[@changeDivSize]=descriptionAnimationState>
+		<h2>Write a Review</h2>
+		<form novalidate [formGroup]="reviewForm"
+			style="display: flex; flex-direction: column; align-items: flex-start;">
+			<mat-form-field appearance="outline" style="width: 400px;">
+				<mat-label>Name</mat-label>
+				<input matInput placeholder="Name" formControlName="reviewerName">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" style="width: 400px;">
+				<mat-label>Email</mat-label>
+				<input matInput placeholder="john.smith@example.com" formControlName="reviewerEmail">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" style="width: 400px;">
+				<mat-label>Review Title</mat-label>
+				<input matInput placeholder="Give your review a title" [formControlName]="">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Body of review (1500)</mat-label>
+				<textarea matInput formControlName="reviewBody" placeholder="Write your comments here" rows="10"
+					style="min-width:500px; max-width:100%;min-height:50px;height:100%;width:100%;"></textarea>
+			</mat-form-field>
+			
+		</form>
+		<div>
+			<mat-label>Rating</mat-label>
+			<mat-star-rating [rating]="rating" [starCount]="starCount" [color]="starColor"
+				(ratingUpdated)="onRatingChanged($event)"></mat-star-rating>
+		</div>
+		<button mat-raised-button color="primary" (click)="onSubmitReview()">Submit Review</button>
+	</div>
+
+	<div class="test-list" style="width: 80%; margin-top: 10px;">
 		<mat-card>
-			<mat-card-header style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
+			<mat-card-header
+				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
 				<div style="display: flex; justify-content: flex-start; align-items: center;">
-					<mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
 				</div>
 				<mat-card-subtitle>Reviewer Name | Date</mat-card-subtitle>
 			</mat-card-header>
-			<mat-card-content style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
-				<span style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review Title</span>
+			<mat-card-content
+				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
+				<span
+					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review
+					Title</span>
 				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;">
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse dolor eaque animi odio delectus, ratione deserunt excepturi possimus molestiae, atque, dolores iure cum minima rerum illo praesentium alias distinctio sed!
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima, quia ratione! Voluptates, voluptas illo.
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse dolor eaque animi odio delectus,
+					ratione deserunt excepturi possimus molestiae, atque, dolores iure cum minima rerum illo praesentium
+					alias distinctio sed!
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore
+					tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima,
+					quia ratione! Voluptates, voluptas illo.
 				</p>
 			</mat-card-content>
 		</mat-card>
 
 		<mat-card>
-			<mat-card-header style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
+			<mat-card-header
+				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
 				<div style="display: flex; justify-content: flex-start; align-items: center;">
-					<mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
 				</div>
 				<mat-card-subtitle>Reviewer Name | Date</mat-card-subtitle>
 			</mat-card-header>
-			<mat-card-content style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
-				<span style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review Title</span>
+			<mat-card-content
+				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
+				<span
+					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review
+					Title</span>
 				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;">
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse dolor eaque animi odio delectus, ratione deserunt excepturi possimus molestiae, atque, dolores iure cum minima rerum illo praesentium alias distinctio sed!
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima, quia ratione! Voluptates, voluptas illo.
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum libero obcaecati dolorem saepe? Natus et, tenetur molestias nihil, recusandae iste voluptatum aspernatur saepe quod deserunt corrupti sunt, sed neque. Ullam.
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse dolor eaque animi odio delectus,
+					ratione deserunt excepturi possimus molestiae, atque, dolores iure cum minima rerum illo praesentium
+					alias distinctio sed!
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore
+					tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima,
+					quia ratione! Voluptates, voluptas illo.
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum libero obcaecati dolorem saepe?
+					Natus et, tenetur molestias nihil, recusandae iste voluptatum aspernatur saepe quod deserunt
+					corrupti sunt, sed neque. Ullam.
 				</p>
 			</mat-card-content>
 		</mat-card>
 
 		<mat-card>
-			<mat-card-header style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
+			<mat-card-header
+				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
 				<div style="display: flex; justify-content: flex-start; align-items: center;">
-					<mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon><mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
+					<mat-icon style="color: yellow;">star</mat-icon>
 				</div>
 				<mat-card-subtitle>Reviewer Name | Date</mat-card-subtitle>
 			</mat-card-header>
-			<mat-card-content style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
-				<span style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review Title</span>
+			<mat-card-content
+				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
+				<span
+					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review
+					Title</span>
 				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima, quia ratione! Voluptates, voluptas illo.
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore
+					tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima,
+					quia ratione! Voluptates, voluptas illo.
 				</p>
 			</mat-card-content>
 		</mat-card>
-		
+
 	</div>
 </div>
