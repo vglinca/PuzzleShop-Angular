@@ -21,6 +21,8 @@ import { UserLoginComponent } from '../account/auth/user-login.component';
 import { GalleryItem, ImageItem } from '@ngx-gallery/core';
 import { ImageModel } from 'src/app/models/images/image.model';
 import { StarRatingColor } from 'src/app/common/star-rating/star-rating.component';
+import { ReviewService } from 'src/app/services/review.service';
+import { ReviewModel } from 'src/app/models/reviews/review.model';
 
 
 @Component({
@@ -38,6 +40,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     puzzleId: number;
     queryParam: string;
     colors: PuzzleColorModel[] = [];
+    reviews: ReviewModel[] = [];
 
     quantity: number = 1;
     subtotal: number;
@@ -57,6 +60,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         private puzzleService: PuzzleService,
         private puzzleTypeService: PuzzleTypesService,
         private puzzleColorService: PuzzleColorsService,
+        private reviewService: ReviewService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private accountService: AccountService,
@@ -115,21 +119,18 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     loadDataFromApi(): void {
-
-        //const puzzle = this.lookupService.getPuzzle(this.puzzleId);
         const puzzleType = this.puzzleService.getPuzzle(this.puzzleId)
             .pipe(mergeMap((p: PuzzleModel) =>
                 this.puzzleTypeService.getByIdFriendly(p.puzzleTypeId)));
 
         const colors = this.puzzleColorService.getAll();
+        const reviews = this.reviewService.getReviews(this.puzzleId);
 
-        forkJoin(puzzleType, colors)
-            .subscribe(([pt, c]) => {
+        forkJoin(puzzleType, colors, reviews)
+            .subscribe(([pt, c, r]) => {
                 this.colors = c;
-                // this.puzzle = p;
                 this.difficultyLevel = pt.difficultyLevel;
-                //this.subtotal = this.puzzle.price;
-                //this.rating = this.puzzle.rating;
+                this.reviews = r;
             });
     }
 
