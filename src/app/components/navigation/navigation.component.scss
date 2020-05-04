@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
 
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
 mat-sidenav-container {
   height: 100%;
 }
@@ -57,9 +61,9 @@ a {
 }
 
 .logo-div{
-    margin-top: 60px; 
-    margin-left: 120px;
-    color: black;
+    margin-top: 80px; 
+    // margin-left: 120px;
+    color: whitesmoke;
     font-weight: lighter;
     text-transform: uppercase;
     font-family: fantasy;
@@ -72,10 +76,10 @@ a {
 }
 
 .action{
-  color: blue;
-  font-weight: 700;
-  // margin-right: 15px;
-  // margin-left: 15px;
+  color: white;
+  font-weight: 600;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .action:hover{
