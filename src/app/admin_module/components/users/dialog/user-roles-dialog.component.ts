@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoleModel } from 'src/app/models/roles/role.model';
 import { UsersService } from 'src/app/services/users.service';

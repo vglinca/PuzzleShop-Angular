@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PuzzleTableRowModel } from '../models/puzzles/puzzle-table-row.model';
-import { PuzzleLookupService } from '../services/puzzle-lookup-service';
+import { PuzzleLookupService } from '../services/puzzle-lookup.service';
 
 @Injectable({ 
     providedIn: 'root' 

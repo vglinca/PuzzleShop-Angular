@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UserLoginComponent } from '../account/auth/user-login.component';
-import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
+import { PuzzleLookupService } from '../../services/puzzle-lookup.service';
 import { PuzzleTypeModel } from '../../models/puzzle-types/puzzle-type.model';
 import { PuzzleModel } from '../../models/puzzles/puzzle.model';
 import { Router } from '@angular/router';

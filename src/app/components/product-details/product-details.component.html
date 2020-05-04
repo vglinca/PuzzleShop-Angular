@@ -160,105 +160,35 @@
 				<input matInput placeholder="Give your review a title" [formControlName]="">
 			</mat-form-field>
 
-			<mat-form-field appearance="outline">
+			<mat-form-field appearance="outline" style="width: 400px; ">
 				<mat-label>Body of review (1500)</mat-label>
-				<textarea matInput formControlName="reviewBody" placeholder="Write your comments here" rows="10"
-					style="min-width:500px; max-width:100%;min-height:50px;height:100%;width:100%;"></textarea>
+				<textarea matInput formControlName="reviewBody" placeholder="Write your comments here" rows="10"></textarea>
 			</mat-form-field>
 			
 		</form>
 		<div>
 			<mat-label>Rating</mat-label>
-			<mat-star-rating [rating]="rating" [starCount]="starCount" [color]="starColor"
+			<mat-star-rating [rating]="rating" [starCount]="starCount"
 				(ratingUpdated)="onRatingChanged($event)"></mat-star-rating>
 		</div>
 		<button mat-raised-button color="primary" (click)="onSubmitReview()">Submit Review</button>
 	</div>
 
-	<div class="test-list" style="width: 80%; margin-top: 10px;">
-		<mat-card>
+	<div class="review-list" style="width: 80%; margin-top: 10px;">
+		<mat-card *ngFor="let review of reviews" style="margin-top: 5px; margin-bottom: 5px;">
 			<mat-card-header
 				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
-				<div style="display: flex; justify-content: flex-start; align-items: center;">
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
+				<div class="rating" style="display: flex; justify-content: flex-start; align-items: center;">
+					<mat-icon *ngFor="let starId of ratingArr; index as i">{{showStarUsingRating(i, review?.rating)}}</mat-icon>
 				</div>
-				<mat-card-subtitle>Reviewer Name | Date</mat-card-subtitle>
+				<mat-card-subtitle> {{review?.reviewerName}} </mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-content
 				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
 				<span
-					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review
-					Title</span>
-				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;">
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse dolor eaque animi odio delectus,
-					ratione deserunt excepturi possimus molestiae, atque, dolores iure cum minima rerum illo praesentium
-					alias distinctio sed!
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore
-					tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima,
-					quia ratione! Voluptates, voluptas illo.
-				</p>
+					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;"> {{review?.reviewTitle}} </span>
+				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;"> {{review?.reviewBody}} </p>
 			</mat-card-content>
 		</mat-card>
-
-		<mat-card>
-			<mat-card-header
-				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
-				<div style="display: flex; justify-content: flex-start; align-items: center;">
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-				</div>
-				<mat-card-subtitle>Reviewer Name | Date</mat-card-subtitle>
-			</mat-card-header>
-			<mat-card-content
-				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
-				<span
-					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review
-					Title</span>
-				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;">
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse dolor eaque animi odio delectus,
-					ratione deserunt excepturi possimus molestiae, atque, dolores iure cum minima rerum illo praesentium
-					alias distinctio sed!
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore
-					tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima,
-					quia ratione! Voluptates, voluptas illo.
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum libero obcaecati dolorem saepe?
-					Natus et, tenetur molestias nihil, recusandae iste voluptatum aspernatur saepe quod deserunt
-					corrupti sunt, sed neque. Ullam.
-				</p>
-			</mat-card-content>
-		</mat-card>
-
-		<mat-card>
-			<mat-card-header
-				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
-				<div style="display: flex; justify-content: flex-start; align-items: center;">
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-					<mat-icon style="color: yellow;">star</mat-icon>
-				</div>
-				<mat-card-subtitle>Reviewer Name | Date</mat-card-subtitle>
-			</mat-card-header>
-			<mat-card-content
-				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
-				<span
-					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;">Review
-					Title</span>
-				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores odio eveniet perferendis dolore
-					tempora. Placeat id unde corporis reiciendis maiores, provident perferendis incidunt sint. Minima,
-					quia ratione! Voluptates, voluptas illo.
-				</p>
-			</mat-card-content>
-		</mat-card>
-
 	</div>
 </div>

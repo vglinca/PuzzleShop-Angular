@@ -9,7 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ManageOrderService } from 'src/app/services/manage-order.service';
 import { PagedRequest } from 'src/app/infrastructure/pagination/paged-request';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
 import { OrderStatusModel } from 'src/app/models/order-status/order-status.model';
 import { OrderTableRowModel } from 'src/app/models/orders/order-table-row.model';
 import { AccountService } from 'src/app/services/account.service';

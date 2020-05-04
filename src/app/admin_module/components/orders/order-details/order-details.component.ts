@@ -5,7 +5,7 @@ import { ManageOrderService } from 'src/app/services/manage-order.service';
 import { UsersService } from 'src/app/services/users.service';
 import { mergeMap } from 'rxjs/operators';
 import { UserWithRolesModel } from 'src/app/models/users/user-with-roles.model';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
 import { OrderStatusModel } from 'src/app/models/order-status/order-status.model';
 import { forkJoin } from 'rxjs';
 import { FormControl } from '@angular/forms';

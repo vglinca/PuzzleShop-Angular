@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
 import { PuzzleTypeModel } from '../../models/puzzle-types/puzzle-type.model';
 import { ManufacturerModel } from '../../models/manufacturers/manufacturer.model';
-import { PuzzleLookupService } from '../../services/puzzle-lookup-service';
+import { PuzzleLookupService } from '../../services/puzzle-lookup.service';
 import { PuzzleColorModel } from '../../models/puzzle-colors/puzzle-color.model';
 import { PagedResponse } from '../../infrastructure/pagination/paged-response';
 import { PuzzleModel } from '../../models/puzzles/puzzle.model';

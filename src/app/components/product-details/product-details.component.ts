@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, forkJoin } from 'rxjs';
@@ -43,7 +43,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     puzzleId: number;
     queryParam: string;
     colors: PuzzleColorModel[] = [];
-    reviews: ReviewModel[] = [];
+    reviews: ReviewModel[] = REVIEWS;
 
     quantity: number = 1;
     subtotal: number;
@@ -109,17 +109,24 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     }
 
-    ngAfterViewInit(): void {
-    }
+    ngAfterViewInit(): void {}
 
     showStar(index: number): string{
-        if (this.rating >= index + 1 && (this.rating - index - 1) >= 0.8) {
+        if (this.puzzle.rating >= index + 1 && (this.puzzle.rating - index - 1) >= 0.8) {
 			return 'star';
-        } 
-        else if(this.rating >= index + 1 && (this.rating - index - 1) < 0.8){
+        }else if(this.puzzle.rating >= index + 1 && (this.puzzle.rating - index - 1) < 0.8){
             return 'star_half';
-        }
-        else {
+        }else {
+			return 'star_border';
+		}
+    }
+
+    showStarUsingRating(index: number, rating: number): string{
+        if (rating >= index + 1 && (rating - index - 1) >= 0.8) {
+			return 'star';
+        }else if(rating >= index + 1 && (rating - index - 1) < 0.8){
+            return 'star_half';
+        }else {
 			return 'star_border';
 		}
     }
@@ -136,13 +143,14 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             .subscribe(([pt, c, r]) => {
                 this.colors = c;
                 this.difficultyLevel = pt.difficultyLevel;
-                this.reviews = r;
+                //this.reviews = r;
             });
     }
 
-    navigateToCollections(): void {
-        this.router.navigate(['/collections', this.puzzle.puzzleType]);
-    }
+    navigateToCollections = () => this.router.navigate(['/collections', this.puzzle.puzzleType]); 
+    onRatingChanged = (rating: number) => this.rating = rating;
+    toggleReviews = () => this.showReviews = !this.showReviews;
+    changeDescriptionAnimationState = () => this.descriptionAnimationState = this.descriptionAnimationState === 'initial' ? 'final' : 'initial';
 
     incrementQuantity(): void {
         if (this.quantity < this.puzzle.availableInStock) {
@@ -156,18 +164,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.quantity--;
             this.subtotal -= this.puzzle.price;
         }
-    }
-
-    onRatingChanged(rating: number): void{
-        this.rating = rating;
-    }
-
-    toggleReviews():void {
-        this.showReviews = !this.showReviews;
-    }
-
-    changeDescriptionAnimationState(){
-        this.descriptionAnimationState = this.descriptionAnimationState === 'initial' ? 'final' : 'initial';
     }
 
     onSubmitReview(): void{
@@ -219,3 +215,43 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         });
     }
 }
+
+
+const REVIEWS: ReviewModel[] = [
+    {
+        id: 1, 
+        puzzleId: 2, 
+        rating: 5, 
+        reviewerName: 'Ivan Ivanov', 
+        reviewerEmail: 'ivan@mail.com',
+        reviewTitle: 'Awesome!', 
+        reviewBody: 'Such an excellent and smooth puzzle! Recommend it'
+    },
+    {
+        id: 2, 
+        puzzleId: 2, 
+        rating: 4, 
+        reviewerName: 'Vasya Ivanov', 
+        reviewerEmail: 'vasya@mail.com',
+        reviewTitle: 'Super!', 
+        reviewBody: 'Such an excellent and smooth puzzle! Recommend it'
+    },
+    {
+        id: 3, 
+        puzzleId: 2, 
+        rating: 3, 
+        reviewerName: 'John Due', 
+        reviewerEmail: 'jdg@mail.com',
+        reviewTitle: 'So so', 
+        reviewBody: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime alias laboriosam inventore aliquid voluptates enim vero modi natus? Pariatur aut temporibus commodi ut corrupti labore sapiente corporis vitae ea suscipit!'
+    },
+    {
+        id: 4, 
+        puzzleId: 4, 
+        rating: 4, 
+        reviewerName: 'Cho Ko Jun', 
+        reviewerEmail: 'jkj@mail.com',
+        reviewTitle: 'Nice one', 
+        reviewBody: 'Definetely recommend it'
+    }
+]

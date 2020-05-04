@@ -4,7 +4,7 @@ import { ManufacturersService } from '../../../../services/manufacturers.service
 import { PuzzleTypesService } from '../../../../services/puzzle-types.service';
 import { PuzzleColorsService } from '../../../../services/puzzle-colors.service';
 import { PuzzleService } from '../../../../services/puzzle.service';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup-service';
+import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { MaterialTypeModel } from 'src/app/models/material-types/material-type.model';
