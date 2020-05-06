@@ -97,11 +97,13 @@
  -->
 
 
-<div style="height: 120vh;">
+<div style="height: fit-content">
     <mat-toolbar color="primary">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center">
             <div fxShow="true" fxHide.lt-md fxLayout="row" fxLayoutAlign="space-between center" style="width: 75%;">
+                
                 <div class="logo-div mat-display-1"><span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore</div>
+                <!-- <span class="menu-spacer"></span> -->
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <div *ngIf="isLoggedIn" class="hello">
                         <span>Hello, {{accountInfo?.name}}!</span>
@@ -149,8 +151,11 @@
                 </mat-menu>
             </div>
             
-            <!-- <span class="menu-spacer"></span> -->
+            
             <div fxShow="true" fxHide.lt-md fxLayout="row" fxLayoutAlign="center center" style="width: 100%;">
+                <button *ngIf="isLoggedIn && isInAdminRole" mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon mat-list-icon>list</mat-icon>
+                </button>
                 <div class="nav-item">
                     <span class="nav-span" mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
                         (mouseenter)="openMenu(0)">SpeedCubes
@@ -175,7 +180,7 @@
         </mat-toolbar-row>
     </mat-toolbar>
 
-    <mat-sidenav-container fxFlexFill>
+    <!-- <mat-sidenav-container fxFlexFill>
         <mat-sidenav #sidenav style="background-color: white;">
             <div>
                 <mat-menu #wcaPuzzlesMatMenu="matMenu" xPosition="before">
@@ -189,9 +194,6 @@
             </div>
             <mat-nav-list>
                 <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
-                <!-- <button *ngIf="isLoggedIn && isInAdminRole" mat-icon-button (click)="sidenav.toggle()">
-                    <mat-icon mat-list-icon>list</mat-icon>
-                </button> -->
                 <mat-expansion-panel *ngIf="isLoggedIn && isInAdminRole">
                     <mat-expansion-panel-header>
                         <span mat-button>Admin</span>
@@ -227,6 +229,5 @@
                 <div class="nav-item"><a mat-button>Accessories</a></div>
             </mat-nav-list>
         </mat-sidenav>
-        <!-- <mat-sidenav-content fxFlexFill>Main content</mat-sidenav-content> -->
-    </mat-sidenav-container>
+    </mat-sidenav-container> -->
 </div>

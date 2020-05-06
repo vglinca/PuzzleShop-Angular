@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<!-- <mat-sidenav-container>
     <mat-sidenav dark #sidenav mode="push" [opened]="false" (click)="sidenav.toggle()">
         <mat-nav-list>
             <a mat-list-item><span mat-line [routerLink]="['administration/puzzles']">Puzzles</span></a>
@@ -7,6 +7,54 @@
             <a mat-list-item [routerLink]="['administration/puzzlecolors']"><span mat-line>Puzzle Colors</span></a>
             <a mat-list-item [routerLink]="['administration/users']"><span mat-line>Users</span></a>
             <a mat-list-item [routerLink]="['administration/orders']"><span mat-line>Orders</span></a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <nav-bar [sidenav]="sidenav"></nav-bar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+
+
+
+<mat-sidenav-container fxFlexFill>
+    <mat-sidenav dark #sidenav mode="push" [opened]="false" style="background-color: white;">
+        <mat-nav-list>
+            <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+            <mat-expansion-panel *ngIf="isLoggedIn && isInAdminRole">
+                <mat-expansion-panel-header>
+                    <span mat-button>Admin</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item><span mat-line [routerLink]="['administration/puzzles']">Puzzles</span></a>
+                    <a mat-list-item [routerLink]="['administration/manufacturers']"><span mat-line>Manufacturers</span></a>
+                    <a mat-list-item [routerLink]="['administration/puzzletypes']"><span mat-line>Puzzle Types</span></a>
+                    <a mat-list-item [routerLink]="['administration/puzzlecolors']"><span mat-line>Puzzle Colors</span></a>
+                    <a mat-list-item [routerLink]="['administration/users']"><span mat-line>Users</span></a>
+                    <a mat-list-item [routerLink]="['administration/orders']"><span mat-line>Orders</span></a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <span mat-button>SpeedCubes</span>
+                </mat-expansion-panel-header>
+                <button mat-menu-item *ngFor="let puzzleType of rcPuzzles;"
+                    (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}
+                </button>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <span mat-button>WCA Puzzles</span>
+                </mat-expansion-panel-header>
+                <button mat-menu-item *ngFor="let puzzleType of wcaPuzzles"
+                    [routerLink]="['/collections', puzzleType?.title]"
+                    (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}
+                </button>
+            </mat-expansion-panel>
+            <div class="nav-item"><a mat-button>Other puzzles</a></div>
+            <div class="nav-item"><a mat-button>New Puzzles</a></div>
+            <div class="nav-item"><a mat-button>Accessories</a></div>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

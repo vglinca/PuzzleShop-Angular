@@ -30,6 +30,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 	dialogRefSubscription: Subscription;
 	dialogRefSubscription1: Subscription;
 	subscriptions: Subscription[] = [];
+	
 	@Input() sidenav: MatSidenav;
 	@ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
 
@@ -52,14 +53,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 		private dialogService: ConfirmDialogService,
 		private notificationService: NotificationService) { }
 
-	ngOnDestroy(): void {
-		this.subscriptions.forEach(s => {
-			if (s) {
-				s.unsubscribe();
-			}
-		});
-	}
-
+	
 	ngAfterViewInit(): void {
 	}
 
@@ -106,21 +100,10 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.matDialog.open(UserRegistrationComponent, dialogConfig);
 	}
 
-	openMenu(i: number) {
-		this.triggers.toArray()[i].openMenu();
-	}
-
-	closeMenu(i: number) {
-		this.triggers.toArray()[i].closeMenu();
-	}
-
-	onClick(puzzleType: string) {
-		this.router.navigate(['/collections', puzzleType]);
-	}
-
-	openShoppingCart(): void {
-		this.router.navigate(['/cart']);
-	}
+	openMenu = (i: number) => this.triggers.toArray()[i].openMenu();
+	closeMenu = (i: number) => this.triggers.toArray()[i].closeMenu();
+	onClick = (puzzleType: string) => this.router.navigate(['/collections', puzzleType]);
+	openShoppingCart = () => this.router.navigate(['/cart']);
 
 	private loadPuzzleTypesFromApi() {
 		this.lookupService.getPuzzleTypes()
@@ -129,7 +112,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.rcPuzzles = this.puzzleTypes
 					.filter(pt => pt.isRubicsCube == true && pt.isWca == true)
 					.sort(this.sortAsc);
-				console.log(this.rcPuzzles);
 				this.wcaPuzzles = this.puzzleTypes
 					.filter(pt => pt.isWca == true)
 					.sort(this.sortAsc);
@@ -139,4 +121,13 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 	private sortAsc(a: PuzzleTypeModel, b: PuzzleTypeModel) {
 		return (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
 	}
+
+	ngOnDestroy(): void {
+		this.subscriptions.forEach(s => {
+			if (s) {
+				s.unsubscribe();
+			}
+		});
+	}
+
 }
