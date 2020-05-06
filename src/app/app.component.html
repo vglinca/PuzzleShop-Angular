@@ -35,6 +35,16 @@
             <div class="nav-item"><a mat-button>Other puzzles</a></div>
             <div class="nav-item"><a mat-button>New Puzzles</a></div>
             <div class="nav-item"><a mat-button>Accessories</a></div>
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div *ngIf="!isLoggedIn">
+                <button mat-stroked-button color="warn" (click)="onSignInClick()">Sign In</button>
+                <!-- <button mat-raised-button (click)="onCreateAccountClick()">Create Account</button> -->
+            </div>
+            <div class="nav-item" *ngIf="isLoggedIn">
+                <button mat-stroked-button color="warn" (click)="onSignOutClick()">Sign Out</button>
+            </div>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

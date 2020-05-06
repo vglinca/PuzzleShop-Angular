@@ -115,3 +115,45 @@ a {
   cursor: pointer;
   text-decoration: underline;
 }
+
+@media screen and(max-width: 1000px){
+  .logo-div{
+    margin-top: 80px; 
+    // margin-left: 120px;
+    color: whitesmoke;
+    font-weight: lighter;
+    font-size: 26px;
+    text-transform: uppercase;
+    font-family: fantasy;
+    letter-spacing: 1px;
+    // text-shadow: 0 0 5px black;
+  }
+}
+
+@media screen and(max-width: 750px){
+  .logo-div{
+    margin-top: 80px; 
+    // margin-left: 120px;
+    color: whitesmoke;
+    font-weight: lighter;
+    font-size: 23px;
+    text-transform: uppercase;
+    font-family: fantasy;
+    letter-spacing: 1px;
+    // text-shadow: 0 0 5px black;
+  }
+}
+
+@media screen and(max-width: 550px){
+  .logo-div{
+    margin-top: 80px; 
+    // margin-left: 120px;
+    color: whitesmoke;
+    font-weight: lighter;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: fantasy;
+    letter-spacing: 1px;
+    // text-shadow: 0 0 5px black;
+  }
+}
