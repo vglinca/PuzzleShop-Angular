@@ -99,11 +99,20 @@
 
 <div style="height: fit-content">
     <mat-toolbar color="primary">
-        <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center">
-            <div fxShow="true" fxHide.lt-md fxLayout="row" fxLayoutAlign="space-between center" style="width: 75%;">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center" fxShow="true" fxHide.lt-md>
+            <div  fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
                 
-                <div class="logo-div mat-display-1"><span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore</div>
+                <div class="logo-div mat-display-1">
+                    <span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore
+                </div>
                 <!-- <span class="menu-spacer"></span> -->
+                <mat-form-field class="search">
+                    <mat-label>Search</mat-label>
+                    <input matInput type="text">
+                    <button mat-button matSuffix mat-icon-button aria-label="Search">
+                      <mat-icon color="primary">search</mat-icon>
+                    </button>
+                </mat-form-field>
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <div *ngIf="isLoggedIn" class="hello">
                         <span>Hello, {{accountInfo?.name}}!</span>
@@ -111,7 +120,7 @@
                      <div>
                         <div *ngIf="!isLoggedIn">
                             <span  class="action" (click)="onSignInClick()">Sign In</span>
-                            <span> or </span>
+                            <span style="font-size: 15px;"> or </span>
                             <span class="action" (click)="onCreateAccountClick()">Create Account</span>
                         </div>
                         <span *ngIf="isLoggedIn" class="action" (click)="onSignOutClick()">Sign out</span>
@@ -128,10 +137,13 @@
             </div>
         </mat-toolbar-row>
 
-        <mat-toolbar-row >
+        <mat-toolbar-row style="border-bottom: 2px solid rgb(50,50,170);">
             <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
                 <mat-icon>menu</mat-icon>
             </button>
+            <div class="logo-div mat-display-1" style="margin:auto;" fxShow="true" fxHide.gt-sm>
+                <span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore
+            </div>
             <div>
                 <mat-menu #rubicsCubesMatMenu="matMenu" xPosition="before">
                     <span (mouseleave)="closeMenu(0)">
@@ -156,6 +168,7 @@
                 <button *ngIf="isLoggedIn && isInAdminRole" mat-icon-button (click)="sidenav.toggle()">
                     <mat-icon mat-list-icon>list</mat-icon>
                 </button>
+    
                 <div class="nav-item">
                     <span class="nav-span" mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
                         (mouseenter)="openMenu(0)">SpeedCubes
@@ -170,13 +183,7 @@
                 <div class="nav-item"><a mat-button>New Puzzles</a></div>
                 <div class="nav-item"><a mat-button>Accessories</a></div>
             </div>
-            <mat-form-field class="search">
-                <mat-label>Search</mat-label>
-                <input matInput type="text">
-                <button mat-button matSuffix mat-icon-button aria-label="Search">
-                  <mat-icon color="primary">search</mat-icon>
-                </button>
-            </mat-form-field>
+            
         </mat-toolbar-row>
     </mat-toolbar>
 
