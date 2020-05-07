@@ -1,328 +1,320 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Oswald:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Oswald:wght@500&display=swap");
 
-
-
-.single{
-    margin-bottom: 100px;
+.single {
+  margin-bottom: 100px;
 }
 
 .item {
-    padding: 0;
-    width: 100vw;
-    height: 300px;
-    margin-right: 100px;
-    transition: transform .4s;
+  padding: 0;
+  width: 100vw;
+  height: 300px;
+  margin-right: 100px;
+  transition: transform 0.4s;
 }
 
-.item:hover{
-    transform: scale(1.2);
+.item:hover {
+  transform: scale(1.2);
 }
 
-.path-div{
+.path-div {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+.path-div-item {
+  display: flex;
+  align-items: center;
+}
+
+.txt {
+  font-family: "Montserrat", sans-serif;
+  vertical-align: top;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.main-image-part-div {
+  position: relative;
+  width: 600px;
+  height: 500px;
+}
+
+.large-image-div {
+  position: relative;
+  width: 600px;
+
+  &img {
+    width: inherit;
+    height: 400px;
+  }
+}
+
+.images-gallery {
+  width: 600px;
+  height: 400px;
+  background-color: white;
+}
+
+.order-details-div {
+  position: relative;
+  height: 450px;
+  width: 500px;
+}
+
+.puzzle-name-div {
+  width: 100%;
+  height: 50px;
+  font-size: 25px;
+  // margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  // font-family: 'Oswald', sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  line-height: 1.5;
+  max-lines: 2;
+}
+
+.rating {
+  mat-icon {
+    color: #e1e100;
+  }
+
+  span {
+    font-family: "Inconsolata", monospace;
+    font-size: 25px;
+    font-weight: 500;
+  }
+}
+
+.puzzle-color-div {
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.color-title-div {
+  font-size: 20px;
+  font-family: "Inconsolata", monospace;
+  font-weight: 400;
+  margin-bottom: 10px;
+  height: fit-content;
+}
+
+.color-img-div {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.availability {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 20px;
+  .sign {
+    font-family: "Inconsolata", monospace;
+    margin-right: 5px;
+  }
+  .in-stock {
+    margin-top: 3px;
+    font-family: "Oswald", sans-serif;
+    color: #2eb515;
+    .units-number {
+      font-family: "Oswald", sans-serif;
+      color: gray;
+      font-size: 15px;
+    }
+  }
+  .out-of-stock {
+    margin-top: 3px;
+    font-family: "Oswald", sans-serif;
+    color: red;
+  }
+}
+
+.puzzle-price-div {
+  font-family: "Oswald", sans-serif;
+  height: 50px;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.increment-decrement-quantity-outer-div {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.increment-decrement-quantity-inner-div {
+  width: 100%;
+  height: 50px;
+}
+
+.increment-decrement-quantity-inner-div input {
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  padding-left: 10px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.increment-decrement-button {
+  height: 40px;
+  &button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.subtotal-amount-div {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  width: 100%;
+  height: 30px;
+}
+
+.add-to-cart-button-div {
+  width: 100%;
+  height: 60px;
+}
+
+.add-to-cart-button-div button {
+  width: 100%;
+  height: 60px;
+  font-size: 25px;
+  color: white;
+  // background-color: #38ad27
+}
+
+.puzzle-details-description-div {
+  // background-color: orangered;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.puzzle-characteristics-div {
+  // background-color: blue;
+  height: 250px;
+  width: 300px;
+}
+
+.details-text-div {
+  font-family: "Inconsolata", monospace;
+  font-size: 25px;
+  border-bottom: 1px solid black;
+  height: 50px;
+  width: 100%;
+}
+
+.details-list-container {
+  // border-left: 1px solid black;
+  // border-right: 1px solid black;
+  width: 100%;
+  height: 70%;
+  margin-bottom: 10px;
+}
+
+.details-list-item {
+  border-bottom: 1px solid black;
+  padding: 5px;
+  width: 100%;
+  height: 20%;
+}
+
+.property-value {
+  font-weight: 500;
+}
+
+.puzzle-description-div {
+  // background-color: cyan;
+  height: fit-content;
+  width: 800px;
+}
+
+.description-header-div {
+  height: 50px;
+  width: 100%;
+  // margin-top: 20px;
+  // margin-bottom: 10px;
+  font-size: 25px;
+  font-family: "Inconsolata", monospace;
+}
+
+.description-text-div {
+  text-align: left;
+  width: 100%;
+  height: fit-content;
+  font-size: 18px;
+}
+
+button {
+  font-family: "Inconsolata";
+}
+
+@media screen and (max-width: 1170px) {
+  .path-div {
     display: flex;
     align-items: center;
-    width: fit-content; 
-    height: 30px; 
+    width: fit-content;
+    height: 30px;
+    margin-left: 50px;
     margin-bottom: 20px;
-}
+  }
 
-.path-div-item{
-    display: flex; 
-    align-items: center
-}
-
-.txt{
-    font-family: 'Montserrat', sans-serif;
-    vertical-align: top;
-    &:hover{
-        cursor: pointer;
-    text-decoration: underline;
-    }
-}
-
-.container{    
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 30px;
-    width: 100%;
-}
-
-.main-image-part-div{
-    position: relative; 
-    width: 600px;
-    height: 500px;
-}
-
-.large-image-div{
-    position: relative;
-    width: 600px;
-
-    &img{
-        width: inherit;
-        height: 400px;
-    }
-}
-
-.images-gallery{
-    width: 600px; 
-    height: 400px; 
-    background-color: white;
-}
-
-
-.order-details-div{
-    position: relative; 
-    height: 450px;
-    width: 500px;
-}
-
-.puzzle-name-div{
-    width: 100%; 
-    height: 50px; 
-    font-size: 25px; 
-    // margin-top: 20px; 
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    // font-family: 'Oswald', sans-serif;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    line-height: 1.5;
-    max-lines: 2;
-}
-
-.rating{
-    mat-icon{
-        color: #e1e100
-    }
-    
-    span{
-        font-family: 'Inconsolata', monospace;
-        font-size: 25px;
-        font-weight: 500;
-    }
-} 
-
-.puzzle-color-div{
-    width: 100%; 
-    height: 100px; 
-    margin-top: 20px;
-}
-
-.color-title-div{
-    font-size: 20px; 
-    font-family: 'Inconsolata', monospace;
-    font-weight: 400;
-    margin-bottom: 10px; 
-    height: fit-content;
-}
-
-.color-img-div{
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.availability{
-    margin-bottom: 20px;
+  .container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    font-size: 20px;
-    .sign{
-        font-family: 'Inconsolata', monospace;
-        margin-right: 5px; 
-    }
-    .in-stock{
-        margin-top: 3px;
-        font-family: 'Oswald', sans-serif;
-        color: #2eb515;
-        .units-number{
-            font-family: 'Oswald', sans-serif;
-            color: gray;
-            font-size: 15px;
-        }
-    }
-    .out-of-stock{
-        margin-top: 3px;
-        font-family: 'Oswald', sans-serif;
-        color: red;
-    }
-}
-
-.puzzle-price-div{
-    font-family: 'Oswald', sans-serif;
-    height: 50px; 
-    font-size: 40px; 
-    margin-top: 20px;
-    margin-bottom: 15px;
-}
-
-.increment-decrement-quantity-outer-div{
-    width: 100%; 
-    margin-bottom: 20px;
-}
-
-.increment-decrement-quantity-inner-div{
-    width: 100%; 
-    height: 50px;
-}
-
-.increment-decrement-quantity-inner-div input{
-    width: 50px; 
-    height: 30px;
-    text-align: center;
-    padding-left: 10px;
-    font-weight: 700;
-    font-size: 20px;
-}
-
-.increment-decrement-button{
-    height: 40px;
-    &button{
-        width: 40px; 
-        height: 40px;
-    }
-}
-
-
-.subtotal-amount-div{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    width: 100%; 
-    height: 30px;
-}
-
-.add-to-cart-button-div{
-    width: 100%; 
-    height: 60px; 
-}
-
-.add-to-cart-button-div button{
+    justify-content: flex-start;
+    align-items: center;
+    margin: 30px 50px 50px 50px;
     width: 100%;
-    height: 60px; 
-    font-size: 25px;
-    color: white;
-    // background-color: #38ad27
-}
+  }
 
-.puzzle-details-description-div{
-    // background-color: orangered;
-    width: 80%; 
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+  .main-image-part-div {
+    position: relative;
+    width: 500px;
+    height: 500px;
+  }
 
-.puzzle-characteristics-div{
-    // background-color: blue;
-    height: 250px; 
-    width: 300px;
-}
+  .large-image-div {
+    position: relative;
+    width: 500px;
 
-.details-text-div{
-    font-family: 'Inconsolata', monospace;
-    font-size: 25px;
-    border-bottom: 1px solid black;
-    height: 50px; 
-    width: 100%;
-}
-
-.details-list-container{
-    // border-left: 1px solid black;
-    // border-right: 1px solid black;
-    width: 100%; 
-    height: 70%; 
-    margin-bottom: 10px;
-}
-
-.details-list-item{
-    border-bottom: 1px solid black;
-    padding: 5px; 
-    width: 100%; 
-    height: 20%; 
-}
-
-.property-value{
-    font-weight: 500;
-
-}
-
-.puzzle-description-div{
-    // background-color: cyan;
-    height: fit-content; 
-    width: 800px;
-}
-
-.description-header-div{
-    height: 50px; 
-    width: 100%; 
-    // margin-top: 20px; 
-    // margin-bottom: 10px; 
-    font-size: 25px;
-    font-family: 'Inconsolata', monospace;
-}
-
-.description-text-div{
-    text-align: left;
-    width: 100%; 
-    height: fit-content; 
-    font-size: 18px;
-}
-
-button{
-    font-family: 'Inconsolata';
-}
-
-
-
-@media screen and (max-width: 1170px){
-
-    .path-div{
-        display: flex;
-        align-items: center;
-        width: fit-content; 
-        height: 30px; 
-        margin-left: 50px;
-        margin-bottom: 20px;
+    &img {
+      width: inherit;
+      height: 400px;
     }
+  }
 
-    .container{    
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 30px 50px 50px 50px;
-        width: 100%;
-    }
+  .images-gallery {
+    width: 400px;
+    height: 400px;
+    background-color: white;
+  }
 
-    .main-image-part-div{
-        position: relative; 
-        width: 500px;
-        height: 500px;
-    }
-    
-    .large-image-div{
-        position: relative;
-        width: 500px;
-    
-        &img{
-            width: inherit;
-            height: 400px;
-        }
-    }
-    
-    .images-gallery{
-        width: 400px; 
-        height: 400px; 
-        background-color: white;
-    }
-
-    .order-details-div{
-        position: relative; 
-        height: 500px;
-        width: 400px;
-    }
+  .order-details-div {
+    position: relative;
+    height: 500px;
+    width: 400px;
+  }
 }

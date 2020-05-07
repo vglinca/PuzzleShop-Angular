@@ -46,7 +46,7 @@ export class UserLoginComponent implements OnInit{
                 localStorage.setItem(environment.accessToken, bearerToken.accessToken);
                 let decodeToken = jwt_decode(bearerToken.accessToken);
                 let userInfo: LoggedInUserInfo = this.accountService.parseToken();
-                this.notificationService.success('You have logged in a system.');
+                this.notificationService.success('You have logged into a system.');
             }, err => {
                 this.notificationService.warn(err.error.Error)
             });
@@ -57,6 +57,7 @@ export class UserLoginComponent implements OnInit{
         this.dialogRef.close();
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = false;
+        dialogConfig.minWidth = '440px';
         dialogConfig.height = "85%";
         dialogConfig.width = "35%";
         this.dialog.open(UserRegistrationComponent, dialogConfig);

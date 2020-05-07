@@ -13,7 +13,6 @@ import { DatePipe } from '@angular/common';
 import { PuzzleLookupService } from './services/puzzle-lookup.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PuzzleThumbnailComponent } from './components/puzzle-thumbnail/puzzle-thumbnail.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CarouselItemDirective } from './common/carousel/carousel-item.directive';
 import { CarouselComponent } from './common/carousel/carousel.component';
@@ -35,7 +34,6 @@ import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { StylePaginatorDirective } from './common/style-paginator.directive';
 import { GalleryModule } from  '@ngx-gallery/core';
-import { PuzzleImagesResolver } from './resolvers/puzzle-images.resolver';
 import { StarRatingComponent } from './common/star-rating/star-rating.component';
 
 @NgModule({
@@ -43,7 +41,6 @@ import { StarRatingComponent } from './common/star-rating/star-rating.component'
     AppComponent,
     NavigationComponent,
     ProductsListComponent,
-    PuzzleThumbnailComponent,
     ProductDetailsComponent,
     
     CarouselComponent, 

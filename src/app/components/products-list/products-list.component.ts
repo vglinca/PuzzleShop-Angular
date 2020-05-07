@@ -28,7 +28,7 @@ import { UserLoginComponent } from '../account/auth/user-login.component';
 
 @Component({
     templateUrl: './products-list.component.html',
-    styleUrls: ['./products-list.component..css']
+    styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges{
 
@@ -58,6 +58,9 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
    
     requestFilters: RequestFilters;
 
+    ratingArr: number[] = [];
+    starCount: number = 5;
+
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     
 
@@ -76,6 +79,10 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     }
 
     ngOnInit(): void {
+        for(let i = 0; i < this.starCount; i++){
+            this.ratingArr.push(i);
+        }
+
         this.showSpinner = true;
         console.log();
         this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
@@ -192,8 +199,9 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                     const dialogConfig = new MatDialogConfig();
                     dialogConfig.autoFocus = true;
                     dialogConfig.disableClose = false;
-                    dialogConfig.height = "35%";
-                    dialogConfig.width = "35%";
+                    dialogConfig.minWidth = '440px';
+                    dialogConfig.height = '35%';
+                    dialogConfig.width = '35%';
                     dialogConfig.data = {
                         puzzleName: puzzle.name,
                         puzzleColor: puzzle.color,
@@ -206,8 +214,9 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
             const dialogConfig = new MatDialogConfig();
             dialogConfig.autoFocus = true;
             dialogConfig.disableClose = false;
-            dialogConfig.height = "70%";
-            dialogConfig.width = "30%";
+            dialogConfig.minWidth = '440px';
+		    dialogConfig.height = '70%';
+		    dialogConfig.width = '30%';
             this.matDialog.open(UserLoginComponent, dialogConfig);
         }
 
@@ -216,7 +225,18 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     @HostListener('window:resize', ['$event'])
     onResize(event){
-        this.rowsNumber = (event.target.innerWidth <= 1100) ? 2 : 3;
+        this.rowsNumber = (event.target.innerWidth < 1000) ? 1 : ((event.target.innerWidth <= 1100 && event.target.innerWidth >= 1000) ? 2 : 3);
+        // this.rowsNumber = (event.target.innerWidth <= 1100 && event.target.innerWidth >= 1000) ? 2 : 3;
+    }
+
+    showStarUsingRating(index: number, rating: number): string{
+        if (rating >= index + 1 && (rating - index - 1) >= 0.8) {
+			return 'star';
+        }else if(rating >= index + 1 && (rating - index - 1) < 0.8){
+            return 'star_half';
+        }else {
+			return 'star_border';
+		}
     }
 
     ngOnDestroy(): void {
@@ -253,5 +273,9 @@ const SORTING_OPTIONS: SortingOption[] = [
     {
         title: 'By price, high to low',
         value: 'price,desc'
+    },
+    {
+        title: 'By rating, high to low',
+        value: 'rating,desc'
     }
 ]

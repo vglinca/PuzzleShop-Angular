@@ -66,8 +66,9 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 		const dialogConfig = new MatDialogConfig();
 		dialogConfig.autoFocus = true;
 		dialogConfig.disableClose = false;
-		dialogConfig.height = "70%";
-		dialogConfig.width = "30%";
+		dialogConfig.minWidth = '440px';
+		dialogConfig.height = '70%';
+		dialogConfig.width = '30%';
 		const dialogRef: MatDialogRef<UserLoginComponent> = this.matDialog.open(UserLoginComponent, dialogConfig);
 		this.dialogRefSubscription = dialogRef.afterClosed().subscribe(() => {
 			this.ngOnInit();

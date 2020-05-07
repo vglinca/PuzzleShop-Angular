@@ -11,6 +11,7 @@ export class ConfirmDialogService{
 
     openConfirmDialog(msg: string){
         return this.dialog.open(ConfirmDialogComponent, {
+            minWidth: '400px',
             width: '400px',
             panelClass: 'confirm-dialog-container',
             disableClose: true,

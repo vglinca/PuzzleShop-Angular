@@ -48,8 +48,8 @@ export class ConfirmOrderComponent implements OnInit{
         let userName: string[] = this.currentUser.name.split(" ");
 
         this.customerForm = this.formBuilder.group({
-            firstName: [userName[0], Validators.required],
-            lastName: [userName[1], Validators.required],
+            customerFirstName: [userName[0], Validators.required],
+            customerLastName: [userName[1], Validators.required],
             address: ['', Validators.required],
             city: ['', Validators.required],
             country: ['', Validators.required],
@@ -92,8 +92,12 @@ export class ConfirmOrderComponent implements OnInit{
         };
         customerDetails.contactEmail = this.emailForm.controls['email'].value;
         customerDetails.token = token;
+        console.log(customerDetails);
         this.orderService.placeOrder(this.currentUser.userId, this.pendingOrder.id, customerDetails)
-            .subscribe(() => this.notificationService.success('Your order has been successfully placed.'), err => {
+            .subscribe(() => {
+                this.notificationService.success('Your order has been successfully placed.');
+                this.ngOnInit();
+            }, err => {
                 this.notificationService.warn('Could not perform transaction.');
                 console.log(err);
             });

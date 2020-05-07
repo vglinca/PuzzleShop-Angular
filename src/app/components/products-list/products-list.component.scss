@@ -1,14 +1,24 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Oswald:wght@500&display=swap");
+
+
+*{
+    font-size: 16px;
+}
 
 .big-container {
     margin-top: 50px;
 }
 
 .category-list{
-    float: left;    
+    position: sticky;
+    position: -webkit-sticky;
+    top: 2rem;
     width: 300px;
     margin-left: 30px;
-    margin-top: 300px;
+    /* margin-top: 300px; */
     margin-bottom: 50px;
     background-color: white;
     /* background-color: orchid; */
@@ -32,7 +42,11 @@
 }
 
 .exp-panel-header:hover{
-    background: currentColor;
+    background: whitesmoke;
+}
+
+mat-expansion-panel{
+    background-color: white;
 }
 
 mat-grid-list{
@@ -48,8 +62,10 @@ mat-grid-list{
 }
 
 .list-header{
-    width: 1000px;
-    height: 100px;
+    // width: 1000px;
+    left: 0px;
+    right: 0px;
+    height: 70px;
     margin-bottom: 10px;
     margin-right: 50px;
     background-color: white;
@@ -61,12 +77,14 @@ mat-grid-list{
     height: 45px;
     background-color: white;
     font-family: Inconsolata;
-    /* background-color: green; */
     font-size: 25px;
     padding-left: 5px;
 }
 
 .list-header-filter-sort-info{
+    font-family: Oswald;
+    font-weight: 500;
+    text-transform: uppercase;
     width: inherit;
     height: 45px;
     background-color: white;
@@ -78,10 +96,20 @@ mat-grid-list{
     margin-right: 20px;
 }
 
+mat-select{
+    font-family: Oswald;
+    font-weight: 500;
+}
+
+mat-option{
+    font-family: Oswald;
+    font-weight: 500;
+}
+
 .list-container{
     background-color: white;
     /* background-color: orange; */
-    width: 1000px;
+    // width: 1000px;
 }
 
 mat-grid-tile {
@@ -101,7 +129,7 @@ mat-grid-tile {
     position: relative;
     margin: 5px;
     height: 395px;
-    width: 300px;
+    // width: 300px;
     background-color: white;
     /* background-color: lawngreen; */
 }
@@ -111,7 +139,7 @@ mat-grid-tile {
 
 
 .pagination-data-div {
-    width: 1000px;
+    // width: 1000px;
     height: 50px;
     margin-top: 50px;
 }
@@ -133,6 +161,11 @@ mat-grid-tile {
 }
 
 .manufacturer-name-div{
+    font-family: Oswald;
+    font-weight: 500;
+    letter-spacing: 2px;
+    font-size: 18px;
+    text-transform: uppercase;
     width: 200px;
     height: 30px;
     margin-top: 15px;
@@ -140,7 +173,16 @@ mat-grid-tile {
     /* background-color: crimson; */
 }
 
+.rating {
+    padding-bottom: 10px;
+    mat-icon {
+      color: #e1e100;
+    }
+}
+
 .puzzle-name-div {
+    font-family: Oswald;
+    font-weight: 500;
     width: 250px;
     height: 50px;
     margin-top: 5px;
@@ -153,17 +195,19 @@ mat-grid-tile {
 .puzzle-price-div{
     width: 280px;
     height: 50px;
+    margin-top: 10px;
     bottom: 0px;
     position: absolute;
     background-color: white;
-    /* background-color: blueviolet; */
 }
 
 .price-div {
     width: 70px;
     height: 30px;
     background-color: white;
-    /* background-color: orangered; */
+    font-family: Oswald;
+    font-weight: 500;
+    font-size: 32px;
 }
 
 .add-to-cart-div{
@@ -180,153 +224,51 @@ mat-grid-tile {
     font-family: 'Inconsolata', monospace;
 }
 
-
-
-/*------------------------------------------------------------------------------------*/
-
-/* mat-grid-tile {
-    background-color: white;
-    border: solid;
-    border-color: rgb(134, 134, 134);
-    max-width: 300px;
+@media screen and(max-width: 1485px){
+    .category-list{
+        display: none;
+    }
 }
 
-mat-list {
-    width: fit-content;
-}
+// @media screen and(max-width: 1100px){
+//     .list-with-header-div{
+//         // margin-left: 40px;
+//         // margin-right: 50px;
+//         margin-bottom: 200px;
+//     }
 
-.puzzle-type{
-    margin-top: 5%;
-    margin-left: 500px;
-}
+//     .list-header{
+//         width: 650px;
+//         height: 100px;
+//         margin-bottom: 10px;
+//         margin-right: 10px;
+//         background-color: white;
+//     }
 
-.category-list{
-    float: left;
-    width: fit-content;
-    margin-left: 5%;
-    margin-top: 10px;
-}
+//     .list-container{
+//         background-color: white;
+//         width: 650px;
+//     }
+// }
 
-mat-grid-list{
-    margin-right: 200px;
-    margin-left: 100px;
-    width: 60%;
-    position: absolute;
-    right: 0;
-}
+// @media screen and(max-width: 910px){
+//     .list-with-header-div{
+//         // margin-left: 40px;
+//         // margin-right: 50px;
+//         margin-bottom: 200px;
+//     }
 
-mat-list-item {
-    font-size: 30px;
-}
+//     .list-header{
+//         width: 400px;
+//         height: 100px;
+//         margin-bottom: 10px;
+//         margin-right: 10px;
+//         background-color: white;
+//     }
 
-.mat-list-div{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    
-}
+//     .list-container{
+//         background-color: white;
+//         width: 400px;
+//     }
+// }
 
-.exp-panel {
-    background-color: white;
-    padding-bottom: 15px;
-    padding-top: 15px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    width: 300px;
-    border-bottom-color: grey;
-    border-bottom-width: thin;
-    border-bottom-style:solid ;
-}
-
-.exp-panel-header {
-    font-size: 25px;
-    height: 90px;
-}
-
-.exp-panel-header:hover{
-    background: currentColor;
-}
-
-.card-product-container{
-    margin: 0 auto;
-}
-
-.puzzle-image{
-    margin: 0 auto;
-    width: 90%;
-    padding: 0px 15px 15px;
-}
-
-.puzzle-image img{
-    max-width: 250px;
-    max-height: 250px;
-}
-
-.card-product-name{
-    margin: 0 auto;
-    text-align: center;
-}
-
-.card-product-name span {
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-.card-product-name h3 {
-    padding-top: 5px;
-    max-lines: 2;
-}
-
-.puzzle-title-container {
-    margin: 0 auto;
-    padding-top: 5px;
-    text-align: center;
-    font-size: 18px;
-    max-lines: 2;
-}
-
-.card-product-price button {
-    position: absolute;
-    right: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    text-transform: uppercase;
-    font-size: 15px;
-    margin-right: 10px;
-    border-radius: 5px;
-    color: white;
-    background-color: #e62047;
-}
-
-.card-product-price .price{
-    position: absolute;
-    left: 0;
-    padding-left: 10px;
-    font-size: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 10px 0;
-}
-
-mat-card{
-    max-width: 300px;
-}
-
-mat-card-content {
-    border: none;
-}
-
-mat-card-actions span {
-    float: left;
-}
-
-mat-card-actions button{
-    float: right;
-} */
-
-
-
-
-
-
-
- 

@@ -139,8 +139,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         const colors = this.puzzleColorService.getAll();
         const reviews = this.reviewService.getReviews(this.puzzleId);
 
-        forkJoin(puzzleType, colors, reviews)
-            .subscribe(([pt, c, r]) => {
+        forkJoin(puzzleType, colors)
+            .subscribe(([pt, c]) => {
                 this.colors = c;
                 this.difficultyLevel = pt.difficultyLevel;
                 //this.reviews = r;

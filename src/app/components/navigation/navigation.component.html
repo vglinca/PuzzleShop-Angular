@@ -1,5 +1,5 @@
 <div style="height: fit-content">
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" style="width: 100%;">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center" fxShow="true" fxHide.lt-md>
             <div  fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
                 
@@ -71,18 +71,18 @@
                 </button>
     
                 <div class="nav-item">
-                    <span class="nav-span" mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
+                    <span mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
                         (mouseenter)="openMenu(0)">SpeedCubes
                     </span>
                 </div>
                 <div class="nav-item">
-                    <span class="nav-span" [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA
+                    <span [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA
                         Puzzles
                     </span>
                 </div>
-                <div class="nav-item"><a mat-button>Other puzzles</a></div>
-                <div class="nav-item"><a mat-button>New Puzzles</a></div>
-                <div class="nav-item"><a mat-button>Accessories</a></div>
+                <div class="nav-item"><span>Other puzzles</span></div>
+                <div class="nav-item"><span>New Puzzles</span></div>
+                <div class="nav-item"><span>Accessories</span></div>
             </div>
             
         </mat-toolbar-row>
