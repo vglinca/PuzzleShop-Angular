@@ -43,6 +43,8 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
         {name: 'materialType', property: 'materialType', useInSearch: false},
         {name: 'id', property: 'id', useInSearch: false}
     ];
+
+    
     
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
@@ -125,6 +127,8 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
         }
         this.loadPuzzlesFromApi();
     }
+
+    
 
     filterPuzzles(): void{
         this.retrieveFilteringValuesFromForm();

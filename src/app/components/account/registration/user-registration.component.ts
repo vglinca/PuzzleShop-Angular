@@ -9,7 +9,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     templateUrl: './user-registration.component.html',
-    styleUrls: ['./user-registration.component.css']
+    styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent implements OnInit, AfterViewInit {
 

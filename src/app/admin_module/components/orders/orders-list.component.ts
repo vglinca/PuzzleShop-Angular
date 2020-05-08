@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { OrderModel } from 'src/app/models/orders/order.model';
 import { RequestFilters } from 'src/app/infrastructure/pagination/request-filters';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, merge } from 'rxjs';
 import { FilterColumn } from 'src/app/infrastructure/filter-column';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,6 +13,9 @@ import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
 import { OrderStatusModel } from 'src/app/models/order-status/order-status.model';
 import { OrderTableRowModel } from 'src/app/models/orders/order-table-row.model';
 import { AccountService } from 'src/app/services/account.service';
+import { Filter } from 'src/app/infrastructure/pagination/filter';
+import { LogicalOperator } from 'src/app/infrastructure/pagination/logical-operator';
+import { OrderStatusId } from 'src/app/models/order-status/order-status-id';
 
 @Component({
     templateUrl: './orders-list.component.html',
@@ -23,9 +26,10 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
     pagedOrders: PagedResponse<OrderTableRowModel>;
     orderStatusList: OrderStatusModel[] = [];
 
-
     requestFilters: RequestFilters;
-    filterForm: FormGroup;
+    filterForm1: FormGroup;
+    filterForm2: FormGroup;
+    orderStatusForm: FormGroup;
     searchInput: FormControl = new FormControl('');
 
     matSortSubscription: Subscription;
@@ -33,7 +37,7 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
     subscriptions: Subscription[] = [];
 
     filterColumns: FilterColumn[] = [
-        {name: 'orderStatus', property: 'orderStatus', useInSearch: true},
+        {name: 'orderStatusId', property: 'orderStatusId', useInSearch: false},
         {name: 'contactEmail', property: 'contactEmail', useInSearch: true},
         {name: 'orderDate', property: 'orderDate', useInSearch: false},
         {name: 'address', property: 'address', useInSearch: true},
@@ -43,6 +47,18 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
         {name: 'totalCost', property: 'totalCost', useInSearch: false},
         {name: 'id', property: 'id', useInSearch: false}
     ];
+
+    orderStatusSelect: OrderStatusModel[] = [
+        {orderStatusId: OrderStatusId.AwaitingPayment, name: 'AwaitingPayment'},
+        {orderStatusId: OrderStatusId.AwaitingShipment, name: 'AwaitingShipment'},
+        {orderStatusId: OrderStatusId.Cancelled, name: 'Cancelled'},
+        {orderStatusId: OrderStatusId.Completed, name: 'Completed'},
+        {orderStatusId: OrderStatusId.ConfirmedPayment, name: 'ConfirmedPayment'},
+        {orderStatusId: OrderStatusId.Declined, name: 'AwaitingPayment'},
+        {orderStatusId: OrderStatusId.Refunded, name: 'Refunded'}
+    ]
+
+    searchingColumns: FilterColumn[] = [];
     
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
@@ -53,7 +69,19 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
                 private accountService: AccountService,
                 private manageOrdersService: ManageOrderService,
                 private lookupService: PuzzleLookupService){
-                this.tableColumns = this.filterColumns.map(c => c.name);
+            this.tableColumns = this.filterColumns.map(c => c.name);
+            this.searchingColumns = this.filterColumns.filter(c => c.useInSearch);
+            this.filterForm1 = this.formBuilder.group({
+                filter: [''],
+                propertyValue: [''],
+            });
+            this.filterForm2 = this.formBuilder.group({
+                filter: [''],
+                propertyValue: [''],
+            });
+            this.orderStatusForm = this.formBuilder.group({
+                orderStatus: ['']
+            });
     }
 
     ngOnInit(): void {
@@ -68,7 +96,8 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     loadOrdersFromApi(): void{
-        const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
+        const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, 
+            this.paginator.pageSize, this.requestFilters);
         console.log(request);
         this.manageOrdersService.getOrdersPaged(request)
             .subscribe((resp: PagedResponse<OrderTableRowModel>) => {
@@ -81,6 +110,57 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
             .subscribe((os: OrderStatusModel[]) =>{
                 this.orderStatusList = os;
             }, err => console.log(err));
+    }
+
+    resetAll(): void{
+        this.requestFilters = {operator: LogicalOperator.AND, filters: []};
+        this.loadOrdersFromApi();
+        this.searchInput.reset();
+        this.filterForm1.reset();
+        this.filterForm2.reset();
+    }
+
+    onSearchClick(): void{
+        this.createFiltersFromSearch();
+        this.loadOrdersFromApi();
+    }
+
+    
+    private createFiltersFromSearch(): void{
+        const searchField = this.searchInput.value.trim();
+        if(searchField){
+            const filters: Filter[] = [];
+            this.filterColumns.forEach(column => {
+                if(column.useInSearch){
+                    const filter: Filter = {propertyName: column.property, propertyValue: searchField};
+                    filters.push(filter);
+                }
+            });
+            this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
+        }
+    }
+
+    filterOrders(): void{
+        this.createFiltersFromForm();
+        this.loadOrdersFromApi();
+    }
+
+    createFiltersFromForm(): void{
+        const filters: Filter[] = [];
+        if(this.filterForm1.controls.propertyValue.value){
+            const filter: Filter = {propertyName: this.filterForm1.controls.filter.value, 
+                propertyValue: this.filterForm1.controls.propertyValue.value};
+            filters.push(filter);
+        }if(this.filterForm2.controls.propertyValue.value){
+            const filter: Filter = {propertyName: this.filterForm2.controls.filter.value, 
+                propertyValue: this.filterForm2.controls.propertyValue.value};
+            filters.push(filter);
+        }
+        // if(this.orderStatusForm.controls.orderStatus.value){
+        //     const filter: Filter = {propertyName: 'orderStatusId', propertyValue: this.orderStatusForm.controls.orderStatus.value};
+        //     filters.push(filter);
+        // }
+        this.requestFilters = {operator: LogicalOperator.AND, filters: filters};
     }
 
 

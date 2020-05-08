@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './user-login.component.html',
-    styleUrls: ['./user-login.component.css']
+    styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit{
 

@@ -37,3 +37,11 @@
 mat-form-field{
     width: fit-content; margin-right: 5px;
 }
+
+.form-field-30{
+    width: 30%;
+}
+
+.form-field-90{
+    width: 90%;
+}

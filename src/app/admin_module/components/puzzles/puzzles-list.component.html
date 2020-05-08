@@ -15,7 +15,7 @@
 							<mat-form-field>
 								<mat-placeholder>
 									<mat-icon>search</mat-icon>
-									<i> Search</i>
+									Search
 								</mat-placeholder>
 								<input matInput [formControl]="searchInput" (keyup.enter)="onSearchClick()">
 							</mat-form-field>
@@ -29,7 +29,7 @@
 							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e" (click)="sidenav.toggle()">
 								<mat-icon>search</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:darkgray">
+							<button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadPuzzlesFromApi()">
 								<mat-icon>refresh</mat-icon>
 							</button>
 						</div>
@@ -53,11 +53,6 @@
 				<mat-header-cell fxFlex="350px" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
 				<mat-cell fxFlex="350px" *matCellDef="let puzzle"> {{puzzle?.name}} </mat-cell>
 			</ng-container>
-<!-- 
-			<ng-container matColumnDef="description">
-				<mat-header-cell fxFlex="250px" *matHeaderCellDef> Description </mat-header-cell>
-				<mat-cell fxFlex="250px" *matCellDef="let puzzle"> {{puzzle?.description | shorten:'30'}} </mat-cell>
-			</ng-container> -->
 
 			<ng-container matColumnDef="price">
 				<mat-header-cell fxFlex="80px" *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
@@ -96,7 +91,6 @@
 
 			<ng-container matColumnDef="id">
 				<mat-header-cell fxFlex="150px" *matHeaderCellDef style="display: flex; justify-content: center;">
-					<!-- <span>Edit/Delete</span> -->
 					<button mat-raised-button style="color:white; background-color:lightseagreen;" (click)="resetAll();">
 						<mat-icon>refresh</mat-icon>Reset</button>
 				</mat-header-cell>

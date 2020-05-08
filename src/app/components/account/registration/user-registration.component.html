@@ -1,98 +1,107 @@
 <div id="container" class="container">
-  <div class="grandParentContaniner">
-    <div class="parentContainer">
-      <mat-toolbar style="display: flex; justify-content: flex-end; background-color: white; margin-bottom: 10px;">
-        <button mat-icon-button (click)="onCloseClick()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-toolbar>
-      <form novalidate class="registrationForm" [formGroup]="registrationForm" (ngSubmit)="register()">
-        <div class="form-group">
-          <span class="formHeader">
-            <h2>Registration</h2>
-          </span>
+	<div class="grandParentContaniner">
+		<div class="parentContainer">
+			<mat-toolbar
+				style="display: flex; justify-content: flex-end; background-color: white; margin-bottom: 10px;">
+				<button mat-icon-button (click)="onCloseClick()">
+					<mat-icon>close</mat-icon>
+				</button>
+			</mat-toolbar>
+			<form novalidate class="registrationForm" [formGroup]="registrationForm" (ngSubmit)="register()">
+				<div class="form-group">
+					<span class="formHeader">
+						<h2>Registration</h2>
+					</span>
 
-          <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.email)}">
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.email) && registrationForm.controls.email.errors.required">Email
-              is required.</em>
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.email) && registrationForm.controls.email.errors.pattern">Email
-              is invalid.</em>
-            <mat-form-field style="display: block">
-              <input matInput type="text" placeholder="Email: user@example.com" formControlName="email" />
-            </mat-form-field>
-          </div>
+					<div class="form-group"
+						[ngClass]="{'error': !validateFormControl(registrationForm.controls.email)}">
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.email) && registrationForm.controls.email.errors.required">Email
+							is required.</em>
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.email) && registrationForm.controls.email.errors.pattern">Email
+							is invalid.</em>
+						<mat-form-field style="display: block">
+							<input matInput type="text" placeholder="Email: user@example.com" formControlName="email" />
+						</mat-form-field>
+					</div>
 
-          <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.username)}">
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.username) && registrationForm.controls.username.errors.required">First
-              Name is required</em>
-            <mat-form-field style="display: block">
-              <input matInput type="text" placeholder="Username" formControlName="username" />
-            </mat-form-field>
-          </div>
+					<div class="form-group"
+						[ngClass]="{'error': !validateFormControl(registrationForm.controls.username)}">
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.username) && registrationForm.controls.username.errors.required">First
+							Name is required</em>
+						<mat-form-field style="display: block">
+							<input matInput type="text" placeholder="Username" formControlName="username" />
+						</mat-form-field>
+					</div>
 
-          <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.password)}">
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.password) && registrationForm.controls.password.errors.required">Password
-              is required.</em>
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.password) && registrationForm.controls.password.errors.pattern">{{passwdErrMsg}}</em>
-            <mat-form-field style="display: block">
-              <input matInput type="password" placeholder="Password" formControlName="password" />
-            </mat-form-field>
-          </div>
+					<div class="form-group"
+						[ngClass]="{'error': !validateFormControl(registrationForm.controls.password)}">
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.password) && registrationForm.controls.password.errors.required">Password
+							is required.</em>
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.password) && registrationForm.controls.password.errors.pattern">{{passwdErrMsg}}</em>
+						<mat-form-field style="display: block">
+							<input matInput type="password" placeholder="Password" formControlName="password" />
+						</mat-form-field>
+					</div>
 
-          <div class="form-group"
-            [ngClass]="{'error': !validateFormControl(registrationForm.controls.confirmPassword)}">
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.confirmPassword) && registrationForm.controls.confirmPassword.errors.required">Password
-              confirm is required.</em>
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.confirmPassword) && registrationForm.controls.confirmPassword.errors.confirmPasswordCheck">Enter
-              correct password.</em>
-            <mat-form-field style="display: block" >
-              <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" />
-            </mat-form-field>
-          </div>
+					<div class="form-group"
+						[ngClass]="{'error': !validateFormControl(registrationForm.controls.confirmPassword)}">
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.confirmPassword) && registrationForm.controls.confirmPassword.errors.required">Password
+							confirm is required.</em>
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.confirmPassword) && registrationForm.controls.confirmPassword.errors.confirmPasswordCheck">Enter
+							correct password.</em>
+						<mat-form-field style="display: block">
+							<input matInput type="password" placeholder="Confirm password"
+								formControlName="confirmPassword" />
+						</mat-form-field>
+					</div>
 
-          <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.firstName)}">
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.firstName) && registrationForm.controls.firstName.errors.required">First
-              Name is required</em>
-            <mat-form-field style="display: block">
-              <input matInput type="text" placeholder="First Name" formControlName="firstName" />
-            </mat-form-field>
-          </div>
+					<div class="form-group"
+						[ngClass]="{'error': !validateFormControl(registrationForm.controls.firstName)}">
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.firstName) && registrationForm.controls.firstName.errors.required">First
+							Name is required</em>
+						<mat-form-field style="display: block">
+							<input matInput type="text" placeholder="First Name" formControlName="firstName" />
+						</mat-form-field>
+					</div>
 
-          <div class="form-group" [ngClass]="{'error': !validateFormControl(registrationForm.controls.lastName)}">
-            <em
-              *ngIf="!validateFormControl(registrationForm.controls.lastName) && registrationForm.controls.lastName.errors.required">Last
-              Name is required.</em>
-            <mat-form-field style="display: block">
-              <input matInput type="text" placeholder="Last Name" formControlName="lastName" />
-            </mat-form-field>
-          </div>
+					<div class="form-group"
+						[ngClass]="{'error': !validateFormControl(registrationForm.controls.lastName)}">
+						<em
+							*ngIf="!validateFormControl(registrationForm.controls.lastName) && registrationForm.controls.lastName.errors.required">Last
+							Name is required.</em>
+						<mat-form-field style="display: block">
+							<input matInput type="text" placeholder="Last Name" formControlName="lastName" />
+						</mat-form-field>
+					</div>
 
-          <div class="form-group">
-            <mat-form-field style="display: block">
-              <mat-label>Choose Your date of birth</mat-label>
-              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="birthDate">
-              <mat-datepicker-toggle matSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-              </mat-datepicker-toggle>
-              <mat-datepicker #picker color="accent"></mat-datepicker>
+					<div class="form-group">
+						<mat-form-field style="display: block">
+							<mat-label>Choose Your date of birth</mat-label>
+							<input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
+								formControlName="birthDate">
+							<mat-datepicker-toggle matSuffix [for]="picker">
+								<mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+							</mat-datepicker-toggle>
+							<mat-datepicker #picker color="accent"></mat-datepicker>
 
-              <!-- <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="birthDate" />
+							<!-- <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="birthDate" />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker> -->
-            </mat-form-field>
-          </div>
+						</mat-form-field>
+					</div>
 
-          <button class="registerButton" [disabled]="registrationForm.invalid" mat-raised-button>Register</button>
-        </div>
-      </form>
-    </div>
-  </div>
+					<button class="registerButton" [disabled]="registrationForm.invalid"
+						mat-raised-button>Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
