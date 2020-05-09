@@ -15,6 +15,8 @@ import { Subscription } from 'rxjs';
 })
 export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
 
+    showSpinner: boolean = true;
+
     manufacturers: ManufacturerModel[] = [];
 
     dialogRefSubscr: Subscription;
@@ -39,6 +41,7 @@ export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
         this.manufacturerService.getAll()
             .subscribe((m : ManufacturerModel[]) => {
                 this.manufacturers = m;
+                this.showSpinner = false;
             }, err => console.log(err));
     }
 

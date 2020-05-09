@@ -14,14 +14,14 @@
 
 				<mat-card-actions>
 
-					<button class="save-button" [disabled]="form.invalid" style="background-color: green;" mat-mini-fab
+					<button class="save-button" [disabled]="form.invalid" style="background-color: teal;" mat-mini-fab
 						type="submit">
 						<mat-icon>done</mat-icon>
 					</button>
 
-					<button class="cancel-button" mat-mini-fab style="background-color: red;" type="button"
+					<button class="cancel-button" mat-mini-fab color="warn" type="button"
 						(click)="closeDialog()">
-						<mat-icon>cancel</mat-icon>
+						<mat-icon>close</mat-icon>
 					</button>
 
 				</mat-card-actions>
@@ -32,7 +32,7 @@
 		<mat-card-content>
 			<div class="form-card">
 
-				<mat-form-field class="form-field-90">
+				<mat-form-field class="form-field-50">
 					<input matInput placeholder="Name" type="text" placeholder="Name. (required)"
 						formControlName="name" />
 				</mat-form-field>

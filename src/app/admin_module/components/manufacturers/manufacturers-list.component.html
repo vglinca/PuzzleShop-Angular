@@ -1,3 +1,6 @@
+<div *ngIf="showSpinner" style="position: absolute; top: 50%; left: 50%; right: 50%;">
+    <mat-spinner></mat-spinner>
+</div>
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
 	<div class="toolbar-container">
 		<mat-card class="light">
@@ -12,7 +15,7 @@
 				<mat-toolbar-row>
 					<div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 						<div class="toolbar-buttons-div">
-							<button mat-mini-fab style="margin-right:10px; background-color:blue"
+							<button mat-mini-fab color="primary" style="margin-right:10px;"
 								(click)="addEditManufacturerDialog(0)">
 								<mat-icon>add</mat-icon>
 							</button>

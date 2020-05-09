@@ -48,7 +48,7 @@
             <div>
                 <mat-menu #rubicsCubesMatMenu="matMenu" xPosition="before">
                     <span (mouseleave)="closeMenu(0)">
-                        <button mat-menu-item *ngFor="let puzzleType of rcPuzzles;"
+                        <button mat-menu-item class="menu-button" *ngFor="let puzzleType of rcPuzzles;"
                             (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}
                         </button>
                     </span>
@@ -57,7 +57,7 @@
             <div>
                 <mat-menu #wcaPuzzlesMatMenu="matMenu" xPosition="before">
                     <span (mouseleave)="closeMenu(1)">
-                        <button mat-menu-item *ngFor="let puzzleType of wcaPuzzles"
+                        <button mat-menu-item class="menu-button" *ngFor="let puzzleType of wcaPuzzles"
                             [routerLink]="['/collections', puzzleType?.title]"
                             (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}</button>
                     </span>
@@ -70,18 +70,22 @@
                     <mat-icon mat-list-icon>list</mat-icon>
                 </button>
     
-                <div class="nav-item">
-                    <span mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger"
-                        (mouseenter)="openMenu(0)">SpeedCubes
+                <div class="nav-item" mat-button [matMenuTriggerFor]="rubicsCubesMatMenu" #menuTrigger1="matMenuTrigger">
+                    <span >SpeedCubes</span>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+                <div class="nav-item" [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger">
+                    <span >WCA Puzzles
                     </span>
+                    <mat-icon>arrow_drop_down</mat-icon>
                 </div>
                 <div class="nav-item">
-                    <span [matMenuTriggerFor]="wcaPuzzlesMatMenu" #menuTrigger2="matMenuTrigger" (mouseenter)="openMenu(1)">WCA
-                        Puzzles
-                    </span>
+                    <span>Other puzzles</span>
+                    <mat-icon>arrow_drop_down</mat-icon>
                 </div>
-                <div class="nav-item"><span>Other puzzles</span></div>
-                <div class="nav-item"><span>New Puzzles</span></div>
+                <div class="nav-item">
+                    <span>New Puzzles</span>
+                </div>
                 <div class="nav-item"><span>Accessories</span></div>
             </div>
             

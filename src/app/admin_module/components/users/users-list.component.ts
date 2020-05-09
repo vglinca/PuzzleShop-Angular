@@ -21,6 +21,8 @@ import { LogicalOperator } from 'src/app/infrastructure/pagination/logical-opera
 })
 export class UsersListComponent implements OnInit, AfterViewInit{
 
+    showSpinner: boolean = true;
+
     filterColumns: FilterColumn[] = [
         {name: 'firstName', property: 'firstName', useInSearch: true},
         {name: 'lastName', property: 'lastName', useInSearch: true},
@@ -85,6 +87,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
             .subscribe((response: PagedResponse<UserWithRolesModel>) => {
                 console.log(response);
                 this.pagedUsers = response;
+                this.showSpinner = false;
             }, err => console.log(err));
     }
 

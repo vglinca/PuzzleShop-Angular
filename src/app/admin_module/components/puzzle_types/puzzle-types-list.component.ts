@@ -13,6 +13,8 @@ import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type
 })
 export class PuzzleTypesComponent implements OnInit, OnDestroy{
 
+    showSpinner: boolean = true;
+
     puzzleTypes: PuzzleTypeTableRowModel[] = [];
 
     dialogRefSubscr: Subscription;
@@ -61,7 +63,7 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
         this.puzzleTypesService.getAll()
             .subscribe((pt : PuzzleTypeTableRowModel[]) => {
                 this.puzzleTypes = pt;
-                console.log(this.puzzleTypes);
+                this.showSpinner = false;
             });
     }
 

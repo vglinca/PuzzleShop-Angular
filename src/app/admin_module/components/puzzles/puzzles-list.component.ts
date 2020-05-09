@@ -20,6 +20,8 @@ import { FilterColumn } from 'src/app/infrastructure/filter-column';
     styleUrls: ['./puzzles-list.component.css']
 })
 export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
+
+    showSpinner: boolean = true;
     
     puzzles: PuzzleTableRowModel[] = [];
     pagedPuzzles: PagedResponse<PuzzleTableRowModel>;
@@ -95,14 +97,14 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     loadPuzzlesFromApi(){
-        // var filters: Filter[] = [];
-        // this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
+        this.showSpinner = true;
         const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
         console.log(request);
         this.puzzleService.getAllPuzzles(request)
             .subscribe((response: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = response;
                 this.puzzles = response.items;
+                this.showSpinner = false;
             });
     }
 

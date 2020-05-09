@@ -13,6 +13,8 @@ import { Subscription } from 'rxjs';
 })
 export class PuzzleColorsComponent implements OnInit, OnDestroy{
 
+    showSpinner: boolean = true;
+
     puzzleColors: PuzzleColorModel[] = [];
 
     dialogRefSubscr: Subscription;
@@ -57,7 +59,10 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
 
     loadPuzzleColors(): void{
         this.puzzleColorService.getAll()
-            .subscribe((pc: PuzzleColorModel[]) => this.puzzleColors = pc);
+            .subscribe((pc: PuzzleColorModel[]) => {
+                this.puzzleColors = pc;
+                this.showSpinner = false;
+            });
     }
 
     ngOnDestroy(): void {

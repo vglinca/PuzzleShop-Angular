@@ -1,3 +1,6 @@
+<div *ngIf="showSpinner" style="position: absolute; top: 50%; left: 50%; right: 50%;">
+    <mat-spinner></mat-spinner>
+</div>
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
 	<div class="toolbar-container">
 		<mat-card class="light">
@@ -22,7 +25,7 @@
 							<span class="title-spacer"></span>
 						</div>
 						<div class="toolbar-buttons-div" >
-							<button mat-mini-fab style="margin-right:10px; background-color:blue"
+							<button mat-mini-fab color="primary" style="margin-right:10px;"
 								[routerLink]="['/administration/puzzles/create', -1]">
 								<mat-icon>add</mat-icon>
 							</button>
