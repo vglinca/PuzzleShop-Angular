@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
+import { PuzzleLookupService } from 'src/app/services/lookup.service';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, forkJoin } from 'rxjs';
@@ -62,7 +62,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     activatedRouteSubscription2: Subscription;
     subscriptions: Subscription[] = [];
 
-    constructor(private lookupService: PuzzleLookupService,
+    constructor(
         private puzzleService: PuzzleService,
         private puzzleTypeService: PuzzleTypesService,
         private puzzleColorService: PuzzleColorsService,

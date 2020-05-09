@@ -28,25 +28,25 @@ export class PuzzleLookupService{
 
     constructor(private httpClient: HttpClient){}
 
-    getPuzzleTypes(queryParams?: QueryParameters): Observable<PuzzleTypeModel[]>{
-        return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers);
-    }
+    // getPuzzleTypes(queryParams?: QueryParameters): Observable<PuzzleTypeModel[]>{
+    //     return this.httpClient.get<PuzzleTypeModel[]>(`${this.baseUrl}puzzleTypes`, this.headers);
+    // }
 
-    getManufacturers() : Observable<ManufacturerModel[]>{
-        return this.httpClient.get<ManufacturerModel[]>(`${this.baseUrl}manufacturers`, this.headers);
-    }
+    // getManufacturers() : Observable<ManufacturerModel[]>{
+    //     return this.httpClient.get<ManufacturerModel[]>(`${this.baseUrl}manufacturers`, this.headers);
+    // }
 
-    getPuzzleColors() : Observable<PuzzleColorModel[]> {
-        return this.httpClient.get<PuzzleColorModel[]>(`${this.baseUrl}colors`, this.headers);
-    }
+    // getPuzzleColors() : Observable<PuzzleColorModel[]> {
+    //     return this.httpClient.get<PuzzleColorModel[]>(`${this.baseUrl}colors`, this.headers);
+    // }
 
-    getPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
-        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers);
-    }
+    // getPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
+    //     return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}puzzles/getPuzzles`, pagedRequest, this.headers);
+    // }
 
-    getPuzzle(puzzleId: number): Observable<PuzzleTableRowModel>{
-        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}puzzles/getPuzzleFriendly/${puzzleId}`, this.headers);
-    }
+    // getPuzzle(puzzleId: number): Observable<PuzzleTableRowModel>{
+    //     return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}puzzles/puzzleFriendly/${puzzleId}`, this.headers);
+    // }
 
     getMaterialTypes(): Observable<MaterialTypeModel[]>{
         return this.httpClient.get<MaterialTypeModel[]>(`${this.baseUrl}materialType`, this.headers);

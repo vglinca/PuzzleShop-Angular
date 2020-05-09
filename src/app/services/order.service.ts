@@ -30,7 +30,7 @@ export class OrderService{
     }
 
     public removeOrderItem(userId: number, itemId: number){
-        return this.http.delete(`${this.baseUrl}/removeOrderItem/${userId}/${itemId}`, this.headers);
+        return this.http.delete(`${this.baseUrl}/orderItem/${userId}/${itemId}`, this.headers);
     }
 
     public confirmOrder(userId: number, customerDetails: CustomerDetailsModel){

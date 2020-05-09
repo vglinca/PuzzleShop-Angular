@@ -19,11 +19,15 @@ export class PuzzleService{
     constructor(private httpClient: HttpClient){}
 
     public getAllPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
-        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}/getPuzzles`, pagedRequest, this.headers)
+        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}/pagedPuzzles`, pagedRequest, this.headers)
     }
 
     public getPuzzle(puzzleId: number): Observable<PuzzleModel>{
         return this.httpClient.get<PuzzleModel>(`${this.baseUrl}/${puzzleId}`, this.headers)
+    }
+
+    public getPuzzleFriendly(puzzleId: number): Observable<PuzzleTableRowModel>{
+        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}/puzzleFriendly/${puzzleId}`, this.headers);
     }
 
     public addPuzzle(model: FormData) : Observable<PuzzleModel>{

@@ -5,6 +5,7 @@ import { PagedRequest } from '../infrastructure/pagination/paged-request';
 import { Observable } from 'rxjs';
 import { PagedResponse } from '../infrastructure/pagination/paged-response';
 import { UserWithRolesModel } from '../models/users/user-with-roles.model';
+import { PlainUserModel } from '../models/users/plain-user.model';
 
 @Injectable({
     providedIn: 'root'
@@ -17,11 +18,15 @@ export class UsersService{
     constructor(private http: HttpClient){}
 
     public getPagedUsers(pagedRequest: PagedRequest): Observable<PagedResponse<UserWithRolesModel>>{
-        return this.http.post<PagedResponse<UserWithRolesModel>>(`${this.baseUrl}/getPagedUsers`, pagedRequest, this.headers);
+        return this.http.post<PagedResponse<UserWithRolesModel>>(`${this.baseUrl}/pagedUsers`, pagedRequest, this.headers);
     }
 
     public getUser(userId: number): Observable<UserWithRolesModel>{
         return this.http.get<UserWithRolesModel>(`${this.baseUrl}/${userId}`, this.headers);
+    }
+
+    public getPlainUser(userId: number): Observable<PlainUserModel>{
+        return this.http.get<UserWithRolesModel>(`${this.baseUrl}/plainUser/${userId}`, this.headers);
     }
 
     public editRoles(userId: number, roles: Array<string> ){

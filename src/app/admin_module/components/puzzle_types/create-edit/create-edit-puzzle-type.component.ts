@@ -5,7 +5,7 @@ import { PuzzleTypesService } from '../../../../services/puzzle-types.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleTypeModel } from 'src/app/models/puzzle-types/puzzle-type.model';
 import { PuzzleTypeForCreationModel } from '../../../../models/puzzle-types/puzzle-type-for-creation.model';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
+import { PuzzleLookupService } from 'src/app/services/lookup.service';
 import { DifficultyLevelModel } from 'src/app/models/difficulty-levels/difficulty-level.model';
 
 
@@ -74,7 +74,7 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
 
     private loadDifficultyLevels(): void{
         this.lookupService.getDifficultyLevels()
-        .subscribe((dl: DifficultyLevelModel[]) => this.difficultyLevels = dl);
+            .subscribe((dl: DifficultyLevelModel[]) => this.difficultyLevels = dl);
     }
 
     private resetFormCloseDialog(){

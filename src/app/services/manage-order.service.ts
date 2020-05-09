@@ -20,7 +20,7 @@ export class ManageOrderService{
     }
 
     public getOrdersPaged(pagedRequest: PagedRequest): Observable<PagedResponse<OrderTableRowModel>>{
-        return this.http.post<PagedResponse<OrderTableRowModel>>(`${this.baseUrl}/getOrdersPaged`, pagedRequest, this.headers);
+        return this.http.post<PagedResponse<OrderTableRowModel>>(`${this.baseUrl}/ordersPaged`, pagedRequest, this.headers);
     }
 
     public getOrder(orderId: number): Observable<OrderModel>{

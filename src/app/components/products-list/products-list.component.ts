@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
 import { PuzzleTypeModel } from '../../models/puzzle-types/puzzle-type.model';
 import { ManufacturerModel } from '../../models/manufacturers/manufacturer.model';
-import { PuzzleLookupService } from '../../services/puzzle-lookup.service';
+import { PuzzleLookupService } from '../../services/lookup.service';
 import { PuzzleColorModel } from '../../models/puzzle-colors/puzzle-color.model';
 import { PagedResponse } from '../../infrastructure/pagination/paged-response';
 import { PuzzleModel } from '../../models/puzzles/puzzle.model';
@@ -9,7 +9,7 @@ import { PagedRequest } from '../../infrastructure/pagination/paged-request';
 import { RequestFilters } from '../../infrastructure/pagination/request-filters';
 import { LogicalOperator } from '../../infrastructure/pagination/logical-operator';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription, merge } from 'rxjs';
+import { Subscription, merge, forkJoin } from 'rxjs';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Filter } from '../../infrastructure/pagination/filter';
 import { MatSort } from '@angular/material/sort';
@@ -24,6 +24,11 @@ import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-f
 import { AccountService } from 'src/app/services/account.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserLoginComponent } from '../account/auth/user-login.component';
+import { PuzzleService } from 'src/app/services/puzzle.service';
+import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
+import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
+import { ManufacturersService } from 'src/app/services/manufacturers.service';
+import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
 
 
 @Component({
@@ -35,7 +40,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     rowsNumber: number;
     showSpinner: boolean = true;
 
-    currentPuzzleType: PuzzleTypeModel;
+    currentPuzzleType: PuzzleTypeTableRowModel;
     prevPuzzleTypeTitle: string;
     currentPuzzleTypeTitle: string;
 
@@ -50,7 +55,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     routerSubscription: Subscription;
     subscriptions: Subscription[] = [];
 
-    puzzleTypes: PuzzleTypeModel[];
+    puzzleTypes: PuzzleTypeTableRowModel[];
     manufacturers: ManufacturerModel[];
     puzzleColors: PuzzleColorModel[];
     
@@ -64,7 +69,11 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     
 
-    constructor(private lookupService: PuzzleLookupService,
+    constructor(
+                private manufacturerService: ManufacturersService,
+                private colorService: PuzzleColorsService,
+                private puzzleTypeService: PuzzleTypesService,
+                private puzzleService: PuzzleService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private matDialog: MatDialog,
@@ -84,20 +93,31 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
         }
 
         this.showSpinner = true;
-        console.log();
         this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
-        this.lookupService.getPuzzleTypes()
-            .subscribe((pt: PuzzleTypeModel[]) => {
+
+        const puzzleTypes = this.puzzleTypeService.getAll();
+        const manufacturers = this.manufacturerService.getAll();
+        const colors = this.colorService.getAll();
+
+        forkJoin(puzzleTypes, manufacturers, colors)
+            .subscribe(([pt, m, c]) => {
                 this.puzzleTypes = pt;
                 this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
+                this.manufacturers = m;
+                this.puzzleColors = c;
             });
+
+        // this.puzzleTypeService.getAll()
+        //     .subscribe((pt: PuzzleTypeTableRowModel[]) => {
+        //         this.puzzleTypes = pt;
+        //         this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
+        //     });
         
-        this.lookupService.getManufacturers()
-            .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
+        // this.manufacturerService.getAll()
+        //     .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
 
-        this.lookupService.getPuzzleColors()
-            .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
-
+        // this.colorService.getAll()
+        //     .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
     }
 
     
@@ -173,7 +193,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                                                 this.paginator.pageSize, 
                                                 this.requestFilters);
         
-        this.lookupService.getPuzzles(pagedRequest)
+        this.puzzleService.getAllPuzzles(pagedRequest)
             .subscribe((pagedPuzzles: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = pagedPuzzles;
                 this.showSpinner = false;

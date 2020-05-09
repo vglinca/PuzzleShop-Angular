@@ -8,9 +8,11 @@ import { Subscription } from 'rxjs';
 import { LoggedInUserInfo } from './models/users/logged-in-user-info';
 import { ConfirmDialogService } from './common/confirm_dialog/confirm-dialog.service';
 import { PuzzleTypeModel } from './models/puzzle-types/puzzle-type.model';
-import { PuzzleLookupService } from './services/puzzle-lookup.service';
+import { PuzzleLookupService } from './services/lookup.service';
 import { Router } from '@angular/router';
 import { UserRegistrationComponent } from './components/account/registration/user-registration.component';
+import { PuzzleTypesService } from './services/puzzle-types.service';
+import { PuzzleTypeTableRowModel } from './models/puzzle-types/puzzle-type-table-row.model';
 
 @Component({
 	selector: 'app-root',
@@ -20,9 +22,9 @@ import { UserRegistrationComponent } from './components/account/registration/use
 export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 	title = 'puzzleshop-client';
 
-	puzzleTypes: PuzzleTypeModel[] = [];
-	rcPuzzles: PuzzleTypeModel[] = [];
-	wcaPuzzles: PuzzleTypeModel[] = [];
+	puzzleTypes: PuzzleTypeTableRowModel[] = [];
+	rcPuzzles: PuzzleTypeTableRowModel[] = [];
+	wcaPuzzles: PuzzleTypeTableRowModel[] = [];
 
 	
 	dialogRefSubscription: Subscription;
@@ -42,7 +44,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 				private router: Router,
 				private dialogService: ConfirmDialogService,
 				private notificationService: NotificationService,
-				private lookupService: PuzzleLookupService,
+				private puzzleTypeService: PuzzleTypesService,
 				private matDialog: MatDialog) {
 	}
 
@@ -91,8 +93,8 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 	}
 
 	private loadPuzzleTypesFromApi() {
-		this.lookupService.getPuzzleTypes()
-			.subscribe((pt: PuzzleTypeModel[]) => {
+		this.puzzleTypeService.getAll()
+			.subscribe((pt: PuzzleTypeTableRowModel[]) => {
 				this.puzzleTypes = pt;
 				this.rcPuzzles = this.puzzleTypes
 					.filter(pt => pt.isRubicsCube == true && pt.isWca == true)
@@ -103,7 +105,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 			});
 	}
 
-	private sortAsc(a: PuzzleTypeModel, b: PuzzleTypeModel) {
+	private sortAsc(a: PuzzleTypeTableRowModel, b: PuzzleTypeTableRowModel) {
 		return (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
 	}
 

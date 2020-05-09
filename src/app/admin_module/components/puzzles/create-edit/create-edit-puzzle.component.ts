@@ -4,7 +4,7 @@ import { ManufacturersService } from '../../../../services/manufacturers.service
 import { PuzzleTypesService } from '../../../../services/puzzle-types.service';
 import { PuzzleColorsService } from '../../../../services/puzzle-colors.service';
 import { PuzzleService } from '../../../../services/puzzle.service';
-import { PuzzleLookupService } from 'src/app/services/puzzle-lookup.service';
+import { PuzzleLookupService } from 'src/app/services/lookup.service';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { MaterialTypeModel } from 'src/app/models/material-types/material-type.model';
@@ -78,7 +78,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     ngAfterViewInit(): void {
 
         setTimeout(() => {
-            // console.log('IMAGES: ', this.images);
 
             this.images.forEach((element: ElementRef) => {
                 element.nativeElement.addEventListener('click', (event) => {
@@ -91,8 +90,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                     } else {
                         this.renderer.setStyle(element.nativeElement.children[0], 'opacity', '1.0');
                     }
-                    console.log('target ', target);
-                    console.log(event.target.alt);
                 });
             });
         }, 1000);
@@ -156,7 +153,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                     var imageDictionary = new ImageDictionary(image.id);
                     this.imagesToDelete.push(imageDictionary);
                 });
-                // console.log(this.imagesToDelete);
             });
     }
 

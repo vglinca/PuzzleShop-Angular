@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UserLoginComponent } from '../account/auth/user-login.component';
-import { PuzzleLookupService } from '../../services/puzzle-lookup.service';
+import { PuzzleLookupService } from '../../services/lookup.service';
 import { PuzzleTypeModel } from '../../models/puzzle-types/puzzle-type.model';
 import { PuzzleModel } from '../../models/puzzles/puzzle.model';
 import { Router } from '@angular/router';
@@ -15,6 +15,8 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserRegistrationComponent } from '../account/registration/user-registration.component';
 import { OrderService } from 'src/app/services/order.service';
+import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
+import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
 @Component({
 	selector: 'nav-bar',
@@ -23,9 +25,9 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
-	puzzleTypes: PuzzleTypeModel[] = [];
-	rcPuzzles: PuzzleTypeModel[] = [];
-	wcaPuzzles: PuzzleTypeModel[] = [];
+	puzzleTypes: PuzzleTypeTableRowModel[] = [];
+	rcPuzzles: PuzzleTypeTableRowModel[] = [];
+	wcaPuzzles: PuzzleTypeTableRowModel[] = [];
 
 	dialogRefSubscription: Subscription;
 	dialogRefSubscription1: Subscription;
@@ -47,7 +49,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	constructor(private matDialog: MatDialog,
-		private lookupService: PuzzleLookupService,
+		private puzzleTypeService: PuzzleTypesService,
 		private accountService: AccountService,
 		private router: Router,
 		private dialogService: ConfirmDialogService,
@@ -107,8 +109,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 	openShoppingCart = () => this.router.navigate(['/cart']);
 
 	private loadPuzzleTypesFromApi() {
-		this.lookupService.getPuzzleTypes()
-			.subscribe((pt: PuzzleTypeModel[]) => {
+		this.puzzleTypeService.getAll()
+			.subscribe((pt: PuzzleTypeTableRowModel[]) => {
 				this.puzzleTypes = pt;
 				this.rcPuzzles = this.puzzleTypes
 					.filter(pt => pt.isRubicsCube == true && pt.isWca == true)
@@ -119,7 +121,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 			});
 	}
 
-	private sortAsc(a: PuzzleTypeModel, b: PuzzleTypeModel) {
+	private sortAsc(a: PuzzleTypeTableRowModel, b: PuzzleTypeTableRowModel) {
 		return (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
 	}
 

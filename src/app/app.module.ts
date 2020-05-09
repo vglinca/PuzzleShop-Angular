@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app-routes';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { PuzzleLookupService } from './services/puzzle-lookup.service';
+import { PuzzleLookupService } from './services/lookup.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
