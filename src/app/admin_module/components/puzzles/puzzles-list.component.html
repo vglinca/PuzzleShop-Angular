@@ -122,26 +122,33 @@
 
 </div>
 
-<mat-sidenav class="search-panel" dark #sidenav mode="push" opened="false" style="height: 500px; margin-top: 140px;">
+<mat-sidenav class="search-panel" fixedInViewport="true" dark #sidenav mode="push" opened="false" style="height: 100%; width:350px;">
+	<mat-toolbar color="primary">
+		<mat-icon>supervisor_account</mat-icon>
+		<span>Admin</span>
+	</mat-toolbar>
     <mat-card class="profile-card">
-      <mat-card-header>
-        <div mat-card-avatar class="avatar"></div>
+      <mat-card-header style="display: flex; justify-content: center;">
         <mat-card-subtitle>
-          <button mat-mini-fab color="primary" style="margin: 5px;" (click)="filterPuzzles(); sidenav.toggle()">
+			<span style="font-size: 25px;">Filter Puzzles</span>
+        </mat-card-subtitle>
+	  </mat-card-header>
+	  <mat-card-content>
+		<form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()" fxLayout="column">
+			<mat-form-field style="width: 300px;">
+			  <input matInput type="text" placeholder="Puzzle name" style="width:300px;" formControlName="name" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
+			</mat-form-field>
+			<mat-form-field style="width: 300px;">
+			  <input matInput type="text" placeholder="Manufacturer" style="width:300px;" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />
+			</mat-form-field>
+		  </form>
+	  </mat-card-content>
+	  <mat-card-actions style="display: flex; justify-content: center;">
+		<button mat-mini-fab color="primary" style="margin: 5px;" (click)="filterPuzzles(); sidenav.toggle()">
             <mat-icon>search</mat-icon></button>
           <button mat-mini-fab style="margin: 5px;" (click)="resetAll() ;sidenav.toggle()">
-            <mat-icon>refresh</mat-icon></button>
-        </mat-card-subtitle>
-      </mat-card-header>
+			<mat-icon>refresh</mat-icon>
+		</button>
+	  </mat-card-actions>
     </mat-card>
-    <mat-nav-list style="margin-left:20px; margin-right: 20px; display: flex; justify-content: center;">
-      <form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()" fxLayout="column">
-        <mat-form-field>
-          <input matInput type="text" placeholder="Puzzle name" style="width:300px;" formControlName="name" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" placeholder="Manufacturer" style="width:300px;" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />
-        </mat-form-field>
-      </form>
-    </mat-nav-list>
   </mat-sidenav>

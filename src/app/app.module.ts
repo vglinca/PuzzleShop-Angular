@@ -14,10 +14,7 @@ import { PuzzleLookupService } from './services/lookup.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { CarouselItemDirective } from './common/carousel/carousel-item.directive';
-import { CarouselComponent } from './common/carousel/carousel.component';
 import { ImageItemElement } from './admin_module/components/puzzles/create-edit/create-edit-puzzle.component';
-import { CarouselItemElement } from './common/carousel/carousel-item-element.directive';
 import { UserRegistrationComponent } from './components/account/registration/user-registration.component';
 import { UserLoginComponent } from './components/account/auth/user-login.component';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -35,6 +32,7 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
 import { StylePaginatorDirective } from './common/style-paginator.directive';
 import { GalleryModule } from  '@ngx-gallery/core';
 import { StarRatingComponent } from './common/star-rating/star-rating.component';
+import { PersonalCabinetComponent } from './components/personal-cabinet/personal-cabinet.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +41,6 @@ import { StarRatingComponent } from './common/star-rating/star-rating.component'
     ProductsListComponent,
     ProductDetailsComponent,
     
-    CarouselComponent, 
-    CarouselItemDirective, 
-    CarouselItemElement,
-
     ImageItemElement,
 
     UserRegistrationComponent,
@@ -58,6 +52,7 @@ import { StarRatingComponent } from './common/star-rating/star-rating.component'
     ConfirmOrderComponent,
     StylePaginatorDirective,
     StarRatingComponent,
+    PersonalCabinetComponent,
 
     NotFoundPageComponent
   ],

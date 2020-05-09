@@ -44,7 +44,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
     }
 
     ngAfterViewInit(): void {
-        this.orderStatus = this.orderStatusList.filter(s => s.name === this.order.orderStatus)[0];
+        this.orderStatus = this.orderStatusList.filter(s => s.name === this.order.orderStatusTitle)[0];
     }
 
     private loadOrderFromapi(): void{ 
@@ -59,7 +59,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
         forkJoin(customer, orderStatusList)
             .subscribe(([c, os]) => {
                 this.customer = c;
-                this.orderStatusList = os.filter(s => s.orderStatusId > 2 && s.name !== this.order.orderStatus);
+                this.orderStatusList = os.filter(s => s.orderStatusId > 2 && s.name !== this.order.orderStatusTitle);
                 this.isNotAwaitingPayment = this.order.orderStatusId !== OrderStatusId.AwaitingPayment;
                 console.log(this.orderStatusList);
             });

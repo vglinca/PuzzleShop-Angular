@@ -37,7 +37,7 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
     subscriptions: Subscription[] = [];
 
     filterColumns: FilterColumn[] = [
-        {name: 'orderStatusId', property: 'orderStatusId', useInSearch: false},
+        {name: 'orderStatusId', property: 'orderStatusTitle', useInSearch: false},
         {name: 'contactEmail', property: 'contactEmail', useInSearch: true},
         {name: 'orderDate', property: 'orderDate', useInSearch: false},
         {name: 'address', property: 'address', useInSearch: true},
@@ -156,10 +156,10 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
                 propertyValue: this.filterForm2.controls.propertyValue.value};
             filters.push(filter);
         }
-        // if(this.orderStatusForm.controls.orderStatus.value){
-        //     const filter: Filter = {propertyName: 'orderStatusId', propertyValue: this.orderStatusForm.controls.orderStatus.value};
-        //     filters.push(filter);
-        // }
+        if(this.orderStatusForm.controls.orderStatus.value){
+            const filter: Filter = {propertyName: 'orderStatusTitle', propertyValue: this.orderStatusForm.controls.orderStatus.value};
+            filters.push(filter);
+        }
         this.requestFilters = {operator: LogicalOperator.AND, filters: filters};
     }
 

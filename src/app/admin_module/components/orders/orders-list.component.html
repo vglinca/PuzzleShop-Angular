@@ -61,9 +61,9 @@
 			</ng-container>
 
 			<ng-container matColumnDef="orderStatusId">
-				<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-				<mat-cell *matCellDef="let order" [ngClass]="{'red': order?.orderStatus === 'ConfirmedPayment', 'green': order?.orderStatus === 'Completed', 'blue': order?.orderStatus === 'AwaitingShipment'}">
-					<span><b> {{order?.orderStatus}} </b></span>
+				<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+				<mat-cell *matCellDef="let order" [ngClass]="{'red': order?.orderStatusTitle === 'ConfirmedPayment', 'green': order?.orderStatusTitle === 'Completed', 'blue': order?.orderStatusTitle === 'AwaitingShipment'}">
+					<span><b> {{order?.orderStatusTitle}} </b></span>
 				</mat-cell>
 			</ng-container>
 
@@ -98,7 +98,6 @@
 			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
 		</mat-table>
-
 	</div>
 
 	<div class="paginator-div">
@@ -109,17 +108,23 @@
 
 </div>
 
-<mat-sidenav class="search-panel" dark #sidenav mode="push" opened="false" style="height: 500px; margin-top: 140px;">
+<mat-sidenav class="search-panel" fixedInViewport="true" dark #sidenav mode="push" opened="false" style="height: 100%; width: 350px;">
+	<mat-toolbar color="primary">
+		<mat-icon>supervisor_account</mat-icon>
+		<span>Admin</span>
+	</mat-toolbar>
     <mat-card class="profile-card">
-      <mat-card-header>
-        <div mat-card-avatar class="avatar"></div>
-        <mat-card-subtitle>
+	  <mat-card-header style="display: flex; justify-content: center;">
+		<mat-card-subtitle>
+			<span style="font-size: 25px;">Filter Orders</span>
+		</mat-card-subtitle>
+        <mat-card-title style="display: flex; justify-content: center;">
           <button mat-mini-fab color="primary" style="margin: 5px;" [disabled]="filterForm1.invalid && filterForm2.invalid && !orderStatusForm.dirty" (click)="filterOrders(); sidenav.toggle()">
             <mat-icon>search</mat-icon></button>
           <button mat-mini-fab style="margin: 5px;" (click)="resetAll() ;sidenav.toggle()">
             <mat-icon>refresh</mat-icon></button>
-        </mat-card-subtitle>
-      </mat-card-header>
+        </mat-card-title>
+	  </mat-card-header>
     </mat-card>
 	<mat-nav-list
 		style="margin-left:20px; margin-right: 20px; display: flex; flex-direction: column; justify-content: center;">
@@ -147,13 +152,13 @@
 			</mat-form-field>
 		</form>
 		<mat-divider></mat-divider>
-		<!-- <form [formGroup]="orderStatusForm" (ngSubmit)="filterOrders();sidenav.toggle()" fxLayout="column">
+		<form [formGroup]="orderStatusForm" (ngSubmit)="filterOrders();sidenav.toggle()" fxLayout="column">
 			<mat-form-field>
 				<mat-select placeholder="Order Status" formControlName="orderStatus">
-					<mat-option *ngFor="let status of orderStatusSelect" [value]="status?.orderStatusId">{{status?.name}}</mat-option>
+					<mat-option *ngFor="let status of orderStatusSelect" [value]="status?.name">{{status?.name}}</mat-option>
 				</mat-select>
 			</mat-form-field>
-		</form> -->
+		</form>
 	</mat-nav-list>
 	<!-- sk_test_lDCvMfC3VPB8wGOuFxjCmrLb003Iqr9r9F -->
   </mat-sidenav>

@@ -9,6 +9,7 @@ import { BearerToken } from '../models/users/jwt-bearer-token';
 import { LoggedInUserInfo } from '../models/users/logged-in-user-info';
 import * as jwt_decode from 'jwt-decode';
 import * as _ from 'lodash';
+import { adminAuthorizeRole, moderatorAuthorizeRole } from '../common/consts/authorize-role';
 
 @Injectable({providedIn: 'root'})
 export class AccountService{
@@ -53,8 +54,7 @@ export class AccountService{
     public isInAdminRole(): boolean{
         if(this.isAuthenticated()){
             const userInfo = this.parseToken();
-        
-            return [...userInfo.roles].some(r => r === "admin" || r === "moderator");
+            return [...userInfo.roles].some(r => r === adminAuthorizeRole || r === moderatorAuthorizeRole);
         }else{
             return false;
         }
@@ -64,7 +64,7 @@ export class AccountService{
         if(this.isAuthenticated()){
             const userInfo = this.parseToken();
 
-            return [...userInfo.roles].some(r => r === "admin") ? false : true;
+            return [...userInfo.roles].some(r => r === adminAuthorizeRole) ? false : true;
         }else{
             return false;
         }

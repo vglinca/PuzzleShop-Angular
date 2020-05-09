@@ -3,7 +3,7 @@
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center" fxShow="true" fxHide.lt-md>
             <div  fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
                 
-                <div class="logo-div mat-display-1">
+                <div class="logo-div mat-display-1" [routerLink]="['/home']" matTooltip="SpeedCubingStore" matTooltipClass="logo-tooltip">
                     <span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore
                 </div>
                 <!-- <span class="menu-spacer"></span> -->
@@ -15,8 +15,10 @@
                     </button>
                 </mat-form-field>
                 <div style="display: flex; align-items: center; justify-content: center;">
-                    <div *ngIf="isLoggedIn" class="hello">
-                        <span>Hello, {{accountInfo?.name}}!</span>
+                    <div *ngIf="isLoggedIn" class="hello" [routerLink]="['/personal']">
+                        <mat-icon matTooltip="Personal cabinet">person</mat-icon>
+                        <!-- <span>Cabinet</span> -->
+                        <!-- <span>Hello, {{accountInfo?.name}}!</span> -->
                      </div>
                      <div>
                         <div *ngIf="!isLoggedIn">

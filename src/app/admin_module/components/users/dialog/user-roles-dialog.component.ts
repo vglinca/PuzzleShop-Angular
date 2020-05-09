@@ -8,6 +8,7 @@ import { UserWithRolesModel } from 'src/app/models/users/user-with-roles.model';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { NotificationService } from 'src/app/services/notification.service';
 import { AccountService } from 'src/app/services/account.service';
+import { adminAuthorizeRole, moderatorAuthorizeRole, userAuthorizeRole } from 'src/app/common/consts/authorize-role';
 
 @Component({
     templateUrl: './user-roles-dialog.component.html',
@@ -18,6 +19,7 @@ export class UserRolesDialogComponent implements OnInit{
     roles: RoleModel[] = [];
     user: UserWithRolesModel;
     containsAdminRole: boolean = false;
+    userRole: string = userAuthorizeRole;
 
     constructor(@Inject(MAT_DIALOG_DATA) public userId: number,
                 private lookupService: PuzzleLookupService,
@@ -65,7 +67,7 @@ export class UserRolesDialogComponent implements OnInit{
             .subscribe(([r, u]) => {
                 this.roles = r;
                 this.user = u;
-                if([...this.user.roles].find(r => r === "admin" || r === "moderator")){
+                if([...this.user.roles].find(r => r === adminAuthorizeRole || r === moderatorAuthorizeRole)){
                     this.containsAdminRole = true;
                 }
                 this.roles.forEach(role => {

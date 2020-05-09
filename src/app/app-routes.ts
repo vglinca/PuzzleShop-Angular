@@ -11,6 +11,7 @@ import { StripePaymentComponent } from './components/stripe-payment/stripe-payme
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { PuzzleImagesResolver } from './resolvers/puzzle-images.resolver';
 import { PuzzleDetailsResolver } from './resolvers/puzzle-details.resolver';
+import { PersonalCabinetComponent } from './components/personal-cabinet/personal-cabinet.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ export const appRoutes: Routes = [
     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
     { path: 'checkout', component: ConfirmOrderComponent},
     { path: 'payment', component: StripePaymentComponent },
+    { path: 'personal', component: PersonalCabinetComponent },
     { path: 'administration', loadChildren: () => import('./admin_module/admin.module').then(a => a.AdminModule), canActivate: [AdminAuthGuard]},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', component: NotFoundPageComponent }

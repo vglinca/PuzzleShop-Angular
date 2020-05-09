@@ -13,13 +13,6 @@ mat-toolbar-row{
     width: inherit;
 }
 
-/* .toolbar-row-div{
-    background-color: magenta;
-}
-
-.mat-form-field-div{
-    background-color: coral;
-} */
 
 .toolbar-buttons-div{
     margin-right: 0px;
@@ -81,8 +74,3 @@ mat-header-cell{
 .blue{
     color: #293fb8;
 }
-
-// ::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
-//     opacity: 0.54 !important;
-//     transform: translateY(0px) !important;
-//   }
