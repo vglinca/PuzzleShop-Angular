@@ -13,6 +13,5 @@ export class InsteadOfEmptyStringPipe implements PipeTransform{
                 return 'NOT SET';
         }
         return value;
-        
     }
 }

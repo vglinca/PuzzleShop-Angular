@@ -24,7 +24,6 @@ export class UserLoginComponent implements OnInit{
         private accountService: AccountService,
         private notificationService: NotificationService,
         private dialogRef: MatDialogRef<UserLoginComponent>,
-        private router: Router,
         private builder: FormBuilder,
         private dialog: MatDialog){}
     

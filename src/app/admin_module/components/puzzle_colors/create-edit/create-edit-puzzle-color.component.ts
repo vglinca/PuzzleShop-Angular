@@ -9,7 +9,7 @@ import { PuzzleColorForCreationModel } from '../../../../models/puzzle-colors/pu
   
   @Component({
       templateUrl:'./create-edit-puzzle-color.component.html',
-      styleUrls: ['./create-edit-puzzle-color.component.css']
+      styleUrls: ['./create-edit-puzzle-color.component.scss']
   })
   export class CreateEditPuzzleColorComponent implements OnInit{
 
@@ -55,8 +55,7 @@ import { PuzzleColorForCreationModel } from '../../../../models/puzzle-colors/pu
       this.puzzleColorService.getById(this.colorId)
         .subscribe((pc : PuzzleColorModel) => {
           this.puzzleColorForm.patchValue({
-            ...pc
-          });
+            ...pc});
         }, err => this.onErrorOccured());
     }
 
@@ -75,5 +74,4 @@ import { PuzzleColorForCreationModel } from '../../../../models/puzzle-colors/pu
       this.puzzleColorForm.reset();
       this.dialogRef.close();
     }
-
   }

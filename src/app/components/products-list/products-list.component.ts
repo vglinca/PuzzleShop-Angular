@@ -29,6 +29,23 @@ import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 import { ManufacturersService } from 'src/app/services/manufacturers.service';
 import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
+
+
+export interface SortingOption{
+    value: string;
+    title: string;
+}
+
+const SORTING_OPTIONS: SortingOption[] = [
+    {title: 'A-Z by title',value: 'name,asc'},
+    {title: 'Z-A by title',value: 'name,desc'},
+    {title: 'A-Z by manufacturer',value: 'manufacturer,asc'},
+    {title: 'Z-A by manufacturer',value: 'manufacturer,desc'},
+    {title: 'By price, low to high',value: 'price,asc'},
+    {title: 'By price, high to low',value: 'price,desc'},
+    {title: 'By rating, high to low',value: 'rating,desc'}
+]
 
 
 @Component({
@@ -68,7 +85,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     
-
     constructor(
                 private manufacturerService: ManufacturersService,
                 private colorService: PuzzleColorsService,
@@ -106,18 +122,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                 this.manufacturers = m;
                 this.puzzleColors = c;
             });
-
-        // this.puzzleTypeService.getAll()
-        //     .subscribe((pt: PuzzleTypeTableRowModel[]) => {
-        //         this.puzzleTypes = pt;
-        //         this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
-        //     });
-        
-        // this.manufacturerService.getAll()
-        //     .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
-
-        // this.colorService.getAll()
-        //     .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
     }
 
     
@@ -135,10 +139,11 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                 this.getPuzzles(val.puzzleType);
                 this.currentPuzzleTypeTitle = val.puzzleType;
                 if(this.puzzleTypes){
-                    this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
+                    this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title === this.currentPuzzleTypeTitle)[0];
                 }
             });
 
+        this.subscriptions.push(this.routerSubscription);
         this.subscriptions.push(this.activatedRouteSubscr3);
     }
    
@@ -160,10 +165,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     
     onChangeMatSelect(value: string){
         this.showSpinner = true;
-        console.log(value);
         var orderby: string = value.split(',')[0];
         var orderbyDirection: string = value.split(',')[1];
-        console.log(`${orderby} | ${orderbyDirection}`);
 
         this.currentSortOption = value;
         
@@ -173,7 +176,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                 this.getPuzzles(val.puzzleType, orderby, orderbyDirection);
                 this.currentPuzzleTypeTitle = val.puzzleType;
                 this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
-                
             });
 
         this.subscriptions.push(this.activatedRouteSubscr2);
@@ -197,7 +199,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
             .subscribe((pagedPuzzles: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = pagedPuzzles;
                 this.showSpinner = false;
-            }, err => {console.log(err)});
+            }, err => this.notificationService.warn(errorMessage));
     }
 
     openProductDetails(id: number): void{
@@ -229,7 +231,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                         imageLink: puzzle.images[0].fileName
                     };
                     this.matDialog.open(AddToCartDialogComponent, dialogConfig);
-                }, err => this.notificationService.warn('Some problem happened.'));
+                }, err => this.notificationService.warn(errorMessage));
         }else{
             const dialogConfig = new MatDialogConfig();
             dialogConfig.autoFocus = true;
@@ -239,15 +241,12 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
 		    dialogConfig.width = '30%';
             this.matDialog.open(UserLoginComponent, dialogConfig);
         }
-
     }
 
 
     @HostListener('window:resize', ['$event'])
-    onResize(event){
-        this.rowsNumber = (event.target.innerWidth < 1000) ? 1 : ((event.target.innerWidth <= 1100 && event.target.innerWidth >= 1000) ? 2 : 3);
-        // this.rowsNumber = (event.target.innerWidth <= 1100 && event.target.innerWidth >= 1000) ? 2 : 3;
-    }
+    onResize = (event) => this.rowsNumber = (event.target.innerWidth < 1000) ? 1 : ((event.target.innerWidth <= 1100 && event.target.innerWidth >= 1000) ? 2 : 3);
+    
 
     showStarUsingRating(index: number, rating: number): string{
         if (rating >= index + 1 && (rating - index - 1) >= 0.8) {
@@ -260,42 +259,10 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
     }
 
     ngOnDestroy(): void {
-        this.subscriptions.forEach(subscr => subscr.unsubscribe());
+        this.subscriptions.forEach(s =>{
+            if(s){
+                s.unsubscribe();
+            }
+        });
     }
 }
-
-export interface SortingOption{
-    value: string;
-    title: string;
-}
-
-const SORTING_OPTIONS: SortingOption[] = [
-    {
-        title: 'A-Z by title',
-        value: 'name,asc'
-    },
-    {
-        title: 'Z-A by title',
-        value: 'name,desc'
-    },
-    {
-        title: 'A-Z by manufacturer',
-        value: 'manufacturer,asc'
-    },
-    {
-        title: 'Z-A by manufacturer',
-        value: 'manufacturer,desc'
-    },
-    {
-        title: 'By price, low to high',
-        value: 'price,asc'
-    },
-    {
-        title: 'By price, high to low',
-        value: 'price,desc'
-    },
-    {
-        title: 'By rating, high to low',
-        value: 'rating,desc'
-    }
-]

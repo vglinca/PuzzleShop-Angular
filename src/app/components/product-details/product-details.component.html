@@ -1,6 +1,6 @@
 <div class="single" fxLayout="column | wrap" fxLayoutAlign="start center">
 
-	<div fxLayout="column" fxLayoutAlign="center start" style="margin-top: 50px; width: 80%; margin-bottom: 70px;">
+	<div class="product__image__and__details" fxLayout="column" fxLayoutAlign="center start">
 
 		<div class="path-div" fxLayout="row" fxLayoutAlign="start center">
 
@@ -13,7 +13,7 @@
 				<span class="txt" (click)="navigateToCollections()">{{queryParam}}</span>
 				<mat-icon>navigate_next</mat-icon>
 			</div>
-			<div style="font-family: 'Montserrat', sans-serif;">{{puzzle?.name}}</div>
+			<div class="path-last">{{puzzle?.name}}</div>
 		</div>
 
 		<mat-divider></mat-divider>
@@ -31,7 +31,7 @@
 			<div class="order-details-div" fxLayout="column" fxLayoutAlign="start start">
 				<div class="puzzle-name-div" fxLayoutAlign="start center">{{puzzle?.name}}</div>
 
-				<div class="rating" style="display: flex; justify-content: flex-start; align-items: center;">
+				<div class="rating">
 					<mat-icon *ngFor="let starId of ratingArr; index as i">{{showStar(i)}}</mat-icon>
 					<span>{{puzzle.rating}}</span>
 				</div>
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 					<div class="subtotal-amount-div" fxLayoutAlign="start center">Subtotal:
-						<span style="margin-left: 5px;"> {{subtotal | currency:'USD'}}</span>
+						<span class="subtotal"> {{subtotal | currency:'USD'}}</span>
 					</div>
 				</div>
 
@@ -82,10 +82,9 @@
 		</div>
 	</div>
 
-	<div style="width: 80%;">
+	<div class="mat__divider">
 		<mat-divider></mat-divider>
 	</div>
-
 
 	<div class="puzzle-details-description-div" fxLayout="row | wrap" fxLayoutAlign="space-between start">
 		<div class="puzzle-characteristics-div" fxLayout="column" fxLayoutAlign="start center">
@@ -128,39 +127,35 @@
 		</div>
 	</div>
 
-	<div style="width: 80%;">
+	<div class="mat__divider">
 		<mat-divider></mat-divider>
 	</div>
 
-	<div fxLayout="row | wrap" fxLayoutAlign="space-between center"
-		style=" width: 80%; margin-top: 20px; margin-bottom: 20px;">
-		<div class="customer-reviews"
-			style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+	<div class="reviews__header" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+		<div class="customer-reviews">
 			<h2 (click)="toggleReviews()">Customer Reviews</h2>
 		</div>
 		<button mat-raised-button color="primary" (click)="changeDescriptionAnimationState()">Write A review</button>
 	</div>
-	<div style="width: 80%; margin-bottom: 25px; display: flex; flex-direction: column; align-items: flex-start;"
-		[@changeDivSize]=descriptionAnimationState>
+	<div class="new__review__container" [@changeDivSize]=descriptionAnimationState>
 		<h2>Write a Review</h2>
-		<form novalidate [formGroup]="reviewForm"
-			style="display: flex; flex-direction: column; align-items: flex-start;">
-			<mat-form-field appearance="outline" style="width: 400px;">
+		<form novalidate [formGroup]="reviewForm">
+			<mat-form-field appearance="outline">
 				<mat-label>Name</mat-label>
 				<input matInput placeholder="Name" formControlName="reviewerName">
 			</mat-form-field>
 
-			<mat-form-field appearance="outline" style="width: 400px;">
+			<mat-form-field appearance="outline">
 				<mat-label>Email</mat-label>
 				<input matInput placeholder="john.smith@example.com" formControlName="reviewerEmail">
 			</mat-form-field>
 
-			<mat-form-field appearance="outline" style="width: 400px;">
+			<mat-form-field appearance="outline">
 				<mat-label>Review Title</mat-label>
 				<input matInput placeholder="Give your review a title" [formControlName]="">
 			</mat-form-field>
 
-			<mat-form-field appearance="outline" style="width: 400px; ">
+			<mat-form-field appearance="outline">
 				<mat-label>Body of review (1500)</mat-label>
 				<textarea matInput formControlName="reviewBody" placeholder="Write your comments here" rows="10"></textarea>
 			</mat-form-field>
@@ -174,20 +169,17 @@
 		<button mat-raised-button color="primary" (click)="onSubmitReview()">Submit Review</button>
 	</div>
 
-	<div class="review-list" style="width: 80%; margin-top: 10px;">
-		<mat-card *ngFor="let review of reviews" style="margin-top: 5px; margin-bottom: 5px;">
-			<mat-card-header
-				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin-bottom: 10px;">
-				<div class="rating" style="display: flex; justify-content: flex-start; align-items: center;">
+	<div class="review-list">
+		<mat-card *ngFor="let review of reviews">
+			<mat-card-header>
+				<div class="rating">
 					<mat-icon *ngFor="let starId of ratingArr; index as i">{{showStarUsingRating(i, review?.rating)}}</mat-icon>
 				</div>
 				<mat-card-subtitle> {{review?.reviewerName}} </mat-card-subtitle>
 			</mat-card-header>
-			<mat-card-content
-				style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
-				<span
-					style="text-transform: uppercase; font-weight: 700; font-size: 16px; font-family: 'Arimo', sans-serif; margin-bottom: 10px;"> {{review?.reviewTitle}} </span>
-				<p style="font-family: 'Arimo', sans-serif; font-size: 13px; line-height: 1.5;"> {{review?.reviewBody}} </p>
+			<mat-card-content>
+				<span class="review-title"> {{review?.reviewTitle}} </span>
+				<p class="review-body"> {{review?.reviewBody}} </p>
 			</mat-card-content>
 		</mat-card>
 	</div>

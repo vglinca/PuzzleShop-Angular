@@ -1,6 +1,13 @@
+.spinner{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    right: 50%;
+}
+
 .parent-container{
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 200px;
     width: 100%;
 }
 
@@ -13,23 +20,33 @@ mat-toolbar-row{
     width: inherit;
 }
 
-/* .toolbar-row-div{
-    background-color: magenta;
+.page__title{
+    color: teal; 
+    letter-spacing: 2px; 
+    font-size: 35px;
 }
 
-.mat-form-field-div{
-    background-color: coral;
-} */
 
 .toolbar-buttons-div{
     margin-right: 0px;
-    /* background-color: darkblue; */
+
+    .add{
+        margin-right:10px;
+    }
+
+    .search{
+        margin-right:10px; 
+        background-color:#a28b6e
+    }
+    .refresh{
+        margin-right:10px; 
+        background-color:darkgray
+    }
 }
 
 .table-container{
     height: 600px;
     width: 800px;
-    /* background-color: lightseagreen; */
 }
 
 .edit-button{
@@ -41,7 +58,6 @@ mat-toolbar-row{
 .delete-button{
     min-height: 30px;  
     margin: 5px;
-    /* background-color: red; */
 }
 
 mat-table{

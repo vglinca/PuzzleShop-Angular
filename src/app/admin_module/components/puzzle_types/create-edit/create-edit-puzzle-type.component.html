@@ -5,12 +5,11 @@
 		</mat-card-title>
 	</mat-card-header>
 	<form novalidate [formGroup]="puzzleTypesForm" (ngSubmit)="onSubmit()">
-		<mat-toolbar style="background-color: #FFF">
+		<mat-toolbar>
 			<mat-toolbar-row>
 				<span class="title-spacer"></span>
 				<mat-card-actions>
-					<button class="save-button" [disabled]="puzzleTypesForm.invalid" style="background-color: teal;"
-						mat-mini-fab type="submit">
+					<button class="save-button" [disabled]="puzzleTypesForm.invalid" mat-mini-fab type="submit">
 						<mat-icon>done</mat-icon>
 					</button>
 					<button class="cancel-button" mat-mini-fab color="warn" type="button"

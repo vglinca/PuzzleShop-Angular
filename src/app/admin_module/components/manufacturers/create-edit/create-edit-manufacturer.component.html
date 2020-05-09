@@ -1,5 +1,4 @@
 <mat-card>
-
 	<mat-card-header>
 		<mat-card-title class="view-card-title">
 			<h1>{{dialogTitle}}</h1>
@@ -7,36 +6,25 @@
 	</mat-card-header>
 
 	<form novalidate [formGroup]="form" (ngSubmit)="saveManufacturer()">
-
-		<mat-toolbar style="background-color: #FFF">
+		<mat-toolbar>
 			<mat-toolbar-row>
 				<span class="title-spacer"></span>
-
 				<mat-card-actions>
-
-					<button class="save-button" [disabled]="form.invalid" style="background-color: teal;" mat-mini-fab
-						type="submit">
+					<button class="save-button" [disabled]="form.invalid" mat-mini-fab type="submit">
 						<mat-icon>done</mat-icon>
 					</button>
-
-					<button class="cancel-button" mat-mini-fab color="warn" type="button"
-						(click)="closeDialog()">
+					<button class="cancel-button" mat-mini-fab color="warn" type="button" (click)="closeDialog()">
 						<mat-icon>close</mat-icon>
 					</button>
-
 				</mat-card-actions>
-
 			</mat-toolbar-row>
 		</mat-toolbar>
-
 		<mat-card-content>
 			<div class="form-card">
-
 				<mat-form-field class="form-field-50">
 					<input matInput placeholder="Name" type="text" placeholder="Name. (required)"
 						formControlName="name" />
 				</mat-form-field>
-
 				<mat-form-field class="form-field-90">
 					<textarea matInput placeholder="Description. (required)" formControlName="description"
 						matTextareaAutosize></textarea>

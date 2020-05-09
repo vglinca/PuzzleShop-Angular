@@ -1,4 +1,4 @@
-<div *ngIf="showSpinner" style="position: absolute; top: 50%; left: 50%; right: 50%;">
+<div *ngIf="showSpinner" class="spinner">
     <mat-spinner></mat-spinner>
 </div>
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
@@ -6,22 +6,20 @@
 		<mat-card>
 			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
 				<mat-card-header>
-					<mat-card-title><h1 style="color: teal; letter-spacing: 2px; font-size: 35px;"><b>PuzzleColors</b></h1></mat-card-title>
+					<mat-card-title><h1 class="page__title"><b>PuzzleColors</b></h1></mat-card-title>
 				</mat-card-header>
 			</div>
 			<mat-toolbar>
 				<mat-toolbar-row>
 					<div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 						<div class="toolbar-buttons-div">
-							<button mat-mini-fab color="primary" style="margin-right:10px;"
-								(click)="openDialogForEditOrCreate(-1)">
+							<button class="add" mat-mini-fab color="primary" (click)="openDialogForEditOrCreate(-1)">
 								<mat-icon>add</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
+							<button class="search" mat-mini-fab>
 								<mat-icon>search</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:darkgray"
-								(click)="loadPuzzleColors()">
+							<button class="refresh" mat-mini-fab (click)="loadPuzzleColors()">
 								<mat-icon>refresh</mat-icon>
 							</button>
 						</div>
@@ -41,10 +39,10 @@
 			</ng-container>
 
 			<ng-container matColumnDef="id">
-				<mat-header-cell *matHeaderCellDef style="justify-content:right;">
+				<mat-header-cell *matHeaderCellDef>
 					<span>Edit/Delete</span>
 				</mat-header-cell>
-				<mat-cell *matCellDef="let puzzleColor" style="justify-content:right;">
+				<mat-cell *matCellDef="let puzzleColor">
 					<button mat-mini-fab class="edit-button" (click)="openDialogForEditOrCreate(puzzleColor?.id)">
 						<mat-icon>edit</mat-icon>
 					</button>

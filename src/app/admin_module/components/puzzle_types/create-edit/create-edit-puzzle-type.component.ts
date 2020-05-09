@@ -11,7 +11,7 @@ import { DifficultyLevelModel } from 'src/app/models/difficulty-levels/difficult
 
 @Component({
     templateUrl: './create-edit-puzzle-type.component.html',
-    styleUrls: ['./create-edit-puzzle-type.component.css']
+    styleUrls: ['./create-edit-puzzle-type.component.scss']
 })
 export class CreateEditPuzzleTypeComponent implements OnInit{
 
@@ -67,8 +67,7 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
         this.puzzleTypesService.getById(this.puzzleTypeId)
             .subscribe((pt: PuzzleTypeModel) => {
                 this.puzzleTypesForm.patchValue({
-                    ...pt
-                });
+                    ...pt});
             }, err => this.onErrorOccured());
     }
 
@@ -83,14 +82,10 @@ export class CreateEditPuzzleTypeComponent implements OnInit{
         this.dialogRef.close();
     }
 
-    private onErrorOccured(){
-        this.snackBar.open('Something wrong happened during operation.', 'Hide', {duration: 2000});
-    }
-
-
+    private onErrorOccured = () => this.snackBar.open('Something wrong happened during operation.', 'Hide', {duration: 2000});
+    
     closeDialog(){
         this.puzzleTypesForm.reset();
         this.dialogRef.close();
     }
-
 }

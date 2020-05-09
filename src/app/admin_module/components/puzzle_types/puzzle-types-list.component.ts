@@ -9,7 +9,7 @@ import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type
 
 @Component({
     templateUrl: './puzzle-types-list.component.html',
-    styleUrls: ['./puzzle-types-list.component.css']
+    styleUrls: ['./puzzle-types-list.component.scss']
 })
 export class PuzzleTypesComponent implements OnInit, OnDestroy{
 
@@ -35,6 +35,7 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
+        dialogConfig.minWidth = '440px';
         dialogConfig.height = "55%";
         dialogConfig.width = "30%";
         dialogConfig.data = puzzleTypeId;
@@ -72,5 +73,4 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
             this.dialogRefSubscr.unsubscribe();
         }
     }
-    
 }

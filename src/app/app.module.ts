@@ -20,7 +20,7 @@ import { UserLoginComponent } from './components/account/auth/user-login.compone
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { ConfirmDialogComponent } from './common/confirm_dialog/confirm-dialog.component';
-import { NotFoundPageComponent } from './common/not_found_page/not-found-page.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { AddToCartDialogComponent } from './components/add-to-cart-dialog/add-to-cart-dialog.component';

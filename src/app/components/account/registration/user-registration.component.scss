@@ -4,9 +4,22 @@ Html, body{
     padding:0px;
   }
 
+  mat-toolbar{
+    display: flex; 
+    justify-content: flex-end; 
+    background-color: white; 
+    margin-bottom: 10px;
+  }
+
+  mat-form-field{
+    display: block;
+  }
+
 .formHeader {
   text-align: center;
 }
+
+
 
   .container {
     height:100%;

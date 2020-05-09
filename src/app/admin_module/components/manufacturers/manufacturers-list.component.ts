@@ -7,13 +7,14 @@ import { ConfirmDialogService } from 'src/app/common/confirm_dialog/confirm-dial
 import { ConfirmDialogComponent } from '../../../common/confirm_dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
     templateUrl: './manufacturers-list.component.html',
-    styleUrls: ['./manufacturers-list.component.css']
+    styleUrls: ['./manufacturers-list.component.scss']
 })
-export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
+export class ManufacturersComponent implements OnInit, OnDestroy{
 
     showSpinner: boolean = true;
 
@@ -25,6 +26,7 @@ export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
 
     constructor(private manufacturerService: ManufacturersService,
                 private matDialog: MatDialog,
+                private notificationService: NotificationService,
                 private dialogService: ConfirmDialogService,
                 public snackBar: MatSnackBar){}
    
@@ -34,21 +36,19 @@ export class ManufacturersComponent implements OnInit, AfterViewInit, OnDestroy{
         this.loadManufacturersFromApi();
     }
 
-    ngAfterViewInit(): void {
-    }
-
     loadManufacturersFromApi(){
         this.manufacturerService.getAll()
             .subscribe((m : ManufacturerModel[]) => {
                 this.manufacturers = m;
                 this.showSpinner = false;
-            }, err => console.log(err));
+            }, err => this.notificationService.warn('Some propblem occured.'));
     }
 
     addEditManufacturerDialog(id: number){
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
+        dialogConfig.minWidth = '440px';
         dialogConfig.height = "65%";
         dialogConfig.width = "30%";
         dialogConfig.data = id;

@@ -1,10 +1,10 @@
 
-<div *ngIf="showSpinner" class="spinner" style="position: absolute; top: 50%; left: 50%; z-index: 5;">
+<div *ngIf="showSpinner" class="spinner">
     <mat-spinner></mat-spinner>
 </div>
-<div *ngIf="order === null" style="position: absolute; margin-top: 100px; top: 50%; left: 40%; z-index: 5;">
-    <h1 style="font-weight: 600; letter-spacing: 2px;">Your cart is empty</h1>
-    <h2 class="start-shopping" (click)="openHomePage()">Start shopping now!</h2>
+<div *ngIf="order === null" class="empty-cart">
+    <h1>Your cart is empty</h1>
+    <h2 class="start-shopping" (click)="openHomePage()">Start shopping now !</h2>
 </div>
 <div class="path">
     <div class="path-item">
@@ -29,7 +29,7 @@
                 <div class="order-item-info" fxFlex="80" fxLayout="row" fxLayoutAlign="center stretch">
                     <div class="puzzle-details" fxFlex="45" fxLayout="column" fxLayoutAlign="center stretch">
                         <span class="puzzle-name">{{item?.puzzle.name}}</span>
-                        <span class="puzzle-color" style="font-size: 15px;">{{item.puzzle?.color}}</span>
+                        <span class="puzzle-color">{{item.puzzle?.color}}</span>
                     </div>
                     <div class="quantity" fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
                         <div class="increment-decrement-button" fxLayoutAlign="start center" >
@@ -50,7 +50,7 @@
                         <span>{{item?.cost | currency:'USD'}}</span>
                     </div>
                     <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
-                        <button mat-mini-fab color="primary" style="margin: 5px;" (click)="onDeleteItem(item)">
+                        <button mat-mini-fab color="primary" class="clear-button" (click)="onDeleteItem(item)">
                             <mat-icon>clear</mat-icon>
                         </button>
                     </div>

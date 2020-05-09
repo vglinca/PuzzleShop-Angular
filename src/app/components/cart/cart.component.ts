@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 import { OrderItemForCreateModel } from 'src/app/models/order-items/order-item-for-create.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 @Component({
 	templateUrl: './cart.component.html',
@@ -27,8 +29,7 @@ export class CartComponent implements OnInit {
 	constructor(private orderService: OrderService,
 		private accountService: AccountService,
 		private router: Router,
-		private dialog: MatDialog,
-		private puzzleService: PuzzleService) {
+		private notificationService: NotificationService,) {
 		this.userId = this.accountService.parseToken().userId;
 	}
 
@@ -42,7 +43,6 @@ export class CartComponent implements OnInit {
 			item.quantity++;
 			item.cost += item.puzzle.price;
 			this.onRefresh(item);
-			// this.total += item.puzzle.price;
 		}
 	}
 
@@ -51,7 +51,6 @@ export class CartComponent implements OnInit {
 			item.quantity--;
 			item.cost -= item.puzzle.price;
 			this.onRefresh(item);
-			// this.total -= item.puzzle.price;
 		}
 	}
 
@@ -66,7 +65,7 @@ export class CartComponent implements OnInit {
 			.subscribe(() => {
 				this.total = 0;
 				this.ngOnInit();
-			}, err => console.log(err));
+			}, err => this.notificationService.warn(errorMessage));
 	}
 
 	onDeleteItem(item: OrderItemModel): void {
@@ -75,14 +74,13 @@ export class CartComponent implements OnInit {
 				this.total = 0;
 				this.orderItems = [];
 				this.ngOnInit();
-			}, err => console.log(err));
+			}, err => this.notificationService.warn(errorMessage));
 	}
 
 	private getCart() {
 		this.orderService.getCart(this.userId)
 			.subscribe((order: OrderModel) => {
 				this.showSpinner = false;
-				console.log('ORDER ', order);
 				this.order = order;
 				if (order) {
 					this.orderItems = order.orderItems;
@@ -93,12 +91,6 @@ export class CartComponent implements OnInit {
 			});
 	}
 
-	checkout(): void {
-		this.router.navigate(['/checkout']);
-		
-	}
-
-	openHomePage(): void{
-		this.router.navigate(['/home']);
-	}
+	checkout = () => this.router.navigate(['/checkout']);
+	openHomePage = () => this.router.navigate(['/home']);
 }

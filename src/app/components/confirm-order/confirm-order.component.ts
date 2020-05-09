@@ -14,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StripePaymentComponent } from '../stripe-payment/stripe-payment.component';
 import { LoggedInUserInfo } from 'src/app/models/users/logged-in-user-info';
 import { NotificationService } from 'src/app/services/notification.service';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 
 @Component({
@@ -23,6 +24,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class ConfirmOrderComponent implements OnInit{
     
     handler: any;
+
+    showSpinner: boolean = false;
 
     emailForm: FormGroup;
     customerForm: FormGroup;
@@ -37,7 +40,6 @@ export class ConfirmOrderComponent implements OnInit{
     constructor(private orderService: OrderService,
                 private formBuilder: FormBuilder,
                 private router: Router,
-                private dialog: MatDialog,
                 private notificationService: NotificationService,
                 private countryService: CountryService,
                 private accountService: AccountService){
@@ -72,7 +74,7 @@ export class ConfirmOrderComponent implements OnInit{
             .subscribe(([ca, co]) =>{
                 this.pendingOrder = ca;
                 this.countries = co;
-            }, err => console.log(err));
+            }, err => this.notificationService.warn(errorMessage));
     }
 
     private configureHandler(): void{
@@ -80,7 +82,7 @@ export class ConfirmOrderComponent implements OnInit{
             key: environment.stripeKey,
             locale: 'en',
             token: token => {
-                console.log(token.id);
+                this.showSpinner = true;
                 this.callPaymentOnApi(token.id);
             }
         });
@@ -96,10 +98,10 @@ export class ConfirmOrderComponent implements OnInit{
         this.orderService.placeOrder(this.currentUser.userId, this.pendingOrder.id, customerDetails)
             .subscribe(() => {
                 this.notificationService.success('Your order has been successfully placed.');
+                this.showSpinner = false;
                 this.ngOnInit();
             }, err => {
                 this.notificationService.warn('Could not perform transaction.');
-                console.log(err);
             });
     }
 
@@ -109,34 +111,9 @@ export class ConfirmOrderComponent implements OnInit{
             description: 'Puzzle Shop',
             amount: this.pendingOrder.totalCost * 100
         });
-
-        // const dialogConfig = new MatDialogConfig();
-        // dialogConfig.autoFocus = false;
-        // dialogConfig.height = "70%";
-		// dialogConfig.width = "500px";
-		// dialogConfig.data = {totalAmount: 2000};
-		// const dialogRef = this.dialog.open(StripePaymentComponent, dialogConfig);
-
-		// dialogRef.afterClosed()
-		// 	.subscribe((result: any) =>{
-		// 		if(result){
-        //             console.log('RESULT: ', result.token.id);
-        //             this.callPaymentOnApi(result.token.id);
-		// 		}
-        //     });
-            
-
-        // let customer: CustomerDetailsModel = {...this.customerForm.value};
-        // customer.contactEmail = this.emailForm.controls['email'].value;
-        // console.log(customer);
-        // this.orderService.confirmOrder(this.userId, customer)
-        //     .subscribe(() => {
-        //         this.router.navigate(['/payment']);
-        //     }, err => console.log(err));
     }
 
-    onReturnClick():void{
-        this.router.navigate(['/cart']);
-    }
+    onReturnClick = () => this.router.navigate(['/cart']);
+    
 }
 

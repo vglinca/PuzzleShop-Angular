@@ -1,3 +1,16 @@
+.spinner{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    right: 50%;
+}
+
+.page__title{
+    color: teal; 
+    letter-spacing: 2px; 
+    font-size: 35px;
+}
+
 .parent-container{
     margin-top: 50px;
     margin-bottom: 100px;
@@ -13,17 +26,16 @@ mat-toolbar-row{
     width: inherit;
 }
 
-/* .toolbar-row-div{
-    background-color: magenta;
-}
-
-.mat-form-field-div{
-    background-color: coral;
-} */
 
 .toolbar-buttons-div{
     margin-right: 0px;
-    /* background-color: darkblue; */
+    .add{
+        margin-right:10px;
+    }
+    .refresh{
+        margin-right:10px; 
+        background-color:darkgray
+    }
 }
 
 .table-container{

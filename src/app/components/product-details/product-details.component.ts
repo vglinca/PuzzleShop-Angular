@@ -26,6 +26,7 @@ import { ReviewModel } from 'src/app/models/reviews/review.model';
 import { heightAnimation } from 'src/app/common/animations/height-animation';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReviewForCreationModel } from 'src/app/models/reviews/review-for-creation.model';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     activatedRouteSubscription1: Subscription;
     activatedRouteSubscription2: Subscription;
+    activatedRouteSubscription3: Subscription;
     subscriptions: Subscription[] = [];
 
     constructor(
@@ -81,20 +83,20 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.ratingArr.push(i);
         }
 
-        this.activatedRoute.data.subscribe((data: {images: ImageModel[]}) => {
+        this.activatedRouteSubscription1 = this.activatedRoute.data.subscribe((data: {images: ImageModel[]}) => {
             data.images.forEach(image => {
                 this.images.push(new ImageItem({src: this.staticFilesUrl + image.fileName, thumb: this.staticFilesUrl + image.fileName}));
             });
         });
 
-        this.activatedRoute.data.subscribe((data: {puzzle: PuzzleTableRowModel}) => {
+        this.activatedRouteSubscription2 = this.activatedRoute.data.subscribe((data: {puzzle: PuzzleTableRowModel}) => {
             this.puzzle = data.puzzle;
             this.subtotal = this.puzzle.price;
             this.puzzleId = data.puzzle.id;
             this.loadDataFromApi();
         });
 
-        this.activatedRouteSubscription2 = this.activatedRoute.queryParams.subscribe(params => {
+        this.activatedRouteSubscription3 = this.activatedRoute.queryParams.subscribe(params => {
             this.queryParam = params['puzzletype'];
         });
 
@@ -105,8 +107,9 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             reviewBody: ['', Validators.maxLength(1500)]
         });
         
+        this.subscriptions.push(this.activatedRouteSubscription1);
         this.subscriptions.push(this.activatedRouteSubscription2);
-
+        this.subscriptions.push(this.activatedRouteSubscription3);
     }
 
     ngAfterViewInit(): void {}
@@ -169,7 +172,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     onSubmitReview(): void{
         let review: ReviewForCreationModel = {...this.reviewForm.value};
         review.rating = this.rating;
-        console.log(review);
     }
 
     addToCart(): void{
@@ -186,6 +188,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
                     const dialogConfig = new MatDialogConfig();
                     dialogConfig.autoFocus = true;
                     dialogConfig.disableClose = false;
+                    dialogConfig.minWidth = '460px';
                     dialogConfig.height = "35%";
                     dialogConfig.width = "35%";
                     dialogConfig.data = {
@@ -195,11 +198,12 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
                         imageLink: this.puzzle.images[0].fileName
                     };
                     this.matDialog.open(AddToCartDialogComponent, dialogConfig);
-                }, err => this.notificationService.warn('Some problem happened.'));
+                }, err => this.notificationService.warn(errorMessage));
         }else{
             const dialogConfig = new MatDialogConfig();
             dialogConfig.autoFocus = true;
             dialogConfig.disableClose = false;
+            dialogConfig.minWidth = '460px';
             dialogConfig.height = "70%";
             dialogConfig.width = "30%";
             this.matDialog.open(UserLoginComponent, dialogConfig);

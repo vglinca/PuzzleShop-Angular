@@ -7,11 +7,13 @@ import { ManufacturersService } from '../../../../services/manufacturers.service
 import { ManufacturerForManipulationModel } from '../../../../models/manufacturers/manufacturer-for-manipulation.model';
 import { ManufacturerModel } from 'src/app/models/manufacturers/manufacturer.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from 'src/app/services/notification.service';
+import { errorMessage, couldNotLoadResource } from 'src/app/common/consts/generic-error-message';
 
 
 @Component({
     templateUrl: './create-edit-manufacturer.component.html',
-    styleUrls: ['./create-edit-manufacturer.component.css']
+    styleUrls: ['./create-edit-manufacturer.component.scss']
 })
 export class CreateEditManufacturerComponent implements OnInit{
 
@@ -20,6 +22,7 @@ export class CreateEditManufacturerComponent implements OnInit{
 
     constructor(@Inject(MAT_DIALOG_DATA) public id: number,
                 private formBuilder: FormBuilder,
+                private notificationService: NotificationService,
                 private manufacturersService: ManufacturersService,
                 private dialogRef: MatDialogRef<CreateEditManufacturerComponent>,
                 public snackBar: MatSnackBar){
@@ -41,14 +44,11 @@ export class CreateEditManufacturerComponent implements OnInit{
     }
 
     closeDialog(){
-        //debugger;
         this.form.reset();
         this.dialogRef.close();
     }
 
     saveManufacturer(): void{
-        //debugger;
-        console.log(this.id);
         const manufacturerModel: ManufacturerForManipulationModel = this.form.value;
         if(this.id > 0){
             this.manufacturersService.update(this.id, manufacturerModel)
@@ -63,10 +63,8 @@ export class CreateEditManufacturerComponent implements OnInit{
         }
     }
 
-    private onErrorOccured(){
-        this.snackBar.open('Something wrong happened during operation.', 'Hide', {duration: 2000});
-    }
-
+    private onErrorOccured = () => this.snackBar.open('Something wrong happened during operation.', 'Hide', {duration: 2000});
+    
     private resetFormCloseDialog(){
         this.snackBar.open('Changes successfully applied.', 'Hide', {duration: 2000});
         this.form.reset();
@@ -78,6 +76,6 @@ export class CreateEditManufacturerComponent implements OnInit{
             this.form.patchValue({
                 ...manufacturer
             });
-        }, err => console.log(err));
+        }, err => this.notificationService.warn(couldNotLoadResource));
     }
 }

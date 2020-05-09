@@ -14,16 +14,16 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserRegistrationComponent } from '../account/registration/user-registration.component';
-import { OrderService } from 'src/app/services/order.service';
 import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 @Component({
 	selector: 'nav-bar',
 	templateUrl: './navigation.component.html',
 	styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NavigationComponent implements OnInit, OnDestroy {
 
 	puzzleTypes: PuzzleTypeTableRowModel[] = [];
 	rcPuzzles: PuzzleTypeTableRowModel[] = [];
@@ -55,12 +55,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 		private dialogService: ConfirmDialogService,
 		private notificationService: NotificationService) { }
 
-	
-	ngAfterViewInit(): void {
-	}
 
 	ngOnInit(): void {
-		//this.isInAdminRole = this.accountService.isInAdminRole();
 		this.loadPuzzleTypesFromApi();
 	}
 
@@ -88,7 +84,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 						this.notificationService.success('Logged off.');
 						this.ngOnInit();
 						this.router.navigate(['home']);
-					}, err => console.log(err));
+					}, err => this.notificationService.warn(errorMessage));
 			}
 		});
 		this.subscriptions.push(this.dialogRefSubscription1);
@@ -121,9 +117,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 			});
 	}
 
-	private sortAsc(a: PuzzleTypeTableRowModel, b: PuzzleTypeTableRowModel) {
-		return (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
-	}
+	private sortAsc = (a: PuzzleTypeTableRowModel, b: PuzzleTypeTableRowModel) => (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
 
 	ngOnDestroy(): void {
 		this.subscriptions.forEach(s => {

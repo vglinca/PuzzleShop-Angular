@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
     templateUrl: './puzzle-colors-list.component.html',
-    styleUrls: ['./puzzle-colors-list.component.css']
+    styleUrls: ['./puzzle-colors-list.component.scss']
 })
 export class PuzzleColorsComponent implements OnInit, OnDestroy{
 
@@ -34,6 +34,7 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
+        dialogConfig.minWidth = '440px';
         dialogConfig.height = "55%";
         dialogConfig.width = "30%";
         dialogConfig.data = colorId;
@@ -70,20 +71,4 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
             this.dialogRefSubscr.unsubscribe();
         }
     }
-
 }
-
-const COLORS: PuzzleColorModel[] = [
-    {
-        id:1, title: 'white'
-    },
-    {
-        id:2, title: 'black'
-    },
-    {
-        id:3, title: 'pink'
-    },
-    {
-        id:4, title: 'stickerless'
-    },
-]

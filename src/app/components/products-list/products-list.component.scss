@@ -8,6 +8,13 @@
     font-size: 16px;
 }
 
+.spinner{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    z-index: 5;
+}
+
 .big-container {
     margin-top: 50px;
 }
@@ -36,13 +43,19 @@
     border-bottom-style:solid ;
 }
 
+
 .exp-panel-header {
     font-size: 25px;
     height: 100px;
+    padding-top: 80px;
 }
 
-.exp-panel-header:hover{
-    background: whitesmoke;
+.exp-panel-list-item{
+    padding-top: 10px;
+}
+
+mat-slider{
+    width: 100%;
 }
 
 mat-expansion-panel{

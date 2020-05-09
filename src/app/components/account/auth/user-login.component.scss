@@ -1,7 +1,18 @@
 Html, body{
     height:100%;
-      margin:0px;
-      padding:0px;
+    margin:0px;
+    padding:0px;
+  }
+
+  mat-toolbar{
+    display: flex; 
+    justify-content: flex-end; 
+    background-color: white;
+    margin-bottom: 5px;
+  }
+
+  mat-form-field{
+    display: block;
   }
 
   .container {
@@ -18,13 +29,12 @@ Html, body{
   }
   .parentContainer{
       display:table-cell;
-      /* vertical-align:middle; */
   }
   .parentContainer .loginForm{
       padding:50px;
       background: #fff;
       border: 1px solid #ddd;
-      width:500px;  /*  your login form width */    
+      width:500px; 
       display:table-cell;
       display:table-cell;
       vertical-align:middle;
@@ -51,16 +61,12 @@ Html, body{
       margin-top: 5px;
       text-align: right;
       color: #e62047;
+
+      &:hover{
+        cursor: pointer;
+      }
   }
 
-  .registration-button:hover{
-    cursor: pointer;
-  }
-
-/* 
-  input {
-    text-align: center;
-  } */
   
   ::-webkit-input-placeholder {
     text-align: center;

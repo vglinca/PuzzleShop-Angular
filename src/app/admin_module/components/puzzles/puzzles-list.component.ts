@@ -17,7 +17,7 @@ import { FilterColumn } from 'src/app/infrastructure/filter-column';
 
 @Component({
     templateUrl: './puzzles-list.component.html',
-    styleUrls: ['./puzzles-list.component.css']
+    styleUrls: ['./puzzles-list.component.scss']
 })
 export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
 

@@ -93,6 +93,7 @@ export class OrdersListComponent implements OnInit, AfterViewInit, OnDestroy{
         this.matSortSubscription = this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
         merge(this.matSort.sortChange, this.paginator.page)
             .subscribe(() => this.loadOrdersFromApi());
+        this.subscriptions.push(this.matSortSubscription);
     }
 
     loadOrdersFromApi(): void{

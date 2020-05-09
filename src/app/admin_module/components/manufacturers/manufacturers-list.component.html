@@ -1,4 +1,4 @@
-<div *ngIf="showSpinner" style="position: absolute; top: 50%; left: 50%; right: 50%;">
+<div *ngIf="showSpinner" class="spinner">
     <mat-spinner></mat-spinner>
 </div>
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
@@ -7,7 +7,7 @@
 			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
 				<mat-card-header>
 					<mat-card-title class="view-card-title">
-						<h1 style="color: teal;  letter-spacing: 2px; font-size: 35px;"><b>Manufacturers</b></h1>
+						<h1 class="page__title"><b>Manufacturers</b></h1>
 					</mat-card-title>
 				</mat-card-header>
 			</div>
@@ -15,15 +15,13 @@
 				<mat-toolbar-row>
 					<div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 						<div class="toolbar-buttons-div">
-							<button mat-mini-fab color="primary" style="margin-right:10px;"
-								(click)="addEditManufacturerDialog(0)">
+							<button class="add" mat-mini-fab color="primary" (click)="addEditManufacturerDialog(0)">
 								<mat-icon>add</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e">
+							<button class="search" mat-mini-fab>
 								<mat-icon>search</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:darkgray"
-								(click)="loadManufacturersFromApi()">
+							<button class="refresh" mat-mini-fab (click)="loadManufacturersFromApi()">
 								<mat-icon>refresh</mat-icon>
 							</button>
 						</div>
@@ -37,12 +35,11 @@
 
 		<mat-table #table [dataSource]="manufacturers" class="mat-elevation-z8">
 
-			<!-- Name Column -->
 			<ng-container matColumnDef="name">
 				<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
 				<mat-cell *matCellDef="let manufacturer"> {{manufacturer?.name}} </mat-cell>
 			</ng-container>
-			<!-- description column -->
+
 			<ng-container matColumnDef="description">
 				<mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
 				<mat-cell *matCellDef="let manufacturer"> {{manufacturer?.description | emptystring}} </mat-cell>
@@ -51,7 +48,6 @@
 			<ng-container matColumnDef="id">
 				<mat-header-cell *matHeaderCellDef style="justify-content:right;">
 					<span>Edit/Delete</span>
-					<!-- <button mat-button style="color:white; background-color:darkgrey">Reset</button> -->
 				</mat-header-cell>
 				<mat-cell *matCellDef="let manufacturer" style="justify-content:right;">
 					<button mat-mini-fab class="edit-button" (click)="addEditManufacturerDialog(manufacturer?.id)">
@@ -66,7 +62,5 @@
 			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
 		</mat-table>
-
 	</div>
-
 </div>

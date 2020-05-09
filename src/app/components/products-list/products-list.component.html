@@ -1,4 +1,4 @@
-<div *ngIf="showSpinner" class="spinner" style="position: absolute; top: 50%; left: 50%; z-index: 5;">
+<div *ngIf="showSpinner" class="spinner">
 	<mat-spinner></mat-spinner>
 </div>
 <div class="big-container" fxLayout="row | wrap" fxLayoutAlign="space-between start">
@@ -6,25 +6,25 @@
 
 		<mat-accordion multi="true">
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
-				<mat-expansion-panel-header class="exp-panel-header">
-					<span style="padding-bottom: 10px;">Categories</span>
+				<mat-expansion-panel-header>
+					<span class="exp-panel-header">Categories</span>
 				</mat-expansion-panel-header>
-				<div style="padding-top: 10px;;" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
+				<div class="exp-panel-list-item" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
 			</mat-expansion-panel>
 
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
-				<mat-expansion-panel-header class="exp-panel-header">
-					<span style="padding-top: 10px;">Manufacturers</span>
+				<mat-expansion-panel-header>
+					<span class="exp-panel-header">Manufacturers</span>
 				</mat-expansion-panel-header>
-				<div style="padding-top: 10px;" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
+				<div class="exp-panel-list-item" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
 			</mat-expansion-panel>
 
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
-				<mat-expansion-panel-header class="exp-panel-header">
-					<span style="padding-top: 10px;">Price</span>
+				<mat-expansion-panel-header>
+					<span class="exp-panel-header">Price</span>
 				</mat-expansion-panel-header>
-				<div style="padding-top: 10px;" >
-					<mat-slider style="width: 100%;" min="1" max="1000" step="10" thumbLabel="true"></mat-slider>
+				<div class="exp-panel-list-item" >
+					<mat-slider min="1" max="1000" step="10" thumbLabel="true"></mat-slider>
 				</div>
 			</mat-expansion-panel>
 		</mat-accordion>
@@ -37,9 +37,7 @@
 			<div *ngIf="! currentPuzzleType?.isRubicsCube" class="list-header-puzzle-type" fxLayout="row"
 				fxLayoutAlign="start center">{{currentPuzzleType?.title}}</div>
 			<div class="list-header-filter-sort-info" fxLayoutAlign="end center">
-				<div>
-					Sort by
-				</div>
+				<div>Sort by</div>
 				<div class="mat-select-div">
 					<mat-form-field>
 						<mat-select [(ngModel)]="currentSortOption" (selectionChange)="onChangeMatSelect($event.value)">

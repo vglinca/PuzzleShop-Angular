@@ -1,8 +1,7 @@
 <div id="container" class="container">
 	<div class="grandParentContaniner">
 		<div class="parentContainer">
-			<mat-toolbar
-				style="display: flex; justify-content: flex-end; background-color: white; margin-bottom: 5px;">
+			<mat-toolbar>
 				<button mat-icon-button (click)="onCloseClick()">
 					<mat-icon>close</mat-icon>
 				</button>
@@ -17,7 +16,7 @@
 						<em
 							*ngIf="!validateFormControl(userLoginForm.controls.email) && userLoginForm.controls.email.errors.required">Enter
 							Your email.</em>
-						<mat-form-field style="display: block">
+						<mat-form-field>
 							<input matInput type="text" placeholder="Email" formControlName="email" />
 						</mat-form-field>
 					</div>
@@ -27,7 +26,7 @@
 						<em
 							*ngIf="!validateFormControl(userLoginForm.controls.password) && userLoginForm.controls.password.errors.required">Enter
 							a password.</em>
-						<mat-form-field style="display: block">
+						<mat-form-field>
 							<input matInput type="password" placeholder="Password" formControlName="password" />
 						</mat-form-field>
 					</div>

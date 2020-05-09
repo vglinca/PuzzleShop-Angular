@@ -4,13 +4,13 @@
 			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
 				<mat-card-header>
 					<mat-card-title class="view-card-title">
-						<h1 style="color: teal; letter-spacing: 2px; font-size: 35px;"><b>Orders</b></h1>
+						<h1 class="page__title"><b>Orders</b></h1>
 					</mat-card-title>
 				</mat-card-header>
 			</div>
 			<mat-toolbar>
-				<mat-toolbar-row style="display: flex; justify-content: flex-end;">
-					<div class="toolbar-row-div" style="width: 100%;" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+				<mat-toolbar-row class="head-toolbar-row">
+					<div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 						<div class="mat-form-field-div">
 							<mat-form-field>
 								<mat-placeholder>
@@ -22,10 +22,10 @@
 							<span class="title-spacer"></span>
 						</div>
 						<div class="toolbar-buttons-div" >
-							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e" (click)="sidenav.toggle()">
+							<button class="search" mat-mini-fab (click)="sidenav.toggle()">
 								<mat-icon>search</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadOrdersFromApi()">
+							<button class="refresh" mat-mini-fab (click)="loadOrdersFromApi()">
 								<mat-icon>refresh</mat-icon>
 							</button>
 						</div>
@@ -83,12 +83,12 @@
 			</ng-container>
 
 			<ng-container matColumnDef="id">
-				<mat-header-cell *matHeaderCellDef style="display: flex; justify-content: center;">
-					<button mat-raised-button style="color:white; background-color:lightseagreen;" (click)="resetAll()">
+				<mat-header-cell class="id__cell" *matHeaderCellDef>
+					<button class="reset" mat-raised-button (click)="resetAll()">
 						<mat-icon>refresh</mat-icon>Reset
 					</button>
 				</mat-header-cell>
-				<mat-cell *matCellDef="let order" style="display: flex; justify-content: center;">
+				<mat-cell class="id__cell" *matCellDef="let order">
 					<button mat-mini-fab class="edit-button" [routerLink]="['/administration/orders', order?.id]">
 						<mat-icon>details</mat-icon>
 					</button>
@@ -108,52 +108,51 @@
 
 </div>
 
-<mat-sidenav class="search-panel" fixedInViewport="true" dark #sidenav mode="push" opened="false" style="height: 100%; width: 350px;">
+<mat-sidenav class="search-panel" fixedInViewport="true" dark #sidenav mode="push" opened="false">
 	<mat-toolbar color="primary">
 		<mat-icon>supervisor_account</mat-icon>
 		<span>Admin</span>
 	</mat-toolbar>
-    <mat-card class="profile-card">
-	  <mat-card-header style="display: flex; justify-content: center;">
+    <mat-card class="sidenav-card">
+	  <mat-card-header class="sidenav-card-header">
 		<mat-card-subtitle>
-			<span style="font-size: 25px;">Filter Orders</span>
+			<span>Filter Orders</span>
 		</mat-card-subtitle>
-        <mat-card-title style="display: flex; justify-content: center;">
-          <button mat-mini-fab color="primary" style="margin: 5px;" [disabled]="filterForm1.invalid && filterForm2.invalid && !orderStatusForm.dirty" (click)="filterOrders(); sidenav.toggle()">
+        <mat-card-title class="sidenav-card-title">
+          <button mat-mini-fab color="primary" [disabled]="filterForm1.invalid && filterForm2.invalid && !orderStatusForm.dirty" (click)="filterOrders(); sidenav.toggle()">
             <mat-icon>search</mat-icon></button>
-          <button mat-mini-fab style="margin: 5px;" (click)="resetAll() ;sidenav.toggle()">
+          <button mat-mini-fab (click)="resetAll() ;sidenav.toggle()">
             <mat-icon>refresh</mat-icon></button>
         </mat-card-title>
 	  </mat-card-header>
     </mat-card>
-	<mat-nav-list
-		style="margin-left:20px; margin-right: 20px; display: flex; flex-direction: column; justify-content: center;">
+	<mat-nav-list>
 		<form [formGroup]="filterForm1" (ngSubmit)="sidenav.toggle()" fxLayout="column">
-			<mat-form-field>
+			<mat-form-field class="field__300">
 				<mat-select placeholder="Filter #1" formControlName="filter">
 					<mat-option *ngFor="let col of searchingColumns" [value]="col?.property">{{col?.name}}</mat-option>
 				</mat-select>
 			</mat-form-field>
-			<mat-form-field>
-				<input matInput type="text" placeholder="Value" style="width:300px;" formControlName="propertyValue"
+			<mat-form-field class="field__300">
+				<input matInput type="text" placeholder="Value" formControlName="propertyValue"
 					(keyup.enter)="filterOrders(); sidenav.toggle()" />
 			</mat-form-field>
 		</form>
 		<mat-divider></mat-divider>
 		<form [formGroup]="filterForm2" (ngSubmit)="sidenav.toggle()" fxLayout="column">
-			<mat-form-field>
+			<mat-form-field class="field__300">
 				<mat-select placeholder="Filter #1" formControlName="filter">
 					<mat-option *ngFor="let col of searchingColumns" [value]="col?.property">{{col?.name}}</mat-option>
 				</mat-select>
 			</mat-form-field>
-			<mat-form-field>
-				<input matInput type="text" placeholder="Value" style="width:300px;" formControlName="propertyValue"
+			<mat-form-field class="field__300">
+				<input matInput type="text" placeholder="Value" formControlName="propertyValue"
 					(keyup.enter)="filterOrders();sidenav.toggle()" />
 			</mat-form-field>
 		</form>
 		<mat-divider></mat-divider>
 		<form [formGroup]="orderStatusForm" (ngSubmit)="filterOrders();sidenav.toggle()" fxLayout="column">
-			<mat-form-field>
+			<mat-form-field class="field__300">
 				<mat-select placeholder="Order Status" formControlName="orderStatus">
 					<mat-option *ngFor="let status of orderStatusSelect" [value]="status?.name">{{status?.name}}</mat-option>
 				</mat-select>

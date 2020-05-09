@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { OrderModel } from 'src/app/models/orders/order.model';
 import { ManageOrderService } from 'src/app/services/manage-order.service';
@@ -7,7 +7,7 @@ import { mergeMap } from 'rxjs/operators';
 import { UserWithRolesModel } from 'src/app/models/users/user-with-roles.model';
 import { PuzzleLookupService } from 'src/app/services/lookup.service';
 import { OrderStatusModel } from 'src/app/models/order-status/order-status.model';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { OrderStatusForSettingModel } from 'src/app/models/order-status/order-status-for-setting.model';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -17,7 +17,7 @@ import { OrderStatusId } from 'src/app/models/order-status/order-status-id';
     templateUrl: './order-details.component.html',
     styleUrls: ['./order-details.component.scss']
 })
-export class OrderDetailsComponent implements OnInit, AfterViewInit{
+export class OrderDetailsComponent implements OnInit, AfterViewInit, OnDestroy{
 
     orderId: number = 0;
     order: OrderModel;
@@ -26,6 +26,9 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
     orderStatus: OrderStatusModel;
     changeOrderStatus: number;
     isNotAwaitingPayment: boolean = true;
+
+    subscriptions: Subscription[] = [];
+    activatedRouteSubscription: Subscription;
 
     tableColumns: string[] = ['id', 'cost', 'quantity', 'puzzleName', 'itemPrice'];
 
@@ -37,10 +40,11 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
     
 
     ngOnInit(): void {
-        this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+        this.activatedRouteSubscription = this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
             this.orderId = +params.get('id');
             this.loadOrderFromapi();
         });
+        this.subscriptions.push(this.activatedRouteSubscription);
     }
 
     ngAfterViewInit(): void {
@@ -73,5 +77,13 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit{
                 this.notificationService.success('Order Status chaged.');
                 this.loadOrderFromapi();
             });
+    }
+
+    ngOnDestroy(): void{
+        this.subscriptions.forEach(s => {
+            if(s){
+                s.unsubscribe();
+            }
+        });
     }
 }

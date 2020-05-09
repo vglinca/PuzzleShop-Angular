@@ -26,7 +26,7 @@ export class ImageItemElement {
 
 @Component({
     templateUrl: './create-edit-puzzle.component.html',
-    styleUrls: ['./create-edit-puzzle.component.css']
+    styleUrls: ['./create-edit-puzzle.component.scss']
 })
 export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewInit, DoCheck {
     dialogTitle: string;

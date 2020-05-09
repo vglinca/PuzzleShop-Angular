@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { NotFoundPageComponent } from './common/not_found_page/not-found-page.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';

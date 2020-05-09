@@ -1,7 +1,10 @@
-<div *ngIf="pendingOrder === null" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<div *ngIf="showSpinner" class="spinner">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="pendingOrder === null" class="empty-cart">
     <img src="../../assets/images/complete.png">
-    <span class="span-empty-page">Your order is being processed!</span>
-    <span class="span-empty-page span-link" [routerLink]="['/home']">Choose some puzzle right now!</span>
+    <span class="span-empty-page">Your order is being processed !</span>
+    <span class="span-empty-page span-link" [routerLink]="['/home']">Choose some puzzles right now !</span>
 </div>
 <div *ngIf="pendingOrder !== null" class="page-container" fxLayout="row | wrap" fxLayoutAlign="center start" fxLayoutGap="2%">
     <div>
@@ -31,9 +34,9 @@
                 <mat-form-field appearance="outline" class="name">
                     <mat-select placeholder="Country" formControlName="country">
                         <mat-option *ngFor="let country of countries" [value]="country?.name">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="country-select">
                                 <span>{{country?.name}}</span>
-                                <img [src]="country?.flag" style="width: 25px; height: 15px;">
+                                <img [src]="country?.flag">
                             </div>
                         </mat-option>
                     </mat-select>
@@ -64,11 +67,11 @@
                                 <img [src]="staticFileUrl + item?.puzzle.images[0].fileName">
                             </div>
                             <div class="order-item-details">
-                                <div class="puzzle-name-color" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;">
-                                    <span style="font-weight: 500;"> {{item?.puzzle.name}} </span>
-                                    <span style="color: gray;">{{item?.puzzle.color}}</span>
+                                <div class="puzzle-name-color">
+                                    <span class="puzzle-name"> {{item?.puzzle.name}} </span>
+                                    <span class="puzzle-color">{{item?.puzzle.color}}</span>
                                 </div>
-                                <h3 style="font-weight: 600;">{{item?.cost | currency:'USD'}}</h3>
+                                <h3>{{item?.cost | currency:'USD'}}</h3>
                             </div>
                         </div>
                     </mat-list-item>

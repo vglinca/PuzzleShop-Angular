@@ -7,11 +7,20 @@ import { first } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 
+
+const DUPLICATE_USERNAME_CODE: string = 'DuplicateUserName';
+const DUPLICATE_EMAIL_CODE: string = 'DuplicateEmail';
+
+export class ErrorMessage{
+    code: string;
+    description: string;
+}
+
 @Component({
     templateUrl: './user-registration.component.html',
     styleUrls: ['./user-registration.component.scss']
 })
-export class UserRegistrationComponent implements OnInit, AfterViewInit {
+export class UserRegistrationComponent implements OnInit{
 
     passwdErrMsg: string = 'Password must contain at least 1 lowercase alphabetical character' +
         '\nat least 1 uppercase alphabetical character, \nat least 1 numeric character, \nat least one special character.';
@@ -43,9 +52,6 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
         });
     }
 
-    ngAfterViewInit(): void {
-    }
-
     register() {
         var dateOfBirth = this.datePipe.transform(this.registrationForm.value.birthDate, 'yyyy-MM-dd');
 
@@ -64,7 +70,6 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
                 this.dialogRef.close();
                 this.notificationService.success('Registration complete.')
             }, err => {
-                console.log(err);
                 err.error.forEach(e => {
                     let errMsg: ErrorMessage = {
                         code: e.code,
@@ -72,7 +77,6 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
                     }
                     this.errorMessage.push(errMsg);
                 });
-                console.log(this.errorMessage);
 
                 if(this.errorMessage.length === 1){
                     this.notificationService.warn(`User with such ${this.errorMessage[0].code === DUPLICATE_USERNAME_CODE ? 'username' : 'email'} already exists.`);
@@ -96,13 +100,9 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
         }
     }
 
-    validateFormControl(formControl): boolean {
-        return formControl.untouched || formControl.valid;
-    }
+    validateFormControl = (formControl) =>  formControl.untouched || formControl.valid;
+    onCloseClick = () => this.dialogRef.close();
 
-    onCloseClick(): void {
-        this.dialogRef.close();
-    }
 
     passwordErrorValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
         if(control.get('confirmPassword').dirty){
@@ -111,19 +111,4 @@ export class UserRegistrationComponent implements OnInit, AfterViewInit {
             return password.value != repeatPassword.value ? { 'passwordError': true } : null;
         }
     };
-}
-
-const DUPLICATE_USERNAME_CODE: string = 'DuplicateUserName';
-const DUPLICATE_EMAIL_CODE: string = 'DuplicateEmail';
-
-
-const passwordErrorValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    let password = control.get('password');
-    let repeatPassword = control.get('confirmPassword');
-    return password.value != repeatPassword.value ? { 'passwordError': true } : null;
-};
-
-export class ErrorMessage{
-    code: string;
-    description: string;
 }

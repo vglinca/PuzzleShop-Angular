@@ -1,8 +1,8 @@
-<mat-card style="margin: 25px;">
-    <mat-card-title style="display: flex; justify-content: center; align-items: center;">
+<mat-card class="upper__card">
+    <mat-card-title>
         <span>Order № {{orderId}}</span>
     </mat-card-title>
-    <mat-card-content style="display: flex; flex-direction: column; align-items: flex-start;">
+    <mat-card-content>
         <span class="content-span">Customer email: <b>{{order?.contactEmail}}</b></span>
         <span class="content-span">Customer name: <b>{{order?.customerFirstName}} {{order?.customerLastName}}</b></span>
         <span class="content-span">Location: <b>{{order?.address}}, {{order?.city}} - {{order?.country}}</b></span>
@@ -10,12 +10,12 @@
         <span class="content-span">Order Date: <b>{{order?.orderDate | date}}</b></span>
         <span class="content-span">Total Items: <b>{{order?.totalItems}}</b></span>
         <mat-divider></mat-divider>
-        <div class="total-cost" style="width: 100%; display: flex; justify-content: flex-end;">
+        <div class="total-cost">
             <span>TotalCost: {{order?.totalCost | currency:'USD'}}</span>
         </div>
     </mat-card-content>
 </mat-card>
-<mat-card style="margin: 25px 25px 100px 25px;">
+<mat-card class="lower__card">
     <mat-card-title>Order Items</mat-card-title>
     <mat-card-content>
         <mat-table #table [dataSource]="order?.orderItems">
@@ -59,9 +59,9 @@
     </mat-card-actions>
 </mat-card>
 
-<mat-sidenav dark #sidenav mode="push" opened="false" style="margin-top: 140px; height: 450px;">
-    <mat-card>
-        <mat-card-title style="margin: 25px;">
+<mat-sidenav dark #sidenav mode="push" opened="false" fixedInViewport="true">
+    <mat-card class="sidenav-card">
+        <mat-card-title>
             Change order status to:
         </mat-card-title>
         <mat-divider></mat-divider>
@@ -71,10 +71,10 @@
             </mat-radio-group>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-mini-fab color="accent" style="margin: 5px;" matTooltip="Cancel" (click)="sidenav.toggle()">
+            <button class="action" mat-mini-fab color="accent" matTooltip="Cancel" (click)="sidenav.toggle()">
                 <mat-icon>close</mat-icon>
             </button>
-            <button mat-mini-fab color="primary" style="margin: 5px;" matTooltip="Apply changes and Update" (click)="updateOrdrStatus(); sidenav.toggle()">
+            <button class="action" mat-mini-fab color="primary" matTooltip="Apply changes and Update" (click)="updateOrdrStatus(); sidenav.toggle()">
                 <mat-icon>refresh</mat-icon>
             </button>
         </mat-card-actions>

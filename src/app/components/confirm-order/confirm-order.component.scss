@@ -1,15 +1,28 @@
 
-.span-empty-page{
-    color: #3dc21cf1; 
-    font-size: 30px;
-    margin: 25px;
+.spinner{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    z-index: 5;
+}
+
+.empty-cart{
+    margin-top: 70px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    .span-empty-page{
+        color: #3dc21cf1; 
+        font-size: 30px;
+        margin: 25px;
+    }
 }
 
 .span-link:hover{
     cursor: pointer;
     text-decoration: underline;
 }
-
 
 .page-container{
     margin: 100px;
@@ -61,6 +74,17 @@
     max-width: 600px;
 }
 
+.country-select{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+
+    img{
+        width: 25px; 
+        height: 15px;
+    }
+}
+
 .order-details{
     max-width: 500px;
     height: 400px;
@@ -87,15 +111,25 @@ mat-list-item{
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
 
-.puzzle-name-color{
-    margin-left: 15px;
-    line-height: 1.5;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    .puzzle-name-color{
+        margin-left: 15px;
+        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .puzzle-name{
+            font-weight: 500;
+        }
+        .puzzle-color{
+            color: gray;
+        }
+    }
+
+    h3{
+        font-weight: 600;
+    }
 }
 
 mat-list-item img{

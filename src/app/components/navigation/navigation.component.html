@@ -1,7 +1,7 @@
-<div style="height: fit-content">
-    <mat-toolbar color="primary" style="width: 100%;">
+<div class="root">
+    <mat-toolbar color="primary">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center" fxShow="true" fxHide.lt-md>
-            <div  fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+            <div class="first-row" fxLayout="row" fxLayoutAlign="space-around center">
                 
                 <div class="logo-div mat-display-1" [routerLink]="['/home']" matTooltip="SpeedCubingStore" matTooltipClass="logo-tooltip">
                     <span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore
@@ -11,25 +11,23 @@
                     <mat-label>Search</mat-label>
                     <input matInput type="text">
                     <button mat-button matSuffix mat-icon-button aria-label="Search">
-                      <mat-icon color="primary">search</mat-icon>
+                      <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
-                <div style="display: flex; align-items: center; justify-content: center;">
+                <div class="personal">
                     <div *ngIf="isLoggedIn" class="hello" [routerLink]="['/personal']">
                         <mat-icon matTooltip="Personal cabinet">person</mat-icon>
-                        <!-- <span>Cabinet</span> -->
-                        <!-- <span>Hello, {{accountInfo?.name}}!</span> -->
-                     </div>
+                    </div>
                      <div>
-                        <div *ngIf="!isLoggedIn">
-                            <span  class="action" (click)="onSignInClick()">Sign In</span>
-                            <span style="font-size: 15px;"> or </span>
+                        <div *ngIf="!isLoggedIn" class="actions">
+                            <span class="action" (click)="onSignInClick()">Sign In</span>
+                            <span class="or"> or </span>
                             <span class="action" (click)="onCreateAccountClick()">Create Account</span>
                         </div>
                         <span *ngIf="isLoggedIn" class="action" (click)="onSignOutClick()">Sign out</span>
                     </div>
-                    <div *ngIf="isLoggedIn" style="margin: 0px 5px 0px 15px;" fxLayout="row | wrap" fxLayoutAlign="end center">
-                        <div style="margin-right: 5px;" (click)="openShoppingCart()">
+                    <div *ngIf="isLoggedIn" class="cart" fxLayout="row | wrap" fxLayoutAlign="end center">
+                        <div class="icon" (click)="openShoppingCart()">
                             <mat-icon class="shop-cart-icon">shopping_cart</mat-icon>
                         </div>
                         <div>
@@ -40,11 +38,11 @@
             </div>
         </mat-toolbar-row>
 
-        <mat-toolbar-row style="border-bottom: 2px solid rgb(50,50,170);">
+        <mat-toolbar-row class="second-row">
             <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
                 <mat-icon>menu</mat-icon>
             </button>
-            <div class="logo-div mat-display-1" style="margin:auto;" fxShow="true" fxHide.gt-sm>
+            <div class="logo-div mat-display-1 second-row-logo" fxShow="true" fxHide.gt-sm>
                 <span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore
             </div>
             <div>
@@ -67,7 +65,7 @@
             </div>
             
             
-            <div fxShow="true" fxHide.lt-md fxLayout="row" fxLayoutAlign="center center" style="width: 100%;">
+            <div class="nav-items" fxShow="true" fxHide.lt-md fxLayout="row" fxLayoutAlign="center center">
                 <button *ngIf="isLoggedIn && isInAdminRole" mat-icon-button (click)="sidenav.toggle()">
                     <mat-icon mat-list-icon>list</mat-icon>
                 </button>
@@ -90,7 +88,6 @@
                 </div>
                 <div class="nav-item"><span>Accessories</span></div>
             </div>
-            
         </mat-toolbar-row>
     </mat-toolbar>
 </div>

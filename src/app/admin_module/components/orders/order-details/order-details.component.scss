@@ -1,3 +1,17 @@
+.upper__card{
+    margin: 25px;
+    mat-card-title{
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+    mat-card-content{
+        display: flex; 
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+}
+
 .content-span{
     margin: 5px;
     font-weight: 400;
@@ -6,11 +20,20 @@
     line-height: 1.5;
 }
 
-.total-cost span{
-    font-weight: 700;
-    font-size: 30px;
-    letter-spacing: 2px;
-    margin-right: 50px;
+.total-cost{
+    width: 100%; 
+    display: flex; 
+    justify-content: flex-end;
+    span{
+        font-weight: 700;
+        font-size: 30px;
+        letter-spacing: 2px;
+        margin-right: 50px;
+    }
+}
+
+.lower__card{
+    margin: 25px 25px 100px 25px;
 }
 
 mat-header-cell{
@@ -18,6 +41,16 @@ mat-header-cell{
     font-size: 12px;
     color: black;
     font-weight: bold;
+}
+
+mat-sidenav{
+    margin-top: 140px;
+    height: 450px;
+    .sidenav-card{
+        mat-card-title{
+            margin: 25px;
+        }
+    }
 }
 
 .radio-group{
@@ -29,4 +62,8 @@ mat-header-cell{
 .rb{
     margin-top: 10px;
     margin-left: 25px;
+}
+
+.action{
+    margin: 5px;
 }

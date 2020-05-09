@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
     templateUrl: './stripe-payment.component.html',
     styleUrls: ['./stripe-payment.component.scss']
 })
-export class StripePaymentComponent implements AfterViewInit, OnDestroy {
+export class StripePaymentComponent implements AfterViewInit {
 
     @ViewChild('cardNumber') cardNumber: ElementRef;
     @ViewChild('cardExp') cardExpiry: ElementRef;
@@ -92,9 +92,6 @@ export class StripePaymentComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
-       console.log('DESTROY');
-    }
 }
 
 
