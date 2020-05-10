@@ -21,7 +21,9 @@ export const appRoutes: Routes = [
     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
     { path: 'checkout', component: ConfirmOrderComponent},
     { path: 'payment', component: StripePaymentComponent },
-    { path: 'personal', component: PersonalCabinetComponent, resolve: {userInfo: UserInfoResolver} },
+    { path: 'personal', component: PersonalCabinetComponent, 
+    resolve: {userInfo: UserInfoResolver}
+ },
     { path: 'administration', loadChildren: () => import('./admin_module/admin.module').then(a => a.AdminModule), canActivate: [AdminAuthGuard]},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', component: NotFoundPageComponent }

@@ -34,6 +34,7 @@ import { GalleryModule } from  '@ngx-gallery/core';
 import { StarRatingComponent } from './common/star-rating/star-rating.component';
 import { PersonalCabinetComponent } from './components/personal-cabinet/personal-cabinet.component';
 import { PersonalInfoComponent } from './components/personal-cabinet/personal-info/personal-info.component';
+import { PersonalOrdersComponent } from './components/personal-cabinet/orders/personal-orders.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { PersonalInfoComponent } from './components/personal-cabinet/personal-in
     StarRatingComponent,
     PersonalCabinetComponent,
     PersonalInfoComponent,
+    PersonalOrdersComponent,
 
     NotFoundPageComponent
   ],

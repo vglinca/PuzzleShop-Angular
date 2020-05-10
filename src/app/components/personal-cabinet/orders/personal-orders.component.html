@@ -1,0 +1,46 @@
+<div *ngIf="! dataLoaded" class="spinner">
+    <mat-spinner></mat-spinner>
+</div>
+<mat-card *ngIf="dataLoaded">
+    <mat-card-content>
+        <div class="list__item" *ngFor="let order of orders; let i = index">
+            <div class="list__item__header">
+                <div class="order__number_status">
+                    <h2>Order №{{order?.id}}</h2>
+                    <h4>{{order?.orderStatusTitle}}</h4>
+                </div>
+                <button mat-icon-button (click)="changeAnimatioState(i)">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+            <div class="expanded__item" [@changeDivSize]="animationStates[i]" fxLayout="row | wrap"  fxLayoutAlign="space-between start">
+                <div class="order__items" >
+                    <h2 class="quantity__number"> {{order?.totalItems}} units.</h2>
+                    <div class="order__item" *ngFor="let orderItem of order?.orderItems">
+                        <img [src]="staticFilesUrl + orderItem?.puzzle.images[0].fileName.trim()" alt="Puzzle">
+                        <div class="item__details">
+                            <span> {{orderItem?.puzzle.name}} </span>
+                            <span> {{orderItem?.puzzle.color}} </span>
+                            <span> {{orderItem?.quantity}} </span>
+                        </div>
+                        <div class="item__price">
+                            <h2> {{orderItem?.cost |currency:'USD'}} </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="order__details">
+                    <h2 class="total">Total cost: {{order?.totalCost |currency:'USD'}} </h2>
+                    <h2>Customer</h2>
+                    <div class="customer__info">
+                        <h3>Customer name</h3>&nbsp;
+                        <h3> {{order?.customerFirstName}} {{order?.customerLastName}} </h3>
+                    </div>
+                    <div class="customer__info">
+                        <h3>Addres</h3>&nbsp;
+                        <h3> {{order?.address}} - {{order?.city}}, {{order?.country}} </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
