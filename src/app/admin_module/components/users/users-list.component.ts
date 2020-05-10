@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { FilterColumn } from 'src/app/infrastructure/filter-column';
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
@@ -14,12 +14,14 @@ import { UserRolesDialogComponent } from './dialog/user-roles-dialog.component';
 import { AccountService } from 'src/app/services/account.service';
 import { Filter } from 'src/app/infrastructure/pagination/filter';
 import { LogicalOperator } from 'src/app/infrastructure/pagination/logical-operator';
+import { NotificationService } from 'src/app/services/notification.service';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 @Component({
     templateUrl: './users-list.component.html',
     styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnInit, AfterViewInit{
+export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy{
 
     showSpinner: boolean = true;
 
@@ -43,6 +45,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     searchInput: FormControl = new FormControl('');
 
     matSortSubscription: Subscription;
+    mergeSubscription: Subscription;
     dialogRefSubscription: Subscription;
     subscriptions: Subscription[] = [];
 
@@ -51,6 +54,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
 
     constructor(private usersService: UsersService,
                 private accountService: AccountService,
+                private notificationService: NotificationService,
                 private formBuilder: FormBuilder,
                 private dialog: MatDialog){
         this.tableColumns = this.filterColumns.map(c => c.name);
@@ -64,14 +68,18 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     ngAfterViewInit(): void {
         this.currentId = this.accountService.parseToken().userId;
         this.loadUsersFromApi();
-        this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        merge(this.matSort.sortChange, this.paginator.page).subscribe(() => this.loadUsersFromApi());
+        this.matSortSubscription = this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        this.mergeSubscription = merge(this.matSort.sortChange, this.paginator.page).subscribe(() => this.loadUsersFromApi());
+
+        this.subscriptions.push(this.matSortSubscription);
+        this.subscriptions.push(this.mergeSubscription);
     }
 
     openManageRolesDialog(userId: number): void{
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = false;
         dialogConfig.disableClose = true;
+        dialogConfig.minWidth = '460px';
         dialogConfig.height = "45%";
         dialogConfig.width = "30%";
         dialogConfig.data = userId;
@@ -79,7 +87,6 @@ export class UsersListComponent implements OnInit, AfterViewInit{
     }
 
     loadUsersFromApi(): void{
-        // debugger;
         const request: PagedRequest = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, 
             this.paginator.pageSize, this.requestFilters);
         console.log(request);
@@ -88,7 +95,7 @@ export class UsersListComponent implements OnInit, AfterViewInit{
                 console.log(response);
                 this.pagedUsers = response;
                 this.showSpinner = false;
-            }, err => console.log(err));
+            }, err => this.notificationService.warn(errorMessage));
     }
 
     onResetClick(): void{
@@ -114,5 +121,13 @@ export class UsersListComponent implements OnInit, AfterViewInit{
             });
             this.requestFilters = {operator: LogicalOperator.OR, filters: filters};
         }
+    }
+
+    ngOnDestroy(): void{
+        this.subscriptions.forEach(s => {
+            if(s){
+                s.unsubscribe();
+            }
+        });
     }
 }

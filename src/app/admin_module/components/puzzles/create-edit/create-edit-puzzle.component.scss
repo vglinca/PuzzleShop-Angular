@@ -1,15 +1,43 @@
+.view-card-title{
+    color: teal;
+    font-size: 20px;
+}
+
+mat-toolbar{
+    background-color: #FFF
+}
+
 .save-button{
     margin-right:10px;
-    background-color: green;
+    background-color: teal;
 }
 
 .cancel-button{
     margin-right:10px;
-    background-color: crimson;
+}
+
+.footer{
+    margin-bottom: 10px;
+    .uploaded__images{
+        margin-top: 10px;
+        .uploaded__image__placeholder{
+            width: 100px; 
+            height: 80px; 
+            position: relative;
+            img{
+                width: 100px; 
+                height: 80px;
+            }
+        }
+    }
 }
 
 .images-div{
     position: relative;
+    background-color: white; 
+    height: fit-content; 
+    width: fit-content; 
+    margin: 50px;
 }
 
 .image-item{
@@ -25,13 +53,23 @@
 }
 
 .thumbnail{
-    position:relative;
-    top:-25px;
-    left:-35px;
-    width:500px;
-    height:auto;
-    display:block;
-    z-index:999;
+    width: 100px;
+    height: 100px;
+    &:hover{
+        cursor: pointer;
+    }
+    // position:relative;
+    // top:-25px;
+    // left:-35px;
+    // width:500px;
+    // height:auto;
+    // display:block;
+    // z-index:999;
+}
+
+.buttons{
+    margin-bottom: 50px; 
+    margin-left: 50px;
 }
 
 mat-form-field{

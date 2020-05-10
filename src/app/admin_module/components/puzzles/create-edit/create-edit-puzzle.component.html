@@ -1,35 +1,24 @@
 <div class="parent-div" fxLayout="column" fxLayoutAlign="center start">
-
-
 	<div>
 		<mat-card>
-
 			<mat-card-header>
 				<mat-card-title class="view-card-title">
 					<h1>{{dialogTitle}}</h1>
 				</mat-card-title>
 			</mat-card-header>
-
 			<form novalidate [formGroup]="puzzleForm" (ngSubmit)="saveChanges()">
-
-				<mat-toolbar style="background-color: #FFF">
+				<mat-toolbar>
 					<mat-toolbar-row>
 						<span class="title-spacer"></span>
-
 						<mat-card-actions>
-
-							<button class="save-button" [disabled]="puzzleForm.invalid" style="background-color: teal;"
-								mat-mini-fab type="submit">
+							<button class="save-button" [disabled]="puzzleForm.invalid" mat-mini-fab type="submit">
 								<mat-icon>done</mat-icon>
 							</button>
-
 							<button class="cancel-button" mat-mini-fab color="accent" type="button"
 								[routerLink]="['/administration/puzzles']">
 								<mat-icon>close</mat-icon>
 							</button>
-
 						</mat-card-actions>
-
 					</mat-toolbar-row>
 				</mat-toolbar>
 
@@ -96,41 +85,29 @@
 				</mat-card-content>
 			</form>
 			<div class="footer-div" fxLayout="column | wrap" fxLayoutAlign="space-between center">
-
-				<mat-card-footer>
-					<div class="footer" fxLayout="column | wrap" fxLayoutAlign="start center"
-						style="margin-bottom: 10px;">
-						<h1>Image upload</h1>
-						<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-						<input id="file-input" hidden (change)="onFileSelected($event)" #fileInput type="file" multiple
-							id="file">
-
-						<div fxLayout="row | wrap" fxLayoutAlign="center center" style="margin-top: 10px;">
-							<div style="width: 100px; height: 80px; position: relative;" *ngFor="let url of urls">
-								<img [src]="url" style="width: 100px; height: 80px;">
-							</div>
+				<div class="footer" fxLayout="column | wrap" fxLayoutAlign="start center">
+					<h1>Image upload</h1>
+					<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+					<input id="file-input" hidden (change)="onFileSelected($event)" #fileInput type="file" multiple id="file">
+					<div class="uploaded__images" fxLayout="row | wrap" fxLayoutAlign="center center">
+						<div class="uploaded__image__placeholder" *ngFor="let url of urls">
+							<img [src]="url">
 						</div>
-
 					</div>
-				</mat-card-footer>
+				</div>
 			</div>
 		</mat-card>
 	</div>
 
-	<div fxLayout="row | wrap" fxLayoutAlign="start start" class="images-div"
-		style="background-color: white; height: fit-content; width: fit-content; margin: 50px;">
+	<div fxLayout="row | wrap" fxLayoutAlign="start start" class="images-div">
 		<div #element class="image-item" *ngFor="let image of puzzleModel?.images">
 			<img class="thumbnail" [src]="staticFilesUrl + image?.fileName" [alt]="image?.id">
-
 		</div>
 	</div>
-	<div class="buttons" fxLayout="row | wrap" fxLayoutAlign="center center"
-		style="margin-bottom: 50px; margin-left: 50px;">
-		<button mat-mini-fab style="background-color: red;" type="button" matTooltip="Delete all selected images."
+	<div class="buttons" fxLayout="row | wrap" fxLayoutAlign="center center">
+		<button mat-mini-fab color="warn" type="button" matTooltip="Delete all selected images."
 			(click)="onDeleteImage()">
 			<mat-icon>delete</mat-icon>
 		</button>
 	</div>
-
-
-</div><!-- </parent div> -->
+</div>

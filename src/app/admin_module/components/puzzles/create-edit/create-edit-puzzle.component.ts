@@ -18,6 +18,16 @@ import { PuzzleForUpdateModel } from '../../../../models/puzzles/puzzle-for-upda
 import { environment } from 'src/environments/environment';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 
+class ImageDictionary {
+    imageId: number;
+    deleteMode: boolean;
+
+    constructor(id: number) {
+        this.imageId = id;
+        this.deleteMode = false;
+    }
+}
+
 @Directive({
     selector: '.image-item'
 })
@@ -28,7 +38,7 @@ export class ImageItemElement {
     templateUrl: './create-edit-puzzle.component.html',
     styleUrls: ['./create-edit-puzzle.component.scss']
 })
-export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewInit, DoCheck {
+export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewInit {
     dialogTitle: string;
     puzzleForm: FormGroup;
     puzzleId: number;
@@ -71,9 +81,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         private renderer: Renderer2) {
         this.imageIdsToDelete = [];
     }
-    ngDoCheck(): void {
-    }
-
 
     ngAfterViewInit(): void {
 
@@ -135,11 +142,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                 this.puzzleColors = pc;
                 this.materialTypes = mt;
             });
-
-        //this.loadManufacturers();
-        //this.loadPuzzleTypes();
-        //this.loadPuzzleColors();
-        //this.loadMaterialTypes();
     }
 
     private loadPuzzle(): void {
@@ -263,31 +265,6 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
         this.snackbar.open(msg, 'Hide', { duration: 2000 });
     }
 
-    private loadManufacturers(): void {
-        this.manufacturerService.getAll()
-            .subscribe((m: ManufacturerModel[]) => this.manufacturers = m);
-    }
-
-    private loadPuzzleTypes(): void {
-        this.puzzleTypeService.getAll()
-            .subscribe((pt: PuzzleTypeTableRowModel[]) => {
-                this.puzzleTypes = pt;
-                console.log(this.puzzleTypes);
-            });
-    }
-
-    private loadPuzzleColors(): void {
-        this.puzzleColorService.getAll()
-            .subscribe((c: PuzzleColorModel[]) => this.puzzleColors = c);
-    }
-
-    private loadMaterialTypes(): void {
-        this.lookupService.getMaterialTypes()
-            .subscribe((mt: MaterialTypeModel[]) => this.materialTypes = mt);
-    }
-
-
-
     ngOnDestroy(): void {
         this.subscriptions.forEach((s: Subscription) => {
             if (s) {
@@ -297,12 +274,4 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     }
 }
 
-export class ImageDictionary {
-    imageId: number;
-    deleteMode: boolean;
 
-    constructor(id: number) {
-        this.imageId = id;
-        this.deleteMode = false;
-    }
-}

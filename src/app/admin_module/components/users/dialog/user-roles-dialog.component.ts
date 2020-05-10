@@ -9,6 +9,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { NotificationService } from 'src/app/services/notification.service';
 import { AccountService } from 'src/app/services/account.service';
 import { adminAuthorizeRole, moderatorAuthorizeRole, userAuthorizeRole } from 'src/app/common/consts/authorize-role';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 @Component({
     templateUrl: './user-roles-dialog.component.html',
@@ -50,8 +51,7 @@ export class UserRolesDialogComponent implements OnInit{
                 this.notificationService.success('Changes applied.');
                 this.dialogRef.close();
             }, err => {
-                this.notificationService.warn('some problems happened.');
-                console.log(err);
+                this.notificationService.warn(errorMessage);
             });
     }
 

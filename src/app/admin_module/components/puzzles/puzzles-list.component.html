@@ -1,4 +1,4 @@
-<div *ngIf="showSpinner" style="position: absolute; top: 50%; left: 50%; right: 50%;">
+<div *ngIf="showSpinner" class="spinner">
     <mat-spinner></mat-spinner>
 </div>
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
@@ -7,13 +7,13 @@
 			<div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
 				<mat-card-header>
 					<mat-card-title class="view-card-title">
-						<h1 style="color: teal; letter-spacing: 2px; font-size: 35px;"><b>Puzzles</b></h1>
+						<h1 class="page__title"><b>Puzzles</b></h1>
 					</mat-card-title>
 				</mat-card-header>
 			</div>
 			<mat-toolbar>
-				<mat-toolbar-row style="display: flex; justify-content: flex-end;">
-					<div class="toolbar-row-div" style="width: 100%;" fxLayout="row | wrap" fxLayoutAlign="space-between center">
+				<mat-toolbar-row>
+					<div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 						<div class="mat-form-field-div">
 							<mat-form-field>
 								<mat-placeholder>
@@ -25,14 +25,13 @@
 							<span class="title-spacer"></span>
 						</div>
 						<div class="toolbar-buttons-div" >
-							<button mat-mini-fab color="primary" style="margin-right:10px;"
-								[routerLink]="['/administration/puzzles/create', -1]">
+							<button class="add" mat-mini-fab color="primary" [routerLink]="['/administration/puzzles/create', -1]">
 								<mat-icon>add</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:#a28b6e" (click)="sidenav.toggle()">
+							<button class="search" mat-mini-fab (click)="sidenav.toggle()">
 								<mat-icon>search</mat-icon>
 							</button>
-							<button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadPuzzlesFromApi()">
+							<button class="refresh" mat-mini-fab (click)="loadPuzzlesFromApi()">
 								<mat-icon>refresh</mat-icon>
 							</button>
 						</div>
@@ -93,11 +92,11 @@
 			</ng-container>
 
 			<ng-container matColumnDef="id">
-				<mat-header-cell fxFlex="150px" *matHeaderCellDef style="display: flex; justify-content: center;">
-					<button mat-raised-button style="color:white; background-color:lightseagreen;" (click)="resetAll();">
+				<mat-header-cell class="id__header__cell" fxFlex="150px" *matHeaderCellDef>
+					<button mat-raised-button (click)="resetAll();">
 						<mat-icon>refresh</mat-icon>Reset</button>
 				</mat-header-cell>
-				<mat-cell fxFlex="150px" *matCellDef="let puzzle" style="display: flex; justify-content: center;">
+				<mat-cell class="id__cell" fxFlex="150px" *matCellDef="let puzzle">
 					<button mat-mini-fab class="edit-button"
 						[routerLink]="['/administration/puzzles/edit', puzzle?.id]">
 						<mat-icon>edit</mat-icon>
@@ -111,7 +110,6 @@
 			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
 		</mat-table>
-
 	</div>
 
 	<div class="paginator-div">
@@ -119,36 +117,36 @@
 			pageSize="25">
 		</mat-paginator>
 	</div>
-
 </div>
 
-<mat-sidenav class="search-panel" fixedInViewport="true" dark #sidenav mode="push" opened="false" style="height: 100%; width:350px;">
+<mat-sidenav class="search-panel" fixedInViewport="true" dark #sidenav mode="push" opened="false">
 	<mat-toolbar color="primary">
 		<mat-icon>supervisor_account</mat-icon>
 		<span>Admin</span>
 	</mat-toolbar>
-    <mat-card class="profile-card">
-      <mat-card-header style="display: flex; justify-content: center;">
+    <mat-card class="filter-card">
+      <mat-card-header class="filter-card-header">
         <mat-card-subtitle>
-			<span style="font-size: 25px;">Filter Puzzles</span>
+			<span class="search-panel-title">Filter Puzzles</span>
         </mat-card-subtitle>
 	  </mat-card-header>
 	  <mat-card-content>
 		<form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()" fxLayout="column">
-			<mat-form-field style="width: 300px;">
-			  <input matInput type="text" placeholder="Puzzle name" style="width:300px;" formControlName="name" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
+			<mat-form-field class="form-field-300">
+			  <input matInput type="text" placeholder="Puzzle name" formControlName="name" (keyup.enter)="filterPuzzles(); sidenav.toggle()"  />
 			</mat-form-field>
-			<mat-form-field style="width: 300px;">
-			  <input matInput type="text" placeholder="Manufacturer" style="width:300px;" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />
+			<mat-form-field class="form-field-300">
+			  <input matInput type="text" placeholder="Manufacturer" formControlName="manufacturer" (keyup.enter)="filterPuzzles();sidenav.toggle()"  />
 			</mat-form-field>
 		  </form>
 	  </mat-card-content>
-	  <mat-card-actions style="display: flex; justify-content: center;">
-		<button mat-mini-fab color="primary" style="margin: 5px;" (click)="filterPuzzles(); sidenav.toggle()">
-            <mat-icon>search</mat-icon></button>
-          <button mat-mini-fab style="margin: 5px;" (click)="resetAll() ;sidenav.toggle()">
+	<mat-card-actions>
+		<button mat-mini-fab color="primary" (click)="filterPuzzles(); sidenav.toggle()">
+			<mat-icon>search</mat-icon>
+		</button>
+		<button mat-mini-fab (click)="resetAll() ;sidenav.toggle()">
 			<mat-icon>refresh</mat-icon>
 		</button>
-	  </mat-card-actions>
+	</mat-card-actions>
     </mat-card>
   </mat-sidenav>

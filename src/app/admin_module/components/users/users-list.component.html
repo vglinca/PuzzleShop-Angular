@@ -1,4 +1,4 @@
-<div *ngIf="showSpinner" style="position: absolute; top: 50%; left: 50%; right: 50%;">
+<div *ngIf="showSpinner" class="spinner">
     <mat-spinner></mat-spinner>
 </div>
 <div class="parent-container" fxLayout="column" fxLayoutAlign="end center">
@@ -7,14 +7,13 @@
             <div class="header-div" fxLayout="row | wrap" fxLayoutAlign="center center">
                 <mat-card-header>
                     <mat-card-title class="view-card-title">
-                        <h1 style="color: teal; letter-spacing: 2px; font-size: 35px;"><b>Users</b></h1>
+                        <h1 class="page__title"><b>Users</b></h1>
                     </mat-card-title>
                 </mat-card-header>
             </div>
             <mat-toolbar>
-                <mat-toolbar-row style="display: flex; justify-content: flex-end;">
-                    <div class="toolbar-row-div" style="width: 100%;" fxLayout="row | wrap"
-                        fxLayoutAlign="space-between center">
+                <mat-toolbar-row>
+                    <div class="toolbar-row-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
                         <div class="mat-form-field-div">
                             <mat-form-field>
                                 <mat-placeholder>
@@ -26,7 +25,7 @@
                             <span class="title-spacer"></span>
                         </div>
                         <div class="toolbar-buttons-div">
-                            <button mat-mini-fab style="margin-right:10px; background-color:darkgray" (click)="loadUsersFromApi()">
+                            <button class="refresh" mat-mini-fab (click)="loadUsersFromApi()">
                                 <mat-icon>refresh</mat-icon>
                             </button>
                         </div>
@@ -66,11 +65,11 @@
             </ng-container>
 
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef style="justify-content:right;">
-                    <button mat-button style="color:white; background-color:teal" (click)="onResetClick()">Reset</button>
+                <mat-header-cell class="id__header__cell" *matHeaderCellDef>
+                    <button mat-button (click)="onResetClick()">Reset</button>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let user" style="justify-content:right;">
-                    <button mat-button style="background-color:teal; min-height: 30px;" [disabled]="hasNotAdminRole" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
+                <mat-cell class="id__cell" *matCellDef="let user">
+                    <button mat-button [disabled]="hasNotAdminRole" (click)="openManageRolesDialog(user?.id)">Manage Roles</button>
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>

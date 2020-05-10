@@ -1,3 +1,16 @@
+.spinner{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    right: 50%;
+}
+
+.page__title{
+    color: teal; 
+    letter-spacing: 2px; 
+    font-size: 35px;
+}
+
 .parent-container{
     margin-top: 50px;
     margin-bottom: 100px;
@@ -11,19 +24,21 @@
 
 mat-toolbar-row{
     width: inherit;
+    display: flex;
+    justify-content: flex-end;
 }
 
-/* .toolbar-row-div{
-    background-color: magenta;
+.toolbar-row-div{
+    width: 100%;
 }
 
-.mat-form-field-div{
-    background-color: coral;
-} */
 
 .toolbar-buttons-div{
     margin-right: 0px;
-    /* background-color: darkblue; */
+    .refresh{
+        margin-right:10px; 
+        background-color:darkgray
+    }
 }
 
 .table-container{
@@ -41,7 +56,6 @@ mat-toolbar-row{
 .delete-button{
     min-height: 30px;  
     margin: 5px;
-    background-color: red;
 }
 
 mat-table{
@@ -55,6 +69,24 @@ mat-header-cell{
     font-size: 12px;
     color: black;
     font-weight: bold;
+}
+
+.id__header__cell{
+    display: flex;
+    justify-content: flex-end;
+    button{
+        color:white; 
+        background-color:teal
+    }
+}
+
+.id__cell{
+    display: flex;
+    justify-content: flex-end;
+    button{
+        background-color:teal; 
+        min-height: 30px;
+    }
 }
 
 .table-column {

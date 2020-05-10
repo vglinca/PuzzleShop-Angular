@@ -19,7 +19,7 @@ import { FilterColumn } from 'src/app/infrastructure/filter-column';
     templateUrl: './puzzles-list.component.html',
     styleUrls: ['./puzzles-list.component.scss']
 })
-export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
+export class PuzzlesComponent implements AfterViewInit, OnDestroy{
 
     showSpinner: boolean = true;
     
@@ -31,6 +31,7 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
 
     matSortSubscription: Subscription;
     dialogRefSubscription: Subscription;
+    mergeSubscription: Subscription;
     subscriptions: Subscription[] = [];
 
     filterColumns: FilterColumn[] = [
@@ -46,14 +47,10 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
         {name: 'id', property: 'id', useInSearch: false}
     ];
 
-    
-    
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
     
     tableColumns: string[] = [];
-    // ['availableInStock', 'name', 'price', 'isMagnetic', 'weight', 
-    // 'manufacturer', 'puzzleType', 'color', 'materialType', 'id'];
 
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,
@@ -66,15 +63,13 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
                     });
                 }
    
-    
-    ngOnInit(): void {
-    }
-
     ngAfterViewInit(): void {
         this.loadPuzzlesFromApi();
         this.matSortSubscription = this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        merge(this.matSort.sortChange, this.paginator.page)
-            .subscribe(() => this.loadPuzzlesFromApi());
+        this.mergeSubscription = merge(this.matSort.sortChange, this.paginator.page).subscribe(() => this.loadPuzzlesFromApi());
+
+        this.subscriptions.push(this.matSortSubscription);
+        this.subscriptions.push(this.mergeSubscription);
     }
 
     onDelete(puzzleId: number, puzzleName: string){
@@ -99,7 +94,6 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
     loadPuzzlesFromApi(){
         this.showSpinner = true;
         const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
-        console.log(request);
         this.puzzleService.getAllPuzzles(request)
             .subscribe((response: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = response;
@@ -129,8 +123,6 @@ export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
         }
         this.loadPuzzlesFromApi();
     }
-
-    
 
     filterPuzzles(): void{
         this.retrieveFilteringValuesFromForm();

@@ -1,3 +1,16 @@
+.spinner{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    right: 50%;
+}
+
+.page__title{
+    color: teal; 
+    letter-spacing: 2px; 
+    font-size: 35px;
+}
+
 .parent-container{
     margin-top: 50px;
     margin-bottom: 100px;
@@ -9,21 +22,29 @@
     background-color: lightcoral;
 }
 
+.toolbar-row-div{
+    width: 100%;
+}
+
 mat-toolbar-row{
     width: inherit;
+    display: flex; 
+    justify-content: flex-end;
 }
-
-/* .toolbar-row-div{
-    background-color: magenta;
-}
-
-.mat-form-field-div{
-    background-color: coral;
-} */
 
 .toolbar-buttons-div{
     margin-right: 0px;
-    /* background-color: darkblue; */
+    .add{
+        margin-right:10px;
+    }
+    .search{
+        margin-right:10px; 
+        background-color:#a28b6e
+    }
+    .refresh{
+        margin-right:10px; 
+        background-color:darkgray
+    }
 }
 
 .table-container{
@@ -57,6 +78,20 @@ mat-header-cell{
     font-weight: bold;
 }
 
+.id__header__cell{
+    display: flex; 
+    justify-content: center;
+    button{
+        color:white;
+        background-color:lightseagreen;
+    }
+}
+
+.id__cell{
+    display: flex; 
+    justify-content: center;
+}
+
 .table-column {
     width: 50px;
 }
@@ -72,4 +107,30 @@ mat-header-cell{
 ::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
     opacity: 0.54 !important;
     transform: translateY(0px) !important;
-  }
+}
+
+.search-panel{
+    height: 100%; 
+    width:350px;
+}
+
+.filter-card-header{
+    display: flex;
+    justify-content: center;
+}
+
+.search-panel-title{
+    font-size: 25px;
+}
+
+.form-field-300{
+    width: 300px;
+}
+
+mat-card-actions{
+    display: flex; 
+    justify-content: center;
+    button{
+        margin: 5px;
+    }
+}
