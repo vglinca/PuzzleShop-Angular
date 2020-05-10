@@ -1,0 +1,38 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <span>{{userModel?.firstName}} {{userModel?.lastName}}</span>
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{userModel?.email}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form novalidate [formGroup]="userForm" class="user__form">
+            <mat-form-field class="form__field__400" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="firstName">
+            </mat-form-field>
+            <mat-form-field class="form__field__400" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="lastName">
+            </mat-form-field>
+            <mat-form-field class="form__field__400" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="email">
+            </mat-form-field>
+            <mat-form-field class="form__field__400" appearance="outline">
+                <mat-label>Choose Your date of birth</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
+                    formControlName="birthDate">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker color="accent"></mat-datepicker>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" matTooltip="Save Changes" (click)="onSaveChanges()">Save</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,6 +1,6 @@
-export interface PlainUserModel{
+export interface UserForUpdateModel{
     firstName: string;
-    lastName: string;
+    lastname: string;
     email: string;
     birthDate: string;
 }

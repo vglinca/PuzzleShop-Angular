@@ -19,8 +19,7 @@ export class AccountService{
     constructor(private httpClient: HttpClient){}
 
     public register(user: UserForRegistrationModel){
-        var headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-        return this.httpClient.post(`${this.baseUrl}/register`, user, headers)
+        return this.httpClient.post(`${this.baseUrl}/register`, user)
     }
 
     public login(user: UserForAuthModel): Observable<BearerToken>{

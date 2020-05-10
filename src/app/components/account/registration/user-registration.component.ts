@@ -56,12 +56,9 @@ export class UserRegistrationComponent implements OnInit{
         var dateOfBirth = this.datePipe.transform(this.registrationForm.value.birthDate, 'yyyy-MM-dd');
 
         var userDto: UserForRegistrationModel = ({
-            username: this.registrationForm.value.username,
-            firstName: this.registrationForm.value.firstName,
-            lastName: this.registrationForm.value.lastName,
-            password: this.registrationForm.value.password,
-            email: this.registrationForm.value.email,
-            birthDate: dateOfBirth + 'T00:00:00',
+            ...this.registrationForm.value,
+            birthDate: dateOfBirth
+            //  + 'T00:00:00',
         });
 
         this.accountService.register(userDto)

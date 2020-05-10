@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderModel } from '../models/orders/order.model';
 import { OrderItemForCreateModel } from '../models/order-items/order-item-for-create.model';
-import { logging } from 'protractor';
 import { CustomerDetailsModel } from '../models/customers/customer-details.model';
 
 @Injectable({
@@ -13,31 +12,30 @@ import { CustomerDetailsModel } from '../models/customers/customer-details.model
 export class OrderService{
 
     private baseUrl: string = environment.apiUrl + 'orders';
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private http: HttpClient){}
 
     public getCart(userId: number): Observable<OrderModel>{
-        return this.http.get<OrderModel>(`${this.baseUrl}/getCart/${userId}`, this.headers);
+        return this.http.get<OrderModel>(`${this.baseUrl}/getCart/${userId}`);
     }
 
     public getAllOrders(userId: number): Observable<OrderModel[]>{
-        return this.http.get<OrderModel[]>(`${this.baseUrl}/orders/${userId}`, this.headers);
+        return this.http.get<OrderModel[]>(`${this.baseUrl}/orders/${userId}`);
     }
 
     public editCart(orderItem: OrderItemForCreateModel){
-        return this.http.post(`${this.baseUrl}/addToCart`, orderItem, this.headers);
+        return this.http.post(`${this.baseUrl}/addToCart`, orderItem);
     }
 
     public removeOrderItem(userId: number, itemId: number){
-        return this.http.delete(`${this.baseUrl}/orderItem/${userId}/${itemId}`, this.headers);
+        return this.http.delete(`${this.baseUrl}/orderItem/${userId}/${itemId}`);
     }
 
     public confirmOrder(userId: number, customerDetails: CustomerDetailsModel){
-        return this.http.put(`${this.baseUrl}/confirmOrder/${userId}`, customerDetails, this.headers);
+        return this.http.put(`${this.baseUrl}/confirmOrder/${userId}`, customerDetails);
     }
 
     public placeOrder(userId: number, orderId: number, customerDetails: CustomerDetailsModel){
-        return this.http.put(`${this.baseUrl}/placeOrder/${userId}/${orderId}`, customerDetails, this.headers);
+        return this.http.put(`${this.baseUrl}/placeOrder/${userId}/${orderId}`, customerDetails);
     }
 }

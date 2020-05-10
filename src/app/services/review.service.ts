@@ -9,15 +9,14 @@ import { ReviewForCreationModel } from '../models/reviews/review-for-creation.mo
 export class ReviewService {
 
     private baseUrl: string = environment.apiUrl;
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient) { }
 
     public getReviews(puzzleId: number): Observable<ReviewModel[]>{
-        return this.httpClient.get<ReviewModel[]>(`${this.baseUrl}${puzzleId}/reviews`, this.headers);
+        return this.httpClient.get<ReviewModel[]>(`${this.baseUrl}${puzzleId}/reviews`);
     }
 
     public addReview(puzzleId: number, review: ReviewForCreationModel){
-        return this.httpClient.post(`${this.baseUrl}${puzzleId}/reviews`, review, this.headers);
+        return this.httpClient.post(`${this.baseUrl}${puzzleId}/reviews`, review);
     }
 }

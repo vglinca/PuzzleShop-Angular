@@ -9,12 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class ImagesService{
     private baseUrl: string = environment.apiUrl;
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient){}
 
     public getImagesByPuzzle(puzzleId: number): Observable<ImageModel[]>{
-        return this.httpClient.get<ImageModel[]>(`${this.baseUrl}puzzles/${puzzleId}/images`, this.headers);
+        return this.httpClient.get<ImageModel[]>(`${this.baseUrl}puzzles/${puzzleId}/images`);
     }
 
     public addImages(puzzleId: number, model: FormData){

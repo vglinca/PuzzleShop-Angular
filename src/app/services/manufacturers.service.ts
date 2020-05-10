@@ -14,27 +14,26 @@ import { CreateEditManufacturerComponent } from '../admin_module/components/manu
 export class ManufacturersService{
 
     private baseUrl: string = environment.apiUrl + 'manufacturers';
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient){}
 
     getAll() : Observable<ManufacturerModel[]>{
-        return this.httpClient.get<ManufacturerModel[]>(this.baseUrl, this.headers)
+        return this.httpClient.get<ManufacturerModel[]>(this.baseUrl)
     }
 
     getbyId(id: number): Observable<ManufacturerModel>{
-        return this.httpClient.get<ManufacturerModel>(`${this.baseUrl}/${id}`, this.headers)
+        return this.httpClient.get<ManufacturerModel>(`${this.baseUrl}/${id}`)
     }
 
     addNew(model: ManufacturerForManipulationModel){
-        return this.httpClient.post(this.baseUrl, model, this.headers)
+        return this.httpClient.post(this.baseUrl, model)
     }
 
     update(id: number, model: ManufacturerForManipulationModel){
-        return this.httpClient.put(`${this.baseUrl}/${id}`, model, this.headers)
+        return this.httpClient.put(`${this.baseUrl}/${id}`, model)
     }
 
     delete(id: number){
-        return this.httpClient.delete(`${this.baseUrl}/${id}`, this.headers)
+        return this.httpClient.delete(`${this.baseUrl}/${id}`)
     }
 }

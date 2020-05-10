@@ -11,27 +11,26 @@ import { PuzzleColorForCreationModel } from '../models/puzzle-colors/puzzle-colo
 export class PuzzleColorsService{
 
     private baseUrl: string = environment.apiUrl + 'colors';
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient){}
 
     public getAll(): Observable<PuzzleColorModel[]>{
-        return this.httpClient.get<PuzzleColorModel[]>(this.baseUrl, this.headers)
+        return this.httpClient.get<PuzzleColorModel[]>(this.baseUrl)
     }
 
     public getById(colorId: number): Observable<PuzzleColorModel>{
-        return this.httpClient.get<PuzzleColorModel>(`${this.baseUrl}/${colorId}`, this.headers)
+        return this.httpClient.get<PuzzleColorModel>(`${this.baseUrl}/${colorId}`)
     }
 
     public add(model: PuzzleColorForCreationModel): Observable<PuzzleColorModel>{
-        return this.httpClient.post<PuzzleColorModel>(this.baseUrl, model, this.headers)
+        return this.httpClient.post<PuzzleColorModel>(this.baseUrl, model)
     }
 
     public update(colorId: number, model: PuzzleColorForCreationModel){
-        return this.httpClient.put(`${this.baseUrl}/${colorId}`, model, this.headers)
+        return this.httpClient.put(`${this.baseUrl}/${colorId}`, model)
     }
 
     public delete(colorId: number){
-        return this.httpClient.delete(`${this.baseUrl}/${colorId}`, this.headers)
+        return this.httpClient.delete(`${this.baseUrl}/${colorId}`)
     }
 }

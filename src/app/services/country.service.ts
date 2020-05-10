@@ -10,7 +10,6 @@ import { CountryModel } from '../infrastructure/countries/country.model';
 export class CountryService{
 
     private baseUrl: string = environment.countriesApiUrl;
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private http: HttpClient){}
 

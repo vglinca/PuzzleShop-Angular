@@ -14,20 +14,19 @@ import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.mod
 export class PuzzleService{
 
     private baseUrl: string = environment.apiUrl + 'puzzles';
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private httpClient: HttpClient){}
 
     public getAllPuzzles(pagedRequest: PagedRequest): Observable<PagedResponse<PuzzleTableRowModel>>{
-        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}/pagedPuzzles`, pagedRequest, this.headers)
+        return this.httpClient.post<PagedResponse<PuzzleTableRowModel>>(`${this.baseUrl}/pagedPuzzles`, pagedRequest);
     }
 
     public getPuzzle(puzzleId: number): Observable<PuzzleModel>{
-        return this.httpClient.get<PuzzleModel>(`${this.baseUrl}/${puzzleId}`, this.headers)
+        return this.httpClient.get<PuzzleModel>(`${this.baseUrl}/${puzzleId}`);
     }
 
     public getPuzzleFriendly(puzzleId: number): Observable<PuzzleTableRowModel>{
-        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}/puzzleFriendly/${puzzleId}`, this.headers);
+        return this.httpClient.get<PuzzleTableRowModel>(`${this.baseUrl}/puzzleFriendly/${puzzleId}`);
     }
 
     public addPuzzle(model: FormData) : Observable<PuzzleModel>{
@@ -35,10 +34,10 @@ export class PuzzleService{
     }  
 
     public updatePuzzle(puzzleId: number, model: PuzzleForUpdateModel){
-        return this.httpClient.put(`${this.baseUrl}/${puzzleId}`, model, this.headers)
+        return this.httpClient.put(`${this.baseUrl}/${puzzleId}`, model);
     }
 
     public deletePuzzle(puzzleId: number){
-        return this.httpClient.delete(`${this.baseUrl}/${puzzleId}`, this.headers)
+        return this.httpClient.delete(`${this.baseUrl}/${puzzleId}`);
     }
 }

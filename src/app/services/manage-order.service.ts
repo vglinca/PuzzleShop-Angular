@@ -14,20 +14,19 @@ import { OrderStatusForSettingModel } from '../models/order-status/order-status-
 export class ManageOrderService{
 
     private baseUrl: string = environment.apiUrl + 'manageOrders';
-    private headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private http: HttpClient){
     }
 
     public getOrdersPaged(pagedRequest: PagedRequest): Observable<PagedResponse<OrderTableRowModel>>{
-        return this.http.post<PagedResponse<OrderTableRowModel>>(`${this.baseUrl}/ordersPaged`, pagedRequest, this.headers);
+        return this.http.post<PagedResponse<OrderTableRowModel>>(`${this.baseUrl}/ordersPaged`, pagedRequest);
     }
 
     public getOrder(orderId: number): Observable<OrderModel>{
-        return this.http.get<OrderModel>(`${this.baseUrl}/${orderId}`, this.headers);
+        return this.http.get<OrderModel>(`${this.baseUrl}/${orderId}`);
     }
 
     public changeOrderStatus(orderId: number, model: OrderStatusForSettingModel){
-        return this.http.put(`${this.baseUrl}/orderStatus/${orderId}`, model, this.headers);
+        return this.http.put(`${this.baseUrl}/orderStatus/${orderId}`, model);
     }
 }

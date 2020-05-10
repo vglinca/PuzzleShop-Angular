@@ -33,6 +33,7 @@ import { StylePaginatorDirective } from './common/style-paginator.directive';
 import { GalleryModule } from  '@ngx-gallery/core';
 import { StarRatingComponent } from './common/star-rating/star-rating.component';
 import { PersonalCabinetComponent } from './components/personal-cabinet/personal-cabinet.component';
+import { PersonalInfoComponent } from './components/personal-cabinet/personal-info/personal-info.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { PersonalCabinetComponent } from './components/personal-cabinet/personal
     StylePaginatorDirective,
     StarRatingComponent,
     PersonalCabinetComponent,
+    PersonalInfoComponent,
 
     NotFoundPageComponent
   ],

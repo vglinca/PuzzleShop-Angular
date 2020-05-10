@@ -1,4 +1,4 @@
-<button mat-icon-button style="color: #e1e100" *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i"
+<button mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i"
     (click)="onClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
     <mat-icon>
         {{showIcon(i)}}
