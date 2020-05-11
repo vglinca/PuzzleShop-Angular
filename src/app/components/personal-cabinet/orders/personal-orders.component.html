@@ -19,9 +19,9 @@
                     <div class="order__item" *ngFor="let orderItem of order?.orderItems">
                         <img [src]="staticFilesUrl + orderItem?.puzzle.images[0].fileName.trim()" alt="Puzzle">
                         <div class="item__details">
-                            <span> {{orderItem?.puzzle.name}} </span>
+                            <span class="name"> {{orderItem?.puzzle.name}} </span>
                             <span> {{orderItem?.puzzle.color}} </span>
-                            <span> {{orderItem?.quantity}} </span>
+                            <span> {{orderItem?.quantity}} units.</span>
                         </div>
                         <div class="item__price">
                             <h2> {{orderItem?.cost |currency:'USD'}} </h2>

@@ -9,65 +9,71 @@
 mat-card{
     margin: 100px;
     height: 100%;
-}
-
-mat-card-content{
-    height: 100%; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start;
-    .list__item{
-        margin: 10px;
-        .list__item__header{
-            display: flex;
-            .order__number_status{
+    mat-card-content{
+        height: 100%; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: flex-start;
+        .list__item{
+            margin: 10px;
+            .list__item__header{
                 display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                h4{
-                    color: rgb(4, 153, 4);
+                .order__number_status{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    h4{
+                        color: rgb(4, 153, 4);
+                    }
                 }
             }
-        }
-        .expanded__item{
-            .order__items{
-                display: flex; 
-                flex-direction: column; 
-                align-items: flex-start;
-                .order__item{
+            .expanded__item{
+                .order__items{
                     display: flex; 
-                    justify-content: flex-start; 
-                    width: 400px; 
-                    margin: 10px;
-                    img{
-                        width: 80px; 
-                        height: 70px;
-                        margin: 0px 5px 0px 0px;
-                    }
-                    .item__details{
+                    flex-direction: column; 
+                    align-items: flex-start;
+                    .order__item{
                         display: flex; 
-                        flex-direction: column; 
+                        justify-content: space-between; 
                         align-items: flex-start;
-                        height: 100%;
-                        margin: 0px 5px 0px 0px;
-                    }
-                    .item__price{
-                        display: flex; 
-                        justify-content: center;
-                        margin: 0px 5px 0px 0px;
+                        width: 450px; 
+                        margin: 10px;
+                        img{
+                            width: 80px; 
+                            height: 70px;
+                            margin: 0px 5px 0px 0px;
+                        }
+                        .item__details{
+                            width: 50%;
+                            display: flex; 
+                            flex-direction: column;
+                            align-items: flex-start; 
+                            height: 100%;
+                            margin: 0px 5px 0px 0px;
+                            .name{
+                                font-weight: 500;
+                                font-size: 18px;
+                            }
+                        }
+                        .item__price{
+                            height: 100%;
+                            display: flex; 
+                            justify-content: center;
+                            margin: 0px 5px 0px 0px;
+                        }
                     }
                 }
-            }
-            .order__details{
-                display: flex; 
-                flex-direction: column; 
-                justify-content: center; 
-                margin-left: 50px; 
-                padding: 10px 20px 10px 20px; 
-                background-color:whitesmoke;
-                .customer__info{
+                .order__details{
                     display: flex; 
-                    justify-content: space-between;
+                    flex-direction: column; 
+                    justify-content: center; 
+                    margin-left: 50px; 
+                    padding: 10px 20px 10px 20px; 
+                    background-color:whitesmoke;
+                    .customer__info{
+                        display: flex; 
+                        justify-content: space-between;
+                    }
                 }
             }
         }
