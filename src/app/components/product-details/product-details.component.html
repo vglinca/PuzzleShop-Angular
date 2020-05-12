@@ -5,11 +5,11 @@
 		<div class="path-div" fxLayout="row" fxLayoutAlign="start center">
 
 			<div class="path-div-item">
-				<span class="txt">Home</span>
+				<span class="txt" [routerLink]="['/home']">Home</span>
 				<mat-icon>navigate_next</mat-icon>
 			</div>
 
-			<div class="path-div-item">
+			<div class="path-div-item" *ngIf="queryParam">
 				<span class="txt" (click)="navigateToCollections()">{{queryParam}}</span>
 				<mat-icon>navigate_next</mat-icon>
 			</div>
@@ -169,7 +169,11 @@
 		<button mat-raised-button color="primary" (click)="onSubmitReview()">Submit Review</button>
 	</div>
 
-	<div class="review-list">
+	<div class="no__reviews" *ngIf="reviews?.length === 0">
+		<span>This puzzle hasn't got any reviews yet. Be first to write one!</span>
+	</div>
+
+	<div class="review-list" *ngIf="reviews?.length > 0">
 		<mat-card *ngFor="let review of reviews">
 			<mat-card-header>
 				<div class="rating">

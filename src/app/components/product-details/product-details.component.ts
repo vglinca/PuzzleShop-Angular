@@ -44,7 +44,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     puzzleId: number;
     queryParam: string;
     colors: PuzzleColorModel[] = [];
-    reviews: ReviewModel[] = REVIEWS;
+    reviews: ReviewModel[] = [];
 
     quantity: number = 1;
     subtotal: number;
@@ -142,11 +142,11 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         const colors = this.puzzleColorService.getAll();
         const reviews = this.reviewService.getReviews(this.puzzleId);
 
-        forkJoin(puzzleType, colors)
-            .subscribe(([pt, c]) => {
+        forkJoin(puzzleType, colors, reviews)
+            .subscribe(([pt, c, r]) => {
                 this.colors = c;
                 this.difficultyLevel = pt.difficultyLevel;
-                //this.reviews = r;
+                this.reviews = r;
             });
     }
 
@@ -172,6 +172,12 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     onSubmitReview(): void{
         let review: ReviewForCreationModel = {...this.reviewForm.value};
         review.rating = this.rating;
+        this.reviewService.addReview(this.puzzle.id, review)
+            .subscribe(() => {
+                this.notificationService.success('Your review successfully added!');
+                this.descriptionAnimationState = 'initial';
+                this.ngOnInit();
+            }, err => this.notificationService.warn(errorMessage));
     }
 
     addToCart(): void{

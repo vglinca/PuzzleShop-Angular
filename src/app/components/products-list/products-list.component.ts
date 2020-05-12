@@ -52,7 +52,7 @@ const SORTING_OPTIONS: SortingOption[] = [
     templateUrl: './products-list.component.html',
     styleUrls: ['./products-list.component.scss']
 })
-export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges{
+export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 
     rowsNumber: number;
     showSpinner: boolean = true;
@@ -97,10 +97,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy, 
                 private orderService: OrderService,
                 private notificationService: NotificationService){
                     let puzzles: PuzzleTableRowModel[] = [];
-    }
-
-    ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-        console.log('CHANGES: ' + changes);
     }
 
     ngOnInit(): void {

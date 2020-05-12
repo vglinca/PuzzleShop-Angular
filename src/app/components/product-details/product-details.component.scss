@@ -317,6 +317,18 @@ button {
   }
 }
 
+.no__reviews{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: lightblue;
+  width: 80%;
+  margin-top: 10px;
+  font-family: Montserrat;
+  font-weight: 400;
+  font-size: 25px;
+}
+
 .review-list{
   width: 80%; 
   margin-top: 10px;

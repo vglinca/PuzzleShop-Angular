@@ -16,7 +16,7 @@
 }
 
 .arrivals{
-    margin-top: 25px;
+    margin-top: 35px;
     font-family: 'Inconsolata', monospace;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -26,19 +26,38 @@
 }
 
 mat-card{
-    margin: 10px
+    margin: 20px;
+    &:hover{
+        cursor: pointer;
+    }
 }
 
 mat-card img{
     width: 300px;
     height: 240px;
+    
 }
+
+
+
 
 mat-card-content{
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     justify-content: flex-start;
+    
+    .puzzle__name{
+        font-family: Arimo;
+        font-weight: 400;
+    }
+    .rating {
+        margin-top: 5px;
+        padding-bottom: 5px;
+        mat-icon {
+          color: #e1e100;
+        }
+    }
 }
 
 

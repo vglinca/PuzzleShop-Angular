@@ -11,9 +11,19 @@
 			thumbMode="free" 
 			imageSize="contain">
 	</gallery>
-	<span class="arrivals">New Arrivals</span>
+	<span class="arrivals">Top 8 puzzles</span>
 	<div fxLayout="row | wrap" fxLayoutAlign="center center">
-		<mat-card>
+		<mat-card *ngFor="let puzzle of puzzlesPaged?.items" [matTooltip]="puzzle?.name" matTooltipPosition="right">
+			<img mat-card-image [src]="staticFilesUrl + puzzle.images[0].fileName" (click)="openProductDetails(puzzle?.id, puzzle?.puzzleType)">
+			<mat-card-content>
+				<span class="puzzle__name" (click)="openProductDetails(puzzle?.id, puzzle?.puzzleType)"> {{puzzle?.name}} </span>
+				<div class="rating">
+					<mat-icon *ngFor="let starId of ratingArr; index as i">{{showStarUsingRating(i, puzzle?.rating)}}</mat-icon>
+				</div>
+				<span (click)="openProductDetails(puzzle?.id, puzzle?.puzzleType)"><b> {{puzzle?.price |currency:'USD'}} </b></span>
+			</mat-card-content>
+		</mat-card>
+		<!-- <mat-card>
 			<img mat-card-image src="../../assets/images/ganx.jpg">
 			<mat-card-content>
 				<span>Gan 356 X</span>
@@ -43,19 +53,13 @@
 				<span>Cubeorithms Thunderclap V3 M</span>
 				<span><b>$36.95</b></span>
 			</mat-card-content>
-		</mat-card>
+		</mat-card> -->
 	</div>
 
 
-	<div fxLayout="row | wrap" fxLayoutAlign="center center">
+	<!-- <div fxLayout="row | wrap" fxLayoutAlign="center center">
 
-		<mat-card>
-			<img mat-card-image src="../../assets/images/CubeSolveHero_Valk_3_Elite_Magnetic_3x3.jpg">
-			<mat-card-content>
-				<span>CubeSolveHero Valk 3 Elite M</span>
-				<span><b>$35.95</b></span>
-			</mat-card-content>
-		</mat-card>
+		
 
 		<mat-card>
 			<img mat-card-image src="../../assets/images/3x3-cubeorithms-thunderclap-v3-magnetic-3x3-2_1024x1024.jpg">
@@ -81,5 +85,5 @@
 			</mat-card-content>
 		</mat-card>
 		
-	</div>
+	</div> -->
 </div>
