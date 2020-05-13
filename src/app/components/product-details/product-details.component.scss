@@ -319,14 +319,14 @@ button {
 
 .no__reviews{
   display: flex;
-  justify-content: center;
-  padding: 20px;
-  background-color: lightblue;
+  justify-content: flex-start;
+  padding: 10px;
+  background-color: whitesmoke;
   width: 80%;
   margin-top: 10px;
-  font-family: Montserrat;
+  font-family: Arimo;
   font-weight: 400;
-  font-size: 25px;
+  font-size: 18px;
 }
 
 .review-list{
@@ -350,10 +350,10 @@ button {
       justify-content: center;
 
       .review-title{
-        text-transform: uppercase; 
+        text-transform: uppercase;
+        font-family: Arimo; 
         font-weight: 700; 
         font-size: 16px; 
-        font-family: 'Arimo', sans-serif; 
         margin-bottom: 10px;
       }
 

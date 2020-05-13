@@ -228,13 +228,15 @@ mat-grid-tile {
     height: 50px;
     background-color: white;
     margin-right: 20px;
-    /* background-color: orangered; */
 }
 
 .add-to-cart-div button{
     color: white;
     background-color: crimson;
     font-family: 'Inconsolata', monospace;
+    &:disabled{
+        background-color: rgb(220, 20, 60, .7);
+    }
 }
 
 @media screen and(max-width: 1485px){

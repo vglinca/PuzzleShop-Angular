@@ -152,7 +152,7 @@
 
 			<mat-form-field appearance="outline">
 				<mat-label>Review Title</mat-label>
-				<input matInput placeholder="Give your review a title" [formControlName]="">
+				<input matInput placeholder="Give your review a title" formControlName="reviewTitle">
 			</mat-form-field>
 
 			<mat-form-field appearance="outline">
@@ -182,7 +182,7 @@
 				<mat-card-subtitle> {{review?.reviewerName}} </mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-content>
-				<span class="review-title"> {{review?.reviewTitle}} </span>
+				<span class="review-title">{{review?.reviewTitle}} </span>
 				<p class="review-body"> {{review?.reviewBody}} </p>
 			</mat-card-content>
 		</mat-card>

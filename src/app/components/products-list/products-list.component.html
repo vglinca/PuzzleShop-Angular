@@ -40,7 +40,7 @@
 				<div>Sort by</div>
 				<div class="mat-select-div">
 					<mat-form-field>
-						<mat-select [(ngModel)]="currentSortOption" (selectionChange)="onChangeMatSelect($event.value)">
+						<mat-select [(value)]="currentSortOption" (selectionChange)="onChangeMatSelect($event.value)">
 							<mat-option *ngFor="let option of sortOptions" [value]="option?.value">{{option?.title}}
 							</mat-option>
 						</mat-select>
@@ -71,8 +71,8 @@
 								<b>{{puzzle?.price | currency:'USD'}}</b>
 							</div>
 							<div class="add-to-cart-div">
-								<button mat-flat-button matTooltip="Add to cart" matTooltipPosition="right"
-									(click)="addToCart(puzzle)">
+								<button mat-flat-button [matTooltip]="puzzle?.availableInStock > 0 ? 'Add to Cart' : 'Out of Stock'" matTooltipPosition="right"
+									(click)="addToCart(puzzle)" [disabled]="puzzle?.availableInStock < 1">
 									<mat-icon>shopping_cart</mat-icon>
 								</button>
 							</div>
@@ -88,7 +88,7 @@
 								[showTotalPages]="3" 
 								(page)="onPageChanged($event)" 
 								[length]="pagedPuzzles?.totalItems"
-								pageSize="25">
+								pageSize="15">
 				</mat-paginator>
 			</div>
 		</div>

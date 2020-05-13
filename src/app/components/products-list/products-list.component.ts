@@ -30,6 +30,7 @@ import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type
 import { ManufacturersService } from 'src/app/services/manufacturers.service';
 import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
 import { errorMessage } from 'src/app/common/consts/generic-error-message';
+import { FormControl } from '@angular/forms';
 
 
 export interface SortingOption{
@@ -56,6 +57,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 
     rowsNumber: number;
     showSpinner: boolean = true;
+
+    selectFormControl: FormControl = new FormControl('');
 
     currentPuzzleType: PuzzleTypeTableRowModel;
     prevPuzzleTypeTitle: string;
@@ -100,6 +103,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     ngOnInit(): void {
+        this.ratingArr = [];
+        this.currentSortOption = this.sortOptions[0].value;
         for(let i = 0; i < this.starCount; i++){
             this.ratingArr.push(i);
         }
@@ -126,7 +131,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
         this.routerSubscription = this.router.events.subscribe((e) => {
             if(e instanceof NavigationStart){
                 this.paginator.pageIndex = 0;
-                this.currentSortOption = this.sortOptions[0].value;
+                this.currentSortOption = this.sortOptions[0].title;
+                // console.log('AFTER VIEW INIT ', val.puzzleType);
             }
         })
 
@@ -160,6 +166,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 
     
     onChangeMatSelect(value: string){
+
         this.showSpinner = true;
         var orderby: string = value.split(',')[0];
         var orderbyDirection: string = value.split(',')[1];

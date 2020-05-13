@@ -79,6 +79,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngOnInit(): void {
+        this.ratingArr = [];
         for(let i = 0; i < this.starCount; i++){
             this.ratingArr.push(i);
         }
@@ -101,8 +102,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         });
 
         this.reviewForm = this.formBuilder.group({
-            reviewerName: ['', Validators.required],
-            reviewerEmail: ['', [Validators.required]],
+            reviewerName: [this.accountService.isAuthenticated() ? this.accountService.parseToken().name : '', Validators.required],
+            reviewerEmail: [this.accountService.isAuthenticated() ? this.accountService.parseToken().email : 'email@example.com', [Validators.required]],
             reviewTitle: ['', Validators.maxLength(100)],
             reviewBody: ['', Validators.maxLength(1500)]
         });
