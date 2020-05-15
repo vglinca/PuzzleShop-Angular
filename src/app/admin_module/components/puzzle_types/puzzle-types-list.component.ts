@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateEditPuzzleTypeComponent } from './create-edit/create-edit-puzzle-type.component';
 import { Subscription } from 'rxjs';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
+import { NotificationService } from 'src/app/services/notification.service';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 @Component({
     templateUrl: './puzzle-types-list.component.html',
@@ -18,12 +20,15 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
     puzzleTypes: PuzzleTypeTableRowModel[] = [];
 
     dialogRefSubscr: Subscription;
+    addDialogRefSubscription: Subscription;
+    subscriptions: Subscription[] = [];
 
     tableColumns: string[] = ['id', 'title', 'isRubicsCube', 'isWca', 'difficultyLevel'];
 
     constructor(private puzzleTypesService: PuzzleTypesService,
                 private matDialog: MatDialog,
                 private dialogService: ConfirmDialogService,
+                private notificationService: NotificationService,
                 public snackBar: MatSnackBar){}
     
     
@@ -39,7 +44,9 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
         dialogConfig.height = "55%";
         dialogConfig.width = "30%";
         dialogConfig.data = puzzleTypeId;
-        this.matDialog.open(CreateEditPuzzleTypeComponent, dialogConfig);
+        const dialogRef = this.matDialog.open(CreateEditPuzzleTypeComponent, dialogConfig);
+        this.addDialogRefSubscription = dialogRef.afterClosed().subscribe(a => this.loadPuzzleTypes());
+        this.subscriptions.push(this.addDialogRefSubscription);
     }
 
     onDelete(puzzleTypeId: number, typeName: string){
@@ -57,7 +64,8 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
                         this.snackBar.open('Something wrong happened during deletion.', 'Hide', {duration: 2000});
                     });
             }
-        })
+        });
+        this.subscriptions.push(this.dialogRefSubscr);
     }
 
     loadPuzzleTypes(){
@@ -65,12 +73,14 @@ export class PuzzleTypesComponent implements OnInit, OnDestroy{
             .subscribe((pt : PuzzleTypeTableRowModel[]) => {
                 this.puzzleTypes = pt;
                 this.showSpinner = false;
-            });
+            }, err => this.notificationService.warn(errorMessage));
     }
 
     ngOnDestroy(): void {
-        if(this.dialogRefSubscr){
-            this.dialogRefSubscr.unsubscribe();
-        }
+        this.subscriptions.forEach(s => {
+            if(s){
+                s.unsubscribe();
+            }
+        });
     }
 }

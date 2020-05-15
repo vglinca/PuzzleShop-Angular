@@ -97,8 +97,7 @@
 						<mat-icon>refresh</mat-icon>Reset</button>
 				</mat-header-cell>
 				<mat-cell class="id__cell" fxFlex="150px" *matCellDef="let puzzle">
-					<button mat-mini-fab class="edit-button"
-						[routerLink]="['/administration/puzzles/edit', puzzle?.id]">
+					<button mat-mini-fab class="edit-button" (click)="onEditClick(puzzle?.id)">
 						<mat-icon>edit</mat-icon>
 					</button>
 					<button mat-mini-fab class="delete-button" color="accent" (click)="onDelete(puzzle?.id, puzzle?.name)">

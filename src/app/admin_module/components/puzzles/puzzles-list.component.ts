@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { FilterColumn } from 'src/app/infrastructure/filter-column';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -32,7 +33,11 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
     matSortSubscription: Subscription;
     dialogRefSubscription: Subscription;
     mergeSubscription: Subscription;
+    activatedRouteSubscription: Subscription;
     subscriptions: Subscription[] = [];
+
+    pageNumberParam: number = 0;
+    pageSizeParam: number = 0;
 
     filterColumns: FilterColumn[] = [
         {name: 'availableInStock', property: 'availableInStock', useInSearch: false},
@@ -55,6 +60,8 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,
                 private formBuilder: FormBuilder,
+                private router: Router,
+                private activatedRoute: ActivatedRoute,
                 public snackBar: MatSnackBar){
                     this.tableColumns = this.filterColumns.map(c => c.name);
                     this.filterForm = this.formBuilder.group({
@@ -64,6 +71,16 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
                 }
    
     ngAfterViewInit(): void {
+
+        this.activatedRouteSubscription = this.activatedRoute.queryParams.subscribe(params => {
+            this.pageSizeParam = +params['pageSize'];
+            this.pageNumberParam = +params['pageNumber'];
+            console.log(this.pageSizeParam);
+            console.log( this.pageNumberParam);
+        });
+        this.subscriptions.push(this.activatedRouteSubscription);
+
+
         this.loadPuzzlesFromApi();
         this.matSortSubscription = this.matSort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
         this.mergeSubscription = merge(this.matSort.sortChange, this.paginator.page).subscribe(() => this.loadPuzzlesFromApi());
@@ -93,13 +110,22 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
 
     loadPuzzlesFromApi(){
         this.showSpinner = true;
-        const request = new PagedRequest(this.matSort.active, this.matSort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.requestFilters);
+
+        const request = new PagedRequest(this.matSort.active, 
+            this.matSort.direction, 
+            this.paginator.pageIndex, 
+            this.paginator.pageSize, 
+            this.requestFilters);
         this.puzzleService.getAllPuzzles(request)
             .subscribe((response: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = response;
                 this.puzzles = response.items;
                 this.showSpinner = false;
             });
+    }
+
+    onEditClick(puzzleId: number): void{
+        this.router.navigate(['/administration/puzzles/edit', puzzleId], {queryParams: {pageNumber: this.paginator.pageIndex, pageSize: this.paginator.pageSize}});
     }
 
     resetAll(): void{

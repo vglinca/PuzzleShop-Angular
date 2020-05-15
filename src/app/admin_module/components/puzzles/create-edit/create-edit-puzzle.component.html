@@ -14,8 +14,7 @@
 							<button class="save-button" [disabled]="puzzleForm.invalid" mat-mini-fab type="submit">
 								<mat-icon>done</mat-icon>
 							</button>
-							<button class="cancel-button" mat-mini-fab color="accent" type="button"
-								[routerLink]="['/administration/puzzles']">
+							<button class="cancel-button" mat-mini-fab color="accent" type="button" (click)="onCloseClick()">
 								<mat-icon>close</mat-icon>
 							</button>
 						</mat-card-actions>

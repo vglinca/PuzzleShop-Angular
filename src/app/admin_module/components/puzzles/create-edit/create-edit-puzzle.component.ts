@@ -61,12 +61,16 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     staticFilesUrl: string = environment.staticFilesUrl;
 
     routerSubscription: Subscription;
+    activatedRouteSubscription: Subscription;
     subscriptions: Subscription[] = [];
 
     manufacturers: ManufacturerModel[];
     puzzleTypes: PuzzleTypeTableRowModel[];
     puzzleColors: PuzzleColorModel[];
     materialTypes: MaterialTypeModel[];
+
+    pageNumberParam: number = 0;
+    pageSizeParam: number = 25;
 
     constructor(private manufacturerService: ManufacturersService,
         private puzzleTypeService: PuzzleTypesService,
@@ -103,6 +107,7 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     }
 
     ngOnInit(): void {
+        
         this.routerSubscription = this.activatedRoute.params.subscribe(param => {
             this.puzzleId = +param['id'];
             if (this.puzzleId === -1) {
@@ -112,6 +117,15 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
                 this.loadPuzzle();
             }
         });
+        this.subscriptions.push(this.routerSubscription);
+
+        this.activatedRouteSubscription = this.activatedRoute.queryParams.subscribe(params => {
+            this.pageSizeParam = +params['pageSize'];
+            this.pageNumberParam = +params['pageNumber'];
+            console.log(this.pageSizeParam);
+            console.log(this.pageNumberParam);
+        });
+        this.subscriptions.push(this.activatedRouteSubscription);
 
         this.puzzleForm = this.formBuilder.group({
             name: ['', Validators.required],
@@ -258,7 +272,12 @@ export class CreateEditPuzzleComponent implements OnInit, OnDestroy, AfterViewIn
     private onChangesApplied(): void {
         this.snackbar.open('Puzzle has been successfully added.', 'Hide', { duration: 2000 });
         this.puzzleForm.reset();
-        this.router.navigate(['/administration/puzzles']);
+        this.router.navigate(['/administration/puzzles'], {queryParams: {pageNumber: this.pageNumberParam, pageSize: this.pageSizeParam}});
+    }
+
+    onCloseClick(): void{
+        this.puzzleForm.reset();
+        this.router.navigate(['/administration/puzzles'], {queryParams: {pageNumber: this.pageNumberParam, pageSize: this.pageSizeParam}});
     }
 
     private onProblemsOccured(msg: string) {

@@ -30,7 +30,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy{
         {name: 'lastName', property: 'lastName', useInSearch: true},
         {name: 'userName', property: 'userName', useInSearch: true},
         {name: 'email', property: 'email', useInSearch: true},
-        {name: 'age', property: 'age', useInSearch: false},
+        // {name: 'age', property: 'age', useInSearch: false},
         {name: 'id', property: 'id', useInSearch: false}
     ];
 

@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from '../../../common/confirm_dialog/confirm-d
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+import { errorMessage } from 'src/app/common/consts/generic-error-message';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class ManufacturersComponent implements OnInit, OnDestroy{
     manufacturers: ManufacturerModel[] = [];
 
     dialogRefSubscr: Subscription;
+    addDialogRefSubscription: Subscription;
+    subscriptions: Subscription[] = [];
 
     tableColumns: string[] = ['id', 'name', 'description'];
 
@@ -41,7 +44,7 @@ export class ManufacturersComponent implements OnInit, OnDestroy{
             .subscribe((m : ManufacturerModel[]) => {
                 this.manufacturers = m;
                 this.showSpinner = false;
-            }, err => this.notificationService.warn('Some propblem occured.'));
+            }, err => this.notificationService.warn(errorMessage));
     }
 
     addEditManufacturerDialog(id: number){
@@ -52,7 +55,9 @@ export class ManufacturersComponent implements OnInit, OnDestroy{
         dialogConfig.height = "65%";
         dialogConfig.width = "30%";
         dialogConfig.data = id;
-        this.matDialog.open(CreateEditManufacturerComponent, dialogConfig);
+        const dialogRef = this.matDialog.open(CreateEditManufacturerComponent, dialogConfig);
+        this.addDialogRefSubscription = dialogRef.afterClosed().subscribe(a => this.loadManufacturersFromApi());
+        this.subscriptions.push(this.addDialogRefSubscription);
     }
 
     onDelete(manufacturerId: number, name: string){
@@ -68,13 +73,16 @@ export class ManufacturersComponent implements OnInit, OnDestroy{
                     this.snackBar.open('Something wrong happened during deletion.', 'Hide', {duration: 2000});
                 });
             }
-        })
+        });
+        this.subscriptions.push(this.dialogRefSubscr);
     }
 
     ngOnDestroy(): void {
-        if(this.dialogRefSubscr){
-            this.dialogRefSubscr.unsubscribe();
-        }
+        this.subscriptions.forEach(s => {
+            if(s){
+                s.unsubscribe();
+            }
+        });
     }
 }
 

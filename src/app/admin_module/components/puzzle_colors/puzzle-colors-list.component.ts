@@ -18,6 +18,8 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
     puzzleColors: PuzzleColorModel[] = [];
 
     dialogRefSubscr: Subscription;
+    addDialogRefSubscription: Subscription;
+    subscriptions: Subscription[] = [];
 
     tableColumns: string[] = ['id', 'title'];
 
@@ -38,7 +40,9 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
         dialogConfig.height = "55%";
         dialogConfig.width = "30%";
         dialogConfig.data = colorId;
-        this.matDialog.open(CreateEditPuzzleColorComponent, dialogConfig);
+        const dialogRef = this.matDialog.open(CreateEditPuzzleColorComponent, dialogConfig);
+        this.addDialogRefSubscription = dialogRef.afterClosed().subscribe(a => this.loadPuzzleColors());
+        this.subscriptions.push(this.addDialogRefSubscription);
     }
 
     onDelete(colorId: number, color: string): void{
@@ -56,6 +60,7 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
                     });
             }
         });
+        this.subscriptions.push(this.dialogRefSubscr);
     }
 
     loadPuzzleColors(): void{
@@ -67,8 +72,10 @@ export class PuzzleColorsComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy(): void {
-        if(this.dialogRefSubscr){
-            this.dialogRefSubscr.unsubscribe();
-        }
+        this.subscriptions.forEach(s => {
+            if(s){
+                s.unsubscribe();
+            }
+        });
     }
 }
