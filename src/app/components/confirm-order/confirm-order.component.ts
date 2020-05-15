@@ -59,7 +59,7 @@ export class ConfirmOrderComponent implements OnInit{
             phone: ['', Validators.required]
         });
         this.emailForm = this.formBuilder.group({
-            email: ['', Validators.required]
+            email: [this.currentUser.email, Validators.required]
         });
 
         this.loadOrderFromApi();

@@ -103,7 +103,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
         this.reviewForm = this.formBuilder.group({
             reviewerName: [this.accountService.isAuthenticated() ? this.accountService.parseToken().name : '', Validators.required],
-            reviewerEmail: [this.accountService.isAuthenticated() ? this.accountService.parseToken().email : 'email@example.com', [Validators.required]],
+            reviewerEmail: [this.accountService.isAuthenticated() ? this.accountService.parseToken().email : '', [Validators.required]],
             reviewTitle: ['', Validators.maxLength(100)],
             reviewBody: ['', Validators.maxLength(1500)]
         });
