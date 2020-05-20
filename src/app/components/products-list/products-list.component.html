@@ -9,14 +9,18 @@
 				<mat-expansion-panel-header>
 					<span class="exp-panel-header">Categories</span>
 				</mat-expansion-panel-header>
-				<div class="exp-panel-list-item" *ngFor="let puzzleType of puzzleTypes">{{puzzleType?.title}}</div>
+				<div class="exp-panel-list-item" *ngFor="let puzzleType of puzzleTypes">
+					<button mat-menu-item (click)="onExpansionPanelItemClick(puzzleType?.title.trim())">{{puzzleType?.title}}</button>
+				</div>
 			</mat-expansion-panel>
 
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
 				<mat-expansion-panel-header>
-					<span class="exp-panel-header">Manufacturers</span>
+					<span class="exp-panel-header">Brand</span>
 				</mat-expansion-panel-header>
-				<div class="exp-panel-list-item" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</div>
+				<div class="exp-panel-list-item" *ngFor="let manufacturer of manufacturers">
+					<button mat-menu-item (click)="onFilterByManufacturer(manufacturer?.name)">{{manufacturer?.name}}</button>
+				</div>
 			</mat-expansion-panel>
 
 			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
@@ -84,8 +88,8 @@
 
 		<div class="pagination-data-div" fxLayout="row | wrap" fxLayoutAlign="space-between center">
 			<div>
-				<mat-paginator 	style-paginator showFirstLastButtons 
-								[showTotalPages]="3" 
+				<mat-paginator 	
+								showFirstLastButtons 
 								(page)="onPageChanged($event)" 
 								[length]="pagedPuzzles?.totalItems"
 								pageSize="15">

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy, OnChanges, ElementRef } from '@angular/core';
 import { PuzzleTypeModel } from '../../models/puzzle-types/puzzle-type.model';
 import { ManufacturerModel } from '../../models/manufacturers/manufacturer.model';
 import { PuzzleLookupService } from '../../services/lookup.service';
@@ -31,6 +31,7 @@ import { ManufacturersService } from 'src/app/services/manufacturers.service';
 import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
 import { errorMessage } from 'src/app/common/consts/generic-error-message';
 import { FormControl } from '@angular/forms';
+import { ViewportScroller } from '@angular/common';
 
 
 export interface SortingOption{
@@ -95,6 +96,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
                 private puzzleService: PuzzleService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
+                private scroll: ViewportScroller,
                 private matDialog: MatDialog,
                 private accountService: AccountService,
                 private orderService: OrderService,
@@ -150,6 +152,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
     }
    
     onPageChanged(event){
+        this.scroll.scrollToPosition([0,0]);
+        // window.scroll(0,0);
         this.showSpinner = true;
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.pageSize = event.pageSize;
@@ -160,11 +164,18 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
         });
 
         this.subscriptions.push(this.activatedRouteSubscr1);
-        
-        window.scroll(0,0);
     }
 
-    
+    onExpansionPanelItemClick(puzzleType: string): void{
+        // this.currentSortOption = this.sortOptions[0].value;
+        this.router.navigate(['/collections', puzzleType]);
+        this.ngOnInit();
+    }
+
+    onFilterByManufacturer(manufacturer: string): void{
+
+    }
+
     onChangeMatSelect(value: string){
 
         this.showSpinner = true;
@@ -186,6 +197,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 
 
     private getPuzzles(val: any, orderby: string = 'name', orderbyDirection: string = 'asc'){
+        this.showSpinner = true;
         var url = this.activatedRoute.snapshot.url.join().split(',');
 
         var filters: Filter[] = [];

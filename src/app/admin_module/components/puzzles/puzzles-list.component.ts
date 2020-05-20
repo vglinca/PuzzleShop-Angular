@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { PuzzleService } from '../../../services/puzzle.service';
 import { PagedResponse } from 'src/app/infrastructure/pagination/paged-response';
 import { MatPaginator } from '@angular/material/paginator';
@@ -54,6 +54,7 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
+    
     
     tableColumns: string[] = [];
 
