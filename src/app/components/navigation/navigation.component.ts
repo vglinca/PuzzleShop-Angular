@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UserLoginComponent } from '../account/auth/user-login.component';
 import { PuzzleLookupService } from '../../services/lookup.service';
@@ -29,9 +29,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
 	rcPuzzles: PuzzleTypeTableRowModel[] = [];
 	wcaPuzzles: PuzzleTypeTableRowModel[] = [];
 
+	searchResult: string = '';
+
 	dialogRefSubscription: Subscription;
 	dialogRefSubscription1: Subscription;
 	subscriptions: Subscription[] = [];
+
+	toggleSearch: boolean = false;
 	
 	@Input() sidenav: MatSidenav;
 	@ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
@@ -97,6 +101,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
 		dialogConfig.height = "85%";
 		dialogConfig.width = "35%";
 		this.matDialog.open(UserRegistrationComponent, dialogConfig);
+	}
+
+	onSearchClick(): void{
+		if(this.searchResult !== ''){
+			this.router.navigate(['/collections'], {queryParams: {search: this.searchResult}});
+		}
 	}
 
 	openMenu = (i: number) => this.triggers.toArray()[i].openMenu();

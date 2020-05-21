@@ -43,6 +43,10 @@
     border-bottom-style:solid ;
 }
 
+mat-expansion-panel-header{
+    display: flex;
+    justify-content: space-between;
+}
 
 .exp-panel-header {
     font-size: 25px;
@@ -51,7 +55,7 @@
 }
 
 .exp-panel-list-item{
-    padding-top: 10px;
+    padding-top: 2px;
 }
 
 mat-slider{

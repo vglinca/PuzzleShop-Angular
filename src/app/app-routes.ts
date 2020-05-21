@@ -16,6 +16,7 @@ import { UserInfoResolver } from './resolvers/user-info.resolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
+    { path: 'collections', component: ProductsListComponent },
     { path: 'collections/:puzzleType', component: ProductsListComponent },
     { path: 'collections/:puzzleType/:id', component: ProductDetailsComponent, resolve: {images: PuzzleImagesResolver, puzzle: PuzzleDetailsResolver} },
     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },

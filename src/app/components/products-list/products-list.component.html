@@ -5,7 +5,7 @@
 	<div class="category-list">
 
 		<mat-accordion multi="true">
-			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
+			<mat-expansion-panel (menuOpened)="true" class="mat-elevation-z0 exp-panel">
 				<mat-expansion-panel-header>
 					<span class="exp-panel-header">Categories</span>
 				</mat-expansion-panel-header>
@@ -18,19 +18,22 @@
 				<mat-expansion-panel-header>
 					<span class="exp-panel-header">Brand</span>
 				</mat-expansion-panel-header>
+				<div class="exp-panel-list-item">
+					<button mat-menu-item (click)="onResetFilter()">All</button>
+				</div>
 				<div class="exp-panel-list-item" *ngFor="let manufacturer of manufacturers">
 					<button mat-menu-item (click)="onFilterByManufacturer(manufacturer?.name)">{{manufacturer?.name}}</button>
 				</div>
 			</mat-expansion-panel>
 
-			<mat-expansion-panel class="mat-elevation-z0 exp-panel">
+			<!-- <mat-expansion-panel class="mat-elevation-z0 exp-panel">
 				<mat-expansion-panel-header>
 					<span class="exp-panel-header">Price</span>
 				</mat-expansion-panel-header>
 				<div class="exp-panel-list-item" >
-					<mat-slider min="1" max="1000" step="10" thumbLabel="true"></mat-slider>
+					<mat-slider min="1" max="500" step="10" thumbLabel="true"></mat-slider>
 				</div>
-			</mat-expansion-panel>
+			</mat-expansion-panel> -->
 		</mat-accordion>
 	</div>
 

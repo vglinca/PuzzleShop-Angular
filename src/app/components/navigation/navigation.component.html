@@ -6,14 +6,14 @@
                 <div class="logo-div mat-display-1" [routerLink]="['/home']" matTooltip="SpeedCubingStore" matTooltipClass="logo-tooltip">
                     <span class="red-color-span">S</span>peed<span class="red-color-span">C</span>ubing<span class="red-color-span">S</span>tore
                 </div>
-                <!-- <span class="menu-spacer"></span> -->
-                <mat-form-field class="search">
+
+                <!-- <mat-form-field class="search">
                     <mat-label>Search</mat-label>
-                    <input matInput type="text">
-                    <button mat-button matSuffix mat-icon-button aria-label="Search">
+                    <input matInput type="text" [(ngModel)]="searchResult">
+                    <button mat-button matSuffix mat-icon-button aria-label="Search" (click)="onSearchClick()">
                       <mat-icon>search</mat-icon>
                     </button>
-                </mat-form-field>
+                </mat-form-field> -->
                 <div class="personal">
                     <div *ngIf="isLoggedIn" class="hello" [routerLink]="['/personal']">
                         <mat-icon matTooltip="Personal cabinet">person</mat-icon>
