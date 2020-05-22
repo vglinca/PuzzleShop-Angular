@@ -171,14 +171,18 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     onSubmitReview(): void{
-        let review: ReviewForCreationModel = {...this.reviewForm.value};
-        review.rating = this.rating;
-        this.reviewService.addReview(this.puzzle.id, review)
-            .subscribe(() => {
-                this.notificationService.success('Your review successfully added!');
-                this.descriptionAnimationState = 'initial';
-                this.ngOnInit();
-            }, err => this.notificationService.warn(errorMessage));
+        if(this.accountService.isAuthenticated()){
+            let review: ReviewForCreationModel = {...this.reviewForm.value};
+            review.rating = this.rating;
+            this.reviewService.addReview(this.puzzle.id, review)
+                .subscribe(() => {
+                    this.notificationService.success('Your review successfully added!');
+                    this.descriptionAnimationState = 'initial';
+                    this.ngOnInit();
+                }, err => this.notificationService.warn(errorMessage));
+        }else{
+            this.notificationService.warn('Please, authenticate to add a review.');
+        }
     }
 
     addToCart(): void{
