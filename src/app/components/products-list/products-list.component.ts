@@ -137,6 +137,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
                 this.puzzleTypes = pt;
                 this.currentPuzzleType = pt.filter(pt => pt.title == this.currentPuzzleTypeTitle)[0];
                 this.manufacturers = m;
+                this.manufacturers.sort(this.sortAscManufacturers);
+                this.puzzleTypes.sort(this.sortAscPuzzleTypes);
                 this.puzzleColors = c;
             });
     }
@@ -263,7 +265,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
                 cost: puzzle.price,
                 userId: this.accountService.parseToken().userId
             };
-            this.orderService.editCart(orderItem)
+            this.orderService.editCart(orderItem, 1)
                 .subscribe(() => {
                     const dialogConfig = new MatDialogConfig();
                     dialogConfig.autoFocus = true;
@@ -304,6 +306,10 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 			return 'star_border';
 		}
     }
+
+    private sortAscPuzzleTypes = (a: PuzzleTypeTableRowModel, b: PuzzleTypeTableRowModel) => (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
+    private sortAscManufacturers = (a: ManufacturerModel, b: ManufacturerModel) => (a.name > b.name) ? 1 : (a.name < b.name ? -1 : 0);
+
 
     ngOnDestroy(): void {
         this.subscriptions.forEach(s =>{

@@ -33,7 +33,7 @@
                     </div>
                     <div class="quantity" fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
                         <div class="increment-decrement-button" fxLayoutAlign="start center" >
-                            <button mat-button color="primary" (click)="decrementQuantity(item)">
+                            <button mat-button color="primary" [disabled]="item?.quantity <= 1" (click)="decrementQuantity(item)">
                                 <mat-icon>remove</mat-icon>
                             </button>
                         </div>

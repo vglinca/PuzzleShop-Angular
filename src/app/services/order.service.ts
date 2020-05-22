@@ -23,8 +23,13 @@ export class OrderService{
         return this.http.get<OrderModel[]>(`${this.baseUrl}/orders/${userId}`);
     }
 
-    public editCart(orderItem: OrderItemForCreateModel){
-        return this.http.post(`${this.baseUrl}/addToCart`, orderItem);
+    public editCart(orderItem: OrderItemForCreateModel, addedFromCollections: number = null){
+        if(addedFromCollections){
+            return this.http.post(`${this.baseUrl}/addToCart?addedFromCollections=${addedFromCollections}`, orderItem);
+        }
+        else{
+            return this.http.post(`${this.baseUrl}/addToCart`, orderItem);
+        }
     }
 
     public removeOrderItem(userId: number, itemId: number){
