@@ -17,6 +17,7 @@ import { UserRegistrationComponent } from '../account/registration/user-registra
 import { PuzzleTypesService } from 'src/app/services/puzzle-types.service';
 import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type-table-row.model';
 import { errorMessage } from 'src/app/common/consts/generic-error-message';
+import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.model';
 
 @Component({
 	selector: 'nav-bar',
@@ -28,6 +29,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 	puzzleTypes: PuzzleTypeTableRowModel[] = [];
 	rcPuzzles: PuzzleTypeTableRowModel[] = [];
 	wcaPuzzles: PuzzleTypeTableRowModel[] = [];
+	otherPuzzles: PuzzleTypeTableRowModel[] = [];
 
 	searchResult: string = '';
 
@@ -123,6 +125,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 					.sort(this.sortAsc);
 				this.wcaPuzzles = this.puzzleTypes
 					.filter(pt => pt.isWca == true)
+					.sort(this.sortAsc);
+				this.otherPuzzles = this.puzzleTypes
+					.filter(pt => !pt.isWca && pt.isRubicsCube)
 					.sort(this.sortAsc);
 			});
 	}

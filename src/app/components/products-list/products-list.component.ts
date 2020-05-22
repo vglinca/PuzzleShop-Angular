@@ -109,6 +109,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     ngOnInit(): void {
+        
         this.ratingArr = [];
         this.currentSortOption = this.sortOptions[0].value;
         for(let i = 0; i < this.starCount; i++){
@@ -121,9 +122,9 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
 
         //this.rowsNumber = (window.innerWidth <= 1100) ? 2 : 3;
 
-        this.activatedRouteSubscr4 = this.activatedRoute.queryParams.subscribe(params => {
-            this.searchResult = params['search'];
-        });
+        // this.activatedRouteSubscr4 = this.activatedRoute.queryParams.subscribe(params => {
+        //     this.searchResult = params['search'];
+        // });
 
         this.subscriptions.push(this.activatedRouteSubscr4);
 
@@ -156,6 +157,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
                 this.getPuzzles(val.puzzleType);
                 this.currentPuzzleTypeTitle = val.puzzleType;
                 if(this.puzzleTypes){
+                    this.currentSortOption = this.sortOptions[0].value;
                     this.currentPuzzleType = this.puzzleTypes.filter(pt => pt.title === this.currentPuzzleTypeTitle)[0];
                 }
             });

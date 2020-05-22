@@ -63,6 +63,15 @@
                     </span>
                 </mat-menu>
             </div>
+            <div>
+                <mat-menu #otherPuzzlesMatMenu="matMenu" xPosition="before">
+                    <span (mouseleave)="closeMenu(2)">
+                        <button mat-menu-item class="menu-button" *ngFor="let puzzleType of otherPuzzles"
+                            [routerLink]="['/collections', puzzleType?.title]"
+                            (click)="onClick(puzzleType?.title)">{{puzzleType?.title}}</button>
+                    </span>
+                </mat-menu>
+            </div>
             
             
             <div class="nav-items" fxShow="true" fxHide.lt-md fxLayout="row" fxLayoutAlign="center center">
@@ -79,7 +88,7 @@
                     </span>
                     <mat-icon>arrow_drop_down</mat-icon>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" [matMenuTriggerFor]="otherPuzzlesMatMenu" #menuTrigger2="matMenuTrigger">
                     <span>Other puzzles</span>
                     <mat-icon>arrow_drop_down</mat-icon>
                 </div>
