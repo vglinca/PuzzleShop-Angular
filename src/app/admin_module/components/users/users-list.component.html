@@ -59,11 +59,6 @@
                 <mat-cell *matCellDef="let user"> {{user.userName}} </mat-cell>
             </ng-container>
 
-            <!-- <ng-container matColumnDef="age">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-                <mat-cell *matCellDef="let user"> {{user.age}} </mat-cell>
-            </ng-container> -->
-
             <ng-container matColumnDef="id">
                 <mat-header-cell class="id__header__cell" *matHeaderCellDef>
                     <button mat-button (click)="onResetClick()">Reset</button>

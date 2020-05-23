@@ -53,7 +53,7 @@
 				<div class="increment-decrement-quantity-outer-div" fxLayout="column" fxLayoutAlign="center start">
 					<div class="increment-decrement-quantity-inner-div" fxLayout="row" fxLayoutAlign="start center">
 						<div class="increment-decrement-button" fxLayoutAlign="start center">
-							<button mat-stroked-button color="primary" (click)="decrementQuantity()">
+							<button mat-stroked-button color="primary" [disabled]="quantity === 1" (click)="decrementQuantity()">
 								<mat-icon>remove</mat-icon>
 							</button>
 						</div>

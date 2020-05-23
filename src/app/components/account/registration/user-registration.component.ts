@@ -28,7 +28,7 @@ export class UserRegistrationComponent implements OnInit{
     registrationForm: FormGroup;
     errorMessage: ErrorMessage[] = [];
 
-    minDate = new Date(1940, 0, 1);
+    minDate = new Date(1920, 0, 1);
     maxDate = new Date(2005, 11, 31);
 
     constructor(private formBuilder: FormBuilder,
@@ -45,7 +45,6 @@ export class UserRegistrationComponent implements OnInit{
             username: new FormControl('', Validators.required),
             email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
             password: new FormControl('', [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]),
-            confirmPassword: new FormControl('', [Validators.required]),
             firstName: new FormControl('', Validators.required),
             lastName: new FormControl('', Validators.required),
             birthDate: ['', Validators.required],
@@ -90,22 +89,6 @@ export class UserRegistrationComponent implements OnInit{
             });
     }
 
-    confirmPasswordCheck(control: FormControl): {[key: string]: any}{
-        if(this.registrationForm.get('password').value){
-            let passwd = this.registrationForm.get('password').value;
-            return control.value === passwd ? null : {'confirmPasswordCheck': 'notSame'};
-        }
-    }
-
     validateFormControl = (formControl) =>  formControl.untouched || formControl.valid;
     onCloseClick = () => this.dialogRef.close();
-
-
-    passwordErrorValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-        if(control.get('confirmPassword').dirty){
-            let password = control.get('password');
-            let repeatPassword = control.get('confirmPassword');
-            return password.value != repeatPassword.value ? { 'passwordError': true } : null;
-        }
-    };
 }

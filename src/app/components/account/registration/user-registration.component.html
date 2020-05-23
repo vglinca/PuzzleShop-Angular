@@ -48,20 +48,6 @@
 					</div>
 
 					<div class="form-group"
-						[ngClass]="{'error': !validateFormControl(registrationForm.controls.confirmPassword)}">
-						<em
-							*ngIf="!validateFormControl(registrationForm.controls.confirmPassword) && registrationForm.controls.confirmPassword.errors.required">Password
-							confirm is required.</em>
-						<em
-							*ngIf="!validateFormControl(registrationForm.controls.confirmPassword) && registrationForm.controls.confirmPassword.errors.confirmPasswordCheck">Enter
-							correct password.</em>
-						<mat-form-field>
-							<input matInput type="password" placeholder="Confirm password"
-								formControlName="confirmPassword" />
-						</mat-form-field>
-					</div>
-
-					<div class="form-group"
 						[ngClass]="{'error': !validateFormControl(registrationForm.controls.firstName)}">
 						<em
 							*ngIf="!validateFormControl(registrationForm.controls.firstName) && registrationForm.controls.firstName.errors.required">First

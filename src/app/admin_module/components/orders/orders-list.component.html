@@ -22,7 +22,7 @@
 							<span class="title-spacer"></span>
 						</div>
 						<div class="toolbar-buttons-div" >
-							<button class="search" mat-mini-fab (click)="sidenav.toggle()">
+							<button class="search" mat-mini-fab (click)="sidenav.toggle()" matTooltip="Filter orders">
 								<mat-icon>search</mat-icon>
 							</button>
 							<button class="refresh" mat-mini-fab (click)="loadOrdersFromApi()">
@@ -89,7 +89,7 @@
 					</button>
 				</mat-header-cell>
 				<mat-cell class="id__cell" *matCellDef="let order">
-					<button mat-mini-fab class="edit-button" [routerLink]="['/administration/orders', order?.id]">
+					<button mat-mini-fab class="edit-button" matTooltip="Order details" [routerLink]="['/administration/orders', order?.id]">
 						<mat-icon>details</mat-icon>
 					</button>
 				</mat-cell>
