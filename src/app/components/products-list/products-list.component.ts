@@ -310,7 +310,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy{
     private sortAscPuzzleTypes = (a: PuzzleTypeTableRowModel, b: PuzzleTypeTableRowModel) => (a.title > b.title) ? 1 : (a.title < b.title ? -1 : 0);
     private sortAscManufacturers = (a: ManufacturerModel, b: ManufacturerModel) => (a.name > b.name) ? 1 : (a.name < b.name ? -1 : 0);
 
-
     ngOnDestroy(): void {
         this.subscriptions.forEach(s =>{
             if(s){

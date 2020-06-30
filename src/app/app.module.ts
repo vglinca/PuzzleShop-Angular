@@ -35,6 +35,7 @@ import { StarRatingComponent } from './common/star-rating/star-rating.component'
 import { PersonalCabinetComponent } from './components/personal-cabinet/personal-cabinet.component';
 import { PersonalInfoComponent } from './components/personal-cabinet/personal-info/personal-info.component';
 import { PersonalOrdersComponent } from './components/personal-cabinet/orders/personal-orders.component';
+import { RoundPipe } from './common/round.pipe';
 
 @NgModule({
   declarations: [
@@ -42,9 +43,7 @@ import { PersonalOrdersComponent } from './components/personal-cabinet/orders/pe
     NavigationComponent,
     ProductsListComponent,
     ProductDetailsComponent,
-    
     ImageItemElement,
-
     UserRegistrationComponent,
     UserLoginComponent,
     HomeComponent,
@@ -57,8 +56,8 @@ import { PersonalOrdersComponent } from './components/personal-cabinet/orders/pe
     PersonalCabinetComponent,
     PersonalInfoComponent,
     PersonalOrdersComponent,
-
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    RoundPipe
   ],
   imports: [
     BrowserModule,
@@ -80,6 +79,7 @@ import { PersonalOrdersComponent } from './components/personal-cabinet/orders/pe
     ],
   providers: [
     DatePipe,
+    RoundPipe,
     PuzzleLookupService,
     AuthGuard,
     AdminAuthGuard

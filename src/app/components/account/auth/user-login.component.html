@@ -11,7 +11,6 @@
 					<span class="login-span-header">
 						<h2>SIGNIN</h2>
 					</span>
-
 					<div class="form-group" [ngClass]="{'error': !validateFormControl(userLoginForm.controls.email)}">
 						<em
 							*ngIf="!validateFormControl(userLoginForm.controls.email) && userLoginForm.controls.email.errors.required">Enter
@@ -20,7 +19,6 @@
 							<input matInput type="text" placeholder="Email" formControlName="email" />
 						</mat-form-field>
 					</div>
-
 					<div class="form-group"
 						[ngClass]="{'error': !validateFormControl(userLoginForm.controls.password)}">
 						<em

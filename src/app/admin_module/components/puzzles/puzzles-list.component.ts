@@ -76,8 +76,6 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
         this.activatedRouteSubscription = this.activatedRoute.queryParams.subscribe(params => {
             this.pageSizeParam = +params['pageSize'];
             this.pageNumberParam = +params['pageNumber'];
-            console.log(this.pageSizeParam);
-            console.log( this.pageNumberParam);
         });
         this.subscriptions.push(this.activatedRouteSubscription);
 

@@ -33,7 +33,7 @@
 
 				<div class="rating">
 					<mat-icon *ngFor="let starId of ratingArr; index as i">{{showStar(i)}}</mat-icon>
-					<span>{{puzzle.rating}}</span>
+					<span>{{puzzle.rating | rounded}}</span>
 				</div>
 
 				<div class="puzzle-color-div" fxLayout="column" fxLayoutAlign="center start">

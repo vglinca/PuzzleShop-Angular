@@ -10,7 +10,7 @@ import { PuzzleTypeTableRowModel } from 'src/app/models/puzzle-types/puzzle-type
 import { PuzzleColorsService } from 'src/app/services/puzzle-colors.service';
 import { PuzzleColorModel } from 'src/app/models/puzzle-colors/puzzle-color.model';
 import { environment } from 'src/environments/environment';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, takeUntil } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddToCartDialogComponent } from '../add-to-cart-dialog/add-to-cart-dialog.component';
 import { AccountService } from 'src/app/services/account.service';
@@ -27,14 +27,19 @@ import { heightAnimation } from 'src/app/common/animations/height-animation';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReviewForCreationModel } from 'src/app/models/reviews/review-for-creation.model';
 import { errorMessage } from 'src/app/common/consts/generic-error-message';
+import { NgOnDestroy } from 'src/app/services/ng-on-destroy.service';
+import { RoundPipe } from 'src/app/common/round.pipe';
 
 
 @Component({
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss'],
-    animations: [heightAnimation]
+    animations: [heightAnimation],
+    providers: [NgOnDestroy]
 })
-export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProductDetailsComponent implements OnInit, AfterViewInit
+//, OnDestroy 
+{
     staticFilesUrl: string = environment.staticFilesUrl;
     puzzleImages: ImageModel[] = [];
     images: GalleryItem[] = [];
@@ -75,7 +80,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         private accountService: AccountService,
         private orderService: OrderService,
         private notificationService: NotificationService,
-        private matDialog: MatDialog) {
+        private matDialog: MatDialog,
+        private readonly onDestroy$: NgOnDestroy) {
     }
 
     ngOnInit(): void {
@@ -84,22 +90,28 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.ratingArr.push(i);
         }
 
-        this.activatedRouteSubscription1 = this.activatedRoute.data.subscribe((data: {images: ImageModel[]}) => {
+        this.activatedRouteSubscription1 = this.activatedRoute.data
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe((data: {images: ImageModel[]}) => {
             data.images.forEach(image => {
                 this.images.push(new ImageItem({src: this.staticFilesUrl + image.fileName, thumb: this.staticFilesUrl + image.fileName}));
             });
         });
 
-        this.activatedRouteSubscription2 = this.activatedRoute.data.subscribe((data: {puzzle: PuzzleTableRowModel}) => {
-            this.puzzle = data.puzzle;
-            this.subtotal = this.puzzle.price;
-            this.puzzleId = data.puzzle.id;
-            this.loadDataFromApi();
-        });
+        this.activatedRouteSubscription2 = this.activatedRoute.data
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe((data: {puzzle: PuzzleTableRowModel}) => {
+                this.puzzle = data.puzzle;
+                this.subtotal = this.puzzle.price;
+                this.puzzleId = data.puzzle.id;
+                this.loadDataFromApi();
+            });
 
-        this.activatedRouteSubscription3 = this.activatedRoute.queryParams.subscribe(params => {
-            this.queryParam = params['puzzletype'];
-        });
+        this.activatedRouteSubscription3 = this.activatedRoute.queryParams
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe(params => {
+                this.queryParam = params['puzzletype'];
+            });
 
         this.reviewForm = this.formBuilder.group({
             reviewerName: [this.accountService.isAuthenticated() ? this.accountService.parseToken().name : '', Validators.required],
@@ -144,6 +156,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         const reviews = this.reviewService.getReviews(this.puzzleId);
 
         forkJoin(puzzleType, colors, reviews)
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe(([pt, c, r]) => {
                 this.colors = c;
                 this.difficultyLevel = pt.difficultyLevel;
@@ -175,6 +188,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             let review: ReviewForCreationModel = {...this.reviewForm.value};
             review.rating = this.rating;
             this.reviewService.addReview(this.puzzle.id, review)
+                .pipe(takeUntil(this.onDestroy$))
                 .subscribe(() => {
                     this.notificationService.success('Your review successfully added!');
                     this.descriptionAnimationState = 'initial';
@@ -195,6 +209,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             };
 
             this.orderService.editCart(orderItem)
+                .pipe(takeUntil(this.onDestroy$))
                 .subscribe(() => {
                     const dialogConfig = new MatDialogConfig();
                     dialogConfig.autoFocus = true;
@@ -222,11 +237,11 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
 
-    ngOnDestroy(): void {
-        this.subscriptions.forEach(s => {
-            if (s) {
-                s.unsubscribe();
-            }
-        });
-    }
+    // ngOnDestroy(): void {
+    //     this.subscriptions.forEach(s => {
+    //         if (s) {
+    //             s.unsubscribe();
+    //         }
+    //     });
+    // }
 }
