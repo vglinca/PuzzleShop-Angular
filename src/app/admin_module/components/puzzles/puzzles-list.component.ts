@@ -14,13 +14,16 @@ import { PuzzleTableRowModel } from 'src/app/models/puzzles/puzzle-table-row.mod
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { FilterColumn } from 'src/app/infrastructure/filter-column';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgOnDestroy } from 'src/app/services/ng-on-destroy.service';
+import { takeUntil, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 
 @Component({
     templateUrl: './puzzles-list.component.html',
-    styleUrls: ['./puzzles-list.component.scss']
+    styleUrls: ['./puzzles-list.component.scss'],
+    providers: [NgOnDestroy]
 })
-export class PuzzlesComponent implements AfterViewInit, OnDestroy{
+export class PuzzlesComponent implements OnInit, AfterViewInit, OnDestroy{
 
     showSpinner: boolean = true;
     
@@ -54,23 +57,33 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) matSort: MatSort;
-    
-    
+
     tableColumns: string[] = [];
 
     constructor(private puzzleService: PuzzleService,
                 private dialogService: ConfirmDialogService,
                 private formBuilder: FormBuilder,
                 private router: Router,
+                private readonly onDestroy$: NgOnDestroy,
                 private activatedRoute: ActivatedRoute,
-                public snackBar: MatSnackBar){
+                public snackBar: MatSnackBar) {
                     this.tableColumns = this.filterColumns.map(c => c.name);
                     this.filterForm = this.formBuilder.group({
                         name: [''],
                         manufacturer: ['']
                     });
                 }
-   
+    ngOnInit(): void {
+        this.searchInput.valueChanges
+            .pipe(
+                takeUntil(this.onDestroy$),
+                debounceTime(1000),
+                distinctUntilChanged())
+            .subscribe((changes: string) => {
+                this.onSearchClick(changes);
+            });
+    }
+
     ngAfterViewInit(): void {
 
         this.activatedRouteSubscription = this.activatedRoute.queryParams.subscribe(params => {
@@ -110,12 +123,13 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
     loadPuzzlesFromApi(){
         this.showSpinner = true;
 
-        const request = new PagedRequest(this.matSort.active, 
-            this.matSort.direction, 
-            this.paginator.pageIndex, 
-            this.paginator.pageSize, 
+        const request = new PagedRequest(this.matSort.active,
+            this.matSort.direction,
+            this.paginator.pageIndex,
+            this.paginator.pageSize,
             this.requestFilters);
         this.puzzleService.getAllPuzzles(request)
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe((response: PagedResponse<PuzzleTableRowModel>) => {
                 this.pagedPuzzles = response;
                 this.puzzles = response.items;
@@ -124,7 +138,8 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
     }
 
     onEditClick(puzzleId: number): void{
-        this.router.navigate(['/administration/puzzles/edit', puzzleId], {queryParams: {pageNumber: this.paginator.pageIndex, pageSize: this.paginator.pageSize}});
+        this.router.navigate(['/administration/puzzles/edit', puzzleId],
+        {queryParams: {pageNumber: this.paginator.pageIndex, pageSize: this.paginator.pageSize}});
     }
 
     resetAll(): void{
@@ -134,8 +149,8 @@ export class PuzzlesComponent implements AfterViewInit, OnDestroy{
         this.filterForm.reset();
     }
 
-    onSearchClick(): void{
-        const searchField = this.searchInput.value.trim();
+    onSearchClick(searchValue?: string): void{
+        const searchField: string = searchValue ? searchValue : this.searchInput.value.trim();
         if(searchField){
             const filters: Filter[] = [];
             this.filterColumns.forEach(column => {
